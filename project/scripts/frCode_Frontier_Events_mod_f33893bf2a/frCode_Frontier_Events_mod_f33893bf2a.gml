@@ -5255,6 +5255,8 @@ scrFRInstanceDestroy();
 
 // Original Frontier_Events.mod.gml:2755
 function fr_Frontier_Events_mod_gml_Aurora_applysprites() {
+// FRONTIER AURORA DIRECT LIVE MARKERS
+if(!scrFRWeatherSourceOracle()) {scrFRAuroraApplySprites();return;}
 { var __fr_with1 = scrFRWithValues(scrFRMatching([Floor, FloorExplo, Wall, Top, TopSmall, Debris, Detail, Bones, prop, TopPot, CarThrow, SnowBotCar], "fr_aurora_check", undefined)), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {

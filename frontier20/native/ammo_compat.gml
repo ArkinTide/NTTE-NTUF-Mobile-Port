@@ -105,6 +105,27 @@ function scrFRAmmoArrayWrite(_scope,_field,_values) {
     return _values;
 }
 
+function scrFRAmmoPickupQuantity(_pickup) {
+    assert(instance_exists(_pickup) && instance_is(_pickup,AmmoPickup),
+        "Frontier ammo quantity requires an actual ammo pickup");
+    // NTT's num is a pickup multiplier, not an absolute ammo count. The
+    // native normal/cursed consumers encode their 1/1.5 baseline in code;
+    // configured NTTE bags already own their multiplier in this real field.
+    // Keep that field authoritative rather than introducing a second copy.
+    var _quantity;
+    if(variable_instance_exists(_pickup,"ntte_full_ammo_num")) _quantity=_pickup.ntte_full_ammo_num;
+    else _quantity=scrNTTEFullValue(_pickup,"num",instance_is(_pickup,CursedPickup)?1.5:1);
+    assert(is_numeric(_quantity) && _quantity>=0,"Invalid authored Frontier ammo pickup multiplier");
+    return _quantity;
+}
+
+function scrFRAmmoPickupUpgrade(_pickup,_increase) {
+    var _quantity=scrFRAmmoPickupQuantity(_pickup)+_increase;
+    if(variable_instance_exists(_pickup,"ntte_full_ammo_num")) _pickup.ntte_full_ammo_num=_quantity;
+    else _pickup.num=_quantity;
+    return _quantity;
+}
+
 function scrFRAmmoTests() {
     var _p=instance_find(Player,0),_other=instance_create(55016,55016,Player),_manager=noone;
     _other.index=1;

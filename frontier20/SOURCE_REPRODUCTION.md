@@ -51,11 +51,11 @@ The Storm Crown menu art is derived from the separately obtained upstream
 regenerates the unlocked icon and matching locked silhouette from the tracked
 resource template; `--check` verifies the resulting PNG hashes without writing.
 
-For 2.0.2, the game display/updater/tag use `2.0.2` and internal build 98;
+For 2.0.3, the game display/updater/tag use `2.0.3` and internal build 99;
 GAME_BUILD/save protocol remains 3004. The common accepted project retains the
 canonical `2.0` platform option declarations. Delivery compiler copies normalize
-the iOS/Android platform version to `2.0.2`; the public Android overlay includes
-its version option and bootstrap adjustment. The iOS package has build 98 and
+the iOS/Android platform version to `2.0.3`; the public Android overlay includes
+its version option and bootstrap adjustment. The iOS package has build 99 and
 requires the user's own re-signing. Private host packaging/signing machinery is
 not published and should not be inferred from the common option declarations.
 

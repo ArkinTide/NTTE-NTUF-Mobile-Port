@@ -1,4 +1,4 @@
-if (position_meeting(x, y, Wall) || position_meeting(x, y, Floor)) {
+if (scrNTTESolidWallPlanPoint(x, y) /* FRONTIER PACKED CAP LAYOUT */ || position_meeting(x, y, Floor)) {
     instance_destroy()
     exit
 }

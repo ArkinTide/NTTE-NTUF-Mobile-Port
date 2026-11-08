@@ -1,17 +1,17 @@
 {
-  "source_candidate": "2.0.2",
-  "version": "2.0.2",
-  "internal": 98,
+  "source_candidate": "2.0.3",
+  "version": "2.0.3",
+  "internal": 99,
   "date": "2026-11-07",
-  "base_commit": "83eb4bb55797f7c114fc2eb62b9d3cb58aee6e2b",
-  "source_manifest_sha256": "9d2d9db8c8f921ee2d7295127b0dfe13dca72bac03eb132a2b89f624dad0483e",
-  "native_acceptance_sha256": "27373f914b4c80df805e79086fd6e4c8b7faace23c2b6c12e5e80222d740cef4",
-  "development_regression_sha256": "1676cd0707ea450bd8348ca030c9b8ade3523e08496b1cc8a3751b48871a4634",
-  "mobile_delivery_sha256": "280205ca93382544831e99d959fde450bf9c7fd33ba706bac4a5e14b657fdc33",
-  "vm_sha256": "67032322b3a37113d81b4fa7d22a1e70e2aed7d503d729b33039fdd4662c9d28",
-  "independent_package_audit_sha256": "d42e7463b23635d927fa70a7822e355e647069cc41afb37898c0db6d25cdb8cd",
-  "independent_package_audit_public_summary_sha256": "a8740f387ca2ec138b6dace0d0e0d6e56bbc6533ca89290c37a23706842f6f40",
-  "input_sha256": "c910dae3c6c321bdee2e9b3a72defaed56dfffc45c580fa8f234a57894514c0b",
+  "base_commit": "ca2c432fe832748f225c5f57829a89b2356a2adf",
+  "source_manifest_sha256": "803d0b4fab96d42f1e853a1db33bc2af95c54bba4ad0f5d814677d6716fb8176",
+  "native_acceptance_sha256": "7c566eac4508700ae86d365e4f5cca349729da7778741ebe84d049dc6e3a51e7",
+  "development_regression_sha256": "e7b7974a1d0b35b7ca25ca5b084c591feab0f1d86c29a62fc7d906a85c7334a0",
+  "mobile_delivery_sha256": "73573c051ea2f1be77a5f250ee4a45f4b1b114d3d16a6f088b1996b0ad39d7dc",
+  "vm_sha256": "4bc772621c054e3f4a66003bac75f900d75ae99d8aeb8847359b33f5bb8c0545",
+  "independent_package_audit_sha256": "5e60ee8a2c2c966167222600538d364e2b04ea305c54956f82bce0ad9128e4f0",
+  "independent_package_audit_public_summary_sha256": "1426882211e360ff45645053e9955ae65dcb18f67b771f91ce05cd084b016b6d",
+  "input_sha256": "6849309290b02d96c9c558e730f4e56fb2bd159ba86f7915e9bb6c0160911d13",
   "selected_windows_cases": [
     "FrontierWeatherPerformanceTests",
     "FrontierPalaceBlockTests",
@@ -44,10 +44,21 @@
     "FrontierLocalizationTests",
     "FrontierProgressionTests",
     "FrontierVisualTests",
-    "FrontierUnlockTests"
+    "FrontierUnlockTests",
+    "FrontierWeaponVisualTests",
+    "FrontierBubblesPreferenceTests",
+    "FrontierMenuStatisticsTests",
+    "FrontierAuroraNativeTests",
+    "FrontierMenuAudioBootTests",
+    "FrontierAmmoPickupTests",
+    "HyperionProjectileTests",
+    "FrontierPalacePlayerContactTests",
+    "FrontierOutlineTests",
+    "FrontierSealSpinAudioTests",
+    "FrontierEnemyVisibilityTests"
   ],
-  "windows_cases": 32,
-  "python_tests": 118,
+  "windows_cases": 43,
+  "python_tests": 153,
   "python_historical_source_binding": false,
   "rates": [
     30,
@@ -59,25 +70,25 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.2.apk",
-      "bytes": 304481236,
-      "sha256": "9ed3cebdf6d69115639c97bc114e5a2dc04f5c12471b6ce6edf05c1a701a4548"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.3.apk",
+      "bytes": 304757587,
+      "sha256": "b09d7404d451f81a1fa0155b694c17290a1b58ea41ccc03aafddc4a003aa575e"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.2.ipa",
-      "bytes": 212701303,
-      "sha256": "b41277d2d3a501222595ab498b20836b3c43940a4620b1fb2ed1b3d27fc9f894"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.3.ipa",
+      "bytes": 212790138,
+      "sha256": "500ae550763281f59bd9fd1bb8efa9a31be10db24ee9eb0536dbf0afc05e491c"
     }
   },
-  "android_version_code": 3000098,
-  "ios_bundle_version": "98",
+  "android_version_code": 3000099,
+  "ios_bundle_version": "99",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.0.2",
-    "NTTE_RELEASE_VERSION": "2.0.2",
-    "NTTE_RELEASE_TAG": "2.0.2",
-    "compiler_ios": "2.0.2",
-    "compiler_android": "2.0.2"
+    "GAME_VERSION": "2.0.3",
+    "NTTE_RELEASE_VERSION": "2.0.3",
+    "NTTE_RELEASE_TAG": "2.0.3",
+    "compiler_ios": "2.0.3",
+    "compiler_android": "2.0.3"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -101,5 +112,7 @@
   "frontier_version": "1.0.3.3",
   "undergrowth_source": "https://attfooy.itch.io/undergrowth",
   "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
-  "persistent_mobile_audio_noise": "unresolved"
+  "persistent_mobile_audio_noise": "unresolved",
+  "invisible_enemies": "unverified",
+  "publication_plan_sha256": "826a8e1625b74b2d932d8213ba29aab6fc4ccb112b63265275a9a8ba4cad9a52"
 }

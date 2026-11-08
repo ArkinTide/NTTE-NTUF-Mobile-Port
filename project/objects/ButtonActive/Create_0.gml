@@ -30,4 +30,5 @@ can_forever = function (player) {
 		or (player.race == 12 && !scr_player_pref(pinst, "rogue"))
 		or (player.race == 11)
         or (player.race == NTTEFullRace.Parrot && scr_player_pref(pinst,"parrot"))
+        or (scrFRRaceIs(player.race) && scr_player_pref(pinst,"bubbles")) // FRONTIER BUBBLES TOUCH TOGGLE
 }

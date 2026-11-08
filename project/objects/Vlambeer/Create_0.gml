@@ -6,7 +6,7 @@ catch(_ntte_trench_second_hop_error) { scrNTTEFullTrenchSecondHopAbort(_ntte_tre
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullTrenchConnectedCampaignTest) && instance_exists(id)) try { scrNTTEFullTrenchCampaignProbe("Vlambeer.Create.before"); }
 catch(_ntte_trench_campaign_error) { scrNTTEFullTrenchCampaignAbort(_ntte_trench_campaign_error); }
 // END NTTE TRENCH CONNECTED CAMPAIGN TEST Vlambeer.Create.before
-if (global.ntte_smoke_active) { instance_destroy(); exit }
+if (global.ntte_smoke_active && !scrFRMenuAudioBootTestsSelected()) { instance_destroy(); exit }
 scrSetViewSize(false)
 
 x = view_width / 2

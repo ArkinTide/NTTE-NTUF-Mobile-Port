@@ -169,6 +169,10 @@ function scrNTTEFullCrystalCloneStep() {
         else {x+=dcos(direction);y-=dsin(direction)}
         xstart=x;ystart=y
     }
+// BEGIN FRONTIER CLONE OWNS WALL TOP RESTORATION
+scrFREnemyCloneOwnTop(_source,target);
+scrFREnemyCloneOwnToss(_source,target);
+// END FRONTIER CLONE OWNS WALL TOP RESTORATION
     scrNTTEFullCrystalCloneEffect(x,y,target.x,target.y)
     snd_play(sndHyperCrystalSearch,1.3+random(0.4),0.4)
 }

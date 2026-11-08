@@ -228,6 +228,10 @@ def apply(project):
                             'scrNTTESmokeLog("NTUF ID SCAN end cursor="+string(_frl_updateid)+" last="+string(_frl_lastid));\n' + finished)
         lib_path.write_text("// NTUF OPTIONAL ID SCAN TRACE\n"+text, encoding="utf8")
     patch(project,"scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml", "TEST ENTRY",
+          'if(scrNTTEFullSmokeAsyncCase("FrontierAmmoPickupTests")) {scrFRIntegrationTestStart("ammo-pickups");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierOutlineTests")) {scrFRIntegrationTestStart("outline");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierSealSpinAudioTests")) {scrFRIntegrationTestStart("seal-spin-audio");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("HyperionProjectileTests")) {scrFRIntegrationTestStart("hyperion-projectiles");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierCoreTests")) {scrFRIntegrationTestStart("core");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierWeaponTests")) {scrFRIntegrationTestStart("weapons");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierAreaTests")) {scrFRIntegrationTestStart("areas");return;}\n'
@@ -244,6 +248,10 @@ def apply(project):
           'if(scrNTTEFullSmokeAsyncCase("FrontierEventTests")) {scrFRIntegrationTestStart("events");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierPromptTests")) {scrFRIntegrationTestStart("prompts");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierWallFixTests")) {scrFRIntegrationTestStart("wall-fixes");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierInRoomAreaTests")) {scrFRIntegrationTestStart("inroom-frontier");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierWeaponVisualTests")) {scrFRIntegrationTestStart("weapon-visual");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierBubblesPreferenceTests")) {scrFRIntegrationTestStart("bubbles-preference");return;}\n'
+          'if(scrNTTEFullSmokeAsyncCase("FrontierMenuStatisticsTests")) {scrFRIntegrationTestStart("menu-statistics");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierPlayerWallTests")) {scrFRIntegrationTestStart("player-wall");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierGroundWeaponTests")) {scrFRIntegrationTestStart("ground-weapon");return;}\n'
           'if(scrNTTEFullSmokeAsyncCase("FrontierProtoChestTests")) {scrFRIntegrationTestStart("proto-chest");return;}\n'

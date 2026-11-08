@@ -143,6 +143,10 @@ function scrNTTEFullMergedRuntimeStateEndStep() {
     }
 }
 function scrNTTEFullMergedRuntimeStateReloadOne(_actor,_part,_primary) {
+// BEGIN FRONTIER SOURCE PHYSICAL RELOAD
+if(scrFREnabled() && scrFRWeaponMergedCallback(_actor,_part,_primary,"weapon_reloaded")) return;
+// END FRONTIER SOURCE PHYSICAL RELOAD
+
     var _mount=scrNTTEFullMergedRuntimeStateMount(_actor,_part,_primary),_raw=_mount.raw,_state=_mount.state
     try {
         with(_actor) switch(_raw) {

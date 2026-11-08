@@ -554,6 +554,7 @@ vspeed = (0) * timescale;
 if (_frl_xcollide) {
 {
 var _frl_oldX = x;
+scrFRPalaceRememberPush(scrFROther(other));
 ;
 var __fr_other31=scrFROther(other);
 x += __fr_other31.hspeed;
@@ -575,6 +576,7 @@ direction = __fr_other33.direction;
 if (_frl_ycollide) {
 {
 var _frl_oldY = y;
+scrFRPalaceRememberPush(scrFROther(other));
 ;
 var __fr_other34=scrFROther(other);
 y += __fr_other34.vspeed;

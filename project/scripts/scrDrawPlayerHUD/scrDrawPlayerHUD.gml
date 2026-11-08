@@ -97,6 +97,10 @@ function scrDrawPlayerHUD(_player = noone, _draw_interaction = true) {
 	#endregion
 	
 	scrNTTEFullParrotHUD(_player);
+// BEGIN FRONTIER BUBBLES HEALTH METER
+scrFRBubblesHUD(_player);
+// END FRONTIER BUBBLES HEALTH METER
+
 	#region Weapons
 		var _hud_weapon = _wep,
 			_hud_weapon_index = 0,
@@ -292,7 +296,7 @@ function scrDrawPlayerHUD(_player = noone, _draw_interaction = true) {
 
 				draw_set_color(c_red)
 				draw_set_halign(fa_left)
-				scrNTTEFullDrawText(110, 7, string(_txt))
+				scrNTTEFullDrawText(scrFREnabled() && scrFRRaceIs(_race) ? 132 : 110, 7, string(_txt))
 				draw_set_halign(fa_center)
 			}
 		}

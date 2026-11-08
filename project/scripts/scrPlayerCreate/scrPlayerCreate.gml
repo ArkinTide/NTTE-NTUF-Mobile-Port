@@ -30,6 +30,8 @@ function scrPlayerCreate(_index = 0, _race = Race.Random, _skin = 0, _struct = {
 }
 
 function scrPlayerRaceChange(_race, _skin = -1) {
+    if(race!=_race && (scrFRRaceIs(race) || scrFRRaceIs(_race)))
+        KeyCont.activeforever[index]=false; // FRONTIER BUBBLES RACE LATCH RESET
     if(race!=_race && (race==NTTEFullRace.Parrot || _race==NTTEFullRace.Parrot))
         KeyCont.activeforever[index]=false
 	race = _race

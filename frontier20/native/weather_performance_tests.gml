@@ -154,3 +154,107 @@ function scrFRWeatherPerformanceTests() {
         scrNTTEFullMergedRuntimeTestCleanup(_before);
     }
 }
+
+
+// The original translated source body remains the explicit private oracle.
+// Both paths call the same original sprite_set, with the same live markers.
+function scrFRAuroraTestsApply(_source) {
+    var _source_rng=scrFRSourceRandomGetSeed();
+    global.fr_weather_source_oracle=_source;
+    try {
+        fr_Frontier_Events_mod_gml_Aurora_applysprites();
+        assert(scrFRSourceRandomGetSeed()==_source_rng,
+            "Aurora sprite traversal unexpectedly consumed the source RNG cursor");
+    }
+    finally {global.fr_weather_source_oracle=false;}
+}
+function scrFRAuroraTestsSnapshot(_items) {
+    var _rows=[];
+    for(var _i=0;_i<array_length(_items);++_i) {
+        var _item=_items[_i];
+        array_push(_rows,{type:object_get_name(_item.object_index),sprite:_item.sprite_index,
+            marker_exists:variable_instance_exists(_item,"fr_aurora_check"),
+            marker:variable_instance_exists(_item,"fr_aurora_check")?_item.fr_aurora_check:undefined,
+            topspr:_item.topspr,outspr:_item.outspr,spr_idle:_item.spr_idle});
+    }
+    return _rows;
+}
+function scrFRAuroraTestsFixture(_source) {
+    var _types=[Floor,Floor,FloorExplo,Wall,Top,TopSmall,Debris,Detail,Bones,
+        prop,TopPot,CarThrow,SnowBotCar,Car,FRCustomProp,NTTESolidWall],
+        _sprites=[sprFloor5,sprFloor5B,sprDefault,sprWall5Bot,sprDefault,sprWall5Trans,
+        sprDebris5,sprDetail5,sprIceDecal,sprDefault,sprDefault,sprDefault,sprDefault,
+        sprDefault,sprDefault,sprWall5Bot],_items=[],_rows=[];
+    try {
+        for(var _i=0;_i<array_length(_types);++_i) {
+            var _item=instance_create(50000+_i*32,50000,FRCustomObject);
+            with(_item) instance_change(_types[_i],false);
+            _item.sprite_index=_sprites[_i];_item.styleb=(_i==1);
+            _item.topspr=sprDefault;_item.outspr=sprDefault;_item.spr_idle=sprDefault;
+            if(_i==9) _item.fr_aurora_check=false;
+            if(_i==10) _item.fr_aurora_check=0;
+            if(_i==11) _item.fr_aurora_check=true;
+            if(_i==12) _item.fr_aurora_check=undefined;
+            array_push(_items,_item);
+        }
+        scrFRAuroraTestsApply(_source);
+        array_push(_rows,scrFRAuroraTestsSnapshot(_items));
+        assert(_items[0].sprite_index==scrFRAreaSourceSprite(global.fr_module_vars[$ "mod:Frontier_Events"].sprFloor5Night)
+            && _items[3].sprite_index==scrFRAreaSourceSprite(global.fr_module_vars[$ "mod:Frontier_Events"].sprWall5BotNight),
+            "Aurora oracle/optimized fixture did not exercise real floor and wall sprite changes");
+        assert(!_items[9].fr_aurora_check && _items[10].fr_aurora_check==0
+            && !variable_instance_exists(_items[15],"fr_aurora_check"),
+            "Aurora changed source false/zero markers or packed exterior collision terrain");
+        // A new instance after the initial pass must be handled immediately.
+        var _new=instance_create(51000,50000,Floor);
+        _new.sprite_index=sprFloor5;_new.styleb=false;
+        _new.topspr=sprDefault;_new.outspr=sprDefault;_new.spr_idle=sprDefault;
+        array_push(_items,_new);
+        scrFRAuroraTestsApply(_source);
+        assert(_new.fr_aurora_check==true && _new.sprite_index!=sprFloor5,
+            "Aurora failed immediate styling of actual newly created native terrain");
+        // Explicitly clear a marker on an existing instance; no membership or
+        // mutable-field cache may hide it from the next callback.
+        _items[0].fr_aurora_check=undefined;_items[0].sprite_index=sprFloor5;
+        scrFRAuroraTestsApply(_source);
+        assert(_items[0].fr_aurora_check==true && _items[0].sprite_index!=sprFloor5,
+            "Aurora cached a mutable existing marker");
+        array_push(_rows,scrFRAuroraTestsSnapshot(_items));
+        // Changing a non-target object without Create must still be discovered.
+        var _changed=instance_create(52000,50000,FRCustomObject);
+        with(_changed) instance_change(Floor,false);
+        _changed.sprite_index=sprFloor5;_changed.styleb=false;
+        _changed.topspr=sprDefault;_changed.outspr=sprDefault;_changed.spr_idle=sprDefault;
+        array_push(_items,_changed);
+        instance_deactivate_object(_changed);
+        scrFRAuroraTestsApply(_source);
+        instance_activate_object(_changed);
+        assert(!variable_instance_exists(_changed,"fr_aurora_check"),
+            "Aurora changed a native deactivated instance");
+        scrFRAuroraTestsApply(_source);
+        assert(_changed.fr_aurora_check==true && _changed.sprite_index!=sprFloor5,
+            "Aurora failed immediate styling after reactivation/instance_change(false)");
+        array_push(_rows,scrFRAuroraTestsSnapshot(_items));
+    } finally {
+        for(var _i=0;_i<array_length(_items);++_i)
+            if(instance_exists(_items[_i])) with(_items[_i]) instance_destroy(id,false);
+        global.fr_weather_source_oracle=false;
+    }
+    return _rows;
+}
+function scrFRAuroraPerformanceTests() {
+    assert(os_type==os_windows && scrNTTEFullSmokeEnabled(),"Aurora equivalence requires private native test");
+    var _source=scrFRAuroraTestsFixture(true),_direct=scrFRAuroraTestsFixture(false);
+    assert(json_stringify(_source)==json_stringify(_direct),
+        "Aurora direct native traversal differs from its original source sprite/marker results");
+    var _rows=[],_codes=[true,false];
+    for(var _i=0;_i<2;++_i) {
+        scrFRAuroraTestsApply(_codes[_i]);
+        var _start=get_timer();repeat(120) scrFRAuroraTestsApply(_codes[_i]);
+        array_push(_rows,{source:_codes[_i],calls:120,total_us:get_timer()-_start});
+    }
+    var _file=file_text_open_write(working_directory+"ntuf-aurora-equivalence.json");
+    file_text_write_string(_file,json_stringify({physical_device_tested:false,source_rng_unchanged:true,
+        equivalence:_source,timings:_rows}));file_text_close(_file);
+    scrNTTESmokeLog("PASS FRONTIER Aurora original source/direct traversal, live markers, create, activation and type changes");
+}

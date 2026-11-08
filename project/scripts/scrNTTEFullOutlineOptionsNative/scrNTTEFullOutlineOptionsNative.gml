@@ -90,6 +90,30 @@ function scrNTTEFullOutlineBodyCache(_raw,_cache) {
     }
     finally {surface_reset_target();shader_reset();}
 }
+// Replace RGB in the existing quality-sized cache while retaining its exact
+// coverage. Mobile default-shader fog with start==end is not a portable
+// solid-color texture operation. Vertex tint also cannot recolor black art.
+// Alpha-only preservation needs neither custom shaders nor a second sampling
+// pass, so the four source outline offsets keep their original quality grid.
+function scrNTTEFullOutlineTintCache(_cache,_tint) {
+    var _world=matrix_get(matrix_world),_view=matrix_get(matrix_view),_projection=matrix_get(matrix_projection),
+        _color=draw_get_color(),_alpha=draw_get_alpha(),_shader=shader_current(),_target=false
+    gpu_push_state()
+    try {
+        shader_reset();gpu_set_fog(false,0,0,0)
+        gpu_set_ztestenable(false);gpu_set_zwriteenable(false);gpu_set_alphatestenable(false)
+        surface_set_target(_cache.surf);_target=true;scrNTTEFullOutlineCamera()
+        gpu_set_colorwriteenable(true,true,true,false);gpu_set_blendmode_ext(bm_one,bm_zero)
+        draw_set_color(_tint);draw_set_alpha(1)
+        draw_rectangle(view_xview-1,view_yview-1,view_xview+view_width+1,view_yview+view_height+1,false)
+    }
+    finally {
+        if(_target) surface_reset_target()
+        matrix_set(matrix_world,_world);matrix_set(matrix_view,_view);matrix_set(matrix_projection,_projection)
+        draw_set_color(_color);draw_set_alpha(_alpha);gpu_pop_state()
+        if(_shader>=0) shader_set(_shader);else shader_reset()
+    }
+}
 function scrNTTEFullOutlineOwnerColor(_index) {
     var _owner=scr_playerinstance_find(_index)
     return is_struct(_owner)?_owner.color:c_white
@@ -111,16 +135,23 @@ function scrNTTEFullPetOutlineDraw() {
     gpu_push_state()
     try {
         shader_reset();gpu_set_texfilter(false);gpu_set_fog(false,0,0,0)
+        gpu_set_colorwriteenable(true,true,true,true)
+        gpu_set_ztestenable(false);gpu_set_zwriteenable(false);gpu_set_alphatestenable(false)
         surface_set_target(_raw.surf);_target=true
         scrNTTEFullOutlineCamera();draw_clear_alpha(c_black,0);draw_set_alpha(1);draw_set_color(c_white)
         gpu_set_blendmode(bm_normal);scrNTTEFullPetBodyDraw()
         surface_reset_target();_target=false
         scrNTTEFullOutlineBodyCache(_raw,_cache)
+        scrNTTEFullOutlineTintCache(_cache,scrNTTEFullOutlineOwnerColor(leader.index))
         matrix_set(matrix_world,_world);matrix_set(matrix_view,_view);matrix_set(matrix_projection,_projection)
-        gpu_set_blendmode(bm_normal);gpu_set_fog(true,scrNTTEFullOutlineOwnerColor(leader.index),0,0)
+        gpu_set_blendmode(bm_normal)
         for(var _ang=0;_ang<360;_ang+=90)
             scrNTTEFullOutlineSurfaceDraw(_cache,view_xview+lengthdir_x(1,_ang),view_yview+lengthdir_y(1,_ang))
-        gpu_set_fog(false,0,0,0);scrNTTEFullOutlineSurfaceDraw(_cache,view_xview,view_yview)
+        // Rebuild the untouched body from the retained raw capture. The pet's
+        // actual draw callback is still invoked exactly once above.
+        scrNTTEFullOutlineBodyCache(_raw,_cache)
+        matrix_set(matrix_world,_world);matrix_set(matrix_view,_view);matrix_set(matrix_projection,_projection)
+        gpu_set_blendmode(bm_normal);scrNTTEFullOutlineSurfaceDraw(_cache,view_xview,view_yview)
     }
     finally {
         if(_target) surface_reset_target()
@@ -238,6 +269,8 @@ function scrNTTEFullCharmOutlineDraw(_snapshot_all=false) {
     gpu_push_state()
     try {
         shader_reset();gpu_set_texfilter(false);gpu_set_fog(false,0,0,0)
+        gpu_set_colorwriteenable(true,true,true,true)
+        gpu_set_ztestenable(false);gpu_set_zwriteenable(false);gpu_set_alphatestenable(false)
         surface_set_target(_raw.surf);_target=true
         scrNTTEFullOutlineCamera();draw_clear_alpha(c_black,0);draw_set_alpha(1);draw_set_color(c_white)
         gpu_set_blendmode(bm_normal);timescale=0.00000001
@@ -248,15 +281,16 @@ function scrNTTEFullCharmOutlineDraw(_snapshot_all=false) {
         timescale=_ts;surface_reset_target();_target=false
         scrNTTEFullOutlineBodyCache(_raw,_cache)
         if(_outline) {
+            var _index=owner_index<0?global.index:owner_index
+            scrNTTEFullOutlineTintCache(_cache,scrNTTEFullOutlineOwnerColor(_index))
             surface_set_target(_border.surf);_target=true
             scrNTTEFullOutlineCamera();draw_clear_alpha(c_black,0);gpu_set_blendmode(bm_normal)
-            var _index=owner_index<0?global.index:owner_index
-            gpu_set_fog(true,scrNTTEFullOutlineOwnerColor(_index),0,0)
             for(var _ang=0;_ang<360;_ang+=90)
                 scrNTTEFullOutlineSurfaceDraw(_cache,view_xview+lengthdir_x(1,_ang),view_yview+lengthdir_y(1,_ang))
-            gpu_set_fog(false,0,0,0);gpu_set_blendmode_ext(bm_zero,bm_inv_src_alpha)
+            gpu_set_blendmode_ext(bm_zero,bm_inv_src_alpha)
             scrNTTEFullOutlineSurfaceDraw(_cache,view_xview,view_yview)
             surface_reset_target();_target=false
+            scrNTTEFullOutlineBodyCache(_raw,_cache)
         }
         matrix_set(matrix_world,_world);matrix_set(matrix_view,_view);matrix_set(matrix_projection,_projection)
         gpu_set_blendmode(bm_normal)

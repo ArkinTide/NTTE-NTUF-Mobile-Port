@@ -73,7 +73,7 @@ if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
 fr_augmentSecondStomach_check = true;
 ;
-num += 0.5;
+scrFRAmmoPickupUpgrade(id,0.5);
 ;
 if ((!scrFRVariableExists(scrFRSelf(self), "fr_augmentAmmoTier"))) {
 {

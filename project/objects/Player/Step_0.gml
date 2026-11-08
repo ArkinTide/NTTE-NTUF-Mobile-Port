@@ -537,7 +537,7 @@ if reload > 0 || (breload > 0 && race == Race.Steroids) {
 		
 		if (reload <= 0) {
 // BEGIN FRONTIER WEAPON PRIMARY RELOAD
-scrFRWeaponReloaded(true);
+var _fr_reloaded=scrFRWeaponReloaded(true);
 // END FRONTIER WEAPON PRIMARY RELOAD
 
 
@@ -587,7 +587,7 @@ scrFRWeaponReloaded(true);
 
 
 
-			if(!scrNTTEFullMergedRuntimeStateReloaded(true) && !scrNTTEFullRedWeaponReloaded(true)) {
+			if(!_fr_reloaded && !scrNTTEFullMergedRuntimeStateReloaded(true) && !scrNTTEFullRedWeaponReloaded(true)) {
 				scrPlayerGunReloadFX(wep);
 				wepflip *= -1;
 			}
@@ -601,7 +601,7 @@ scrFRWeaponReloaded(true);
 		
 		if (breload <= 0) {
 // BEGIN FRONTIER WEAPON SECONDARY RELOAD
-scrFRWeaponReloaded(false);
+var _fr_breloaded=scrFRWeaponReloaded(false);
 // END FRONTIER WEAPON SECONDARY RELOAD
 
 
@@ -651,9 +651,9 @@ scrFRWeaponReloaded(false);
 
 
 
-			if(!scrNTTEFullMergedRuntimeStateReloaded(false) && !scrNTTEFullRedWeaponReloaded(false)) {
+			if(!_fr_breloaded && !scrNTTEFullMergedRuntimeStateReloaded(false) && !scrNTTEFullRedWeaponReloaded(false)) {
 				scrPlayerGunReloadFX(bwep);
-				wepflip *= -1;
+				bwepflip *= -1;
 			}
 			bcan_shoot = true
 			breload = 0

@@ -1413,5 +1413,9 @@ function scrWeapons() {
 	}
 	
 	scrAmmoInit()
+// BEGIN FRONTIER LOADED WEAPON TABLE RESTORE
+scrFRWeaponTablesRestore();
+// END FRONTIER LOADED WEAPON TABLE RESTORE
+
 }
 

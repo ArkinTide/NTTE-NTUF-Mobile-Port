@@ -132,7 +132,7 @@ function scrUGDelete(_who=self) {instance_destroy(_who,false);}
 function scrUGSoundPitch(_snd,_pitch) {return snd_play(_snd,_pitch);}
 function scrUGSoundPitchVol(_snd,_pitch,_vol) {return snd_play(_snd,_pitch,_vol);}
 function scrUGDrawHurt(_on,_col,_a,_b) {gpu_set_fog(_on,_col,_a,_b);}
-function scrUGWeaponPost(_kick,_reloadkick,_shake) {scr_weapon_post(gunangle,_kick,_reloadkick,_shake);}
+function scrUGWeaponPost(_kick,_reloadkick,_shake) {scr_weapon_post(gunangle,_reloadkick,_shake,_kick);}
 function scrUGButton(_index,_key) {return _key=="fire"?KeyCont.press_fire[_index]:KeyCont.press_pick[_index];}
 
 function scrUGFilter(_input,_field,_mode,_values) {

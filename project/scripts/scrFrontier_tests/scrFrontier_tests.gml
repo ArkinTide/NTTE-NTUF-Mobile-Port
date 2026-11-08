@@ -21,6 +21,78 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+// BEGIN FRONTIER AURORA NATIVE TEST DRIVER
+if(fr_test_case=="aurora-native") {
+    if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRAuroraPerformanceTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER AURORA NATIVE TEST DRIVER
+
+// BEGIN FRONTIER BLIZZARD LIVE TEST DRIVER
+if(fr_test_case=="blizzard-live") {
+    if(!variable_instance_exists(id,"fr_blizzard_live")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBlizzardLiveTestsStart(id);return;
+    }
+    if(scrFRBlizzardLiveTestsStep(id)) {
+        scrNTTESmokeLog("PASS FRONTIER actual live Blizzard component/count diagnostics");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }return;
+}
+// END FRONTIER BLIZZARD LIVE TEST DRIVER
+
+// BEGIN FRONTIER MENU AUDIO COLD BOOT DRIVER
+if(fr_test_case=="menu_audio_boot") {scrFRMenuAudioBootTestsStep(id);return;}
+// END FRONTIER MENU AUDIO COLD BOOT DRIVER
+
+// BEGIN FRONTIER BLIZZARD TEST DRIVER
+if(fr_test_case=="blizzard-perf") {
+    if(!scrFRReadyTick()) return;
+    if(instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRBlizzardPerformanceTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER BLIZZARD TEST DRIVER
+
+// BEGIN FRONTIER ENEMY VISIBILITY DIAGNOSTIC DRIVER
+if(fr_test_case=="enemy-visibility" || fr_test_case=="enemy-visibility-clone"
+    || fr_test_case=="enemy-visibility-toss") {
+    if(!variable_instance_exists(id,"fr_enemy_visibility")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFREnemyVisibilityTestsStart(id,fr_test_case=="enemy-visibility-clone",
+            fr_test_case=="enemy-visibility-toss");
+    }
+    if(scrFREnemyVisibilityTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER ENEMY VISIBILITY DIAGNOSTIC DRIVER
+
+// BEGIN FRONTIER PALACE PLAYER CONTACT TEST DRIVER
+if(fr_test_case=="palace-player-contact") {
+    if(!variable_instance_exists(id,"fr_palace_contacts")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRPalacePlayerContactTestsStart(id);
+    }
+    if(scrFRPalacePlayerContactTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER PALACE PLAYER CONTACT TEST DRIVER
+
 // BEGIN FRONTIER PALACE BLOCK TEST DRIVER
 if(fr_test_case=="palace-block") {
     if(!variable_instance_exists(id,"fr_palace_blocks")) {
@@ -36,6 +108,20 @@ if(fr_test_case=="palace-block") {
 }
 // END FRONTIER PALACE BLOCK TEST DRIVER
 
+    if(fr_test_case=="ammo-pickups" && variable_instance_exists(id,"fr_ammo_pickup")) {
+        if(scrFRAmmoPickupTestsStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+            game_end();
+        }
+        return;
+    }
+    if(fr_test_case=="hyperion-projectiles" && variable_instance_exists(id,"fr_hyperion_projectiles")) {
+        if(scrFRHyperionProjectileTestsStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+            game_end();
+        }
+        return;
+    }
     if(fr_test_case=="scary-face" && variable_instance_exists(id,"fr_scary_face")) {
         if(scrFRScaryFaceTestsStep(id)) {
             scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
@@ -128,6 +214,10 @@ if(fr_test_case=="palace-block") {
         assert(array_length(variable_struct_get_names(global.fr_area_keys))==6,"Frontier area registry incomplete");
         scrNTTESmokeLog("FRONTIER BOOT REGISTRIES OK tasks="+string(array_length(global.fr_tasks)));
         switch(fr_test_case) {
+            case "ammo-pickups":scrFRAmmoPickupTestsStart(id);break;
+            case "hyperion-projectiles":scrFRHyperionProjectileTestsStart(id);break;
+            case "outline":scrFROutlineTests();break;
+            case "seal-spin-audio":scrFRSealSpinAudioTests();break;
             case "core":scrFRCoreTests();break;
             case "skills":scrFRSkillTestsStart(id);break;
             case "options":scrFROptionTests();break;
@@ -136,6 +226,10 @@ if(fr_test_case=="palace-block") {
             case "events":scrFREventTestsStart(id);break;
             case "prompts":scrFRPromptHUDTests();break;
             case "wall-fixes":scrFRWallFixTests();break;
+            case "inroom-frontier":scrFRInRoomFrontierTests();break;
+            case "weapon-visual":scrFRWeaponVisualTests();break;
+            case "bubbles-preference":scrFRBubblesPreferenceTests();break;
+            case "menu-statistics":scrFRMenuStatisticsTests();break;
             case "player-wall":scrFRPlayerWallTestsStart(id);break;
             case "ground-weapon":scrFRGroundWeaponTestsStart(id);break;
             case "proto-chest":scrFRProtoChestTestsStart(id);break;
@@ -164,7 +258,7 @@ if(fr_test_case=="palace-block") {
             case "continue-write":scrFRContinueTestsStart(id,"write");break;
             case "continue-read":scrFRContinueTestsStart(id,"read");break;
         }
-        if(fr_test_case=="wall-fixes" || fr_test_case=="robocenter-perf"
+        if(fr_test_case=="outline" || fr_test_case=="seal-spin-audio" || fr_test_case=="wall-fixes" || fr_test_case=="inroom-frontier" || fr_test_case=="weapon-visual" || fr_test_case=="bubbles-preference" || fr_test_case=="menu-statistics" || fr_test_case=="robocenter-perf"
             || fr_test_case=="deeplabs-perf" || fr_test_case=="localization" || fr_test_case=="weather-perf" || fr_test_case=="menu-repairs") {
             scrNTTESmokeLog("PASS FRONTIER focused native regression "+fr_test_case);
             scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");

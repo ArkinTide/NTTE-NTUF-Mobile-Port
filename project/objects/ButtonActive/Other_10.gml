@@ -25,6 +25,10 @@ KeyCont.release_spec[_index] = 0
 if !player
 	exit
 
+if(scrFRBubblesTouchBlocked(player)) {
+    volume_control_command=0;exit;
+} // FRONTIER BUBBLES MENU INPUT GUARD
+
 var rogue_moment = !_mounted && player.race == 12 && scr_player_pref(pinst, "rogue")
 
 if !is_mobile {
@@ -39,7 +43,7 @@ if index != -1 or (volume_control_command == 1) {
 			
             KeyCont.activeforever[_index] = forever
 			
-			if (player.race == 12 || player.race == NTTEFullRace.Parrot) && forever
+			if (player.race == 12 || player.race == NTTEFullRace.Parrot || scrFRRaceIs(player.race)) && forever /* FRONTIER BUBBLES TOUCH PRESS */
 				KeyCont.press_spec[_index] = true
 			
 			if !forever {
@@ -55,7 +59,7 @@ if index != -1 or (volume_control_command == 1) {
 }
 
 if forever {
-    if player.race == 3 || player.race == NTTEFullRace.Parrot
+    if player.race == 3 || player.race == NTTEFullRace.Parrot || scrFRRaceIs(player.race) /* FRONTIER BUBBLES TOUCH HOLD */
         KeyCont.hold_spec[_index] = true
 	
     if player.race == 4

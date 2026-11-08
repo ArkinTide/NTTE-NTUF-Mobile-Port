@@ -1,6 +1,18 @@
 // Private background acceptance. The runner is muted at its Windows audio
 // session, while these actual native voices keep nonzero resource/voice gains.
 // No fixture voice or asset-volume workaround is used in ordinary games.
+function scrFRMenuAudioTestsRestoreResourceGains() {
+    // Restore the actual staged YY gains after the Runner is externally muted.
+    // In particular, normal lightning is0.1 and portal flybys are0.3; using1
+    // for every fixture sound would not preserve the authored menu mix.
+    var _assets=[[sndPortalLoop,1],[sndPortalFlyby1,.3],[sndPortalFlyby2,.3],
+        [sndPortalFlyby3,.3],[sndPortalFlyby4,.3],[amb0,.5],[sndMenuCharSelect,1],
+        [sndClick,1],[sndClickBack,.5],[sndHover,1],[musThemeA,1],[musThemeB,1],[musThemeP,1],
+        [sndLogoLoop,1],[sndVlambeer,1],[sndMachinegun,1],[sndShovel,1],[sndMeatExplo,1],[sndExplosion,1],
+        [sndPortalLightning1,.1],[sndPortalLightning2,.1],[sndPortalLightning3,.1],[sndPortalLightning4,.1],
+        [sndPortalLightning5,.1],[sndPortalLightning6,.1],[sndPortalLightning7,.1],[sndPortalLightning8,.1]];
+    for(var _i=0;_i<array_length(_assets);++_i) audio_sound_gain(_assets[_i][0],_assets[_i][1],0);
+}
 function scrFRMenuAudioTestsRecord(_voice,_sample,_kind) {
     if(os_type!=os_windows || !scrNTTEFullSmokeEnabled()
         || !variable_global_exists("fr_menu_audio_test_state")) return _voice;
@@ -40,6 +52,9 @@ function scrFRMenuAudioTestsObserve() {
     instance_activate_object(_state.driver);
     if(instance_exists(_state.driver)) return;
     var _driver=instance_create(0,0,FRIntegrationTest);
+    if(_state[$ "boot"]??false) {
+        _driver.fr_test_case="menu_audio_boot";_driver.fr_audio_boot=_state;_state.driver=_driver;return;
+    }
     _driver.fr_test_case="menu_audio";_driver.fr_menu_audio=_state;_state.driver=_driver;
 }
 
@@ -131,10 +146,7 @@ function scrFRMenuAudioTestsStep(_driver) {
         // for start-up safety. Restore only these known voices after the
         // runner's Windows process mute has been applied, so gain assertions
         // exercise the real audio path rather than a zero-volume shortcut.
-        var _assets=[sndPortalLoop,sndPortalFlyby1,sndPortalFlyby2,sndPortalFlyby3,sndPortalFlyby4,
-            amb0,sndMenuCharSelect,sndClick,sndClickBack,sndHover,
-            musThemeA,musThemeB,musThemeP];
-        for(var _i=0;_i<array_length(_assets);++_i) audio_sound_gain(_assets[_i],1,0);
+        scrFRMenuAudioTestsRestoreResourceGains();
         scrVolume();audio_emitter_gain(UberCont.mainsound,.7);
         var _source=scrFRModGet("area","robocenter","ambRobocenter");
         assert(audio_exists(_source),"Native source-loop positive control sample was absent");
@@ -157,7 +169,26 @@ function scrFRMenuAudioTestsStep(_driver) {
         UberCont.showtutorial=false;UberCont.hardgot=true;
         if(!instance_exists(MusCont)) instance_create(0,0,MusCont);
         instance_create(0,0,SpiralCont);
-        with(instance_create(0,0,Logo)) event_perform(ev_alarm,1);
+        // Earlier coverage skipped the entire real Logo intro by calling
+        // Alarm1 immediately. Let its native30Hz alarms start LogoLoop, then
+        // dismiss it through the actual input consumer and observe retirement.
+        _state.logo=instance_create(0,0,Logo);_state.wait=0;_state.phase=2.5;return false;
+    }
+    if(_state.phase==2.5) {
+        assert(instance_exists(_state.logo),"Actual Logo intro disappeared before its looping sound began");
+        if(_state.logo.image_index<7) return false;
+        _state.logo_voice=scrFRMenuAudioTestsLatest(_state,sndLogoLoop);
+        assert(_state.logo_voice>=0 && audio_is_playing(_state.logo_voice)
+            && audio_sound_get_gain(_state.logo_voice)>.01,
+            "Actual Logo intro did not start its nonzero native loop voice");
+        with(_state.logo) event_perform(ev_mouse,ev_global_left_press);
+        _state.wait=0;_state.phase=2.6;return false;
+    }
+    if(_state.phase==2.6) {
+        if(instance_exists(_state.logo)) return false;
+        assert(!audio_is_playing(_state.logo_voice)
+            && scrFRMenuAudioTestsCount(_state,sndLogoLoop,true)==0,
+            "Dismissed native Logo left its looping intro sound in the main menu");
         // Parent scans include the Discord/Achievements footer subclasses,
         // whose image 0 is not the actual Play consumer.
         var _play=noone;with(MainMenuButton)
@@ -166,6 +197,7 @@ function scrFRMenuAudioTestsStep(_driver) {
         with(_play) event_perform(ev_other,ev_user0);
         assert(instance_number(PlayButton)>=2 && instance_number(SpiralCont)==1,
             "Actual main menu Play did not reach the recorded mode-selection scene");
+        scrNTTESmokeLog("NTUF MENU AUDIO genuine Logo alarms/input/retirement PASS rate="+string(30/timescale));
         _state.wait=0;_state.phase=3;return false;
     }
     if(_state.phase==3) {

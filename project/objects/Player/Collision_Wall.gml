@@ -3,6 +3,9 @@
 // destroy the disguise or push the player back out of this real floor path.
 if(instance_is(other.id,NTTEFullWallFake)) exit;
 
+// BEGIN FRONTIER PALACE PLAYER CONTACT
+if(scrFRPalacePlayerWallCollision(other.id)) exit;
+// END FRONTIER PALACE PLAYER CONTACT
 if (hammerhead && hammering > 6) {
 	hammering = 12
 	hammerhead --

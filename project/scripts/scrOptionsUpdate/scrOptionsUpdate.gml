@@ -91,6 +91,8 @@ function scrOptionsUpdate() {
 		cpref_rogue = save_get_option("cprefs", "rogue", true)
 		cpref_skeleton = save_get_option("cprefs", "skeleton", false)
         cpref_parrot = save_get_option("cprefs", "parrot", true)
+        array_push(cpref_list,"bubbles"); // FRONTIER BUBBLES PREFERENCE BIT
+        cpref_bubbles=save_get_option("cprefs","bubbles",true);
 		
 		
 		// Update variables

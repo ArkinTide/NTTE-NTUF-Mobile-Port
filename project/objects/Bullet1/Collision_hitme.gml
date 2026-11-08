@@ -25,7 +25,16 @@ try {
 var _ntte_parrot_b_collision_sample=undefined;
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullParrotBConnectedTest))
     _ntte_parrot_b_collision_sample=scrNTTEFullParrotBConnectedBulletBefore(other.id);
+// BEGIN FRONTIER VISIBILITY TEST READONLY BULLET BEFORE
+var _fr_visibility_hit=undefined;
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    _fr_visibility_hit=scrFREnemyVisibilityBulletBefore(id,other.id);
+// END FRONTIER VISIBILITY TEST READONLY BULLET BEFORE
 scr_projectile_generic_bullet_hit()
+// BEGIN FRONTIER VISIBILITY TEST READONLY BULLET AFTER
+if(!is_undefined(_fr_visibility_hit)) scrFREnemyVisibilityBulletAfter(_fr_visibility_hit);
+// END FRONTIER VISIBILITY TEST READONLY BULLET AFTER
+
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullParrotBConnectedTest))
     scrNTTEFullParrotBConnectedBulletAfter(_ntte_parrot_b_collision_sample);
 // END NTTE PARROT B CONNECTED READONLY BULLET COLLISION

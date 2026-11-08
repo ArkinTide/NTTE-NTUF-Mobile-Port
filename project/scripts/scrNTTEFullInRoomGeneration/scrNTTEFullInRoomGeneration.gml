@@ -258,6 +258,9 @@ function scrNTTEFullAreaGenerateNative(_area,_subarea,_loops,_x,_y,_set_area=tru
         // Normal GenCont runs these same real builders from its native event
         // chain. The synchronous driver owns its callback sequence explicitly.
         global.ntte_full_sync_generation=true
+        // Authored area_setup runs immediately in GenCont.Create.
+        // Its target background must exist while the old one is inactive.
+        if (!instance_exists(BackCont)) instance_create(0,0,BackCont)
         _generation=instance_create(0,0,GenCont)
         // Source setArea is independent of sync: false appends a submap only.
         // Store before setup/alarms; global sync is restored before Destroy.
@@ -268,7 +271,6 @@ function scrNTTEFullAreaGenerateNative(_area,_subarea,_loops,_x,_y,_set_area=tru
         if(_set_area) with(_generation) scrFRContinueGenerationBegin(true);
 
         global.ntte_full_sync_generation=_old_sync
-        if (!instance_exists(BackCont)) instance_create(0,0,BackCont)
         if (_set_area) with (MusCont) alarm[3]=-1
         var _spirals=scrNTTEFullInstances([SpiralCont,Spiral,SpiralStar,SpiralDebris])
         for(var _i=0;_i<array_length(_spirals);++_i) instance_destroy(_spirals[_i])
@@ -400,7 +402,7 @@ function scrNTTEFullAreaGenerateNative(_area,_subarea,_loops,_x,_y,_set_area=tru
             for(var _b=_a+1;_b<array_length(_overlap_objects);++_b) {
                 var _part=scrNTTEFullInstances(_overlap_objects[_b])
                 for(var _i=0;_i<array_length(_part);++_i) if (array_get_index(_all_before,_part[_i])<0) with (_part[_i]) {
-                    for(var _j=0;_j<array_length(_old_list);++_j) if (instance_exists(_old_list[_j]) && place_meeting(x,y,_old_list[_j])) { instance_destroy(id,false); break }
+                    for(var _j=0;_j<array_length(_old_list);++_j) if (instance_exists(_old_list[_j]) && scrFROrbWallMergeOccludes(id,_old_list[_j])) { instance_destroy(id,false); break } /* FRONTIER PACKED CAP MERGE */
                 }
             }
         }

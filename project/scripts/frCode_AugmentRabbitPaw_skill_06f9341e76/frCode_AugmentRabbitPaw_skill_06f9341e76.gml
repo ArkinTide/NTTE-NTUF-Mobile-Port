@@ -77,7 +77,7 @@ fr_augmentRabbitPaw_check = true;
 ;
 if ((scrFRSourceRandom(4) < 1)) {
 {
-num += 0.5;
+scrFRAmmoPickupUpgrade(id,0.5);
 ;
 if ((!scrFRVariableExists(scrFRSelf(self), "fr_augmentAmmoTier"))) {
 {

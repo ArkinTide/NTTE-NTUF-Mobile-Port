@@ -21,6 +21,20 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    if(fr_test_case=="ammo-pickups" && variable_instance_exists(id,"fr_ammo_pickup")) {
+        if(scrFRAmmoPickupTestsStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+            game_end();
+        }
+        return;
+    }
+    if(fr_test_case=="hyperion-projectiles" && variable_instance_exists(id,"fr_hyperion_projectiles")) {
+        if(scrFRHyperionProjectileTestsStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+            game_end();
+        }
+        return;
+    }
     if(fr_test_case=="scary-face" && variable_instance_exists(id,"fr_scary_face")) {
         if(scrFRScaryFaceTestsStep(id)) {
             scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
@@ -113,6 +127,10 @@ function scrFRIntegrationTestStep() {
         assert(array_length(variable_struct_get_names(global.fr_area_keys))==6,"Frontier area registry incomplete");
         scrNTTESmokeLog("FRONTIER BOOT REGISTRIES OK tasks="+string(array_length(global.fr_tasks)));
         switch(fr_test_case) {
+            case "ammo-pickups":scrFRAmmoPickupTestsStart(id);break;
+            case "hyperion-projectiles":scrFRHyperionProjectileTestsStart(id);break;
+            case "outline":scrFROutlineTests();break;
+            case "seal-spin-audio":scrFRSealSpinAudioTests();break;
             case "core":scrFRCoreTests();break;
             case "skills":scrFRSkillTestsStart(id);break;
             case "options":scrFROptionTests();break;
@@ -121,6 +139,10 @@ function scrFRIntegrationTestStep() {
             case "events":scrFREventTestsStart(id);break;
             case "prompts":scrFRPromptHUDTests();break;
             case "wall-fixes":scrFRWallFixTests();break;
+            case "inroom-frontier":scrFRInRoomFrontierTests();break;
+            case "weapon-visual":scrFRWeaponVisualTests();break;
+            case "bubbles-preference":scrFRBubblesPreferenceTests();break;
+            case "menu-statistics":scrFRMenuStatisticsTests();break;
             case "player-wall":scrFRPlayerWallTestsStart(id);break;
             case "ground-weapon":scrFRGroundWeaponTestsStart(id);break;
             case "proto-chest":scrFRProtoChestTestsStart(id);break;
@@ -149,7 +171,7 @@ function scrFRIntegrationTestStep() {
             case "continue-write":scrFRContinueTestsStart(id,"write");break;
             case "continue-read":scrFRContinueTestsStart(id,"read");break;
         }
-        if(fr_test_case=="wall-fixes" || fr_test_case=="robocenter-perf"
+        if(fr_test_case=="outline" || fr_test_case=="seal-spin-audio" || fr_test_case=="wall-fixes" || fr_test_case=="inroom-frontier" || fr_test_case=="weapon-visual" || fr_test_case=="bubbles-preference" || fr_test_case=="menu-statistics" || fr_test_case=="robocenter-perf"
             || fr_test_case=="deeplabs-perf" || fr_test_case=="localization" || fr_test_case=="weather-perf" || fr_test_case=="menu-repairs") {
             scrNTTESmokeLog("PASS FRONTIER focused native regression "+fr_test_case);
             scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");

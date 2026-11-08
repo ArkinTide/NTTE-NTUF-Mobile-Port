@@ -253,6 +253,7 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullL
 	    _k.press_spec[_index] = key_check("spec", keystate_press)
 	    _k.release_spec[_index] = key_check("spec", keystate_release)
         scrNTTEFullParrotToggleInput(_index)
+        scrFRBubblesToggleInput(_index); // FRONTIER BUBBLES SAMPLED TOGGLE
 		
 	    _k.hold_swap[_index] = key_check("swap", keystate_hold)
 	    _k.press_swap[_index] = key_check("swap", keystate_press)

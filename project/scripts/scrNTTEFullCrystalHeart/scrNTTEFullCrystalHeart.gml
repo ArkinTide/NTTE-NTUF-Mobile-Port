@@ -258,6 +258,10 @@ function scrNTTEFullCrystalHeartBulletDestroy() {
     }
     GameCont.area=_area
     for(var _i=0;_i<array_length(_new_tiles);++_i) if (instance_exists(_new_tiles[_i])) with (_new_tiles[_i]) instance_create(x+choose(-16,0),y+choose(-16,0),Top)
+// BEGIN FRONTIER HEART AUTHORED EDGE TOPS
+    // Finish source decoration before flash/reveal snapshots.
+    scrFROrbWallPruneTops(_generation);
+// END FRONTIER HEART AUTHORED EDGE TOPS
     var _reveal=scrNTTEFullCrystalHeartNewInstances([Floor,Wall,TopSmall],_generation)
     for(var _i=0;_i<array_length(_reveal);++_i) if (array_get_index(_old_tiles,_reveal[_i])<0) {
         var _tile=_reveal[_i],_record=scrNTTEFullFloorReveal(_tile.bbox_left,_tile.bbox_top,_tile.bbox_right-1,_tile.bbox_bottom-1,6)

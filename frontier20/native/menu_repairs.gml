@@ -21,8 +21,26 @@ function scrFRMenuInfoRow(_label,_value="",_heading=false) {
             draw_set_color(_color);draw_set_alpha(_alpha);return true;
         }});
 }
-function scrFRMenuStat(_key) {
-    return scrFRModCallArray("mod","libSaves","save_get",["Frontier",_key]);
+function scrFRMenuStat(_key,_default=0) {
+    return scrFRModCallArray("mod","libSaves","save_get",["Frontier",_key,_default]);
+}
+function scrFRMenuBestArea(_best) {
+    // The authored fresh-save value is the scalar 0. A three-field route is
+    // written only after Bubbles records a best run. Opening Statistics must
+    // not reinterpret that sentinel as an array or rewrite historical data.
+    if(!is_array(_best) || array_length(_best)<3) return "N/A";
+    var _area=_best[0],_subarea=_best[1],_loops=_best[2];
+    if((!is_string(_area) && !is_numeric(_area)) || !is_numeric(_subarea)
+        || !is_numeric(_loops) || _subarea<0 || _loops<0) return "N/A";
+    var _name;
+    if(is_string(_area)) {
+        var _resolved=scrFRAreaTryResolve(_area);
+        _name=is_undefined(_resolved)?scrFRLocalize("AREA NOT LOADED"):scrFRDebugAreaLabel(_resolved,_subarea);
+    } else {
+        if(_area<0) return "N/A";
+        _name=string(_area)+"-"+string(_subarea);
+    }
+    return _name+" L"+string(_loops);
 }
 function scrFRMenuStatistics() {
     scrFRMenuInfoRow("GENERAL","",true);
@@ -35,7 +53,8 @@ function scrFRMenuStatistics() {
     }
     scrFRMenuInfoRow("WEAPONS TRADED","",true);
     scrFRMenuInfoRow(scrNTTEFullIsSimplifiedChinese()?"总数":"TOTAL",scrFRMenuStat("pirate_trades"));
-    scrFRMenuInfoRow(scrNTTEFullIsSimplifiedChinese()?"不同种类":"UNIQUE",string(array_length(scrFRMenuStat("pirate_conversions")))+" / 45");
+    var _conversions=scrFRMenuStat("pirate_conversions",[]);
+    scrFRMenuInfoRow(scrNTTEFullIsSimplifiedChinese()?"不同种类":"UNIQUE",string(is_array(_conversions)?array_length(_conversions):0)+" / 45");
     scrFRMenuInfoRow("BUBBLES","",true);
     var _names=string_split(scrFROptionText("KILLS#LOOPS#RUNS#DEATHS#WINS#TIME#BUBBLES"),"\n"),
         _keys=["bubbles_kills","bubbles_loops","bubbles_runs","bubbles_deaths","bubbles_wins","bubbles_time","bubbles_bubbles"];
@@ -45,12 +64,7 @@ function scrFRMenuStatistics() {
         scrFRMenuInfoRow(_names[_i],_value);
     }
     scrFRMenuInfoRow("BEST RUN","",true);
-    var _best=scrFRMenuStat("bubbles_best_area"),_area=_best[0],_name="N/A";
-    if(is_string(_area)) {
-        var _resolved=scrFRAreaTryResolve(_area);
-        _name=is_undefined(_resolved)?scrFRLocalize("AREA NOT LOADED"):scrFRDebugAreaLabel(_resolved,_best[1]);
-    } else _name=string(_area)+"-"+string(_best[1]);
-    scrFRMenuInfoRow("AREA",_name+" L"+string(_best[2]));
+    scrFRMenuInfoRow("AREA",scrFRMenuBestArea(scrFRMenuStat("bubbles_best_area")));
     scrFRMenuInfoRow("KILLS",scrFRMenuStat("bubbles_best_kills"));
 }
 function scrFRMenuCredits() {

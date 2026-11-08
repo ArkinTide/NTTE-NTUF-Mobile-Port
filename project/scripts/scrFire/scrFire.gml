@@ -83,7 +83,7 @@ function scrFire(_wep, _consume_ammo = true, _primary = true) {
 			GameCont.hasfiredshots = true
 		}
 	}
-	else wepangle *= -1
+	else if(!scrFRWeaponOwnsSwing(_wep)) wepangle *= -1
 	
 // BEGIN FRONTIER WEAPON FIRE
 if(scrFRWeaponFire(_wep,_primary)) { } else

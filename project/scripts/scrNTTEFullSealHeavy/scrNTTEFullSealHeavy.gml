@@ -151,7 +151,7 @@ function scrNTTEFullSealHeavyStep() {
         }
         if (current_frame_active) {
             with (instance_create(x,y,Dust)) motion_add(other.gunangle,2*timescale)
-            if (gunangle<abs(anchor_spin)) snd_play(sndMeleeFlip,0.1+random(0.1),instance_exists(anchor) ? 8:1.5)
+            if (gunangle<abs(anchor_spin)) scrFRSealHeavySpinSound(instance_exists(anchor)) /* FRONTIER SEAL SPIN AUDIO HEADROOM */
         }
     }
     else {

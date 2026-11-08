@@ -781,6 +781,9 @@ scrOptionsMenuCreateElements(
             var _icon=scrNTTEFullRaceSprite(NTTEFullRace.Parrot,"Map",0)
             return "@("+sprite_get_name(_icon)+",0,0,-10) "+loc("CharacterPrefOptions:ParrotToggle","PARROT ABILITY TOGGLE")
         } },
+    // FRONTIER BUBBLES PREFERENCE ROW
+    { type: "switch", name: "BUBBLES ABILITY TOGGLE", key: "cprefs_bubbles", char: 19,
+        condition: cpref_condition, get_name: scrFRBubblesPreferenceName },
 )
 
 

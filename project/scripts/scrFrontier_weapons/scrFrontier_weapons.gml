@@ -45,6 +45,9 @@ function scrFRWeaponsRefresh() {
     var _ids=variable_struct_get_names(global.fr_weapon_keys);
     for(var _i=0;_i<array_length(_ids);++_i) {
         var _weapon=real(_ids[_i]),_key=global.fr_weapon_keys[$ _ids[_i]];
+        // scrWeapons rebuilds the native tables after a race transformation.
+        // Restore the declared raw-ID range as well as its source metadata.
+        maxwep=max(maxwep,_weapon);
         var _name=string_delete(_key,1,7);
         wep_name[_weapon]=string_upper(scrFRWeaponProperty(_key,"weapon_name",_name));
         wep_type[_weapon]=scrFRWeaponProperty(_key,"weapon_type",0);
@@ -59,6 +62,25 @@ function scrFRWeaponsRefresh() {
         wep_gold[_weapon]=scrFRWeaponProperty(_key,"weapon_gold",false);
         wep_rads[_weapon]=scrFRWeaponProperty(_key,"weapon_rads",0);
         wep_lout[_weapon]=-1; wep_naim[_weapon]=false;
+    }
+}
+
+function scrFRWeaponOwnsSwing(_weapon) {
+    // NTT weapon_fire owns its melee angle. The native dispatcher flips only
+    // built-in weapons; flipping here and in the source cancels the swing.
+    return is_numeric(_weapon) && (_weapon==wep_ug_fossil_hammer
+        || (scrFREnabled() && !is_undefined(global.fr_weapon_keys[$ string(_weapon)])));
+}
+
+function scrFRWeaponTablesRestore() {
+    if(!scrFREnabled()) return;
+    scrFRWeaponsRefresh();
+    // The native rebuild also clears legacy numeric caches for live fusions.
+    // Retain their physical models/handles and replay only those cache rows.
+    if(variable_global_exists("ntte_full_native_weapon_models")) {
+        var _models=global.ntte_full_native_weapon_models;
+        for(var _i=0;_i<array_length(_models);++_i)
+            if(is_struct(_models[_i])) scrNTTEFullWeaponNativeRefresh(global.ntte_full_native_weapon_base+_i);
     }
 }
 
@@ -152,7 +174,11 @@ function scrFRWeaponMergedCallback(_actor,_part,_primary,_callback) {
         _old=variable_global_exists("ntte_full_merged_state_fire")?global.ntte_full_merged_state_fire:undefined,
         _sourcea=_actor[$ "fr_source_wep"]??undefined,_sourceb=_actor[$ "fr_source_bwep"]??undefined;
     global.ntte_full_merged_state_fire={actor:_actor,part:_part,primary:_primary};
-    try {with(_actor) {scrFRWeaponPrepare(_raw,_primary);scrFRInvokeHere(_code,[_primary]);}}
+    try {with(_actor) {
+        scrFRWeaponPrepare(_raw,_primary);
+        if(_callback=="weapon_reloaded") scrFRWeaponReloadInvoke(_code,_primary);
+        else scrFRInvokeHere(_code,[_primary]);
+    }}
     finally {
         global.ntte_full_merged_state_fire=_old;
         scrNTTEFullMergedRuntimeStateUnmount(_mount);
@@ -251,18 +277,40 @@ function scrFRWeaponReloaded(_primary=true) {
     if(!scrFREnabled()) return false;
     var _weapon=_primary?wep:bwep;
     if(is_struct(_weapon) || scrNTTEFullWeaponIsNative(_weapon)) {
-        var _parts=scrNTTEFullMergedRuntimeStateParts(scrNTTEFullMergedRuntimePart(_weapon)),_found=false;
-        for(var _j=0;_j<array_length(_parts);++_j)
-            _found=scrFRWeaponMergedCallback(id,_parts[_j],_primary,"weapon_reloaded")||_found;
-        return _found;
+        // The native recursive reload consumer dispatches each physical part.
+        // Running all Frontier parts here would double their flip and skip
+        // the native reload behavior of another part in the same fusion.
+        return false;
     }
     var _key=global.fr_weapon_keys[$ string(_weapon)];
     if(is_undefined(_key)) return false;
     var _callback=global.fr_module_scripts[$ _key][$ "weapon_reloaded"];
     if(is_undefined(_callback)) return false;
     scrFRWeaponPrepare(_weapon,_primary);
-    scrFRInvokeHere(_callback,[_primary]);
+    scrFRWeaponReloadInvoke(_callback,_primary);
     return true;
+}
+function scrFRWeaponReloadInvoke(_callback,_primary) {
+    if(_primary) {scrFRInvokeHere(_callback,[true]);return;}
+    // Authored reloads use either the event's active visual fields or an
+    // explicit wep_get(false). Give direct fields a secondary visual view,
+    // leaving the real b-fields available to the explicit source accessors.
+    // Only commit changed direct fields, so explicit writes are not undone.
+    var _fields=["wepangle","wepflip","wkick"],_saved=[],_secondary=[];
+    for(var _i=0;_i<array_length(_fields);++_i) {
+        var _field=_fields[_i];
+        array_push(_saved,variable_instance_get(id,_field));
+        array_push(_secondary,variable_instance_get(id,"b"+_field));
+        variable_instance_set(id,_field,_secondary[_i]);
+    }
+    try {scrFRInvokeHere(_callback,[false]);}
+    finally {
+        for(var _i=0;_i<array_length(_fields);++_i) {
+            var _field=_fields[_i],_value=variable_instance_get(id,_field);
+            if(_value!=_secondary[_i]) variable_instance_set(id,"b"+_field,_value);
+            variable_instance_set(id,_field,_saved[_i]);
+        }
+    }
 }
 function scrFRWeaponRuntimeProperty(_weapon,_property) {
     if(!scrFREnabled() || is_struct(_weapon)) return undefined;

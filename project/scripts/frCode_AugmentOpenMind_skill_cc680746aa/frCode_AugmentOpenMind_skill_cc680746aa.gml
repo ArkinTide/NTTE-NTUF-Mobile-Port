@@ -258,7 +258,7 @@ if ((distance_to_object((scrFROther(other))) <= 60)) {
 {
 fr_augmentBeaconed = true;
 ;
-num += 0.5;
+scrFRAmmoPickupUpgrade(id,0.5);
 ;
 if ((!scrFRVariableExists(scrFRSelf(self), "fr_augmentAmmoTier"))) {
 {

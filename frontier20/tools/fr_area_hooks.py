@@ -59,6 +59,40 @@ def _generation_finalize(path, report):
     report.append({"file": str(path), "status": "patched"})
 
 
+def _sync_background_before_setup(path, report):
+    """Area setup runs inside GenCont.Create, including in-room orb builds.
+
+    The old BackCont has deliberately been deactivated. Publish the temporary
+    target controller before creating GenCont so authored setup can write its
+    shadow colour. The existing synchronous scope still owns restoration and
+    disposal of the old/new controllers and their surfaces.
+    """
+    anchor = (
+        '        global.ntte_full_sync_generation=true\n'
+        '        _generation=instance_create(0,0,GenCont)\n'
+        '        // Source setArea is independent of sync: false appends a submap only.\n'
+        '        // Store before setup/alarms; global sync is restored before Destroy.\n'
+        '        _generation.ntte_full_set_area=_set_area\n'
+        '        // The appended geometry must merge before a compact collar is\n'
+        '        // made. A temporary target collar can cover the entire old map.\n'
+        '        _generation.ntte_full_sync_compact_defer=true\n'
+        '        if(_set_area) with(_generation) scrFRContinueGenerationBegin(true);\n'
+        '\n'
+        '        global.ntte_full_sync_generation=_old_sync\n'
+        '        if (!instance_exists(BackCont)) instance_create(0,0,BackCont)\n')
+    replacement = anchor.replace(
+        '        _generation=instance_create(0,0,GenCont)\n',
+        '        // Authored area_setup runs immediately in GenCont.Create.\n'
+        '        // Its target background must exist while the old one is inactive.\n'
+        '        if (!instance_exists(BackCont)) instance_create(0,0,BackCont)\n'
+        '        _generation=instance_create(0,0,GenCont)\n', 1)
+    replacement = replacement.replace(
+        '        global.ntte_full_sync_generation=_old_sync\n'
+        '        if (!instance_exists(BackCont)) instance_create(0,0,BackCont)\n',
+        '        global.ntte_full_sync_generation=_old_sync\n', 1)
+    _replace(path, anchor, replacement, report)
+
+
 def apply(project):
     """Patch exact real generation, terrain and transition consumption sites."""
     report = []
@@ -109,6 +143,7 @@ def apply(project):
     _insert(_path(project, "scrNTTEFullInRoomGeneration"),
             'function scrNTTEFullAreaNativeInit() {',
             '\n    if(variable_global_exists("fr_area_ids")) scrFRRegisterAreas();\n', report)
+    _sync_background_before_setup(_path(project, "scrNTTEFullInRoomGeneration"), report)
     # NTT callbacks read the original spawn and exclusion radius directly
     # from GenCont. Publish native equivalents before area/event setup; the
     # normal async and synchronous Create paths share this lifecycle edge.

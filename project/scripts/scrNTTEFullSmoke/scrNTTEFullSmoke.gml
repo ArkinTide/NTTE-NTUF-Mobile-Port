@@ -61,6 +61,10 @@ function scrNTTEFullSmokeStep() {
         global.ntte_full_test_count=0;
         scrNTTESmokeLog("FULL INTERNAL BEGIN @"+string(30/timescale))
 // BEGIN FRONTIER TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierAmmoPickupTests")) {scrFRIntegrationTestStart("ammo-pickups");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierOutlineTests")) {scrFRIntegrationTestStart("outline");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierSealSpinAudioTests")) {scrFRIntegrationTestStart("seal-spin-audio");return;}
+if(scrNTTEFullSmokeAsyncCase("HyperionProjectileTests")) {scrFRIntegrationTestStart("hyperion-projectiles");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierCoreTests")) {scrFRIntegrationTestStart("core");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierWeaponTests")) {scrFRIntegrationTestStart("weapons");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierAreaTests")) {scrFRIntegrationTestStart("areas");return;}
@@ -77,6 +81,10 @@ if(scrNTTEFullSmokeAsyncCase("FrontierVisualTests")) {scrFRIntegrationTestStart(
 if(scrNTTEFullSmokeAsyncCase("FrontierEventTests")) {scrFRIntegrationTestStart("events");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierPromptTests")) {scrFRIntegrationTestStart("prompts");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierWallFixTests")) {scrFRIntegrationTestStart("wall-fixes");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierInRoomAreaTests")) {scrFRIntegrationTestStart("inroom-frontier");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierWeaponVisualTests")) {scrFRIntegrationTestStart("weapon-visual");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBubblesPreferenceTests")) {scrFRIntegrationTestStart("bubbles-preference");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierMenuStatisticsTests")) {scrFRIntegrationTestStart("menu-statistics");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierPlayerWallTests")) {scrFRIntegrationTestStart("player-wall");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierGroundWeaponTests")) {scrFRIntegrationTestStart("ground-weapon");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierProtoChestTests")) {scrFRIntegrationTestStart("proto-chest");return;}
@@ -100,6 +108,23 @@ if(scrNTTEFullSmokeAsyncCase("FrontierContinueReadTests")) {scrFRIntegrationTest
 // BEGIN FRONTIER PALACE BLOCK TEST ENTRY
 if(scrNTTEFullSmokeAsyncCase("FrontierPalaceBlockTests")) {scrFRIntegrationTestStart("palace-block");return;}
 // END FRONTIER PALACE BLOCK TEST ENTRY
+// BEGIN FRONTIER BLIZZARD TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBlizzardTests")) {scrFRIntegrationTestStart("blizzard-perf");return;}
+// END FRONTIER BLIZZARD TEST ENTRY
+// BEGIN FRONTIER BLIZZARD LIVE TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBlizzardLiveTests")) {scrFRIntegrationTestStart("blizzard-live");return;}
+// END FRONTIER BLIZZARD LIVE TEST ENTRY
+// BEGIN FRONTIER AURORA NATIVE TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierAuroraNativeTests")) {scrFRIntegrationTestStart("aurora-native");return;}
+// END FRONTIER AURORA NATIVE TEST ENTRY
+// BEGIN FRONTIER PALACE PLAYER CONTACT TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierPalacePlayerContactTests")) {scrFRIntegrationTestStart("palace-player-contact");return;}
+// END FRONTIER PALACE PLAYER CONTACT TEST ENTRY
+// BEGIN FRONTIER ENEMY VISIBILITY DIAGNOSTIC ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierEnemyVisibilityTests")) {scrFRIntegrationTestStart("enemy-visibility");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierEnemyCloneTopTests")) {scrFRIntegrationTestStart("enemy-visibility-clone");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierEnemyCloneTossTests")) {scrFRIntegrationTestStart("enemy-visibility-toss");return;}
+// END FRONTIER ENEMY VISIBILITY DIAGNOSTIC ENTRY
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}
         if(scrNTTEFullSmokeAsyncCase("Release124SpiderRouteTests")) {scrRelease124SpiderRouteTests();return;}

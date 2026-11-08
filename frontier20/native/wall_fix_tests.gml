@@ -214,6 +214,7 @@ function scrFRWallFixLocalOrbTests(_state) {
         var _source_before=scrNTTEFullInstances(all);
         // Same real Destroy/native generator, first without any OLD pack.
         scrNTTEFullInRoomOverlapUnfold(_origin,_seed);
+        scrFROrbWallTestsGenerated(_source_before,_seed,0);
         var _source_boxes=scrFRWallFixSourceFootprints(_source_before);
         scrFRWallFixTestsReset(_state);
         _origin=scrNTTEFullInRoomOverlapConfigure(_state,_seed);
@@ -222,8 +223,10 @@ function scrFRWallFixLocalOrbTests(_state) {
         scrNTTESolidWallGenerate();
         var _far=scrNTTESolidWallBlock(_origin[0]+2400,_origin[1]-128,256,256),
             _farid=real(_far),_x=_far.x,_y=_far.y;
+        var _orb_before=scrNTTEFullInstances(TopSmall);
         // Genuine CrystalHeartBullet.Destroy -> GenCont -> source reconciliation.
         scrNTTEFullInRoomOverlapUnfold(_origin,_seed);
+        scrFROrbWallTestsGenerated(_orb_before,_seed,1);
         assert(instance_exists(_far) && real(_far)==_farid && _far.x==_x && _far.y==_y
             && _far.ntte_fill_width==256 && _far.ntte_fill_height==256 && _far.ntte_fill_color==_old_color,
             "A local area orb replaced a distant old packed wall");
@@ -384,6 +387,7 @@ function scrFRWallFixTests() {
     try {
         scrFRWallFixColorTests(_state);
         scrFRWallFixLiveBiomeTests(_state);
+        scrFROrbWallTestsControls(_state);
         scrFRWallFixLocalOrbTests(_state);
         scrFRWallFixTopSpawnTests(_state);
         scrFRWallFixHiddenRoomTests(_state);

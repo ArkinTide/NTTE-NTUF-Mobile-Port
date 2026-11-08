@@ -165,7 +165,7 @@ function scrNTTEFullScytheFire(_weapon,_primary,_state) {
         snd_play(sndBlackSword,0.8+random(0.3));
         if(_heavy) { snd_play(sndHammer,1-random(0.2),0.6); snd_play(sndSwapHammer,1.3+random(0.2),0.6); }
         motion_add(_d+30*_flip,(3+_heavy)*timescale);
-        scr_weapon_post(gunangle,_heavy?-5:5,2,6+10*_heavy);
+        scr_weapon_post(gunangle,6+10*_heavy,2,_heavy?-5:5);
         if(_heavy) sleep(12);
         return _slash;
     }
@@ -177,11 +177,11 @@ function scrNTTEFullScytheFire(_weapon,_primary,_state) {
     }
     if(_slug) {
         snd_play(sndHeavyCrossbow,0.9+random(0.3),2/3); snd_play(sndBloodHammer,1.1+random(0.2),2/3);
-        motion_add(gunangle+180,3*timescale); scr_weapon_post(gunangle,12,15,17); sleep(40);
+        motion_add(gunangle+180,3*timescale); scr_weapon_post(gunangle,17,15,12); sleep(40);
     }
     else {
         snd_play(sndSuperCrossbow,0.9+random(0.3),0.5); snd_play(sndBloodLauncherExplo,1.2+random(0.3),0.5);
-        scr_weapon_post(gunangle,6,7,3); sleep(4);
+        scr_weapon_post(gunangle,3,7,6); sleep(4);
     }
     return _arrow;
 }

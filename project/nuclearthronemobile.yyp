@@ -60796,6 +60796,132 @@
         "name": "sprFRStormsLoadout",
         "path": "sprites/sprFRStormsLoadout/sprFRStormsLoadout.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_blizzard_performance_tests",
+        "path": "scripts/scrFrontier_blizzard_performance_tests/scrFrontier_blizzard_performance_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_orb_wall_tests",
+        "path": "scripts/scrFrontier_orb_wall_tests/scrFrontier_orb_wall_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_orb_walls",
+        "path": "scripts/scrFrontier_orb_walls/scrFrontier_orb_walls.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_hud",
+        "path": "scripts/scrFrontier_bubbles_hud/scrFrontier_bubbles_hud.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_preference_tests",
+        "path": "scripts/scrFrontier_bubbles_preference_tests/scrFrontier_bubbles_preference_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_preferences",
+        "path": "scripts/scrFrontier_bubbles_preferences/scrFrontier_bubbles_preferences.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_inroom_frontier_tests",
+        "path": "scripts/scrFrontier_inroom_frontier_tests/scrFrontier_inroom_frontier_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menu_audio_boot_tests",
+        "path": "scripts/scrFrontier_menu_audio_boot_tests/scrFrontier_menu_audio_boot_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_weapon_visual_tests",
+        "path": "scripts/scrFrontier_weapon_visual_tests/scrFrontier_weapon_visual_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_blizzard_live_tests",
+        "path": "scripts/scrFrontier_blizzard_live_tests/scrFrontier_blizzard_live_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menu_statistics_tests",
+        "path": "scripts/scrFrontier_menu_statistics_tests/scrFrontier_menu_statistics_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_weather_performance",
+        "path": "scripts/scrFrontier_weather_performance/scrFrontier_weather_performance.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_ammo_pickup_tests",
+        "path": "scripts/scrFrontier_ammo_pickup_tests/scrFrontier_ammo_pickup_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_hyperion_projectile_tests",
+        "path": "scripts/scrFrontier_hyperion_projectile_tests/scrFrontier_hyperion_projectile_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_hyperion_projectiles",
+        "path": "scripts/scrFrontier_hyperion_projectiles/scrFrontier_hyperion_projectiles.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_palace_player_contact_tests",
+        "path": "scripts/scrFrontier_palace_player_contact_tests/scrFrontier_palace_player_contact_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_enemy_visibility_tests",
+        "path": "scripts/scrFrontier_enemy_visibility_tests/scrFrontier_enemy_visibility_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_seal_spin_audio",
+        "path": "scripts/scrFrontier_seal_spin_audio/scrFrontier_seal_spin_audio.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_seal_spin_audio_tests",
+        "path": "scripts/scrFrontier_seal_spin_audio_tests/scrFrontier_seal_spin_audio_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_outline_tests",
+        "path": "scripts/scrFrontier_outline_tests/scrFrontier_outline_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_enemy_visibility_fixes",
+        "path": "scripts/scrFrontier_enemy_visibility_fixes/scrFrontier_enemy_visibility_fixes.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

@@ -19,6 +19,18 @@ def apply(project):
         body = body.replace(anchor, anchor + "\n" + marker, 1)
         paths[0].write_text(raw[:start] + body + raw[end:], encoding="utf8")
     raw = paths[0].read_text(encoding="utf8")
+    start = raw.index("function fr_Objects_Frontier_Palace_mod_gml_crushBlock_step(")
+    end = raw.index("\n// Original ", start)
+    body = raw[start:end]
+    marker = "scrFRPalaceRememberPush(scrFROther(other));"
+    if marker not in body:
+        for anchor in ("var _frl_oldX = x;", "var _frl_oldY = y;"):
+            assert body.count(anchor) == 1
+            body = body.replace(anchor, anchor + "\n" + marker, 1)
+        paths[0].write_text(raw[:start] + body + raw[end:], encoding="utf8")
+    else:
+        assert body.count(marker) == 2
+    raw = paths[0].read_text(encoding="utf8")
     start = raw.index("function fr_Objects_Frontier_Palace_mod_gml_CrushBlockSmush_create(")
     end = raw.index("\n// Original ", start)
     body = raw[start:end]
@@ -35,6 +47,9 @@ def apply(project):
     patch(project, "objects/Wall/Collision_Wall.gml", "PALACE MOVING WALL",
           "if(scrFRPalaceBlockWallPair(id,other.id)) exit;",
           anchor="if (id > other.id) instance_destroy()", before=True)
+    patch(project, "objects/Player/Collision_Wall.gml", "PALACE PLAYER CONTACT",
+          "if(scrFRPalacePlayerWallCollision(other.id)) exit;",
+          anchor="if (hammerhead && hammering > 6) {", before=True)
     # Tests stay in their own explicit desktop case. Inserting them into the
     # staged dispatcher leaves the maintained native tests file untouched.
     patch(project, "scripts/scrFrontier_tests/scrFrontier_tests.gml", "PALACE BLOCK TEST DRIVER",
@@ -53,5 +68,23 @@ def apply(project):
     patch(project, "scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml", "PALACE BLOCK TEST ENTRY",
           'if(scrNTTEFullSmokeAsyncCase("FrontierPalaceBlockTests")) {scrFRIntegrationTestStart("palace-block");return;}',
           anchor='        if(scrNTTEFullSmokeAsyncCase("Release127PerfTests"))', before=True)
+    patch(project, "scripts/scrFrontier_tests/scrFrontier_tests.gml", "PALACE PLAYER CONTACT TEST DRIVER",
+          'if(fr_test_case=="palace-player-contact") {\n'
+          '    if(!variable_instance_exists(id,"fr_palace_contacts")) {\n'
+          '        if(!scrFRReadyTick()) return;\n'
+          '        if(++fr_test_ticks<45) return;\n'
+          '        scrFRPalacePlayerContactTestsStart(id);\n'
+          '    }\n'
+          '    if(scrFRPalacePlayerContactTestsStep(id)) {\n'
+          '        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");\n'
+          '        game_end();\n'
+          '    }\n'
+          '    return;\n'
+          '}', anchor="function scrFRIntegrationTestStep() {")
+    patch(project, "scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml", "PALACE PLAYER CONTACT TEST ENTRY",
+          'if(scrNTTEFullSmokeAsyncCase("FrontierPalacePlayerContactTests")) {scrFRIntegrationTestStart("palace-player-contact");return;}',
+          anchor='        if(scrNTTEFullSmokeAsyncCase("Release127PerfTests"))', before=True)
     return {"moving_wall_proxy": True, "impact_lifetime_after_native_collision": True,
-            "impact_damage_once_per_victim": True, "native_case": "FrontierPalaceBlockTests"}
+            "impact_damage_once_per_victim": True, "player_contact_uses_authored_push": True,
+            "native_case": "FrontierPalaceBlockTests",
+            "player_contact_case": "FrontierPalacePlayerContactTests"}

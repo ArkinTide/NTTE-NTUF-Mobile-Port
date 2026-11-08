@@ -324,8 +324,8 @@ def apply(project):
     patch(project,"scripts/scrPowers/scrPowers.gml","WEAPON CUZ THROW REMOVE",
           "if(i<array_length(_fr_throw_states)) array_delete(_fr_throw_states,i,1);",
           anchor='\t\tarray_delete(_weps, i, 1)')
-    patch(project,"objects/Player/Step_0.gml","WEAPON PRIMARY RELOAD","scrFRWeaponReloaded(true);",anchor='\t\tif (reload <= 0) {')
-    patch(project,"objects/Player/Step_0.gml","WEAPON SECONDARY RELOAD","scrFRWeaponReloaded(false);",anchor='\t\tif (breload <= 0) {')
+    patch(project,"objects/Player/Step_0.gml","WEAPON PRIMARY RELOAD","var _fr_reloaded=scrFRWeaponReloaded(true);",anchor='\t\tif (reload <= 0) {')
+    patch(project,"objects/Player/Step_0.gml","WEAPON SECONDARY RELOAD","var _fr_breloaded=scrFRWeaponReloaded(false);",anchor='\t\tif (breload <= 0) {')
     for getter,prop in (("scr_weapon_get_cost","cost"),("scr_weapon_get_load","load"),("scr_weapon_get_sprite","sprt"),("scr_weapon_is_auto","auto")):
         patch(project,"scripts/scr_weapon_get_type/scr_weapon_get_type.gml","WEAPON DYNAMIC "+prop.upper(),
               'var _fr_property=scrFRWeaponRuntimeProperty(_weapon,"'+prop+'");\nif(!is_undefined(_fr_property)) return _fr_property;',

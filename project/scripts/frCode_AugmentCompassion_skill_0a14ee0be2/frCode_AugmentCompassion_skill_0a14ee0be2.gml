@@ -216,6 +216,9 @@ on_wall = fr_Mutations_AugmentCompassion_skill_gml_nothing;
 on_hit = fr_Mutations_AugmentCompassion_skill_gml_nothing;
 ;
 on_projectile = fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify;
+// BEGIN FRONTIER HYPERION GRENADE COLLISION
+on_grenade = fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify;
+// END FRONTIER HYPERION GRENADE COLLISION
 ;
 { var __fr_with4 = scrFRWithValues(scrFRInstanceCreate((x + lengthdir_x(dist, angle)), (y + lengthdir_y(dist, angle)), BulletHit)), __fr_break6=false;
 for (var __fr_index5=0; __fr_index5<array_length(__fr_with4); ++__fr_index5) {
@@ -274,7 +277,7 @@ image_index = 0;
 }
 if ((shockCooldown <= 0)) {
 {
-var _frl__nearestProjectile = frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRMatchingNE(scrFRMatchingNE(projectile, "typ", 0), "team", team));
+var _frl__nearestProjectile = frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRHyperionEnemyProjectiles() /* FRONTIER HYPERION HOSTILE TARGETS */);
 ;
 if (((distance_to_object(enemy) < 48) || (distance_to_object(_frl__nearestProjectile) < 64))) {
 {
@@ -338,6 +341,9 @@ on_wall = fr_Mutations_AugmentCompassion_skill_gml_nothing;
 on_hit = fr_Mutations_AugmentCompassion_skill_gml_DroneShock_hit;
 ;
 on_projectile = fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify;
+// BEGIN FRONTIER HYPERION GRENADE COLLISION
+on_grenade = fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify;
+// END FRONTIER HYPERION GRENADE COLLISION
 ;
 return scrFRSelf(self);
 ;
@@ -386,6 +392,9 @@ image_yscale = image_xscale;
 
 // Original Mutations/AugmentCompassion.skill.gml:174
 function fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify() {
+// BEGIN FRONTIER HYPERION HOSTILE COLLISION
+if(!scrFRHyperionEnemyProjectile(scrFROther(other))) return;
+// END FRONTIER HYPERION HOSTILE COLLISION
 if ((scrFRInstanceExists(scrFRSelf(self)) && ((scrFROther(other)).typ > 0))) {
 {
 { var __fr_with1 = scrFRWithValues((scrFROther(other))), __fr_break3=false;

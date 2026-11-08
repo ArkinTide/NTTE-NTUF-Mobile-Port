@@ -66,6 +66,11 @@ function scrNTTESmokeSave() {
 
 function scrNTTESmokeStep() {
     if (room!=romGame || !instance_exists(UberCont)) return;
+// BEGIN FRONTIER MENU AUDIO COLD BOOT
+if(scrFRMenuAudioBootTestsSelected()) {
+    scrFRMenuAudioBootTestsStep(id);return;
+}
+// END FRONTIER MENU AUDIO COLD BOOT
     if (phase==0) {
         instance_destroy(MainMenu,false)
         instance_destroy(SpiralCont,false)
