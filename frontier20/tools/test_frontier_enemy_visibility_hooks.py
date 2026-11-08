@@ -18,6 +18,9 @@ class EnemyVisibilityHooks(unittest.TestCase):
             "scripts/scrFrontier_tests/scrFrontier_tests.gml",
             "scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml",
         ]
+        labs=list((ROOT/"staging/project/scripts").glob("frCode_Frontier_Labs_mod_*/*.gml"))
+        self.assertEqual(1,len(labs))
+        paths.append(str(labs[0].relative_to(ROOT/"staging/project")))
         with tempfile.TemporaryDirectory() as temporary:
             target = Path(temporary)
             for relative in paths:
@@ -37,6 +40,11 @@ class EnemyVisibilityHooks(unittest.TestCase):
                             clone.index("scrNTTEFullCrystalCloneEffect(x,y,target.x,target.y)"))
             self.assertLess(clone.index("scrFREnemyCloneOwnToss(_source,target);"),
                             clone.index("scrNTTEFullCrystalCloneEffect(x,y,target.x,target.y)"))
+            source=(target/paths[-1]).read_text(encoding="utf-8-sig")
+            self.assertEqual(1,source.count("scrFREnemyPossessionValidateHost();"))
+            step=source.index("function fr_Objects_Frontier_Labs_mod_gml_Voltergeist_step() {")
+            self.assertLess(source.index("scrFREnemyPossessionValidateHost();",step),
+                            source.index('scrFRVariableExists(scrFRSelf(self), "on_alrm1")',step))
 
 
 if __name__ == "__main__":

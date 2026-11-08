@@ -30,7 +30,25 @@ var _fr_visibility_hit=undefined;
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
     _fr_visibility_hit=scrFREnemyVisibilityBulletBefore(id,other.id);
 // END FRONTIER VISIBILITY TEST READONLY BULLET BEFORE
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY HIT BEFORE
+var _fr_biome_hit=undefined;
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    _fr_biome_hit=scrFRBiomeClearance204BulletBefore(id,other.id);
+// END FRONTIER BIOME CLEARANCE204 READONLY HIT BEFORE
+// BEGIN FRONTIER BIOME CLEARANCE204 MAP HIT BEFORE
+var _fr_biome_map_hit=undefined;
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    _fr_biome_map_hit=scrFRBiomeClearance204MapBulletBefore(id,other.id);
+// END FRONTIER BIOME CLEARANCE204 MAP HIT BEFORE
 scr_projectile_generic_bullet_hit()
+// BEGIN FRONTIER BIOME CLEARANCE204 MAP HIT AFTER
+if(!is_undefined(_fr_biome_map_hit)) scrFRBiomeClearance204MapBulletAfter(_fr_biome_map_hit);
+// END FRONTIER BIOME CLEARANCE204 MAP HIT AFTER
+
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY HIT AFTER
+if(!is_undefined(_fr_biome_hit)) scrFRBiomeClearance204BulletAfter(_fr_biome_hit);
+// END FRONTIER BIOME CLEARANCE204 READONLY HIT AFTER
+
 // BEGIN FRONTIER VISIBILITY TEST READONLY BULLET AFTER
 if(!is_undefined(_fr_visibility_hit)) scrFREnemyVisibilityBulletAfter(_fr_visibility_hit);
 // END FRONTIER VISIBILITY TEST READONLY BULLET AFTER

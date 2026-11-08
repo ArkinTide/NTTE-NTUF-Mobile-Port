@@ -210,7 +210,7 @@ function scrGamepadAnykey() {
 	else if scrNTTEGamepadButton(gp_stickl,keystate_press) {
         return gp_stickl
     }
-	else if scr_keyboard_check_pressed(gp_stickr) {
+	else if scrNTTEGamepadButton(gp_stickr,keystate_press) { // FRONTIER CONTROLLER 204 RIGHT STICK BUTTON
         return gp_stickr
     }
 
@@ -218,6 +218,7 @@ function scrGamepadAnykey() {
 }
 
 function scrHandleInputsGeneral(_index) {
+    scrFRGamepadAvailability204(_index); // FRONTIER CONTROLLER 204 CONNECTION
 // BEGIN NTTE LAIR BATTLE EXIT READONLY MENU SAMPLE general.enter
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullLairBattleExitNaturalTest))
     scrNTTEFullLairBattleExitMenuSample("general.enter",_index);
@@ -413,6 +414,7 @@ catch(_ntte_palace_carry_error) { scrNTTEFullPalaceArtifactPortalCarryAbort(_ntt
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullQuestCarryTest)) try { scrNTTEFullQuestCarryInput(_k,_index); }
 catch(_ntte_quest_carry_error) { scrNTTEFullQuestCarryAbort(_ntte_quest_carry_error); }
 // END NTTE QUEST ARTIFACT CARRY LIFECYCLE TEST INPUT
+    scrFRPocketTeleporterSample204(_index); // FRONTIER POCKET 204 RAW INPUT START
     scrFRTouchPoll(); // FRONTIER TOUCH MENU RAW SAMPLES
 }
 
@@ -453,6 +455,7 @@ function scrSetCardinalDirectionInputs(_index) {
 }
 
 function scrSetGamepadInputs(_index = 0) {
+    scrFRGamepadInputs204(_index); return; // FRONTIER CONTROLLER 204 ANALOGUE EDGES
 	#region Left stick
 		
 	    var _kh = scrNTTEGamepadAxis(gp_axislh)
@@ -554,6 +557,7 @@ function scrNTTEGamepadChooseDevice(_available,_previous=-1) {
     return -1;
 }
 function scrNTTEGamepadDeviceIndex(_logical=global.index) {
+    return scrFRGamepadDevice204(_logical); // FRONTIER CONTROLLER 204 STABLE UNIQUE SLOTS
     if(os_type!=os_android) return _logical;
     var _frame=global.__input_frame;
     if(variable_global_exists("ntte_gamepad_poll_frame") && global.ntte_gamepad_poll_frame==_frame) return global.ntte_gamepad_device;

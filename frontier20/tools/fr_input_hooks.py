@@ -63,6 +63,12 @@ def apply(project):
     for hook in hook_specs():
         path = project / hook["path"]
         text = changed.get(path, path.read_text("utf-8-sig"))
+        # input204 replaces the complete legacy centre-ray/back-off block.
+        # Incremental staging must not try to reintroduce its removed locals.
+        if ("// FRONTIER TOUCH DASH INITIAL " in hook["marker"]
+                and "// FRONTIER POCKET 204 CONTINUOUS MASK SWEEP" in text):
+            report.append({"path": hook["path"], "status": "superseded-mask-sweep"})
+            continue
         if hook["replacement"] in text:
             report.append({"path": hook["path"], "status": "already-applied"})
             continue

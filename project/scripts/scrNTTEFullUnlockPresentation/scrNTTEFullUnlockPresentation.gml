@@ -502,6 +502,7 @@ function scrNTTEFullIsSimplifiedChinese() {
 function scrNTTEFullLocalizeInstall() {
     if(!variable_global_exists("ntte_zh_dictionary")) scrNTTEFullLocalizeDictionary()
     scrUGLocalize();
+    scrFRLightringLocalizationInstall(); // FRONTIER LIGHTRING DISPLAY
     global.ntte_zh_keys=variable_struct_get_names(global.ntte_zh_dictionary)
     global.ntte_zh_cache={}
     if(!variable_global_exists("language_store") || !is_struct(global.language_store)) return;
@@ -565,7 +566,7 @@ function scrNTTEFullWeaponNameFragments(_text) {
             ["GOLDEN","黄金"],["GRENADE","榴弹"],["GUARDED","守卫"],["GUITAR","吉他"],
             ["GUN","枪"],["HAMMER","锤"],["HARPOON","鱼叉"],["HEAVY","重型"],["HYPER","高阶"],
             ["INCINERATOR","焚烧炉"],["ION","离子"],["JACKHAMMER","风镐"],["LASER","激光"],
-            ["LAUNCHER","发射器"],["MACHINEGUN","机枪"],["MINIGUN","速射机枪"],["MISSILE","导弹"],
+            ["LIGHTRING","电环"],["LAUNCHER","发射器"],["MACHINEGUN","机枪"],["MINIGUN","速射机枪"],["MISSILE","导弹"],
             ["MISSING","遗失"],["NET","网状"],["NUKE","核弹"],["PARTS","部件"],["PARTY","派对"],
             ["PISTOL","手枪"],["PLASMA","等离子"],["POP","砰砰"],["QUADRUPLE","四管"],
             ["REVOLVER","左轮"],["RIFLE","步枪"],["ROGUE","叛警"],["RUSTY","生锈"],

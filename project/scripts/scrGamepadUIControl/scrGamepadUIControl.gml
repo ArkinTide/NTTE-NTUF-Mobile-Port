@@ -1,4 +1,12 @@
 function scrGamepadUIControl() {
+// BEGIN FRONTIER MENU204 INPUT MODE OWNERSHIP
+// Touch movement edges are not native keyboard/controller menu navigation.
+if(!KeyCont.keyboard[global.index] && !KeyCont.gamepad[global.index]) {
+    gamepad_h=0;gamepad_v=0;return;
+}
+// END FRONTIER MENU204 INPUT MODE OWNERSHIP
+
+
     gamepad_h = KeyCont.press_east[global.index] - KeyCont.press_west[global.index]
 	gamepad_v = KeyCont.press_sout[global.index] - KeyCont.press_nort[global.index]
 	

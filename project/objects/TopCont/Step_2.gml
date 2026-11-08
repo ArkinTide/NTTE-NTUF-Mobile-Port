@@ -24,7 +24,9 @@ if (!instance_exists(Player)
 		
 		exit
 	}
-    if (!UberCont.paused && !instance_exists(GameOver) && !scrNTTEFullUnlockPendingPortrait()) { // NTTE OWNED UNLOCK DEATH GATE
+    // FRONTIER BLUESCREEN 204 PENDING DEATH
+    if (!UberCont.paused && !instance_exists(GameOver) && !scrNTTEFullUnlockPendingPortrait()
+        && !scrFRBluescreenPendingAdmission204()) { // NTTE OWNED UNLOCK DEATH GATE
         if (!instance_exists(UnlockScreen) && instance_exists(GameCont)
 			&& !scrGameIsGenerationScreen() && !instance_exists(Menu) && !instance_exists(MenuGen)
 		) {

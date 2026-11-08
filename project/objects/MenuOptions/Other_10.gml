@@ -350,6 +350,15 @@ if _mx != mx_last || _my != my_last || mouse_check_button_pressed(mb_any) {
 
 var kv = KeyCont.press_sout[global.index] - KeyCont.press_nort[global.index],
 	kh = KeyCont.press_east[global.index] - KeyCont.press_west[global.index]
+// BEGIN FRONTIER MENU204 OPTIONS INPUT MODE OWNERSHIP
+// Touch gameplay direction edges cannot navigate the options list.
+if(!KeyCont.keyboard[global.index] && !KeyCont.gamepad[global.index]) { kh=0;kv=0; }
+// END FRONTIER MENU204 OPTIONS INPUT MODE OWNERSHIP
+
+// BEGIN FRONTIER MENU INPUT204 OBSERVE OPTIONS DIRECTIONS
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRMenuInput204OptionsObserve(kh,kv);
+// END FRONTIER MENU INPUT204 OBSERVE OPTIONS DIRECTIONS
+
 
 if item_count != -1 {
 	if kv != 0 {

@@ -361,7 +361,7 @@ function scrFRButtonValue(_index,_action,_prefix) {
             return is_array(_touch) && _index<array_length(_touch) && _touch[_index];
         }
         if(UberCont.opt_gamepad) return (_prefix=="press")
-            ? input_gamepad_check_pressed(_index,gp_face1) : input_gamepad_check(_index,gp_face1);
+            ? scrNTTEGamepadButton(gp_face1,keystate_press,_index) : scrNTTEGamepadButton(gp_face1,keystate_hold,_index); // FRONTIER CONTROLLER 204 SOURCE CONFIRM
         return (_prefix=="press")?scr_keyboard_check_pressed(vk_enter):scr_keyboard_check_held(vk_enter);
     }
     var _key=_prefix+"_"+_action;

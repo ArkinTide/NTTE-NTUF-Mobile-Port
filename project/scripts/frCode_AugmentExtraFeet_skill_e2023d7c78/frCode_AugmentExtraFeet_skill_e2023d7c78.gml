@@ -71,6 +71,7 @@ return mut_extra_feet;
 
 // Original Mutations/AugmentExtraFeet.skill.gml:21
 function fr_Mutations_AugmentExtraFeet_skill_gml_skill_take() {
+    scrFRPocketTeleporterReset204(); // FRONTIER POCKET 204 skill_take
 { var __fr_with1 = scrFRWithValues(Player), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
@@ -98,6 +99,7 @@ if(__fr_break3) break;
 
 // Original Mutations/AugmentExtraFeet.skill.gml:34
 function fr_Mutations_AugmentExtraFeet_skill_gml_step() {
+    scrFRPocketTeleporterStep204(); return; // FRONTIER POCKET 204 step
 { var __fr_with1 = scrFRWithValues(Player), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
@@ -198,63 +200,9 @@ if(__fr_break3) break;
 
 // Original Mutations/AugmentExtraFeet.skill.gml:95
 function fr_Mutations_AugmentExtraFeet_skill_gml_dash() {
-if (scrFRButtonCheck(index, "east")) {
-fr_dashaugment_angle = 000;
-}
-if (scrFRButtonCheck(index, "nort")) {
-fr_dashaugment_angle = 090;
-}
-if (scrFRButtonCheck(index, "west")) {
-fr_dashaugment_angle = 180;
-}
-if (scrFRButtonCheck(index, "sout")) {
-fr_dashaugment_angle = 270;
-}
-if ((scrFRButtonCheck(index, "east") && scrFRButtonCheck(index, "nort"))) {
-fr_dashaugment_angle = 045;
-}
-if ((scrFRButtonCheck(index, "nort") && scrFRButtonCheck(index, "west"))) {
-fr_dashaugment_angle = 135;
-}
-if ((scrFRButtonCheck(index, "west") && scrFRButtonCheck(index, "sout"))) {
-fr_dashaugment_angle = 225;
-}
-if ((scrFRButtonCheck(index, "sout") && scrFRButtonCheck(index, "east"))) {
-fr_dashaugment_angle = 315;
-}
-var _frl__gogogo = true;
-;
-fr_dashaugment_length = 0;
-;
-while (_frl__gogogo) {
-if (((collision_line(x, y, (x + lengthdir_x(fr_dashaugment_length, fr_dashaugment_angle)), (y + lengthdir_y(fr_dashaugment_length, fr_dashaugment_angle)), Wall, 0, 1) || collision_line(x, y, (x + lengthdir_x(fr_dashaugment_length, fr_dashaugment_angle)), (y + lengthdir_y(fr_dashaugment_length, fr_dashaugment_angle)), InvisiWall, 0, 1)) || (fr_dashaugment_length >= (50 * scrFRGetSkill("AugmentExtraFeet"))))) {
-{
-var _frl_blinklengthfix = 0; // FRONTIER TOUCH DASH INITIAL blinklengthfix
-;
-var _frl_blink50fix = 0; // FRONTIER TOUCH DASH INITIAL blink50fix
-;
-if ((fr_dashaugment_length >= 40)) {
-{
-_frl_blink50fix = (((fr_dashaugment_length - 40) / 10) * 8);
-;
-}
-}
-while (((scrFRPlaceMeeting((x + lengthdir_x(((fr_dashaugment_length - _frl_blinklengthfix) + _frl_blink50fix), fr_dashaugment_angle)), (y + lengthdir_y(((fr_dashaugment_length - _frl_blinklengthfix) + _frl_blink50fix), fr_dashaugment_angle)), Wall) || scrFRPlaceMeeting((x + lengthdir_x(((fr_dashaugment_length - _frl_blinklengthfix) + _frl_blink50fix), fr_dashaugment_angle)), (y + lengthdir_y(((fr_dashaugment_length - _frl_blinklengthfix) + _frl_blink50fix), fr_dashaugment_angle)), InvisiWall)) && (_frl_blinklengthfix <= 14))) {
-_frl_blinklengthfix += 2;
-;
-}
-_frl_blinklengthfix *= 2;
-;
-fr_dashaugment_length -= _frl_blinklengthfix;
-;
-_frl__gogogo = false;
-;
-}
-} else {
-fr_dashaugment_length += 1;
-}
-;
-}
+// FRONTIER POCKET 204 CONTINUOUS MASK SWEEP
+fr_dashaugment_angle = scrFRPocketTeleporterAngle204(index);
+fr_dashaugment_length = scrFRPocketTeleporterDistance204(50 * scrFRGetSkill("AugmentExtraFeet"), fr_dashaugment_angle);
 lastx = x;
 ;
 lasty = y;

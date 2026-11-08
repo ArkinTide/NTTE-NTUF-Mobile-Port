@@ -21,6 +21,12 @@ if (!block_input_frames) {
 	// BEGIN FRONTIER BUBBLES STARTUP BEFORE REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBubblesStartupTestsBeforeInputSample();
 // END FRONTIER BUBBLES STARTUP BEFORE REAL INPUT
+// BEGIN FRONTIER BLUESCREEN UI204 BEFORE REAL INPUT
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBluescreenUITestsBeforeInput();
+// END FRONTIER BLUESCREEN UI204 BEFORE REAL INPUT
+// BEGIN FRONTIER MENU INPUT204 BEFORE REAL INPUT
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRMenuInput204BeforeInput();
+// END FRONTIER MENU INPUT204 BEFORE REAL INPUT
 scrHandleInputsGeneral(global.index)
 // BEGIN FRONTIER GROUND WEAPON REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRGroundWeaponTestsAfterInputSample();
@@ -30,7 +36,10 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegra
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBubblesStartupTestsAfterInputSample();
 // END FRONTIER BUBBLES STARTUP REAL INPUT
 
-	scrGamepadUIControl()
+	// BEGIN FRONTIER MENU INPUT204 AFTER REAL INPUT
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRMenuInput204AfterInput();
+// END FRONTIER MENU INPUT204 AFTER REAL INPUT
+scrGamepadUIControl()
 }
 else {
 	block_input_fire = true

@@ -12,7 +12,7 @@
 
 #macro frMacro_Frontier_Main_mod_gml_bbox_center_y (((bbox_top + scrFRSourceBBoxRead(scrFRSelf(self), "bbox_bottom")) + 1) / 2)
 
-#macro frMacro_Frontier_Main_mod_gml_currently_outside ((scrFRArrayFindIndex([1, 3, 5, 0, 105, "coast"], GameCont.area) >= 0) || (scrFRSourceAreaIsString(GameCont.area) && (scrFRModCall("area", GameCont.area, "area_outside") = true)))
+#macro frMacro_Frontier_Main_mod_gml_currently_outside scrFRSourceCurrentlyOutside(GameCont.area)
 
 // Original Frontier_Main.mod.gml:1
 function fr_Frontier_Main_mod_gml___load() {

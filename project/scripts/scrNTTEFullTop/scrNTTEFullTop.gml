@@ -195,6 +195,11 @@ scrFRFlyWallSpawn(id);
 }
 
 function scrNTTEFullTopEndStep() {
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY TOP FIRST STEP
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalLifecycle("Top.first-step",id,true);
+// END FRONTIER BIOME CLEARANCE204 READONLY TOP FIRST STEP
+
     if(lockstep_stop) return;
     if(!instance_exists(target)) {
         if(target!=noone) target=noone;
@@ -367,6 +372,11 @@ function _top_target_object(_wrapper) {
 }
 
 function scrNTTEFullTopDestroy() {
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY TOP DESTROY
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalLifecycle("Top.destroy-before",id);
+// END FRONTIER BIOME CLEARANCE204 READONLY TOP DESTROY
+
     if(!instance_exists(target)) return;
     with(target) {
         ntte_full_top_object=noone;

@@ -125,6 +125,45 @@ if(scrNTTEFullSmokeAsyncCase("FrontierEnemyVisibilityTests")) {scrFRIntegrationT
 if(scrNTTEFullSmokeAsyncCase("FrontierEnemyCloneTopTests")) {scrFRIntegrationTestStart("enemy-visibility-clone");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierEnemyCloneTossTests")) {scrFRIntegrationTestStart("enemy-visibility-toss");return;}
 // END FRONTIER ENEMY VISIBILITY DIAGNOSTIC ENTRY
+// BEGIN FRONTIER ENEMY POSSESSION DIAGNOSTIC ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierEnemyPossessionTests")) {scrFRIntegrationTestStart("enemy-possession");return;}
+// END FRONTIER ENEMY POSSESSION DIAGNOSTIC ENTRY
+// BEGIN FRONTIER POST203 COMPAT ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierPost203CompatTests")) {scrFRIntegrationTestStart("post203-compat");return;}
+// END FRONTIER POST203 COMPAT ENTRY
+// BEGIN FRONTIER POST203 WEATHER WALL ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierPost203WeatherWallTests")) {scrFRIntegrationTestStart("post203-weather-wall");return;}
+// END FRONTIER POST203 WEATHER WALL ENTRY
+// BEGIN FRONTIER BIOME CLEARANCE204 DIAGNOSTIC ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBiomeClearance204Tests")) {scrFRIntegrationTestStart("biome-clearance204");return;}
+// END FRONTIER BIOME CLEARANCE204 DIAGNOSTIC ENTRY
+// BEGIN FRONTIER BIOME CLEARANCE204 NATURAL DIAGNOSTIC ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBiomeClearance204NaturalTests")) {scrFRIntegrationTestStart("biome-clearance204-natural");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBiomeClearance204SuspectTests")) {scrFRIntegrationTestStart("biome-clearance204-suspects");return;}
+// END FRONTIER BIOME CLEARANCE204 NATURAL DIAGNOSTIC ENTRY
+// BEGIN FRONTIER BIOME CLEARANCE204 ACCEPTANCE ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBiomeClearance204AcceptanceTests")) {scrFRIntegrationTestStart("biome-clearance204-acceptance");return;}
+// END FRONTIER BIOME CLEARANCE204 ACCEPTANCE ENTRY
+// BEGIN FRONTIER DRONE204 PERFORMANCE ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierDronePerformance204Tests")) {scrFRIntegrationTestStart("drone-performance204");return;}
+// END FRONTIER DRONE204 PERFORMANCE ENTRY
+// BEGIN FRONTIER BIOME CLEARANCE204 MAP ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBiomeClearance204MapTests")) {scrFRIntegrationTestStart("biome-clearance204-maps");return;}
+// END FRONTIER BIOME CLEARANCE204 MAP ENTRY
+// BEGIN FRONTIER BLUESCREEN UI204 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Yes30Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-yes30");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Yes60Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-yes60");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204No30Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-no30");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204No60Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-no60");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Disabled30Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-disabled30");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Disabled60Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-disabled60");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Visited30Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-visited30");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Visited60Tests")) {scrFRIntegrationTestStart("bluescreen-ui204-visited60");return;}
+// END FRONTIER BLUESCREEN UI204 ENTRY
+// BEGIN FRONTIER MENU INPUT204 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierMenuInput20430Tests")) {scrFRIntegrationTestStart("menu-input204-30");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierMenuInput20460Tests")) {scrFRIntegrationTestStart("menu-input204-60");return;}
+// END FRONTIER MENU INPUT204 ENTRY
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}
         if(scrNTTEFullSmokeAsyncCase("Release124SpiderRouteTests")) {scrRelease124SpiderRouteTests();return;}

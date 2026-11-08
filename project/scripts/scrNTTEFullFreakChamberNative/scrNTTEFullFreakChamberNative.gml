@@ -91,8 +91,8 @@ function scrNTTEFullChamberRestore(_record) {
     return _v
 }
 function scrNTTEFullChamberTransition(_wall,_area) {
+    scrFRChamberWallStyle(_wall,_area);
     _wall.topspr=scrNTTEFullAreaWallSprite(_area,"Trans")
-    if(_wall.sprite_index==sprWall6Bot) _wall.sprite_index=scrNTTERefSprite("Wall6BotTrans")
 }
 function scrNTTEFullChamberMakeSlide(_wall,_path,_dir,_cx,_cy,_top=false) {
     var _slide=instance_create(_wall.x,_wall.y,NTTEFullWallSlide),_copy=[],
@@ -258,6 +258,7 @@ catch(_ntte_hq_stolen_error) { scrNTTEFullHQStolenContinueAbort(_ntte_hq_stolen_
                 }
                 else {
                     var _wall=instance_create(_top.x,_top.y,Wall)
+                    scrFRChamberWallStyle(_wall,area);
                     _wall.topspr=_top.values.sprite_index;_wall.topindex=_top.values.image_index
                     _wall.image_blend=_top.values.image_blend;_wall.image_alpha=_top.values.image_alpha
                     if(_wall.sprite_index==sprWall6Bot) _wall.sprite_index=scrNTTERefSprite("Wall6BotTrans")

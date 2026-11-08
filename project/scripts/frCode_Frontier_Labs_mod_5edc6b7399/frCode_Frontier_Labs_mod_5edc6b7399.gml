@@ -1222,6 +1222,10 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:923
 function fr_Objects_Frontier_Labs_mod_gml_Voltergeist_step() {
+// BEGIN FRONTIER POSSESSION HOST TEAM VALIDITY
+scrFREnemyPossessionValidateHost();
+// END FRONTIER POSSESSION HOST TEAM VALIDITY
+
 if ((scrFRVariableExists(scrFRSelf(self), "on_alrm1") and frMacro_Objects_Frontier_Labs_mod_gml_alarm1_run)) {
 exit;
 }

@@ -47,9 +47,12 @@ function scrFRPerformanceTestsNext(_driver) {
     var _state=_driver.fr_perf;
     global.fr_profile=false;
     if(++_state.index>=array_length(_state.cases)) {
-        var _file=file_text_open_write("frontier-performance.json");
+        var _path=working_directory+"frontier-performance.json",_file=file_text_open_write(_path);
+        assert(_file>=0,"Performance fixture could not open its explicit working-directory artifact");
         file_text_write_string(_file,json_stringify({rows:_state.rows,physical_device_tested:false}));
-        file_text_close(_file);_state.phase=3;return;
+        file_text_close(_file);
+        assert(file_exists(_path),"Performance fixture did not write its required native artifact");
+        _state.phase=3;return;
     }
     var _case=_state.cases[_state.index],_seed=_case[$ "seed"]??(7319+_case.area);
     save_set_value("options","framerate",_case.rate);

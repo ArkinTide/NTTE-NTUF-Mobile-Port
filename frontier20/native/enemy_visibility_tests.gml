@@ -20,6 +20,24 @@ function scrFREnemyVisibilitySnapshot(_actor) {
         possess_target_exists:instance_exists(_actor[$ "possess_target"]??noone),
         possess_target_hp:instance_exists(_actor[$ "possess_target"]??noone)?
             (_actor.possess_target[$ "hp"]??undefined):undefined,
+        possess_target_object:instance_exists(_actor[$ "possess_target"]??noone)?
+            object_get_name(_actor.possess_target.object_index):undefined,
+        possess_target_team:instance_exists(_actor[$ "possess_target"]??noone)?
+            (_actor.possess_target[$ "team"]??undefined):undefined,
+        possess_target_mask:instance_exists(_actor[$ "possess_target"]??noone)?
+            real(_actor.possess_target.mask_index):undefined,
+        possess_target_visible:instance_exists(_actor[$ "possess_target"]??noone)?
+            _actor.possess_target.visible:undefined,
+        possess_target_alpha:instance_exists(_actor[$ "possess_target"]??noone)?
+            _actor.possess_target.image_alpha:undefined,
+        possess_target_top:instance_exists(_actor[$ "possess_target"]??noone)?
+            real(_actor.possess_target[$ "ntte_full_top_object"]??noone):undefined,
+        possess_target_canfly:instance_exists(_actor[$ "possess_target"]??noone)?
+            (_actor.possess_target[$ "canfly"]??undefined):undefined,
+        possess_target_possessed:instance_exists(_actor[$ "possess_target"]??noone)?
+            (_actor.possess_target[$ "fr_possessed"]??undefined):undefined,
+        possess_target_possessor:instance_exists(_actor[$ "possess_target"]??noone)?
+            real(_actor.possess_target[$ "fr_possessor"]??noone):undefined,
         floor_contact:false,wall_contact:false,alarms:[]};
     with(_actor) {
         _row.floor_contact=place_meeting(x,y,Floor);
@@ -61,10 +79,12 @@ function scrFREnemyVisibilityTestsStart(_driver,_clone_only=false,_toss_only=fal
         && instance_exists(Player) && !instance_exists(GenCont),
         "Enemy visibility diagnostics require the settled isolated native runner");
     var _cases=[];
-    // Twelve independent seeds per loop profile, all three City subareas,
+    // Twelve independent seeds per loop profile, including the reported L1,
+    // all three City subareas,
     // using genuine asynchronous GenCont/FloorMaker and scheduled enemy AI.
-    for(var _i=0;_i<12;++_i) for(var _loop=0;_loop<2;++_loop)
-        array_push(_cases,{seed:103038+97*_i,loops:_loop*3,subarea:1+(_i mod 3),
+    var _loops=[0,1,3];
+    for(var _i=0;_i<12;++_i) for(var _loop=0;_loop<3;++_loop)
+        array_push(_cases,{seed:103038+97*_i,loops:_loops[_loop],subarea:1+(_i mod 3),
             rate:(_i mod 2)==0?30:60});
     _driver.fr_enemy_visibility={world:scrNTTEFullWorldEventsNaturalWorldCapture(),
         cases:_cases,index:-1,phase:_toss_only?10:(_clone_only?4:0),clone_only:_clone_only,
@@ -99,12 +119,35 @@ function scrFREnemyVisibilityNext(_state) {
 function scrFREnemyVisibilityNaturalCloneStart(_state) {
     var _case=_state.cases[_state.index],_rate=string(_case.rate);
     if(_state.natural_clone_rates[$ _rate]??false) return;
-    var _source=noone;
+    var _source=noone,_launch=undefined;
     with(enemy) if(hp>=12 && size<5 && team!=team_player && visible
         && image_alpha>0 && mask_index!=mskNone && !(self[$ "canfly"]??false)
         && (self[$ "intro"]??true)!=false && place_meeting(x,y,Floor)
-        && !place_meeting(x,y,Wall)) {_source=id;break;}
+        && !place_meeting(x,y,Wall)) {
+        // A grounded actor can still sit beside a wall that blocks Top's
+        // launch ray. Select the real falling-race precondition using the
+        // constructor's rounded wrapper coordinates and exact Floor/rays.
+        // Existing controllers are never reused or modified for this trial.
+        var _candidate=id,_existing=noone;
+        with(NTTEFullTopObject) if(target==_candidate) {_existing=id;break;}
+        if(instance_exists(_existing)) continue;
+        var _tx=round(x),_ty=round(y+8),_floor=instance_nearest(_tx-16,_ty-16,Floor);
+        if(!instance_exists(_floor) || instance_exists(NothingSpiral)) continue;
+        var _fx=(_floor.bbox_left+_floor.bbox_right+1)/2,
+            _fy=(_floor.bbox_top+_floor.bbox_bottom+1)/2,
+            _wall=collision_line(_tx,_ty+8,_fx,_fy,Wall,false,false),
+            _top_small=collision_line(_tx,_ty+8,_fx,_fy,TopSmall,false,false);
+        if(instance_exists(_wall) || instance_exists(_top_small)) continue;
+        _source=id;
+        _launch={source:scrFREnemyVisibilitySnapshot(id),
+            floor:{id:real(_floor),x:_floor.x,y:_floor.y,
+                bbox:[_floor.bbox_left,_floor.bbox_top,_floor.bbox_right,_floor.bbox_bottom]},
+            wrapper:[_tx,_ty],ray:{from:[_tx,_ty+8],to:[_fx,_fy],
+                wall:real(_wall),top_small:real(_top_small)}};
+        break;
+    }
     if(!instance_exists(_source)) return;
+    scrNTTESmokeLog("FRONTIER ENEMY VISIBILITY NATURAL CLONE LAUNCH "+json_stringify(_launch));
     var _clone=instance_create(_source.x,_source.y,NTTEFullCrystalClone);
     assert(array_get_index(_clone.clone,_source)>=0,
         "Natural City source was absent from the genuine grounded clone candidate snapshot");
@@ -122,7 +165,7 @@ function scrFREnemyVisibilityNaturalCloneStart(_state) {
         "Natural City clone did not acquire its own actual Top controller");
     _state.natural_clone={source:_source,copy:_copy,controller:_clone,
         source_top:_top,copy_top:_copy.ntte_full_top_object,phase:0,
-        before:scrFREnemyVisibilitySnapshot(_copy),host_ticks:0};
+        before:scrFREnemyVisibilitySnapshot(_copy),launch:_launch,host_ticks:0};
     _state.natural_clone_rates[$ _rate]=true;
 }
 
@@ -155,7 +198,7 @@ function scrFREnemyVisibilityNaturalCloneStep(_state) {
     assert(_hit,
         "Natural City landed clone could not be damaged by real friendly Bullet1 collision");
     _trial.after_hit=scrFREnemyVisibilitySnapshot(_copy);_trial.phase=2;
-    _state.row.natural_clone={before:_trial.before,landed:_trial.landed,
+    _state.row.natural_clone={launch:_trial.launch,before:_trial.before,landed:_trial.landed,
         after_hit:_trial.after_hit,damage:_trial.hp-_copy.hp,
         source:real(_trial.source),bullet:real(_trial.bullet),host_ticks:_trial.host_ticks,
         separated_hit_bodies:_trial.separated,actual_bullet_collision:_record};
@@ -233,7 +276,7 @@ function scrFREnemyVisibilityShotSnapshot(_shot) {
 function scrFREnemyVisibilityBulletBefore(_shot,_target) {
     var _driver=instance_find(FRIntegrationTest,0);
     if(!instance_exists(_driver)) return undefined;
-    var _state=_driver[$ "fr_enemy_visibility"]??undefined;
+    var _state=_driver[$ "fr_enemy_visibility"]??(_driver[$ "fr_enemy_possession"]??undefined);
     if(is_undefined(_state) || (_state[$ "active_hit_bullet"]??noone)!=_shot
         || (_state[$ "active_hit_target"]??noone)!=_target) return undefined;
     return {state:_state,bullet:real(_shot),target:real(_target),hp_before:_target.hp,
@@ -473,7 +516,7 @@ function scrFREnemyVisibilityTestsStep(_driver) {
         assert(!instance_exists(_ghost) || _ghost.hp<=0 || (!_ghost.possessing
             && _ghost.image_alpha==1 && _ghost.mask_index==_ghost.mask_nrml),
             "Natural Voltergeist failed to restore its own visible hittable body after real host death");
-        array_push(_state.ghost_rows,{before:_trial.before,after:_after,
+        array_push(_state.ghost_rows,{rate:30/timescale,before:_trial.before,after:_after,
             host:real(_host),host_exists:instance_exists(_host),host_hp_before:_trial.host_hp,
             host_after_object:instance_exists(_host)?object_get_name(_host.object_index):"destroyed"});
         array_push(_state.rows,_state.row);

@@ -56,6 +56,12 @@ function scrNTTEFullSingleplayerUIEntryTests() {
         // Real menu navigation consumes normal direction inputs and enumerates
         // actual buttons. This verifies traversal only, not physical Bluetooth.
         UberCont.opt_gamepad=true;UberCont.gamepad_sel=-1
+// BEGIN FRONTIER MENU INPUT204 DECLARED CONTROLLER FIXTURE MODE
+// This direct native navigation fixture owns a controller-mode sample.
+KeyCont.keyboard[global.index]=false;KeyCont.gamepad[global.index]=true;
+KeyCont.touch[global.index]=false;
+// END FRONTIER MENU INPUT204 DECLARED CONTROLLER FIXTURE MODE
+
         KeyCont.press_nort[global.index]=0;KeyCont.press_sout[global.index]=1
         KeyCont.press_east[global.index]=0;KeyCont.press_west[global.index]=0
         for(var _i=0;_i<4;++_i) {

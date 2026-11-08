@@ -5,8 +5,25 @@ import unittest
 
 from fr_enemy_hp_hooks import apply, enemy_types, EFFECTS, ROOT, MARKER
 
+READONLY_BIRTH = '''// BEGIN FRONTIER BIOME CLEARANCE204 READONLY BIRTH
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalCreated(id);
+// END FRONTIER BIOME CLEARANCE204 READONLY BIRTH'''
+
 
 class EnemyHPHookTests(unittest.TestCase):
+    def assert_final_hp_boundary(self, source, name, *, diagnostic=False):
+        hook = f'if(object_index=={name}) scrNTTEFullEnemyCreationHPFinish(); {MARKER}'
+        self.assertEqual(source.count(MARKER), 1, name)
+        self.assertEqual(source.count(hook), 1, name)
+        tail = source.split(hook, 1)[1].strip()
+        if tail:
+            # The isolated stage appends a strictly read-only birth witness.
+            # It must keep the complete Windows/smoke/driver guard and cannot
+            # move, replace or bypass the final production HP consumer.
+            self.assertTrue(diagnostic, (name, 'Unknown code after the HP finalizer'))
+            self.assertEqual(tail, READONLY_BIRTH, name)
+
     def fixture(self, folder):
         project = Path(folder)
         for name, parent in [('enemy', None), ('NTTEBase', 'enemy'),
@@ -75,9 +92,21 @@ class EnemyHPHookTests(unittest.TestCase):
             self.assertEqual(len(names), 56, relative)
             for name in names:
                 source = (project / 'objects' / name / 'Create_0.gml').read_text('utf-8-sig')
-                self.assertEqual(source.count(MARKER), 1, (relative, name))
-                self.assertTrue(source.rstrip().endswith(
-                    f'if(object_index=={name}) scrNTTEFullEnemyCreationHPFinish(); {MARKER}'))
+                self.assert_final_hp_boundary(source, name,
+                    diagnostic=relative == 'frontier20/staging/project' and name == 'NTTEBabyGator')
+
+    def test_final_hp_boundary_allows_only_the_exact_guarded_readonly_stage_probe(self):
+        source = 'event_inherited();\nmax_hp=16;hp=max_hp;\n' + \
+            f'if(object_index==NTTEBabyGator) scrNTTEFullEnemyCreationHPFinish(); {MARKER}\n'
+        self.assert_final_hp_boundary(source, 'NTTEBabyGator')
+        self.assert_final_hp_boundary(source + READONLY_BIRTH, 'NTTEBabyGator', diagnostic=True)
+        for suffix in (READONLY_BIRTH + '\nmax_hp=4;', READONLY_BIRTH + '\n' + READONLY_BIRTH,
+                       READONLY_BIRTH.replace('scrNTTEFullSmokeEnabled() && ', ''),
+                       READONLY_BIRTH.replace('os_type==os_windows', 'true')):
+            with self.subTest(suffix=suffix), self.assertRaises(AssertionError):
+                self.assert_final_hp_boundary(source + suffix, 'NTTEBabyGator', diagnostic=True)
+        with self.assertRaises(AssertionError):
+            self.assert_final_hp_boundary(source + READONLY_BIRTH, 'NTTEBabyGator')
 
     def test_absent_pending_field_and_luck_result_are_guarded_at_native_boundary(self):
         source = (ROOT / 'project' / EFFECTS).read_text('utf-8-sig')

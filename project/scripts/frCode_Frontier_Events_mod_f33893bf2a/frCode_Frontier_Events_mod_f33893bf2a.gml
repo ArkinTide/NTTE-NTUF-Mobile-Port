@@ -4585,7 +4585,7 @@ scrFRDrawSetVisible(index, true);
 ;
 scrFRDrawSpriteExt(global.fr_module_vars[$ "mod:Frontier_Events"].sprVignette, 0, x, y, ((0.6 + _frl_eyesRadius) + (scrFRGetSkill("bat ears") * 0.3)), ((0.6 + _frl_eyesRadius) + (scrFRGetSkill("bat ears") * 0.3)), 0, _frl__color, 1);
 ;
-scrFRDrawSpriteExt(global.fr_module_vars[$ "mod:Frontier_Events"].sprVignetteOuter, 0, x, y, (((0.6 + _frl_eyesRadius) + (scrFRGetSkill("bat ears") * 0.3)) * 3), (((0.6 + _frl_eyesRadius) + (scrFRGetSkill("bat ears") * 0.3)) * 3), 0, _frl__color, 1);
+scrFRBlizzardOuterMask(x, y, (0.6 + _frl_eyesRadius) + (scrFRGetSkill("bat ears") * 0.3), _frl__color);
 ;
 scrFRDrawSetVisibleAll(true);
 ;

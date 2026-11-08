@@ -18,6 +18,7 @@ function scrFRRuntimeInit() {
 
 function scrFRModuleKey(_kind,_name) {
     if(_kind=="wep") _kind="weapon";
+    if(is_string(_name)) return scrFRModuleStringKey(_kind,_name);
     if(!is_string(_name)) {
         if(_kind=="weapon") {
             // Source callbacks may pass a held lightweight record, while
@@ -40,15 +41,7 @@ function scrFRModuleKey(_kind,_name) {
         if(_kind=="skill") {var _key=scrFRSkillKey(_name);if(!is_undefined(_key)) _name=_key;}
         if(_kind=="area") {var _key=scrFRAreaKey(_name);if(_key!="") _name=_key;}
     }
-    _name=string_replace_all(string(_name),"\\","/");
-    if(string_pos(":",_name)>0) return global.fr_module_aliases[$ _name]??_name;
-    var _suffixes=[".mod.gml",".mod.ntgml",".wep.gml",".area.gml",".skill.gml",".race.gml",".skin.gml",".crown.gml"];
-    for(var _i=0;_i<array_length(_suffixes);++_i) {
-        var _suffix=_suffixes[_i],_at=string_length(_name)-string_length(_suffix)+1;
-        if(_at>0 && string_copy(_name,_at,string_length(_suffix))==_suffix) {_name=string_delete(_name,_at,string_length(_suffix));break;}
-    }
-    var _key=_kind+":"+_name;
-    return global.fr_module_aliases[$ _key]??_key;
+    return scrFRModuleStringKey(_kind,string(_name));
 }
 
 function scrFRRegisterModule(_key,_scripts) {
@@ -56,7 +49,6 @@ function scrFRRegisterModule(_key,_scripts) {
     global.fr_module_vars[$ _key]={};
     global.fr_module_scripts[$ _key]=_scripts;
     array_push(global.fr_module_order,_key);
-    scrFRLibPhaseRegistryChanged(); // FRONTIER OPTIONAL PHASE CACHE
 }
 
 function scrFRModLoaded(_kind,_module) {
@@ -96,6 +88,10 @@ function scrFRModSet(_kind,_module,_field,_value) {
 }
 
 function scrFRScriptExists(_kind,_module,_name) {
+    if(_kind=="area" && scrFRNTTENativeArea(_module)>=201) {
+        if(_name=="area_outside") return false;
+        if(_name=="area_underwater") return scrFRNTTEAreaPredicate(_module,_name)==true;
+    }
     var _key=scrFRModuleKey(_kind,_module);
     if(variable_struct_exists(global.fr_module_scripts,_key)) return (global.fr_initialized[$ _key]??false) && variable_struct_exists(global.fr_module_scripts[$ _key],_name);
     return scrFRNTTEScriptExists(_kind,_module,_name);
@@ -115,6 +111,8 @@ function scrFRModCall(_kind,_module,_name) {
 }
 
 function scrFRModCallArray(_kind,_module,_name,_args) {
+    if(_kind=="area" && (_name=="area_outside" || _name=="area_underwater")
+        && scrFRNTTENativeArea(_module)>=201) return scrFRNTTEAreaPredicate(_module,_name);
     var _key=scrFRModuleKey(_kind,_module);
     // Frontier loads its Iris weapons unconditionally but calls five factories
     // from an otherwise optional external Defpack. Vendor only that authored

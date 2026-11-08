@@ -60922,6 +60922,114 @@
         "name": "scrFrontier_enemy_visibility_fixes",
         "path": "scripts/scrFrontier_enemy_visibility_fixes/scrFrontier_enemy_visibility_fixes.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_post203_fixes",
+        "path": "scripts/scrFrontier_post203_fixes/scrFrontier_post203_fixes.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_post203_tests",
+        "path": "scripts/scrFrontier_post203_tests/scrFrontier_post203_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_input204",
+        "path": "scripts/scrFrontier_input204/scrFrontier_input204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_input204_tests",
+        "path": "scripts/scrFrontier_input204_tests/scrFrontier_input204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_post203_weather_wall",
+        "path": "scripts/scrFrontier_post203_weather_wall/scrFrontier_post203_weather_wall.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_post203_weather_wall_tests",
+        "path": "scripts/scrFrontier_post203_weather_wall_tests/scrFrontier_post203_weather_wall_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_enemy_possession_tests",
+        "path": "scripts/scrFrontier_enemy_possession_tests/scrFrontier_enemy_possession_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_biome_clearance204_tests",
+        "path": "scripts/scrFrontier_biome_clearance204_tests/scrFrontier_biome_clearance204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_biome_clearance204_natural_tests",
+        "path": "scripts/scrFrontier_biome_clearance204_natural_tests/scrFrontier_biome_clearance204_natural_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_biome_clearance204",
+        "path": "scripts/scrFrontier_biome_clearance204/scrFrontier_biome_clearance204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_biome_clearance204_acceptance_tests",
+        "path": "scripts/scrFrontier_biome_clearance204_acceptance_tests/scrFrontier_biome_clearance204_acceptance_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_drone_performance204",
+        "path": "scripts/scrFrontier_drone_performance204/scrFrontier_drone_performance204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_drone_performance204_tests",
+        "path": "scripts/scrFrontier_drone_performance204_tests/scrFrontier_drone_performance204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_biome_clearance204_map_tests",
+        "path": "scripts/scrFrontier_biome_clearance204_map_tests/scrFrontier_biome_clearance204_map_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bluescreen_ui_tests",
+        "path": "scripts/scrFrontier_bluescreen_ui_tests/scrFrontier_bluescreen_ui_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bluescreen204",
+        "path": "scripts/scrFrontier_bluescreen204/scrFrontier_bluescreen204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bluescreen204_tests",
+        "path": "scripts/scrFrontier_bluescreen204_tests/scrFrontier_bluescreen204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menu_input204_tests",
+        "path": "scripts/scrFrontier_menu_input204_tests/scrFrontier_menu_input204_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

@@ -6,7 +6,16 @@ catch(_ntte_trench_second_hop_error) { scrNTTEFullTrenchSecondHopAbort(_ntte_tre
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullTrenchConnectedCampaignTest) && instance_exists(id)) try { scrNTTEFullTrenchCampaignProbe("Vlambeer.Create.before"); }
 catch(_ntte_trench_campaign_error) { scrNTTEFullTrenchCampaignAbort(_ntte_trench_campaign_error); }
 // END NTTE TRENCH CONNECTED CAMPAIGN TEST Vlambeer.Create.before
+// BEGIN FRONTIER BLUESCREEN UI204 NATIVE BOOTSTRAP BEFORE
+var _fr_blue_native_bootstrap=false;
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) _fr_blue_native_bootstrap=scrFRBluescreenUITestsNativeBootstrap();
+if(!_fr_blue_native_bootstrap) {
+// END FRONTIER BLUESCREEN UI204 NATIVE BOOTSTRAP BEFORE
 if (global.ntte_smoke_active && !scrFRMenuAudioBootTestsSelected()) { instance_destroy(); exit }
+// BEGIN FRONTIER BLUESCREEN UI204 NATIVE BOOTSTRAP AFTER
+}
+// END FRONTIER BLUESCREEN UI204 NATIVE BOOTSTRAP AFTER
+
 scrSetViewSize(false)
 
 x = view_width / 2

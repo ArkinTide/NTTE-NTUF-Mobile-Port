@@ -16,6 +16,10 @@ if _wakeup_call {
 	snd_play(sndAssassinGetUp)
 	var _awake = instance_create(x, y, _object)
 	_awake.team = team
+// BEGIN FRONTIER AWAKENED ENEMY OWNS WALL TOP
+scrFRBiomeAwakenOwnTop(id,_awake);
+// END FRONTIER AWAKENED ENEMY OWNS WALL TOP
+
 	instance_destroy(id, false)
 	exit
 }

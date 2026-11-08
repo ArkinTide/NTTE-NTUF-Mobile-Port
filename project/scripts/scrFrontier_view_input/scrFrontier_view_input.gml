@@ -176,6 +176,7 @@ function scrFRTouchMovementSample(_index,_touch) {
         _state.down[_a]=_down;
     }
     _state.frame=current_frame;_state.ready=scrFRReadyTick();
+    scrFRPocketTeleporterSample204(_index); // FRONTIER POCKET 204 RAW TOUCH START
 }
 
 function scrFRTouchMovementValue(_index,_action,_prefix) {
@@ -194,6 +195,7 @@ function scrFRTouchMovementValue(_index,_action,_prefix) {
 }
 
 function scrFRTouchPoll() {
+    scrFRMenuTouchPoll204(); return; // FRONTIER POINTER 204 STABLE HARDWARE FRAME
     if(!scrFREnabled() || !KeyCont.touch[global.index]) return;
     var _state=scrFRTouchInputState().pointer;
     if(_state.frame!=current_frame && _state.ready) _state.pending=array_create(5,undefined);

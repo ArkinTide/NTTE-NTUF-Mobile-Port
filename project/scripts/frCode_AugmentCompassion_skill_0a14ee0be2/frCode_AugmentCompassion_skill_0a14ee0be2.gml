@@ -277,7 +277,7 @@ image_index = 0;
 }
 if ((shockCooldown <= 0)) {
 {
-var _frl__nearestProjectile = frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRHyperionEnemyProjectiles() /* FRONTIER HYPERION HOSTILE TARGETS */);
+var _frl__nearestProjectile = (scrFRDroneReference204Enabled() ? frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRHyperionEnemyProjectiles() /* FRONTIER HYPERION HOSTILE TARGETS */) : scrFRDroneNearestHostile204(x,y)) /* FRONTIER DRONE204 DIRECT NEAREST */;
 ;
 if (((distance_to_object(enemy) < 48) || (distance_to_object(_frl__nearestProjectile) < 64))) {
 {
@@ -395,6 +395,7 @@ function fr_Mutations_AugmentCompassion_skill_gml_DroneShock_nullify() {
 // BEGIN FRONTIER HYPERION HOSTILE COLLISION
 if(!scrFRHyperionEnemyProjectile(scrFROther(other))) return;
 // END FRONTIER HYPERION HOSTILE COLLISION
+if(scrFRDroneIntercept204(scrFROther(other))) return; // FRONTIER DRONE204 DIRECT INTERCEPT
 if ((scrFRInstanceExists(scrFRSelf(self)) && ((scrFROther(other)).typ > 0))) {
 {
 { var __fr_with1 = scrFRWithValues((scrFROther(other))), __fr_break3=false;

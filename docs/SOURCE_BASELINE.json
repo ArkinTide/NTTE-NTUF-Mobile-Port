@@ -1,18 +1,28 @@
 {
-  "source_candidate": "2.0.3",
-  "version": "2.0.3",
-  "internal": 99,
-  "date": "2026-11-07",
-  "base_commit": "ca2c432fe832748f225c5f57829a89b2356a2adf",
-  "source_manifest_sha256": "803d0b4fab96d42f1e853a1db33bc2af95c54bba4ad0f5d814677d6716fb8176",
-  "native_acceptance_sha256": "7c566eac4508700ae86d365e4f5cca349729da7778741ebe84d049dc6e3a51e7",
-  "development_regression_sha256": "e7b7974a1d0b35b7ca25ca5b084c591feab0f1d86c29a62fc7d906a85c7334a0",
-  "mobile_delivery_sha256": "73573c051ea2f1be77a5f250ee4a45f4b1b114d3d16a6f088b1996b0ad39d7dc",
-  "vm_sha256": "4bc772621c054e3f4a66003bac75f900d75ae99d8aeb8847359b33f5bb8c0545",
-  "independent_package_audit_sha256": "5e60ee8a2c2c966167222600538d364e2b04ea305c54956f82bce0ad9128e4f0",
-  "independent_package_audit_public_summary_sha256": "1426882211e360ff45645053e9955ae65dcb18f67b771f91ce05cd084b016b6d",
-  "input_sha256": "6849309290b02d96c9c558e730f4e56fb2bd159ba86f7915e9bb6c0160911d13",
+  "source_candidate": "2.0.4",
+  "version": "2.0.4",
+  "internal": 100,
+  "date": "2026-11-08",
+  "base_commit": "bce57723c9b341b74313947553e80d0de087025f",
+  "source_manifest_sha256": "60a31c739c5fc52b3a953f3d5c549dcd7ba760de4d08615b91517ecae77f6b85",
+  "native_acceptance_sha256": "2190d9358e37f25d9589c96aab2149f8b47d30ad6f0176a1e7ff0d07f0257f4c",
+  "development_regression_sha256": "76b784e727b37b0851d87c4baa01d7283de7b221022bed789b7e0f5b8aa1e18a",
+  "mobile_delivery_sha256": "e1bc59ade52227c4aacf6136a5160c758e252608f6c4f4885bfe8701d9c73f6d",
+  "vm_sha256": "da2a770b768d84227bf415bc7b458b056612317b2ebf09820826b7889b9860b6",
+  "independent_package_audit_sha256": "9e70d0b960552b3d398584cabc463136d5919e32c5d0abb7147be42070835a86",
+  "independent_package_audit_public_summary_sha256": "bb08677736d0acd5e115d75d9c5ca9d7672d8bdde1a6708e3e4abd5d7048b2f6",
+  "input_sha256": "b8bc9c5d34f76840e0a849c072d01ea5c7f0d87759ab69688f70636335a0f2ad",
   "selected_windows_cases": [
+    "FrontierPost203CompatTests",
+    "FrontierPost203WeatherWallTests",
+    "FrontierEnemyPossessionTests",
+    "FrontierBiomeClearance204AcceptanceTests",
+    "FrontierDronePerformance204Tests",
+    "FrontierBiomeClearance204MapTests",
+    "DesertLevelNativeTests",
+    "JungleLevelNativeTests",
+    "WorldFinalizeNativeTests",
+    "WorldCompletionNativeTests",
     "FrontierWeatherPerformanceTests",
     "FrontierPalaceBlockTests",
     "FrontierMenuRepairTests",
@@ -28,6 +38,17 @@
     "FrontierAreaTests",
     "FrontierEventTests",
     "FrontierPromptTests",
+    "FrontierMenuInput20430Tests",
+    "FrontierMenuInput20460Tests",
+    "SingleplayerUIEntryTests",
+    "FrontierBluescreenUI204Yes30Tests",
+    "FrontierBluescreenUI204Yes60Tests",
+    "FrontierBluescreenUI204No30Tests",
+    "FrontierBluescreenUI204No60Tests",
+    "FrontierBluescreenUI204Disabled30Tests",
+    "FrontierBluescreenUI204Disabled60Tests",
+    "FrontierBluescreenUI204Visited30Tests",
+    "FrontierBluescreenUI204Visited60Tests",
     "FrontierWallFixTests",
     "FrontierPlayerWallTests",
     "FrontierGroundWeaponTests",
@@ -55,10 +76,13 @@
     "FrontierPalacePlayerContactTests",
     "FrontierOutlineTests",
     "FrontierSealSpinAudioTests",
-    "FrontierEnemyVisibilityTests"
+    "FrontierEnemyVisibilityTests",
+    "FrontierEnemyCloneTopTests",
+    "FrontierEnemyCloneTossTests",
+    "FrontierPerformanceTests"
   ],
-  "windows_cases": 43,
-  "python_tests": 153,
+  "windows_cases": 67,
+  "python_tests": 256,
   "python_historical_source_binding": false,
   "rates": [
     30,
@@ -70,25 +94,25 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.3.apk",
-      "bytes": 304757587,
-      "sha256": "b09d7404d451f81a1fa0155b694c17290a1b58ea41ccc03aafddc4a003aa575e"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.4.apk",
+      "bytes": 304998240,
+      "sha256": "900745f4af346c585862d74a844573227386f1092087ef717e523e89f1df4ece"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.3.ipa",
-      "bytes": 212790138,
-      "sha256": "500ae550763281f59bd9fd1bb8efa9a31be10db24ee9eb0536dbf0afc05e491c"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.4.ipa",
+      "bytes": 212860387,
+      "sha256": "778a32cc4ee2aca2f06b3697a53966b8c1f5134b3f9876d891ba7f58d4fbbb32"
     }
   },
-  "android_version_code": 3000099,
-  "ios_bundle_version": "99",
+  "android_version_code": 3000100,
+  "ios_bundle_version": "100",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.0.3",
-    "NTTE_RELEASE_VERSION": "2.0.3",
-    "NTTE_RELEASE_TAG": "2.0.3",
-    "compiler_ios": "2.0.3",
-    "compiler_android": "2.0.3"
+    "GAME_VERSION": "2.0.4",
+    "NTTE_RELEASE_VERSION": "2.0.4",
+    "NTTE_RELEASE_TAG": "2.0.4",
+    "compiler_ios": "2.0.4",
+    "compiler_android": "2.0.4"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -114,5 +138,5 @@
   "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
   "persistent_mobile_audio_noise": "unresolved",
   "invisible_enemies": "unverified",
-  "publication_plan_sha256": "826a8e1625b74b2d932d8213ba29aab6fc4ccb112b63265275a9a8ba4cad9a52"
+  "publication_plan_sha256": "18843818eb2d530acd1bef623aa10a4c6f49980b4ee42bcb6ea6d179e337558d"
 }

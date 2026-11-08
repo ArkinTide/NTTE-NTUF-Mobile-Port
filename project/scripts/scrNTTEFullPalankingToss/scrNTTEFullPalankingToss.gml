@@ -9,6 +9,10 @@ function scrNTTEFullPalankingTossCreate() {
 
 function scrNTTEFullPalankingTossCleanup() {
     if (ntte_toss_cleaned) return;
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY TOSS CLEANUP
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalLifecycle("Toss.cleanup-before",id);
+// END FRONTIER BIOME CLEARANCE204 READONLY TOSS CLEANUP
     ntte_toss_cleaned=true
     if (instance_exists(creator)) with (creator) {
         mask_index=other.mask_index; depth=other.depth
@@ -20,6 +24,11 @@ function scrNTTEFullPalankingTossCleanup() {
 }
 
 function scrNTTEFullPalankingTossEndStep() {
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY TOSS FIRST STEP
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalLifecycle("Toss.first-step",id,true);
+// END FRONTIER BIOME CLEARANCE204 READONLY TOSS FIRST STEP
+
     if (lockstep_stop) return;
     z+=zspeed*timescale; zspeed-=zfriction*timescale
     if (instance_exists(creator) && (z>0 || zspeed>0)) {
@@ -40,6 +49,11 @@ function scrNTTEFullPalankingTossEndStep() {
         return;
     }
     scrNTTEFullPalankingTossCleanup()
+// BEGIN FRONTIER BIOME CLEARANCE204 READONLY TOSS RESTORED
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRBiomeClearance204NaturalLifecycle("Toss.cleanup-after",id);
+// END FRONTIER BIOME CLEARANCE204 READONLY TOSS RESTORED
+
     if (instance_exists(creator)) {
         var _c=creator
         if (instance_is(_c,hitme) && (place_meeting(_c.x,_c.y,Floor) || GameCont.area!=scrNTTEFullAreaId("coast"))) scr_projectile_hit(_c,1)

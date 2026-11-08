@@ -1,0 +1,16 @@
+{
+  "status": "DRAFT",
+  "version": "2.0.4",
+  "internal": 100,
+  "run": null,
+  "report": null,
+  "report_sha256": null,
+  "python_evidence": null,
+  "python_evidence_sha256": null,
+  "case_selection_sha256": null,
+  "review_verifier_sha256": null,
+  "compile_receipt_sha256": null,
+  "vm_sha256": null,
+  "silent_vm_sha256": null,
+  "input_sha256": null
+}

@@ -2,6 +2,9 @@
 // original source libButton callback. They never assign a source press edge,
 // teleport the player for the positive dash check, or invoke clickScr directly.
 function scrFRInputTestsRaw(_x,_y,_held,_pressed,_released,_ready,_delta,_touch=0) {
+    // One fixture call is one hardware frame, even when the native logical
+    // clock changes again before a later menu query in that same frame.
+    global.__input_frame++;
     current_frame+=_delta;
     FRWorld.logic_tick=_ready;
     if(_ready) FRWorld.logic_serial++;
@@ -21,7 +24,7 @@ function scrFRInputTouchTests() {
         _players=scrNTTEFullAreaGeneratorSnapshot(Player),_game=scrNTTEFullAreaGeneratorSnapshot(GameCont),
         _pickups=scrNTTEFullAreaGeneratorSnapshot(WepPickup),_pets=scrNTTEFullAreaGeneratorSnapshot(NTTEFullPet),
         _keys={nodes:[]},_keyboard=UberCont.opt_keyboard,_gamepad=UberCont.opt_gamepad,
-        _frame=current_frame,_scale=timescale,_serial=FRWorld.logic_serial,_tick=FRWorld.logic_tick,
+        _frame=current_frame,_input_frame=global.__input_frame,_scale=timescale,_serial=FRWorld.logic_serial,_tick=FRWorld.logic_tick,
         _render=global.fr_render_context,_console=global.console_active,
         _saved_input=variable_global_exists("fr_touch_input")?global.fr_touch_input:undefined,
         _saved_fixture=variable_global_exists("fr_touch_input_fixture")?global.fr_touch_input_fixture:undefined,
@@ -142,7 +145,7 @@ function scrFRInputTouchTests() {
         scrNTTEFullAreaGeneratorRestore(_pickups);scrNTTEFullAreaGeneratorRestore(_pets);
         scrNTTEFullAreaGeneratorRestore({instances:[],containers:_keys.nodes});
         UberCont.opt_keyboard=_keyboard;UberCont.opt_gamepad=_gamepad;
-        global.index=_slot;current_frame=_frame;global.time_scale=_scale;
+        global.index=_slot;current_frame=_frame;global.__input_frame=_input_frame;global.time_scale=_scale;
         FRWorld.logic_serial=_serial;FRWorld.logic_tick=_tick;
         global.fr_render_context=_render;global.console_active=_console;
         global.fr_touch_input=_saved_input;global.fr_touch_input_fixture=_saved_fixture;

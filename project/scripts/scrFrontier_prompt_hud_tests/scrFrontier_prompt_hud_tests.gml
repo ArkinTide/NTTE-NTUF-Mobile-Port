@@ -63,6 +63,7 @@ function scrFRButtonInputTests() {
 
 function scrFRPromptHUDTests() {
     scrFRInputTouchTests(); // FRONTIER ACTUAL TOUCH INPUT FIXTURE
+    scrFRInput204Tests(); // FRONTIER INPUT 204 REGRESSIONS
     scrFRButtonInputTests();
     scrFRMeteorScorpCompatTests();
     scrFRToolKitChestTests();

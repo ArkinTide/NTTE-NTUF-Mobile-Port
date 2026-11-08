@@ -87,3 +87,25 @@ function scrFREnemyCloneOwnToss(_source,_copy) {
     _copy.xprevious=_copy.x;_copy.yprevious=_copy.y;
     return _toss;
 }
+
+// A native Parrot charm can change a possessed host to the player's team.
+// The source only watches host existence, leaving its hostile17HP spirit
+// permanently hidden over an allied body that friendly attacks cannot hit.
+// End that one invalid ownership relationship through the source lifecycle.
+function scrFREnemyPossessionValidateHost() {
+    if(!possessing || team==team_player || !instance_exists(possess_target)
+        || possess_target.team!=team_player) return false;
+    var _host=possess_target;
+    if((_host[$ "fr_possessor"]??noone)==id) {
+        _host.fr_possessed=false;
+        _host.fr_possessor=noone;
+        // Keep this allied host out of the source's hostile candidate pool.
+        _host.fr_possessable=false;
+        // status_apply_set uses max(new,old), so setting an infinite buff via
+        // that API cannot expire it. Its normal timer pass removes zero.
+        _host.fr_buffVoltergeist_time=0;
+    }
+    fr_Objects_Frontier_Labs_mod_gml_Voltergeist_end_possession();
+    possess_target=noone;
+    return true;
+}

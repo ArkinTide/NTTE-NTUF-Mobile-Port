@@ -93,3 +93,7 @@ if (is_touch(global.index) && scrNTTEFullConsoleEnabled()) {
 if native_cursor_inst == -1 && (is_desktop ? (window_get_cursor() == cr_none) : opt_keyboard) && scrCanDrawCursor() {
     draw_sprite_ext(sprCrosshair, opt_crosshair, device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), 1, 1, 0, opt_cursorcol, 1)
 }
+
+// BEGIN FRONTIER BLUESCREEN UI204 COMPLETED DRAW
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBluescreenUITestsDraw();
+// END FRONTIER BLUESCREEN UI204 COMPLETED DRAW
