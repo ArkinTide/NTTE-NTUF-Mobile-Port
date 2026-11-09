@@ -873,7 +873,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:713
 function fr_Objects_Frontier_Labs_mod_gml_SmartestNecromancer_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_SmartestNecromancer_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1125,7 +1125,7 @@ fr_Objects_Frontier_Labs_mod_gml_VoltergeistController_create(10016, 10016);
 ;
 }
 }
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_Voltergeist_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1788,7 +1788,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:1289
 function fr_Objects_Frontier_Labs_mod_gml_VesselMortar_create(_frl__x=undefined, _frl__y=undefined, _frl__breakIt=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_VesselMortar_create, [_frl__x, _frl__y, _frl__breakIt])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -2255,7 +2255,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:1553
 function fr_Objects_Frontier_Labs_mod_gml_VesselOrbiter_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_VesselOrbiter_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -2468,7 +2468,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:1676
 function fr_Objects_Frontier_Labs_mod_gml_VesselCharger_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_VesselCharger_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -2794,7 +2794,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:1872
 function fr_Objects_Frontier_Labs_mod_gml_Cremator_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_Cremator_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -3204,7 +3204,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:2115
 function fr_Objects_Frontier_Labs_mod_gml_Swarmbot_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_Swarmbot_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -3833,7 +3833,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Labs.mod.gml:2489
 function fr_Objects_Frontier_Labs_mod_gml_Engineer_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_Engineer_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -4202,7 +4202,7 @@ scrFRPickupDrop(55, 0);
 
 // Original Objects/Frontier_Labs.mod.gml:2710
 function fr_Objects_Frontier_Labs_mod_gml_MissileDrone_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_MissileDrone_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -4555,7 +4555,7 @@ if(__fr_break6) break;
 
 // Original Objects/Frontier_Labs.mod.gml:2928
 function fr_Objects_Frontier_Labs_mod_gml_Honeypot_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Labs_mod_gml_Honeypot_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

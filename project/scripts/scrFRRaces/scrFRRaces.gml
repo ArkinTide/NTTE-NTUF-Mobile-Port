@@ -137,7 +137,7 @@ function scrFRRaceText(_kind,_value=0) {
         case "thronebutt":return scrFRRaceCall("race_tb_text");
         case "lock":return scrFRRaceCall("race_lock");
         case "unlock":return scrFRRaceCall("race_unlock");
-        case "skin_lock":return scrFRRaceCall("race_skin_lock",[_value]);
+        case "skin_lock":return _value==1?scrFRVisual205BubblesSkinLock():scrFRRaceCall("race_skin_lock",[_value]);
         case "skin_unlock":return scrFRRaceCall("race_skin_unlock",[_value]);
         case "ultra_name":return scrFRRaceCall("race_ultra_name",[_value]);
         case "ultra_text":return scrFRRaceCall("race_ultra_text",[_value]);

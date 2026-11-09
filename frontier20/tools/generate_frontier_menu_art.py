@@ -14,6 +14,7 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 RESOURCE = 'sprFRStormsLoadout'
 SOURCE = ROOT / 'original/Frontier/Sprites/Crowns/sprCrownStormsIcon.png'
+LOCKED_SHAPE = ROOT / 'original/Frontier/Sprites/Crowns/sprCrownStormsIdle.png'
 TEMPLATE = ROOT / 'native/menu-assets' / RESOURCE
 
 
@@ -27,8 +28,19 @@ def generate(source=SOURCE, output=TEMPLATE, check=False):
     assert icon.size == (24, 32), 'Upstream Storms crown icon dimensions changed'
     unlocked = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
     unlocked.paste(icon, (4, 0))
+    # The upstream crown_button icon includes an opaque purple card. NTT's
+    # native locked loadout crowns are transparent, flat crown silhouettes,
+    # rather than darkened cards. Use the author's transparent in-world crown
+    # shape, scaled by an integer to the native 32px loadout slot; do not infer
+    # foreground/background from its colors (lightning shares dark pixels).
+    with Image.open(LOCKED_SHAPE) as source_shape:
+        shape = source_shape.convert('RGBA')
+    assert shape.size == (16, 16), 'Upstream transparent Storms crown changed'
+    alpha = shape.getchannel('A').resize((32, 32), Image.Resampling.NEAREST)
+    assert 0 < sum(value != 0 for value in alpha.getdata()) < 32 * 32
+    assert all(alpha.getpixel(point) == 0 for point in ((0, 0), (31, 0), (0, 31), (31, 31)))
     shade = Image.new('L', unlocked.size, 40)
-    locked = Image.merge('RGBA', (shade, shade, shade, unlocked.getchannel('A')))
+    locked = Image.merge('RGBA', (shade, shade, shade, alpha))
     layer = metadata['layers'][0]['name']
     files = {}
     for frame, image in zip(metadata['frames'], (unlocked, locked), strict=True):
@@ -47,7 +59,9 @@ def generate(source=SOURCE, output=TEMPLATE, check=False):
     return {'resource': RESOURCE, 'source': str(source),
             'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
             'frame_size': [32, 32], 'origin': [16, 16],
-            'derivation': '24x32 upstream icon padded x+4; RGB40 silhouette keeps identical alpha',
+            'locked_shape': str(LOCKED_SHAPE),
+            'locked_shape_sha256': hashlib.sha256(LOCKED_SHAPE.read_bytes()).hexdigest(),
+            'derivation': 'unlocked upstream icon padded x+4; locked transparent upstream Idle nearest2x alpha, native RGB40 silhouette',
             'check_only': check, 'files_sha256': files}
 
 

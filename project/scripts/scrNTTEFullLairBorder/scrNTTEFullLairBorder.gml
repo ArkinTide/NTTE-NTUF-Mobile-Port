@@ -64,6 +64,8 @@ function scrNTTEFullLairBorderStep() {
         return;
     }
     if (ntte_full_cavein<0) return;
+    // FRONTIER LAIR RETURN205 RELEASE PRIOR LIVE SALVAGE
+    scrFRLairReturn205ReleaseBorderSaved(id);
     for(var _i=array_length(ntte_full_cavein_saved)-1;_i>=0;--_i)
         if (!instance_exists(ntte_full_cavein_saved[_i])) array_delete(ntte_full_cavein_saved,_i,1)
     if (ntte_full_cavein_distance>0) {
@@ -112,6 +114,8 @@ function scrNTTEFullLairBorderStep() {
                     _v.hp=0
                     if (variable_instance_exists(_v,"lasthit")) _v.lasthit=[sprTurtleDead,"CAVE IN"]
                 }
+                // FRONTIER LAIR RETURN205 SAFE EDGE PLAYER
+                else if (scrFRLairReturn205ReleasePlayer(_v,x,y)) { }
                 else if (_v.persistent || instance_is(_v,chestprop)
                     || (scrNTTEFullIsPickup(_v) && _v.object_index!=Rad && _v.object_index!=BigRad)
                     || (instance_is(_v,Corpse) && _v.y<y+240) || instance_is(_v,NTTEFullPet)) {
@@ -201,6 +205,8 @@ function scrNTTEFullPizzaRubbleStep() {
     for(var _i=array_length(ntte_full_saved)-1;_i>=0;--_i) {
         var _v=ntte_full_saved[_i]
         if (!instance_exists(_v)) { array_delete(ntte_full_saved,_i,1); continue }
+        // FRONTIER LAIR RETURN205 RELEASE LIVE RUBBLE SALVAGE
+        if (scrFRLairReturn205ReleasePlayer(_v,x,y)) { array_delete(ntte_full_saved,_i,1); continue; }
         if (scrNTTEFullIsPickup(_v) && _v.alarm[0]>0) _v.alarm[0]=max(_v.alarm[0],90)
         else if (instance_is(_v,hitme) && !(random(max(0.0001,_v.speed/timescale))<timescale) && random(2)<1) {
             var _ntte_lair_saved_dust_direction=90+orandom(30),_fx=scrNTTEFullTrenchFX(_v.x,_v.y,0,random(3),Dust)

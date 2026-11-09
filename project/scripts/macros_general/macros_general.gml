@@ -87,11 +87,11 @@ global.__disable_sandboxing = false
 		instance_create(x + 32, y - 32, Top) \
 	}
 
-#macro mcr_wall_update_lrwh { \
-		if (place_free(x - 16, y)) l = 0 else l = 4           \
-	    if (place_free(x + 16, y)) w = 24 - l else w = 20 - l \
-	    if (place_free(x, y - 16)) r = 0 else r = 4           \
-	    if (place_free(x, y + 16)) h = 24 - r else h = 20 - r \
+#macro mcr_wall_update_lrwh { /* FRONTIER WALL ART205 */ \
+		if (scrFRWallArtFree205(x - 16, y)) l = 0 else l = 4           \
+	    if (scrFRWallArtFree205(x + 16, y)) w = 24 - l else w = 20 - l \
+	    if (scrFRWallArtFree205(x, y - 16)) r = 0 else r = 4           \
+	    if (scrFRWallArtFree205(x, y + 16)) h = 24 - r else h = 20 - r \
 	}
 
 //

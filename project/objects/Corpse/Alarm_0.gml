@@ -13,6 +13,8 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(id)
 // END NTTE OASIS TRENCH READONLY PROBE Corpse.Alarm0.before
 // BEGIN FRONTIER QUEST PORTAL204 TEST CORPSE BEFORE
 scrFRQuestPortal204CorpseProbe("before");
+// FRONTIER QUEST PORTAL205 CORPSE BEFORE
+scrFRQuestPortal205CorpseProbe("before");
 // END FRONTIER QUEST PORTAL204 TEST CORPSE BEFORE
 if (
     !scrNTTEPortalRecoveryAllowed() || scrNTTEFullPortalBlocked() ||
@@ -58,4 +60,6 @@ else {
 }
 // BEGIN FRONTIER QUEST PORTAL204 TEST CORPSE PASS
 scrFRQuestPortal204CorpseProbe("passed");
+// FRONTIER QUEST PORTAL205 CORPSE PASS
+scrFRQuestPortal205CorpseProbe("passed");
 // END FRONTIER QUEST PORTAL204 TEST CORPSE PASS

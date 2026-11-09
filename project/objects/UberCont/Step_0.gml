@@ -27,7 +27,9 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegra
 // BEGIN FRONTIER MENU INPUT204 BEFORE REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRMenuInput204BeforeInput();
 // END FRONTIER MENU INPUT204 BEFORE REAL INPUT
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsBeforeInput(); // FRONTIER BUBBLES205 REAL INPUT FIXTURE
 scrHandleInputsGeneral(global.index)
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsAfterInput();
 // BEGIN FRONTIER GROUND WEAPON REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRGroundWeaponTestsAfterInputSample();
 // END FRONTIER GROUND WEAPON REAL INPUT

@@ -32,7 +32,7 @@ function scrDrawPlayerHUD(_player = noone, _draw_interaction = true) {
 			draw_reset_font()
 		}
 		else {
-			var _healthbar_color = UberCont.opt_healthcol,
+			var _healthbar_color = scrFRVisual205HealthColor(_player,UberCont.opt_healthcol), // FRONTIER VISUAL205 HUD COLOR
 				_healthbar_bg = max(0, 84 * (_player.lsthealth / _max_hp)),
 				_healthbar_fg = max(0, 84 * (_hp / _max_hp)),
 				_shift = (is_desktop ? 0.01 : 0),

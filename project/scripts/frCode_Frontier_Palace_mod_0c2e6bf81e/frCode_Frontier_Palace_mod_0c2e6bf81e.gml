@@ -1888,7 +1888,7 @@ scrFRInstanceDestroy();
 
 // Original Objects/Frontier_Palace.mod.gml:1033
 function fr_Objects_Frontier_Palace_mod_gml_GupGuardian_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Palace_mod_gml_GupGuardian_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -2068,7 +2068,7 @@ fr_Objects_Frontier_Palace_mod_gml_GeepGuardian_create(x, y);
 
 // Original Objects/Frontier_Palace.mod.gml:1147
 function fr_Objects_Frontier_Palace_mod_gml_GeepGuardian_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Palace_mod_gml_GeepGuardian_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -2194,7 +2194,7 @@ scrFRSoundPitch(sndExploGuardianDeadCharge, scrFRSourceRandomRange(1, 1.1));
 
 // Original Objects/Frontier_Palace.mod.gml:1226
 function fr_Objects_Frontier_Palace_mod_gml_GipGuardian_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Palace_mod_gml_GipGuardian_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

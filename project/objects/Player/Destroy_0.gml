@@ -10,6 +10,7 @@ catch(_ntte_cuz_connected_error) { scrNTTEFullCuzConnectedAbort(_ntte_cuz_connec
 // BEGIN FRONTIER CYBERSPACE DEAD PLAYER STATE
 scrFRCyberspaceRememberPlayer(id);
 // END FRONTIER CYBERSPACE DEAD PLAYER STATE
+scrFRPlayerAudioStop205(); // FRONTIER PLAYER AUDIO OWNER205
 snd_stop(sndFishTB)
 
 if race == Race.Melting && KeyCont.activeforever[index] {

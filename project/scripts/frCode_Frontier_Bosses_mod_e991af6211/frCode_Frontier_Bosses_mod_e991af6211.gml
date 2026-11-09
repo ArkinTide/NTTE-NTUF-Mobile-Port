@@ -248,7 +248,7 @@ default: throw "Frontier invalid continuation PC";
 
 // Original Objects/Frontier_Bosses.mod.gml:104
 function fr_Objects_Frontier_Bosses_mod_gml_GraveyardBoss_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Bosses_mod_gml_GraveyardBoss_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1452,7 +1452,7 @@ if(__fr_break4) break;
 
 // Original Objects/Frontier_Bosses.mod.gml:751
 function fr_Objects_Frontier_Bosses_mod_gml_RoboBoss_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Bosses_mod_gml_RoboBoss_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1640,6 +1640,7 @@ on_draw = fr_Objects_Frontier_Bosses_mod_gml_RoboBoss_draw;
 on_hurt = fr_Objects_Frontier_Bosses_mod_gml_Enemy_hurt;
 ;
 on_death = fr_Objects_Frontier_Bosses_mod_gml_RoboBoss_death;
+on_cleanup = scrFRBulwarkAudioCleanup205; // FRONTIER BULWARK CLEANUP VOICES205
 ;
 on_alrm1 = ["mod", "Frontier_Bosses", fr_Objects_Frontier_Bosses_mod_gml_RoboBoss_alrm1];
 ;
@@ -1958,7 +1959,7 @@ fr_Objects_Frontier_Bosses_mod_gml_Beam_create(x, y, laserAngle, __fr_other2.i, 
 }
 scrFRSoundPlay(global.fr_module_vars[$ "mod:Frontier_Bosses"].sndBulwarkLaserFire);
 ;
-global.fr_module_vars[$ "mod:Frontier_Bosses"].bulwarkLaserLoop = scrFRSoundLoop(global.fr_module_vars[$ "mod:Frontier_Bosses"].sndBulwarkLaserLoop);
+global.fr_module_vars[$ "mod:Frontier_Bosses"].bulwarkLaserLoop = scrFRBulwarkLoop205("laser",global.fr_module_vars[$ "mod:Frontier_Bosses"].sndBulwarkLaserLoop); // FRONTIER BULWARK LASER VOICE205
 ;
 }
 }
@@ -2359,7 +2360,7 @@ if(__fr_break6) break;
 
 // Original Objects/Frontier_Bosses.mod.gml:1244
 function fr_Objects_Frontier_Bosses_mod_gml_RoboBossDeathPortalSpawner_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Bosses_mod_gml_RoboBossDeathPortalSpawner_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -3111,7 +3112,7 @@ if ((sprite_index != spr_active)) {
 {
 if ((! audio_is_playing(global.fr_module_vars[$ "mod:Frontier_Bosses"].bulwarkShockLoop))) {
 {
-global.fr_module_vars[$ "mod:Frontier_Bosses"].bulwarkShockLoop = scrFRSoundLoop(global.fr_module_vars[$ "mod:Frontier_Bosses"].sndBulwarkShockLoop);
+global.fr_module_vars[$ "mod:Frontier_Bosses"].bulwarkShockLoop = scrFRBulwarkLoop205("shock",global.fr_module_vars[$ "mod:Frontier_Bosses"].sndBulwarkShockLoop); // FRONTIER BULWARK SHOCK VOICE205
 ;
 }
 }

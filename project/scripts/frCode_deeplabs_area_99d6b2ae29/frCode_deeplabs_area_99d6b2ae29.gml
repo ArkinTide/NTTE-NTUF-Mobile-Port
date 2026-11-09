@@ -6885,7 +6885,7 @@ on_step = fr_Areas_deeplabs_area_gml_nothing;
 
 // Original Areas/deeplabs.area.gml:4568
 function fr_Areas_deeplabs_area_gml_SpinTurret_create(_frl__x=undefined, _frl__y=undefined, _frl__speedMultiplier=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Areas_deeplabs_area_gml_SpinTurret_create, [_frl__x, _frl__y, _frl__speedMultiplier])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

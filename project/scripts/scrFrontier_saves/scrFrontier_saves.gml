@@ -184,6 +184,7 @@ function scrFRContinueNativeStateRecord(_state,_decode) {
 }
 
 function scrFRContinuePlayerNativeState(_field,_value,_decode) {
+    if(scrFRContinueAudioField205(_field)) return -1; // FRONTIER CONTINUE TRANSIENT AUDIO205
     if(_field=="ntte_state" || _field=="bntte_state") return scrFRContinueNativeStateRecord(_value,_decode);
     if(_field=="ntte_extra_states" && is_array(_value)) {
         var _copy=[];

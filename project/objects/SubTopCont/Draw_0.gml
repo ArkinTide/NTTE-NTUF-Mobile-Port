@@ -9,6 +9,9 @@ if UberCont.opt_bloom {
 
 with (WepSwap) draw_self()
 
+// FRONTIER WALL ART205 FILL BEFORE SOURCE EDGES
+scrNTTESolidWallDraw();
+
 var _list = global.lis_walls_visible,
 	_count = ds_list_size(_list)
 	
@@ -19,7 +22,6 @@ for (var i = _count - 1; i >= 0; --i) {
 	}
 }
 	
-scrNTTESolidWallDraw();
 
 with TopSmall {
     draw_sprite_ext(sprite_index, -1, x, y - 8, 1, 1, 0, image_blend, 1)

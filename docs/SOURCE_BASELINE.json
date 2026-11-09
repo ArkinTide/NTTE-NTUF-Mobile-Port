@@ -1,18 +1,28 @@
 {
-  "source_candidate": "2.0.4",
-  "version": "2.0.4",
-  "internal": 102,
-  "date": "2026-11-08",
-  "base_commit": "85d839ebc513e30e0df1f155e7a0bae8d1ce5a1a",
-  "source_manifest_sha256": "f99a88460173ec3a73a70d56a198f32d13386fc58fdd50d794dee64ffbd04737",
-  "native_acceptance_sha256": "f286e94fc65c1b7586a78f44a36b67baefd99ece0b6b7f1d91adbece7657df52",
-  "development_regression_sha256": "4cd683110a3737e838c0290abbceff6f55969f8ce90dec5e83e3f48bfd058e80",
-  "mobile_delivery_sha256": "a4264f68bad5c708698b343fcfbf51012215d585e2c748e1167c2396ad14f1e8",
-  "vm_sha256": "369cc798ca60c93e0b09fb0f8f4938bc23f8a70a5d8eb22e0d386477bdc0f36e",
-  "independent_package_audit_sha256": "e0b8642f2503913c75c14743135181f8f064a5eec6feb16506df4e841873e974",
-  "independent_package_audit_public_summary_sha256": "5ceefd61305a98c955b8e7ce6e152cfff1cd59c89b0cd3a1a5636f8f1d17d640",
-  "input_sha256": "7c77b58dee311823f45aa6f16e310d0e63900f492a178f95ab533522136c769a",
+  "source_candidate": "2.0.5",
+  "version": "2.0.5",
+  "internal": 103,
+  "date": "2026-11-09",
+  "base_commit": "3106ddbb598d28d1cc9adf9e14092bdefd7df2f7",
+  "source_manifest_sha256": "608e4e2de74dcfeb18f158197349f347f5ac04b79cf35f1e528e548c791a808b",
+  "native_acceptance_sha256": "2988db51314f48c565ce2e5617a5685f1279213ce96dd3b159c6d6ec42030045",
+  "development_regression_sha256": "96131d7d276ffb43053a4cda00d0c392ea762348fd7c0e711f3df52777720b65",
+  "mobile_delivery_sha256": "d4883ae1baa22bbbcddec775919e358679cbe4aca8b7a822ea60c25202eabb75",
+  "vm_sha256": "6dfba2d4a03589c25fc853140e75815b8c26c4b62a18508f0ec917f453a6a8f5",
+  "independent_package_audit_sha256": "dbfe5135bc1a877eff1a5f1340466df2d3c6c4e26d18c1210991d68092dc90c3",
+  "independent_package_audit_public_summary_sha256": "10496a1dd36113b6fc2b66d03df05e2d8a458b5996f273ca39221cc8be8ccfe8",
+  "input_sha256": "178519dc00399acc1ac8a2f258af62bc2f7257df5dd3201180674ecd3b1e2d5c",
   "selected_windows_cases": [
+    "FrontierContinueAudio205Tests",
+    "FrontierBubblesAttack205Tests",
+    "FrontierVisual205Tests",
+    "FrontierWallSurface205Tests",
+    "FrontierQuestVault205Tests",
+    "FrontierQuestContinue205Tests",
+    "FrontierLairReturn205Tests",
+    "FrontierLairReturnLinger205Tests",
+    "FrontierPirateVisibility205Tests",
+    "FrontierBloodlust205Tests",
     "FrontierQuestPortal204Tests",
     "FrontierBossArt204Tests",
     "FrontierLoadoutArt204Tests",
@@ -86,8 +96,8 @@
     "FrontierEnemyCloneTossTests",
     "FrontierPerformanceTests"
   ],
-  "windows_cases": 72,
-  "python_tests": 362,
+  "windows_cases": 82,
+  "python_tests": 398,
   "python_historical_source_binding": false,
   "rates": [
     30,
@@ -99,25 +109,25 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.4-build102.apk",
-      "bytes": 305278679,
-      "sha256": "75e65bc4400a15b9d7aa6a5920a9a14071b17e5ba60d64df738df8f2b810687d"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.5.apk",
+      "bytes": 305447768,
+      "sha256": "95eaaa26d5a1e89b145424a454d8dd69a3b0952d1d6b9079cd698ba05e381e50"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.4-build102.ipa",
-      "bytes": 212976623,
-      "sha256": "834f141f7bf926b0d28aeea29ab98c46fb570e8066ceeb246965dc888b1bd05b"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.5.ipa",
+      "bytes": 213015744,
+      "sha256": "7fe9293d34325630c3f125d6062ea05969a947eb2f0957fd3c04daf39149cc0d"
     }
   },
-  "android_version_code": 3000102,
-  "ios_bundle_version": "102",
+  "android_version_code": 3000103,
+  "ios_bundle_version": "103",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.0.4",
-    "NTTE_RELEASE_VERSION": "2.0.4",
-    "NTTE_RELEASE_TAG": "2.0.4",
-    "compiler_ios": "2.0.4",
-    "compiler_android": "2.0.4"
+    "GAME_VERSION": "2.0.5",
+    "NTTE_RELEASE_VERSION": "2.0.5",
+    "NTTE_RELEASE_TAG": "2.0.5",
+    "compiler_ios": "2.0.5",
+    "compiler_android": "2.0.5"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -142,6 +152,6 @@
   "undergrowth_source": "https://attfooy.itch.io/undergrowth",
   "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
   "persistent_mobile_audio_noise": "unresolved",
-  "invisible_enemies": "unverified",
-  "publication_plan_sha256": "f8552f2a4bbd29b7df9b6098bc6e25573a2df9fc13c255790142b04d09a0de77"
+  "invisible_enemies": "selected Pirate lifecycle case only; unknown scenarios unverified",
+  "publication_plan_sha256": "ba624c89683daa7e26d474c831a23409a6ec56e4c62749d7730bc91e90314c36"
 }

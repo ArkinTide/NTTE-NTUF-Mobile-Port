@@ -112,6 +112,7 @@ function scrOptionsUpdate() {
 		
 		if !opt_cursorcol
 			opt_cursorcol = c_white
+		scrFRVisual205ColorSync(); // FRONTIER VISUAL205 LOCAL LIVE COLOR
 		
 		if opt_stickregions
 			opt_hiddensticks = true

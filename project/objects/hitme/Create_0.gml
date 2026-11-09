@@ -17,3 +17,8 @@ self[$ "raddrop"] ??= 0
 self[$ "size"] ??= 1
 // NTTE Coast constructor wading variables
 scrNTTEFullCoastConstructWading();
+
+// BEGIN FRONTIER PIRATE VISIBILITY205 READONLY HITME BIRTH
+if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest))
+    scrFRPirateVisibility205Created(id);
+// END FRONTIER PIRATE VISIBILITY205 READONLY HITME BIRTH

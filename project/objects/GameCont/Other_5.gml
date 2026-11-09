@@ -4,6 +4,8 @@ catch(_ntte_palace_carry_error) { scrNTTEFullPalaceArtifactPortalCarryAbort(_ntt
 // END NTTE PALACE ARTIFACT PORTAL CARRY TEST EXIT GameCont.RoomEnd.before
 // BEGIN NTTE GUARDIAN ESCAPE SOURCE STAGE
 scrNTTEFullGuardianEscapeRoomEndBegin();
+// FRONTIER QUEST PORTAL205 ROOM RELEASE
+scrFRQuestPortal205Release();
 // END NTTE GUARDIAN ESCAPE SOURCE STAGE
 var _race = Race.Random,
 	_went_crib = false

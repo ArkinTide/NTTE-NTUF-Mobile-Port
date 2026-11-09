@@ -1817,7 +1817,7 @@ sprite_index = scrFRAreaSourceSprite(global.fr_module_vars[$ "mod:Frontier_Picku
 
 // Original Objects/Frontier_Pickups.mod.gml:951
 function fr_Objects_Frontier_Pickups_mod_gml_MealMimic_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Pickups_mod_gml_MealMimic_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

@@ -688,7 +688,7 @@ scrFRInstanceDestroy();
 
 // Original Objects/Frontier_Deeplabs.mod.gml:382
 function fr_Objects_Frontier_Deeplabs_mod_gml_GatorAmalgam_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, (_frl__y + 8), FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, (_frl__y + 8), fr_Objects_Frontier_Deeplabs_mod_gml_GatorAmalgam_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1057,7 +1057,7 @@ scrFRPickupDrop(45, 8);
 
 // Original Objects/Frontier_Deeplabs.mod.gml:610
 function fr_Objects_Frontier_Deeplabs_mod_gml_RavenAmalgam_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Deeplabs_mod_gml_RavenAmalgam_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1293,7 +1293,7 @@ scrFRPickupDrop(55, 0);
 
 // Original Objects/Frontier_Deeplabs.mod.gml:751
 function fr_Objects_Frontier_Deeplabs_mod_gml_MothAmalgam_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Deeplabs_mod_gml_MothAmalgam_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1499,7 +1499,7 @@ scrFRPickupDrop(55, 0);
 
 // Original Objects/Frontier_Deeplabs.mod.gml:895
 function fr_Objects_Frontier_Deeplabs_mod_gml_Surgeon_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Deeplabs_mod_gml_Surgeon_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1923,7 +1923,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_Deeplabs.mod.gml:1122
 function fr_Objects_Frontier_Deeplabs_mod_gml_SurgeonMinion_create(_frl__x=undefined, _frl__y=undefined, _frl__angle=undefined, _frl__creator=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_Deeplabs_mod_gml_SurgeonMinion_create, [_frl__x, _frl__y, _frl__angle, _frl__creator])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

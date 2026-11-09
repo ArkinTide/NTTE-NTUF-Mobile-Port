@@ -15,6 +15,8 @@ function scrNTTEFullLockedQuestPromptMeet(_player) {
 function scrNTTEFullLockedQuestCreate() {
     sprite_index=scrNTTERefSprite("HugeQuestChest");spr_shadow=shd64;spr_shadow_y=6;depth=-1
     max_merge_delay=120;merge_delay=max_merge_delay;is_unlockable=false;is_playing_music=false
+    // FRONTIER QUEST PORTAL205 RESTORE COMPLETED CONTINUE
+    scrFRQuestPortal205RestoreChest(id);
     prompt=scrNTTEFullPromptCreate(id,"UNLOCK",mskShield)
     prompt.on_meet=scrNTTEFullLockedQuestPromptMeet
 }
@@ -129,6 +131,8 @@ function scrNTTEFullLockedQuestMergeStep() {
     if(distance_to_object(Player)>=128 && merge_delay>=max_merge_delay) return;
     var _floors=scrNTTEFullInstances(NTTEFullQuestFloorCont),_targets=scrNTTEFullLockedQuestCollect(_floors)
     if(array_length(_targets)<4 || array_get_index(_targets,noone)>=0) { merge_delay=max_merge_delay;return }
+    // FRONTIER QUEST PORTAL205 ACTIVATE
+    scrFRQuestPortal205Activate();
     if(merge_delay>0) merge_delay-=timescale
     var _pairs=[[0,1],[2,3],[1,2]]
     for(var _i=0;_i<array_length(_pairs);++_i) {
@@ -153,6 +157,8 @@ function scrNTTEFullLockedQuestUnlock(_player) {
     var _ok=false
     if(instance_exists(prompt)) with(prompt) _ok=scrNTTEFullLockedQuestPromptMeet(_player)
     if(!_ok) return false
+    // FRONTIER QUEST PORTAL205 UNLOCK RELEASE
+    scrFRQuestPortal205Release();
     instance_create(x,y,NTTEFullHugeQuestChest)
     snd_play(sndHammerHeadEnd,0.7);snd_play(sndStatueCharge,0.7)
     for(var _dir=0;_dir<360;_dir+=360/16) {
@@ -179,6 +185,8 @@ function scrNTTEFullLockedQuestUnlock(_player) {
     instance_destroy(id,false)
 // BEGIN FRONTIER QUEST PORTAL204 TEST NATIVE UNLOCK
     scrFRQuestPortal204UnlockedProbe();
+    // FRONTIER QUEST CONTINUE205 NATIVE UNLOCK
+    scrFRQuestContinue205UnlockedProbe();
 // END FRONTIER QUEST PORTAL204 TEST NATIVE UNLOCK
     return true
 }

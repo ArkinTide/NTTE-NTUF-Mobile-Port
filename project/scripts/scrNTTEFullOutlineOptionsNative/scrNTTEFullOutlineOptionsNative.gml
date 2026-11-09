@@ -115,8 +115,7 @@ function scrNTTEFullOutlineTintCache(_cache,_tint) {
     }
 }
 function scrNTTEFullOutlineOwnerColor(_index) {
-    var _owner=scr_playerinstance_find(_index)
-    return is_struct(_owner)?_owner.color:c_white
+    return scrFRVisual205OwnerColor(_index) // FRONTIER VISUAL205 SHARED OWNER COLOR
 }
 function scrNTTEFullPetBodyDraw() {
     var _draw=scrNTTEFullValue(hooks,"draw",undefined),_alpha=image_alpha*(instance_exists(revive)?0.4:1)

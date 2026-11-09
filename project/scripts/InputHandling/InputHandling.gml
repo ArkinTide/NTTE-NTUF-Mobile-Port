@@ -414,6 +414,7 @@ catch(_ntte_palace_carry_error) { scrNTTEFullPalaceArtifactPortalCarryAbort(_ntt
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullQuestCarryTest)) try { scrNTTEFullQuestCarryInput(_k,_index); }
 catch(_ntte_quest_carry_error) { scrNTTEFullQuestCarryAbort(_ntte_quest_carry_error); }
 // END NTTE QUEST ARTIFACT CARRY LIFECYCLE TEST INPUT
+    scrFRBubblesAttackInput205(_index); // FRONTIER BUBBLES FINAL ATTACK INPUT205
     scrFRPocketTeleporterSample204(_index); // FRONTIER POCKET 204 RAW INPUT START
     scrFRTouchPoll(); // FRONTIER TOUCH MENU RAW SAMPLES
 }

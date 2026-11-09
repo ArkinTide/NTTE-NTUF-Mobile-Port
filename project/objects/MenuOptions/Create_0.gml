@@ -194,7 +194,7 @@ colorpicker_update_scales = function(_color) {
 }
 
 colorpicker_update_options = function(_color) {
-	var _value = base_convert(real(_color), 10, 16)
+	var _value = scrFRVisual205ColorHex(_color) // FRONTIER VISUAL205 SIX-DIGIT HEX
 	UberCont.saveData[? "options_color"] = _value
 	scrOptionsUpdate()
 }

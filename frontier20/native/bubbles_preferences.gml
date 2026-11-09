@@ -18,16 +18,5 @@ function scrFRBubblesTouchBlocked(_player) {
 }
 
 function scrFRBubblesToggleInput(_index) {
-    if(!scrFREnabled()) return;
-    var _pinst=scr_playerinstance_find(_index),_player=noone;
-    with(Player) if(index==_index) {_player=id;break;}
-    if(!instance_exists(_player) || !is_struct(_pinst) || !scrFRRaceIs(_player.race)) return;
-    if(scrNTTEFullMountedAbilityRaw(_player)) {KeyCont.activeforever[_index]=false;return;}
-    if(!scr_player_pref(_pinst,"bubbles")) return;
-    var _press=KeyCont.press_spec[_index],_active=KeyCont.activeforever[_index],
-        _blocked=scrFRBubblesInputBlocked();
-    if(!_blocked && _press) {_active=!_active;KeyCont.activeforever[_index]=_active;}
-    KeyCont.hold_spec[_index]=_active;
-    KeyCont.press_spec[_index]=_press && _active && !_blocked;
-    KeyCont.release_spec[_index]=_press && !_active && !_blocked;
+    scrFRBubblesToggle205(_index); // FRONTIER BUBBLES ATTACK MODE205
 }

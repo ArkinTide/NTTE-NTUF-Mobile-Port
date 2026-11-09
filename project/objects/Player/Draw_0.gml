@@ -112,20 +112,8 @@ if !_ntte_beetle_drawing && back && !_is_shielding && wep {
 	1, wepright, gunangle + (wepangle * (1 - wkick / 20)), c_white, 1)
 }
 
-if instance_exists(CoopController) && UberCont.opt_outlines {
-	var pinst = scr_playerinstance_find(index)
-	
-	if pinst {
-		gpu_set_fog(true, pinst.color, 0, 0)
-		
-	    draw_sprite_ext(sprite_index, image_index, x - 1, y, right, 1, _angle, c_white, 1)
-	    draw_sprite_ext(sprite_index, image_index, x + 1, y, right, 1, _angle, c_white, 1)
-	    draw_sprite_ext(sprite_index, image_index, x, y - 1, right, 1, _angle, c_white, 1)
-	    draw_sprite_ext(sprite_index, image_index, x, y + 1, right, 1, _angle, c_white, 1)
-		
-	    gpu_set_fog(0, 0, 0, 0)
-	}
-}
+// FRONTIER VISUAL205 NATIVE PLAYER OUTLINE
+scrFRVisual205PlayerOutline(sprite_index,image_index,x,y,right,1,_angle);
 
 draw_sprite_ext(sprite_index, -1, x, y, right, 1, _angle, c_white, 1)
 

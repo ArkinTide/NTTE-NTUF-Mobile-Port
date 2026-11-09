@@ -4,6 +4,9 @@ catch(_ntte_palace_carry_error) { scrNTTEFullPalaceArtifactPortalCarryAbort(_ntt
 // END NTTE PALACE ARTIFACT PORTAL CARRY TEST EXIT Nothing.Destroy.before
 // NTTE SOURCE LEAD RIBS BEFORE CHILD DEATH
 if(hp<=0) scrNTTEFullLeadRibsDeath(id);
+// BEGIN FRONTIER BLOODLUST205 DYING ENEMY
+scrFRBloodlust205EnemyDeath();
+// END FRONTIER BLOODLUST205 DYING ENEMY
 instance_create(x, y, NothingDeath)
 
 with (MusCont) alarm[1] = 1

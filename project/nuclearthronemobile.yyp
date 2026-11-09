@@ -61168,6 +61168,102 @@
         "name": "scrFrontier_quest_portal204",
         "path": "scripts/scrFrontier_quest_portal204/scrFrontier_quest_portal204.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_wall_surface205",
+        "path": "scripts/scrFrontier_wall_surface205/scrFrontier_wall_surface205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_wall_surface205_tests",
+        "path": "scripts/scrFrontier_wall_surface205_tests/scrFrontier_wall_surface205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_continue_audio205",
+        "path": "scripts/scrFrontier_continue_audio205/scrFrontier_continue_audio205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_continue_audio205_tests",
+        "path": "scripts/scrFrontier_continue_audio205_tests/scrFrontier_continue_audio205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_attack205",
+        "path": "scripts/scrFrontier_bubbles_attack205/scrFrontier_bubbles_attack205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_attack205_tests",
+        "path": "scripts/scrFrontier_bubbles_attack205_tests/scrFrontier_bubbles_attack205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_visual205",
+        "path": "scripts/scrFrontier_visual205/scrFrontier_visual205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_visual205_tests",
+        "path": "scripts/scrFrontier_visual205_tests/scrFrontier_visual205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_quest_portal205_tests",
+        "path": "scripts/scrFrontier_quest_portal205_tests/scrFrontier_quest_portal205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_lair_return205_tests",
+        "path": "scripts/scrFrontier_lair_return205_tests/scrFrontier_lair_return205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_quest_continue205_tests",
+        "path": "scripts/scrFrontier_quest_continue205_tests/scrFrontier_quest_continue205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_pirate_visibility205_tests",
+        "path": "scripts/scrFrontier_pirate_visibility205_tests/scrFrontier_pirate_visibility205_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_lair_return205",
+        "path": "scripts/scrFrontier_lair_return205/scrFrontier_lair_return205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_cluster_factory205",
+        "path": "scripts/scrFrontier_cluster_factory205/scrFrontier_cluster_factory205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bloodlust205",
+        "path": "scripts/scrFrontier_bloodlust205/scrFrontier_bloodlust205.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bloodlust205_tests",
+        "path": "scripts/scrFrontier_bloodlust205_tests/scrFrontier_bloodlust205_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

@@ -339,6 +339,11 @@ function scrUGShadows(_vx,_vy) {
 // shared shell: its named factory must also run, just as at initial population.
 // Keep the original count, offset RNG, and ordinary enemy construction.
 function scrUGClusterCreate(_x,_y,_object,_source) {
+// BEGIN FRONTIER LOOP CLUSTER SOURCE FACTORY
+if(_object==FRCustomEnemy && instance_exists(_source))
+    return scrFRClusterCreate(_x,_y,_source);
+// END FRONTIER LOOP CLUSTER SOURCE FACTORY
+
     if(_object==UGEnemy && instance_exists(_source))
         return scrUGCreate(_x,_y,_source.name);
     return instance_create(_x,_y,_object);

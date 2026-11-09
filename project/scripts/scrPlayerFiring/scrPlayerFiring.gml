@@ -1,4 +1,5 @@
 function scrPlayerFiring(_primary = true) {
+    if(scrFRBubblesWeaponBlocked205(id)) {clicked=false;return;} // FRONTIER BUBBLES WEAPON EXCLUSION205
 // BEGIN FRONTIER WEAPON INPUT
 if(scrFRWeaponInput(wep,_primary)) return;
 // END FRONTIER WEAPON INPUT

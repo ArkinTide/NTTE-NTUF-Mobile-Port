@@ -37,6 +37,8 @@ function scrNTTEFullQuestHubNaturalAfterSample(_keycont,_index) {
     // actual Player pickup/Prompt and source controller Steps do the transfer.
 // BEGIN FRONTIER QUEST PORTAL204 TEST INPUT
     if(!scrFRQuestPortal204InputAllowed(_observer)) return;
+    // FRONTIER QUEST CONTINUE205 CHECKPOINT
+    if(!scrFRQuestContinue205InputAllowed(_observer)) return;
     _keycont.press_pick[_index]=true
 // END FRONTIER QUEST PORTAL204 TEST INPUT
     _observer.input_injections++

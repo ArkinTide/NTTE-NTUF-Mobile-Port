@@ -21,6 +21,93 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+// BEGIN FRONTIER BLOODLUST205 COMBAT DRIVER
+if(fr_test_case=="bloodlust205") {
+    if(!variable_instance_exists(id,"fr_bloodlust205")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBloodlust205TestsStart(id);return;
+    }
+    if(scrFRBloodlust205TestsStep(id)) {
+        scrNTTESmokeLog("PASS Carnivorous Enzymes actual AugmentStation grant, native projectiles,12+1 deaths, deduplication and injured Player healing across native/NTTE/NTUF at30/60Hz");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BLOODLUST205 COMBAT DRIVER
+
+// BEGIN FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC DRIVER
+if(fr_test_case=="pirate-visibility205") {
+    if(!variable_instance_exists(id,"fr_pirate_visibility205")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRPirateVisibility205TestsStart(id);return;
+    }
+    if(scrFRPirateVisibility205TestsStep(id)) {
+        scrNTTESmokeLog("PASS real Cove L1 source-factory loop clusters at 30/60Hz: initialized species/HP/callbacks/masks, native scatter, scheduled Bullet1 deaths and natural exits");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC DRIVER
+
+    // BEGIN FRONTIER QUEST PORTAL205 TEST DRIVER
+    if(fr_test_case=="quest-vault205") {
+        if(variable_instance_exists(id,"fr_quest_portal205")) {
+            if(scrFRQuestPortal205TestsStep(id)) {
+                scrNTTESmokeLog("PASS FRONTIER ordinary generated Vault205 genuine four guardians/deaths/native corpse exit x30/60");
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+                game_end();
+            }
+            return;
+        }
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRQuestPortal205TestsStart(id);return;
+    }
+    // END FRONTIER QUEST PORTAL205 TEST DRIVER
+
+// BEGIN FRONTIER VISUAL205 FOCUSED DRIVER
+if(fr_test_case=="visual205") {
+    if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRVisual205Tests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER VISUAL205 FOCUSED DRIVER
+
+// FRONTIER AUDIO BUBBLES205 TEST DISPATCH
+    if(fr_test_case=="continue_audio205") {
+        if(!variable_instance_exists(id,"fr_continue_audio205")) {
+            if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+            if(++fr_test_ticks<45) return;
+            scrFRContinueAudio205TestsStart(id);return;
+        }
+        if(scrFRContinueAudio205TestsStep(id)) {scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();}
+        return;
+    }
+    if(fr_test_case=="bubbles_attack205") {
+        if(!variable_instance_exists(id,"fr_bubbles_attack205")) {
+            if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+            if(++fr_test_ticks<45) return;
+            scrFRBubblesAttack205TestsStart(id);return;
+        }
+        if(scrFRBubblesAttack205TestsStep(id)) {scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();}
+        return;
+    }
+
+    // FRONTIER WALL SURFACE205 TEST DRIVER
+    if(fr_test_case=="wall-surface205") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRWallSurface205Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
     // BEGIN FRONTIER QUEST PORTAL204 TEST DRIVER
     if(fr_test_case=="quest-portal204") {
         if(variable_instance_exists(id,"fr_quest_portal204")) {

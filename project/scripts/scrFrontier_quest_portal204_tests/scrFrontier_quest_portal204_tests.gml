@@ -48,16 +48,17 @@ function scrFRQuestPortal204Eligibility() {
         active_portal_prevents:_prevents,special_final_area:_special,
         player:instance_exists(Player),locked:instance_exists(NTTEFullLockedHugeQuestChest),
         full_portal_blocked:scrNTTEFullPortalBlocked(),
+        active_claim:scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false),
         eligible:_allowed && !_enemies && !_crown && !_statue && !_guardian
             && !_tut && !_rad && !_scrap && !_special && _prevents==0
             && GameCont.area!=area_crib && instance_exists(Player)};
 }
 function scrFRQuestPortal204ObservePortals(_state) {
-    if(!instance_exists(NTTEFullLockedHugeQuestChest)) return;
+    if(!scrFRQuestPortal204Blocked()) return;
     with(Portal) if(type==1 || type==2) {
         array_push(_state.row.ordinary_portals,{id:real(id),type:type,frame:current_frame,
             x:x,y:y,phase:_state.observer.phase,eligibility:scrFRQuestPortal204Eligibility()});
-        scrFRQuestPortal204Fail(_state,"Ordinary portal interrupted a live Ultimate Quest locked chest");
+        scrFRQuestPortal204Fail(_state,"Ordinary portal interrupted an activated Ultimate Quest");
     }
 }
 function scrFRQuestPortal204HasHeldArtifact(_observer) {
@@ -75,11 +76,16 @@ function scrFRQuestPortal204NaturalBegin(_observer) {
     var _e=scrFRQuestPortal204Eligibility();
     if(_e.locked) {
         _r.locked_frames++;
-        if(!_e.full_portal_blocked) _r.unblocked_locked_frames++;
+        if(scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)) {
+            _r.active_frames++;
+            if(!_e.full_portal_blocked) _r.unblocked_locked_frames++;
+        } else _r.dormant_frames++;
         if(_observer.phase==5 && _e.eligible && _e.hearts==0) {
             _r.empty_run+=timescale;_r.eligible_empty_ticks+=timescale;
             _r.eligible_empty_frames++;
-            if(is_undefined(_r.eligible_empty_witness)) _r.eligible_empty_witness=_e;
+            // Dormant gaps remain part of the real source route below.
+            // The strict blocked-empty witness belongs to its active claim.
+            if(_e.active_claim && is_undefined(_r.eligible_empty_witness)) _r.eligible_empty_witness=_e;
         } else if(_r.empty_run>0) {
             _r.last_empty_run=_r.empty_run;_r.empty_run=0;
         }
@@ -207,8 +213,8 @@ function scrFRQuestPortal204NaturalFinish(_observer) {
     // A failed compound acceptance assertion must leave its real counters.
     // IN_PROGRESS cannot satisfy the reviewer or any publication gate.
     scrFRQuestPortal204Write(_s,"IN_PROGRESS","native route reached final acceptance assertions");
-    assert(_r.locked_frames>0 && _r.unblocked_locked_frames==0,
-        "Locked quest owner was not guarded for its whole live lifecycle");
+    assert(_r.locked_frames>0 && _r.active_frames>0 && _r.unblocked_locked_frames==0,
+        "Activated quest lost its guard before successful native unlock");
     assert(array_length(_r.empty_gaps)==3 && _r.hearts_seen==8
         && _r.generated_enemies_seen>0 && _r.actual_shots>0
         && array_length(_r.native_deaths)>0 && _r.heart_gate_intervals>0 && _r.enemy_gate_intervals>0,
@@ -306,7 +312,7 @@ function scrFRQuestPortal204Next(_state) {
     _state.row={route:_case.route,stored:_case.stored,seed:_case.seed,rate:_case.rate,
         runtime_fps:game_get_speed(gamespeed_fps),logic_scale:timescale,
         observer_id:real(_state.observer),frames:0,logical_ticks:0,locked_frames:0,
-        unblocked_locked_frames:0,eligible_empty_ticks:0,eligible_empty_frames:0,
+        unblocked_locked_frames:0,active_frames:0,dormant_frames:0,eligible_empty_ticks:0,eligible_empty_frames:0,
         eligible_empty_witness:undefined,empty_run:0,last_empty_run:0,empty_gaps:[],
         merges:[false,false,false],native_deaths:[],recovery_eligible_calls:0,
         corpse_eligible_attempts:0,corpse_rejected_attempts:0,corpse_alarms:[],corpse_all_alarms:[],

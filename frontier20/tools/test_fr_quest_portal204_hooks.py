@@ -134,13 +134,27 @@ class QuestPortal204HookTests(unittest.TestCase):
                 hook.apply(self.project)
         self.assertEqual(before, self.snapshot())
 
-    def test_live_owner_helper_has_no_synthetic_enemy_or_persistent_flag(self):
+    def test_live_activated_owner_excludes_dormant_chest_and_synthetic_enemies(self):
         source = (ROOT / "native/quest_portal204.gml").read_text("utf8")
-        self.assertIn("return instance_exists(NTTEFullLockedHugeQuestChest);", source)
+        blocked = source.split("function scrFRQuestPortal204Blocked() {", 1)[1].split("function ", 1)[0]
+        self.assertIn("return instance_exists(NTTEFullLockedHugeQuestChest)", blocked)
+        self.assertIn("&& instance_exists(GameCont)", blocked)
+        self.assertIn('scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)', blocked)
+        self.assertNotIn("instance_create", blocked)
         self.assertNotIn("global.", source)
         self.assertNotIn("scr_check_enemies", source)
-        self.assertNotIn("instance_create", source)
         self.assertNotIn("QuestFloorCont", source)
+        activate = source.split("function scrFRQuestPortal205Activate() {", 1)[1].split("function ", 1)[0]
+        self.assertIn("GameCont.fr_quest_portal205_active=true;", activate)
+        self.assertIn("with(Portal) if(type==1 || type==2)", activate)
+        self.assertIn("instance_create(x,y,PortalClear);", activate)
+        self.assertNotIn("type==3", activate)
+        release = source.split("function scrFRQuestPortal205Release() {", 1)[1].split("function ", 1)[0]
+        self.assertIn("GameCont.fr_quest_portal205_active=false;", release)
+        restore = source.split("function scrFRQuestPortal205RestoreChest(_chest) {", 1)[1]
+        self.assertIn('!scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)', restore)
+        self.assertIn("array_length(_held)>=4 || array_length(_back)>=4", restore)
+        self.assertIn("_chest.is_unlockable=true;", restore)
 
 
 if __name__ == "__main__":

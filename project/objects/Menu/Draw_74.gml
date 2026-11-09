@@ -25,23 +25,7 @@ with (GoButton) if (tooltip) {
 
 //
 if string_length(unlock_hint) {
-    var _message = string_hash_to_newline(loc(string_upper(unlock_hint)))
-	
-	draw_align(fa_center, fa_middle)
-	
-	var _width = string_width_pure(_message) * 0.5 + 8 + unlock_hint_pop,
-		_height = string_height_pure(_message) * 0.5 + 8,
-		_xpos = gui_w div 2, _ypos = gui_h - 30
-	
-    draw_set_colour(c_tooltip)
-    draw_roundrect_ext(
-		_xpos - _width, _ypos - _height,
-		_xpos + _width, _ypos + _height, 4, 4, 0)
-	
-	draw_set_color(c_white)
-	draw_text_nt(_xpos, _ypos + unlock_hint_pop, _message)
-	
-	draw_align()
-	
-	unlock_hint_pop = approach(unlock_hint_pop, 0, timescale)
+    // FRONTIER VISUAL205 ACTUAL RICH-TEXT TOOLTIP
+    scrFRVisual205UnlockDraw(unlock_hint,unlock_hint_pop);
+    unlock_hint_pop = approach(unlock_hint_pop, 0, timescale)
 }

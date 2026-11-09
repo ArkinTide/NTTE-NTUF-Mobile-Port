@@ -8,6 +8,8 @@ from unittest.mock import patch
 
 import fr_quest_portal204_test_hooks as hook
 import fr_quest_portal204_hooks as production
+import fr_quest_portal205_test_hooks as vault205
+import fr_quest_continue205_test_hooks as continue205
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,9 +28,27 @@ class QuestPortal204TestHooks(unittest.TestCase):
             # Unit fixtures stay a pristine baseline even after root applies
             # production and test hooks to the real staging project.
             text = target.read_text(encoding='utf-8-sig').replace('\r\n', '\n')
+            # 2.0.5 readonly probes can nest inside the 2.0.4 owned blocks.
+            # Unwrap their exact additions first so this installer unit test
+            # still starts from its original source boundary.
+            for module in (continue205, vault205):
+                for path, before, after in reversed(module.SITES):
+                    if relative != path:
+                        continue
+                    if after.startswith(before):
+                        text = text.replace(after[len(before):], '')
+                    elif after.endswith(before):
+                        text = text.replace(after[:-len(before)], '')
+                    else:
+                        text = text.replace(after, before)
             for path, before, after, _ in hook.SITES:
                 if relative == path:
-                    text = text.replace(after, before)
+                    if after.startswith(before):
+                        text = text.replace(after[len(before):], '')
+                    elif after.endswith(before):
+                        text = text.replace(after[:-len(before)], '')
+                    else:
+                        text = text.replace(after, before)
             if relative == hook.NATURAL:
                 for before, insertion, identity in reversed(hook.NATURAL_SITES):
                     after = (before + '\n' + hook.call_block(insertion, identity).rstrip('\n')
@@ -126,9 +146,13 @@ class QuestPortal204TestHooks(unittest.TestCase):
                 hook.apply(self.project)
         self.assertEqual(before, self.snapshot())
 
-    def test_native_acceptance_observes_real_routes_and_never_calls_new_helper(self):
+    def test_native_acceptance_observes_real_routes_and_activated_lifecycle(self):
         text = (ROOT / 'native/quest_portal204_tests.gml').read_text(encoding='utf8')
-        self.assertNotIn('scrFRQuestPortal204Blocked', text)
+        self.assertIn('if(!scrFRQuestPortal204Blocked()) return;', text)
+        self.assertIn('if(scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false))', text)
+        self.assertIn('_r.active_frames++;', text)
+        self.assertIn('else _r.dormant_frames++;', text)
+        self.assertIn('_r.active_frames>0 && _r.unblocked_locked_frames==0', text)
         self.assertIn('scrNTTEFullQuestStoredHubNaturalTests(_case.seed)', text)
         self.assertIn('scrNTTEFullQuestHubNaturalTests()', text)
         self.assertEqual(3, text.count('rate:30}'))
@@ -141,8 +165,39 @@ class QuestPortal204TestHooks(unittest.TestCase):
         self.assertIn('_observer.want_pick=false;', text)
         self.assertLess(text.index('scrFRQuestPortal204Write(_s,"IN_PROGRESS"'),
                         text.index('assert(_r.locked_frames>0'))
-        self.assertIn('Ordinary portal interrupted a live Ultimate Quest locked chest', text)
+        self.assertIn('Ordinary portal interrupted an activated Ultimate Quest', text)
         self.assertNotIn('instance_destroy(', text)
+
+    def test_empty_witness_samples_active_claim_without_dropping_dormant_gaps(self):
+        text = (ROOT / 'native/quest_portal204_tests.gml').read_text(encoding='utf8')
+        self.assertIn('active_claim:scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)', text)
+        start = text.index('if(_observer.phase==5 && _e.eligible && _e.hearts==0) {')
+        stop = text.index('        } else if(_r.empty_run>0)', start)
+        empty = text[start:stop]
+        self.assertIn('_r.empty_run+=timescale;_r.eligible_empty_ticks+=timescale;', empty)
+        self.assertIn('_r.eligible_empty_frames++;', empty)
+        self.assertIn('if(_e.active_claim && is_undefined(_r.eligible_empty_witness))', empty)
+        self.assertEqual(1, empty.count('_r.eligible_empty_witness=_e;'))
+        self.assertIn('array_push(_r.empty_gaps,{before_merge:_i,', text)
+        self.assertIn('ticks:max(_r.empty_run,_r.last_empty_run)', text)
+        self.assertIn('_r.active_frames>0 && _r.unblocked_locked_frames==0', text)
+
+    def test_dormant_vault_acceptance_retains_guardian_combat_and_ordinary_exit(self):
+        production = (ROOT / 'native/quest_portal204.gml').read_text(encoding='utf8')
+        begin = production.index('function scrFRQuestPortal204Blocked() {')
+        end = production.index('\nfunction ', begin + 1)
+        guard = production[begin:end]
+        self.assertIn('return instance_exists(NTTEFullLockedHugeQuestChest)', guard)
+        self.assertIn('&& instance_exists(GameCont)', guard)
+        self.assertIn('&& scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)', guard)
+        dormant = (ROOT / 'native/quest_portal205_tests.gml').read_text(encoding='utf8')
+        self.assertIn('instance_exists(NTTEFullLockedHugeQuestChest) && !scrFRQuestPortal204Blocked()', dormant)
+        self.assertIn('&& !scrNTTEFullValue(GameCont,"fr_quest_portal205_active",false)', dormant)
+        self.assertIn('_s.row.dormant_frames++;', dormant)
+        self.assertIn('array_length(_s.row.guardians_seen)==4', dormant)
+        self.assertIn('_s.row.actual_shots>=5 && _s.row.corpse_attempts>0 && _s.row.corpse_passes>0', dormant)
+        self.assertIn('with(Portal) if(type==1)', dormant)
+        self.assertNotIn('instance_destroy(', dormant)
 
     def test_final_wait_keeps_source_combat_and_strict_eligible_gate_with_bounded_diagnostics(self):
         text = (ROOT / 'native/quest_portal204_tests.gml').read_text(encoding='utf8')

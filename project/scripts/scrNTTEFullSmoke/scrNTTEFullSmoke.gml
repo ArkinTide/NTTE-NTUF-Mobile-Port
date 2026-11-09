@@ -176,6 +176,32 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBossArt204Tests")) {scrFRIntegrationTestSt
 // BEGIN FRONTIER QUEST PORTAL204 TEST ENTRY
 if(scrNTTEFullSmokeAsyncCase("FrontierQuestPortal204Tests")) {scrFRIntegrationTestStart("quest-portal204");return;}
 // END FRONTIER QUEST PORTAL204 TEST ENTRY
+// FRONTIER WALL SURFACE205 TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierWallSurface205Tests")) {scrFRIntegrationTestStart("wall-surface205");return;}
+        // FRONTIER AUDIO BUBBLES205 SMOKE ENTRY
+        if(scrNTTEFullSmokeAsyncCase("FrontierContinueAudio205Tests")) {scrFRIntegrationTestStart("continue_audio205");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierBubblesAttack205Tests")) {scrFRIntegrationTestStart("bubbles_attack205");return;}
+// BEGIN FRONTIER VISUAL205 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierVisual205Tests")) {scrFRIntegrationTestStart("visual205");return;}
+// END FRONTIER VISUAL205 ENTRY
+// BEGIN FRONTIER QUEST PORTAL205 TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierQuestVault205Tests")) {scrFRIntegrationTestStart("quest-vault205");return;}
+// END FRONTIER QUEST PORTAL205 TEST ENTRY
+// BEGIN FRONTIER LAIR RETURN205 LINGER ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierLairReturnLinger205Tests")) {scrFRLairReturn205LingerTestsStart();return;}
+// END FRONTIER LAIR RETURN205 LINGER ENTRY
+// BEGIN FRONTIER LAIR RETURN205 TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierLairReturn205Tests")) {scrFRLairReturn205TestsStart();return;}
+// END FRONTIER LAIR RETURN205 TEST ENTRY
+// BEGIN FRONTIER QUEST CONTINUE205 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierQuestContinue205Tests")) {scrFRQuestContinue205TestsStart();return;}
+// END FRONTIER QUEST CONTINUE205 ENTRY
+// BEGIN FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierPirateVisibility205Tests")) {scrFRIntegrationTestStart("pirate-visibility205");return;}
+// END FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC ENTRY
+// BEGIN FRONTIER BLOODLUST205 COMBAT ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTestStart("bloodlust205");return;}
+// END FRONTIER BLOODLUST205 COMBAT ENTRY
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}
         if(scrNTTEFullSmokeAsyncCase("Release124SpiderRouteTests")) {scrRelease124SpiderRouteTests();return;}

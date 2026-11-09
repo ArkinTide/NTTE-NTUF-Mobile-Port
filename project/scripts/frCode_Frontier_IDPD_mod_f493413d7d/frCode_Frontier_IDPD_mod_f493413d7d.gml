@@ -1082,7 +1082,7 @@ if(__fr_break3) break;
 
 // Original Objects/Frontier_IDPD.mod.gml:619
 function fr_Objects_Frontier_IDPD_mod_gml_PopoGuardianBaraquiel_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_IDPD_mod_gml_PopoGuardianBaraquiel_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
@@ -1512,7 +1512,7 @@ scrFRPickupDrop(120, 20);
 
 // Original Objects/Frontier_IDPD.mod.gml:877
 function fr_Objects_Frontier_IDPD_mod_gml_PopoGuardianBattery_create(_frl__x=undefined, _frl__y=undefined) {
-{ var __fr_with1 = scrFRWithValues(scrFRInstanceCreate(_frl__x, _frl__y, FRCustomEnemy)), __fr_break3=false;
+{ var __fr_with1 = scrFRWithValues(scrFRClusterEnemyCreate(_frl__x, _frl__y, fr_Objects_Frontier_IDPD_mod_gml_PopoGuardianBattery_create, [_frl__x, _frl__y])), __fr_break3=false;
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {

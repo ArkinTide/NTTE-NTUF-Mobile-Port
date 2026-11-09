@@ -1,0 +1,20 @@
+{
+  "version": "2.0.5",
+  "base": "NTTE+NTUF 2.0.4 build102",
+  "scope": "NTTE+NTUF mobile only; Hardmode and Steam unchanged",
+  "cleanup": "Completed three reviewed obsolete-output cleanup phases: 56,856,580,096 bytes reclaimed; 447 protected files verified unchanged before development; tiny ACL-protected residuals retained",
+  "publish_authorized": true,
+  "requirements": [
+    {"id": 1, "request": "Stop sustained laser sound when resuming a saved run"},
+    {"id": 2, "request": "Correct the oversized Bubbles B-skin unlock tooltip"},
+    {"id": 3, "request": "Use a crown-shaped black silhouette for the locked storm crown"},
+    {"id": 4, "request": "Video settings for player and pet outlines, freely selected colour; player outline colour also colours the health bar"},
+    {"id": 5, "request": "When Bubbles preferred ability mode is enabled, attack controls fire ability bubbles instead of the weapon, like Horror"},
+    {"id": 6, "request": "Fix top-only wall artwork and unexplained gaps between wall sections"},
+    {"id": 7, "request": "Restore normal Crown Vault exit after the Crown Guardian is defeated without reopening Ultimate Quest exits early"},
+    {"id": 8, "request": "Fix getting stuck in walls when returning through the opened Pizza Sewer entrance into the Lair"},
+    {"id": 9, "request": "Fix invisible invulnerable entities in the Pirate area blocking completion; player and pets cannot hit them"},
+    {"id": 10, "request": "Investigate and fix the IDPD mutation Carnivorous Enzymes not triggering"}
+  ],
+  "verification": "Background muted native VM with independent saves; targeted regression evidence and package checks; no physical mobile device claim"
+}

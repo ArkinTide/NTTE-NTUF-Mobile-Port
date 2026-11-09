@@ -143,6 +143,8 @@ function scrNTTEFullPizzaLairDrainTVScreen(_tv) {
     return false;
 }
 function scrNTTEFullPizzaLairDrainBotAfterSample(_keycont,_index) {
+    // FRONTIER QUEST CONTINUE205 SOURCE INPUT OWNERSHIP
+    if(scrFRQuestContinue205BypassPizzaBot()) return;
     var _observer=instance_find(NTTEFullPizzaLairDrainNaturalTest,0)
     if(!instance_exists(_observer) || _observer.restored || !instance_exists(_observer.player)
         || _observer.player.index!=_index) return;
@@ -196,6 +198,10 @@ function scrNTTEFullPizzaLairDrainBotAfterSample(_keycont,_index) {
     _keycont.moving[_index]=_moving?1:0;_keycont.dir_move[_index]=_direction
     _keycont.hold_east[_index]=false;_keycont.hold_west[_index]=false
     _keycont.hold_nort[_index]=false;_keycont.hold_sout[_index]=false
+    // FRONTIER LAIR RETURN205 NATIVE SAMPLED MOVEMENT
+    scrFRLairReturn205AfterSample(_observer,_keycont,_index);
+    // FRONTIER QUEST CONTINUE205 SAMPLED INPUT
+    scrFRQuestContinue205AfterSample(_observer,_keycont,_index);
 }
 function scrNTTEFullPizzaLairDrainDiagnostic(_where) {
     scrNTTESmokeLog("PIZZA LAIR DRAIN "+_where+" "+json_stringify({rate:rates[pass_index],phase:phase,
@@ -295,6 +301,10 @@ function scrNTTEFullPizzaLairDrainBootstrap() {
     scrNTTESmokeLog("PIZZA LAIR DRAIN controlled initial solo FishA/Pizza1/loop0/hard5/legal AutoCrossbow+none/max55Bolts, native health/XP unchanged, native custom seed+allstream reset="+string(current_seed)+" @"+string(rates[pass_index]))
 }
 function scrNTTEFullPizzaLairDrainStepBody() {
+    // FRONTIER QUEST CONTINUE205 HOST
+    if(scrFRQuestContinue205HostStep(id)) return;
+    // FRONTIER LAIR RETURN205 SCHEDULED TRAVERSAL
+    if(scrFRLairReturn205Before(id)) return;
     elapsed+=timescale
     if(elapsed>next_diagnostic && phase>=2) {
         scrNTTEFullPizzaLairDrainDiagnostic("native wait");next_diagnostic+=120
@@ -371,7 +381,7 @@ function scrNTTEFullPizzaLairDrainStepBody() {
             && scrNTTEFullValue(GameCont,"ntte_visits_pizza",0)==old_visits
             && is_undefined(GameCont.ntte_full_pending_destination),
             "Original in-room Drain route incorrectly used room boundary/finish/bookkeeping/queued Portal")
-        assert(instance_exists(tv) && tv.visible && tv.sprite_index==sprTV && tv.spr_idle==sprTV
+        assert(instance_exists(tv) && tv.visible && (tv.sprite_index==sprTV || tv.sprite_index==tv.spr_hurt) && tv.spr_idle==sprTV
             && tv.tv==tv_channel && scrNTTEFullPizzaLairDrainTVScreen(tv)
             && instance_number(NTTEFullCatHoleBig)==1 && !NTTEFullCatHoleBig.ntte_full_released
             && NTTEFullCatHoleBig.ntte_full_phase==0 && instance_number(NTTEFullLairBorder)==1
@@ -393,6 +403,8 @@ function scrNTTEFullPizzaLairDrainStepBody() {
         assert(variable_struct_get(_progress.unlocks,"crown:crime")
             && !scrNTTEFullValue(_progress.unlocks,"pack:lair",false),"Persisted native Crime differs from memory or grants pack early")
         scrNTTESmokeLog("PASS PIZZA LAIR DRAIN NATURAL: controlled initial FishA/Pizza1/loop0/legal AutoCrossbow55Bolts/native health+XP; actual async Pizza+8Draw, native sampled movement/fire/cost/reload/moving Bolt20+20/original40HP Drain registered death, original production sync in-room hallway/Lair generation+8Draw/same Player+GameCont+state/old Pizza floor+TV retained/renderers replaced, source Crime memory+private JSON, unreleased manhole/no early boss rewards, zero engine RoomEnd+Start; upstream Sewer/full boss/exit/iPhone UNRUN @"+string(rates[pass_index]))
+        // FRONTIER LAIR RETURN205 VALIDATED SOURCE HANDOFF
+        if(scrFRLairReturn205Validated(id)) return;
         if(++pass_index<array_length(rates)) {scrNTTEFullPizzaLairDrainAwait(0);return;}
         scrNTTEFullPizzaLairDrainRestore()
         scrNTTESmokeLog("PASS full internal selected implemented branches x 30/60; not complete MOD coverage")

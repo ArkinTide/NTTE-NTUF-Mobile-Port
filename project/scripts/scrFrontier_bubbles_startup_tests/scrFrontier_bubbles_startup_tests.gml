@@ -112,6 +112,8 @@ function scrFRBubblesStartupTestsAfterInputSample() {
 }
 
 function scrFRBubblesStartupTestsTouchState() {
+    var _fr205=scrFRBubblesAttack205TouchState();
+    if(is_struct(_fr205)) return _fr205; // FRONTIER BUBBLES205 RAW TOUCH DEVICE
     if(os_type!=os_windows || !scrNTTEFullSmokeEnabled()) return undefined;
     var _state=undefined;
     with(FRIntegrationTest) if(variable_instance_exists(id,"fr_bubbles_startup")) {

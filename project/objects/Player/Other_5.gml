@@ -16,6 +16,7 @@ instance_destroy(ButtonSwap)
 instance_destroy(ButtonActive)
 instance_destroy(ButtonAct)
 
+scrFRPlayerAudioStop205(); // FRONTIER PLAYER AUDIO OWNER205
 snd_stop(sndCarLoop)
 
 // BEGIN NTTE PALACE ARTIFACT PORTAL CARRY TEST EXIT Player.RoomEnd.after

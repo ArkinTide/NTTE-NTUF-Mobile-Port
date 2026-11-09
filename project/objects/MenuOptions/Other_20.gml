@@ -275,7 +275,7 @@ scrOptionsMenuCreateElements(
 				/// @loc:token [ProfileOptions] ColorSelectorNone "NONE"
 				val = loc("ProfileOptions", "ColorSelectorNone", "NONE")
 			
-			if global.player_color {
+			if scrFRVisual205ColorConfigured() { // FRONTIER VISUAL205 EXPLICIT BLACK
 				draw_set_color(c_black)
 				draw_rectangle(xx - w - 2, yy - h - 2, xx + w + 2, yy + h + 3, 0)
 				
@@ -460,7 +460,7 @@ scrOptionsMenuCreateElements(
 		},
 		
 		get_value: function(_opt) {
-			if !global.player_color {
+			if !scrFRVisual205ColorConfigured() { // FRONTIER VISUAL205 PROFILE COLOR
 				/// @loc:token [ProfileOptions] ColorDefault "DEFAULT"
 				return loc("ProfileOptions:ColorDefault", "DEFAULT")
 			}
@@ -1416,6 +1416,7 @@ scrOptionsMenuCategoryEnd()
 #endregion
 
 scrNTTEFullMenuDefine();
+scrFRVisual205Options(); // FRONTIER VISUAL205 VIDEO SETTINGS
 
 // BEGIN FRONTIER OPTIONS PAGES
 scrFRMenuOptionsBuild();
