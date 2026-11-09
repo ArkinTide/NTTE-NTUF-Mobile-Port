@@ -21,6 +21,50 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    // BEGIN FRONTIER QUEST PORTAL204 TEST DRIVER
+    if(fr_test_case=="quest-portal204") {
+        if(variable_instance_exists(id,"fr_quest_portal204")) {
+            if(scrFRQuestPortal204TestsStep(id)) {
+                scrNTTESmokeLog("PASS FRONTIER QUEST PORTAL204 six real source routes, recovery/corpse alarms, reward and legal crown exit");
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+                game_end();
+            }
+            return;
+        }
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRQuestPortal204TestsStart(id);return;
+    }
+    // END FRONTIER QUEST PORTAL204 TEST DRIVER
+
+// FRONTIER ART204 DRIVER
+    if(fr_test_case=="loadout-art204" || fr_test_case=="boss-art204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        if(fr_test_case=="loadout-art204") scrFRLoadoutArt204Tests();
+        else scrFRBossArt204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+// FRONTIER RED CONNECTIVITY204 DRIVER
+    if(fr_test_case=="red-connectivity204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRRedConnectivity204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+// FRONTIER MUTATION POOL204 DRIVER
+    if(fr_test_case=="mutation-pool204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRMutationPool204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
 // BEGIN FRONTIER MENU INPUT204 DRIVER
 if(string_pos("menu-input204-",fr_test_case)==1) {
     if(!variable_instance_exists(id,"fr_menu_input204")) {

@@ -28,7 +28,8 @@ if !roll && race != Race.Frog {
 	// Fix the original contacted tile before ejection can move across cells.
 	var _fr_wall_contact=scrNTTESolidWallContact(other.id,x,y);
 	
-	if (instance_exists(Floor)) while (place_meeting(x, y, Wall)) {
+	// FRONTIER RED WALL QUERY204 REAL WALL CONTACT
+	if (instance_exists(Floor)) while (scrNTTEFullPlayerWallMeeting(x, y)) {
 		if ((++_iteration) > 100) {
 			scrWallDestroy(other.id)
 			x = _px
@@ -64,23 +65,23 @@ if !roll && race != Race.Frog {
 		x = _x
 		y = _y
 		
-		if (!place_meeting(x, y, Wall)) break
+		if (!scrNTTEFullPlayerWallMeeting(x, y)) break
 	}
 	
 	move_contact_solid(direction, clamp(speed, 1, maxspeed))
 	
-	if place_meeting(x + hspeed, y, Wall) {
+	if scrNTTEFullPlayerWallMeeting(x + hspeed, y) {
 		hspeed /= 2
 		
-		if place_meeting(x + hspeed, y, Wall) {
+		if scrNTTEFullPlayerWallMeeting(x + hspeed, y) {
 			hspeed = 0
 		}
 	}
 	
-	if place_meeting(x, y + vspeed, Wall) {
+	if scrNTTEFullPlayerWallMeeting(x, y + vspeed) {
 		vspeed /= 2
 		
-		if place_meeting(x, y + vspeed, Wall) {
+		if scrNTTEFullPlayerWallMeeting(x, y + vspeed) {
 			vspeed = 0
 		}
 	}

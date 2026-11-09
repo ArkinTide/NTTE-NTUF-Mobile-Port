@@ -78,6 +78,8 @@ function scrNTTEFullRedPopProps() {
         && scrNTTEFullSourceRandom(12*instance_number(NTTEFullWarp))<1) scrNTTEFullRedWarpRoom()
 }
 function scrNTTEFullRedSecretRoom() {
+    // FRONTIER RED CONNECTIVITY204 SECRET-BEFORE
+    if(variable_global_exists("fr_red204_active") && global.fr_red204_active) scrFRRedConnectivity204Boundary("secret-before");
     var _floor_dis=scrNTTEFullSourceRandomRange(80,160),_spawn=[],_floors=scrNTTEFullRedNormalFloors(),_room=noone
     scrNTTEFullFloorSetAlign(32,32);scrNTTEFullFloorSetStyle(1)
     try {
@@ -92,7 +94,11 @@ function scrNTTEFullRedSecretRoom() {
             var _minimum_id=0
             with(all) _minimum_id=max(_minimum_id,real(id))
             scrNTTEFullRedCorridor(_room,_floors,true)
+    // FRONTIER RED CONNECTIVITY204 CORRIDOR-AFTER
+    if(variable_global_exists("fr_red204_active") && global.fr_red204_active) scrFRRedConnectivity204Boundary("corridor-after");
             scrNTTEFullQuestRedSideRoom(_room)
+    // FRONTIER RED CONNECTIVITY204 QUEST-AFTER
+    if(variable_global_exists("fr_red204_active") && global.fr_red204_active) scrFRRedConnectivity204Boundary("quest-after");
             with(Wall) if(real(id)>_minimum_id) topindex=0
             with(TopSmall) if(real(id)>_minimum_id) image_index=0
             scrNTTEFullPetCreate(_room.x,_room.y,"Twins")

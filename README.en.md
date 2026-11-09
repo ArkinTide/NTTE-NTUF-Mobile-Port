@@ -4,23 +4,23 @@
 
 Android/iOS source port of NTTE with **Uncharted Frontier (NTUF) 1.0.3.3**,
 Undergrowth, Details+ and Simplified Chinese support. Current version **2.0.4**,
-internal build **100**.
+internal build **102**.
 
 Get APK/IPA from the [MEGA download folder](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) and verify
-`SHA256SUMS-NTTE-NTUF-2.0.4.txt`. GitHub distributes text source and release notes;
+`SHA256SUMS-NTTE-NTUF-2.0.4-build102.txt`. GitHub distributes text source and release notes;
 iOS requires re-signing. See the [2.0.4 notes](docs/RELEASE-2.0.4.md).
 
-## 2.0.4 — NTTE + NTUF 2.0.4: weather, walls and input repairs
+## 2.0.4 build102 — NTTE + NTUF 2.0.4: mutation pool, passages, artwork and Ultimate Quest revision
 
-The newly compiled final Windows VM/input passed 67 explicitly selected native
-cases. A hash-verified Python log records 256 passing checks. Earlier VM passes
-are not inherited. See the [current validation summary](docs/validation/2.0.4-development-regression.json)
+The newly compiled final Windows VM/input passed 72 explicitly selected native
+cases. A hash-verified Python log records 362 passing checks. Earlier VM passes
+are not inherited. See the [current validation summary](docs/validation/2.0.4-build102-development-regression.json)
 for exact cases and evidence.
 
-Fix the blizzard right-edge seam, the Chinese Lightring label, area callback errors, and laboratory/HQ secret-room wall sides. Repair the reproduced City 17 hostile ghost possession of an allied host and Jungle wall-ambush landing handoff. Pocket Teleporter retains continuous stick angles and short taps; improve controller routing, Android device assignment and disconnect recovery. Reduce repeated module lookups and dense drone-interception work, coalescing overlapping flashes and sound requests while preserving individual hostile projectile destruction, native callbacks and random sequences. Fix premature native GameOver during Robot blue-screen revival and short 60 Hz menu taps being lost to repeated sampling; retain genuine YES Cyberspace travel and the original NO death flow. Check current local input ownership in character selection and settings so stale direction presses left by a removed touch joystick cannot keep changing menu choices.
+Fix HQ augments and mini mutations leaking into ordinary level-ups while preserving dedicated acquisition and the explicit main-pool augment option. Repair hidden-path/solid-wall collision boundaries in the red crystal cave. Restore authored loadout portraits for Bubbles starter weapons while preserving ordinary weapon drawing fallback. Package missing boss introduction artwork and path aliases to prevent missing-artwork introduction errors. Preserve boss artwork through native pauses and restore it after interrupted introductions. Prevent ordinary level-clear exits during unfinished Ultimate Quest encounters while preserving sequential merges, reward unlocking and native Crown exits.
 
-Android versionCode is 3000100, retaining application/signing identities and checked
-16KB layout. iOS build 100 requires re-signing; new game data uses a retained native
+Android versionCode is 3000102, retaining application/signing identities and checked
+16KB layout. iOS build 102 requires re-signing; new game data uses a retained native
 Runner without a fresh Mac native build. GAME_BUILD/save protocol remains 3004.
 
 Persistent menu audio noise remains unresolved. Specific charmed-host possession

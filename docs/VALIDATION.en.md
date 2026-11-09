@@ -2,6 +2,25 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.0.4 build102 — NTTE + NTUF 2.0.4: mutation pool, passages, artwork and Ultimate Quest revision
+
+The newly compiled final Windows VM/input passed 72 explicitly selected native
+cases. A hash-verified Python log records 362 passing checks. Earlier VM passes
+are not inherited. See the [current validation summary](validation/2.0.4-build102-development-regression.json)
+for exact cases and evidence.
+
+Fix HQ augments and mini mutations leaking into ordinary level-ups while preserving dedicated acquisition and the explicit main-pool augment option. Repair hidden-path/solid-wall collision boundaries in the red crystal cave. Restore authored loadout portraits for Bubbles starter weapons while preserving ordinary weapon drawing fallback. Package missing boss introduction artwork and path aliases to prevent missing-artwork introduction errors. Preserve boss artwork through native pauses and restore it after interrupted introductions. Prevent ordinary level-clear exits during unfinished Ultimate Quest encounters while preserving sequential merges, reward unlocking and native Crown exits.
+
+Android versionCode is 3000102, retaining application/signing identities and checked
+16KB layout. iOS build 102 requires re-signing; new game data uses a retained native
+Runner without a fresh Mac native build. GAME_BUILD/save protocol remains 3004.
+
+Persistent menu audio noise remains unresolved. Specific charmed-host possession
+and wall-top Jungle awakening blockers have verified repairs; unknown invisible
+enemy scenarios are not generally certified. Silent background desktop tests do not establish phone mixing or frame
+rates. No physical Android/iOS, complete random campaign or universal FPS acceptance
+is claimed.
+
 ## 2.0.4 — NTTE + NTUF 2.0.4: weather, walls and input repairs
 
 The newly compiled final Windows VM/input passed 67 explicitly selected native

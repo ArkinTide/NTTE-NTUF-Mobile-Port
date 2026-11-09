@@ -1,0 +1,16 @@
+{
+  "status": "READY",
+  "version": "2.0.4",
+  "internal": 102,
+  "run": "tests/20261109T030144027445Z",
+  "report": "review/post204r2-development-review-20261109T030144027445Z.json",
+  "report_sha256": "4cd683110a3737e838c0290abbceff6f55969f8ce90dec5e83e3f48bfd058e80",
+  "python_evidence": "review/post204r2-python-regression-final7.json",
+  "python_evidence_sha256": "1411398fb63e802ae8607d8a2f6981d316a4b0daaa3c34b5d6b6e41657e82861",
+  "case_selection_sha256": "a62c40540b4924d96c94509b403799cf9fb702b90d02486723c9f7a6450fd857",
+  "review_verifier_sha256": "6cca1cef0fbfc5cbaba7f79891f324b6cfbbb4a46dcdeddcf318f24774ec9fd9",
+  "compile_receipt_sha256": "feb13521d0a7958eed40d5e7ba6608015c8c1938ebc01e8354cdb9f2b4fff281",
+  "vm_sha256": "369cc798ca60c93e0b09fb0f8f4938bc23f8a70a5d8eb22e0d386477bdc0f36e",
+  "silent_vm_sha256": "d0fd5cf8b18d47aacded61b1a6de7e952b0049bfc63b7605f58abd749d335a56",
+  "input_sha256": "7c77b58dee311823f45aa6f16e310d0e63900f492a178f95ab533522136c769a"
+}

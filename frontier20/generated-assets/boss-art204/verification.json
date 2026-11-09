@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "offline supplemental authored artwork packaging",
+  "resource_count": 15,
+  "alias_count": 30,
+  "original_inventory_verified": true,
+  "rgba_preserved": true,
+  "target_origins_preserved": true,
+  "native_execution_performed": false,
+  "physical_device_tested": false
+}

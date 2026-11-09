@@ -165,8 +165,13 @@ def stage(profile=False):
     for module_name in ("fr_input204_hooks", "fr_post203_hooks", "fr_post203_weather_wall_hooks",
                         "fr_biome_clearance204_hooks", "fr_biome_clearance204_natural_hooks",
                         "fr_biome_clearance204_repair_hooks", "fr_drone_performance204_hooks",
-                        "fr_biome_clearance204_map_hooks"):
+                        "fr_biome_clearance204_map_hooks", "fr_red_wall_query204_hooks",
+                        "fr_mutation_pool204_hooks", "fr_red_connectivity204_hooks",
+                        "fr_loadout_art204_hooks", "fr_boss_art204_hooks", "fr_art204_test_hooks",
+                        "fr_quest_portal204_hooks", "fr_quest_portal204_test_hooks"):
         module=__import__(module_name)
+        if module_name=="fr_boss_art204_hooks":
+            module.emit(PROJECT)
         module.apply(PROJECT)
 
     # The helpers may register native actor resources into yyp themselves.
@@ -185,7 +190,7 @@ def stage(profile=False):
     uber.write_text(version_source,encoding="utf8")
     updater=PROJECT/"scripts/scrNTTEUpdate/scrNTTEUpdate.gml"
     update_source=updater.read_text(encoding="utf8")
-    for macro,value in (("NTTE_RELEASE_NUMBER","100"),("NTTE_RELEASE_TAG",'"2.0.4"'),
+    for macro,value in (("NTTE_RELEASE_NUMBER","102"),("NTTE_RELEASE_TAG",'"2.0.4"'),
                         ("NTTE_RELEASE_VERSION",'"2.0.4"')):
         update_source,count=re.subn(r'(#macro '+macro+r') [^\r\n]+',r'\g<1> '+value,update_source)
         assert count==1,macro
@@ -196,7 +201,7 @@ def stage(profile=False):
         option_path=PROJECT/f"options/{platform}/options_{platform}.yy"
         option=read(option_path)
         option[f"option_{platform}_version"]="2.0.4.0" if platform=="windows" else "2.0"
-        if platform=="ios": option["option_ios_build_number"]=100
+        if platform=="ios": option["option_ios_build_number"]=102
         save(option_path,option)
     save(ROOT/"staging/build-receipt.json",{"status":"DEVELOPMENT_NOT_PLAYABLE_VERIFIED", "profile_instrumented":bool(profile), "active_modules":len(active), "assets":len(assets), "identities":ledger, "script_hashes":receipts})
     print(json.dumps({"active_modules":len(active),"new_assets":len(assets),"scripts":len(receipts),"resources":len(latest["resources"])}))

@@ -23,4 +23,7 @@ snd_play(other.snd_crwn)
 
 with (VaultStatue) hp = 0
 
+// BEGIN FRONTIER QUEST PORTAL204 TEST CROWN COLLISION
+scrFRQuestPortal204CrownCollisionProbe();
+// END FRONTIER QUEST PORTAL204 TEST CROWN COLLISION
 instance_destroy()

@@ -4048,13 +4048,15 @@ if (intro) {
 {
 intro = false;
 ;
-if ((((! intro) && (UberCont.opt_bossintro == true)) && (GameCont.loops <= loops))) {
+var _fr_boss_art204_owner=real(id); // FRONTIER BOSS ART204 BINDING OWNER
+fr_boss_art204_prepared=false; // FRONTIER BOSS ART204 PREPARATION OWNER
+if (!intro && UberCont.opt_bossintro && GameCont.loops<=loops && scrFRBossArt204IntroPrepare(_fr_boss_art204_owner)) {
 {
-scrFRSpriteReplaceImage(sprBossIntro, spr_main, 0);
+scrFRBossArt204Replace(sprBossIntro, spr_main, 0); // FRONTIER BOSS ART204 EXACT MAIN
 ;
-scrFRSpriteReplaceImage(sprBossIntroBackLayer, spr_back, 0);
+scrFRBossArt204Replace(sprBossIntroBackLayer, spr_back, 0); // FRONTIER BOSS ART204 EXACT BACK
 ;
-scrFRSpriteReplaceImage(sprBossName, spr_name, 0);
+scrFRBossArt204Replace(sprBossName, spr_name, 0); // FRONTIER BOSS ART204 EXACT NAME
 ;
 var _frl__lastSub = GameCont.subarea;
 var _frl__lastLoop = GameCont.loops;
@@ -4072,7 +4074,7 @@ if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 for (var __fr_index5=0; __fr_index5<array_length(__fr_with4); ++__fr_index5) {
 if(scrFRScopeExists(__fr_with4[__fr_index5])) with (__fr_with4[__fr_index5]) {
 {
-event_perform(ev_alarm, 6);
+scrFRBossArt204IntroStart(_fr_boss_art204_owner); // FRONTIER BOSS ART204 NATIVE START
 ;
 }
 }
@@ -4097,12 +4099,15 @@ UberCont.opt_bossintro = _frl__lastIntro;
 }
 } else {
 {
+if(!fr_boss_art204_prepared) {scrFRInstanceDestroy();return;} // FRONTIER BOSS ART204 REJECTED CLEANUP
+if(scrFRBossArt204IntroActive()) return; // FRONTIER BOSS ART204 WAIT FOR NATIVE INTRO
 scrFRSpriteRestore(sprBossIntro);
 ;
 scrFRSpriteRestore(sprBossIntroBackLayer);
 ;
 scrFRSpriteRestore(sprBossName);
 ;
+scrFRBossArt204IntroFinish(); // FRONTIER BOSS ART204 NATIVE FINISH
 scrFRInstanceDestroy();
 ;
 }

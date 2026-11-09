@@ -164,6 +164,18 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBluescreenUI204Visited60Tests")) {scrFRInt
 if(scrNTTEFullSmokeAsyncCase("FrontierMenuInput20430Tests")) {scrFRIntegrationTestStart("menu-input204-30");return;}
 if(scrNTTEFullSmokeAsyncCase("FrontierMenuInput20460Tests")) {scrFRIntegrationTestStart("menu-input204-60");return;}
 // END FRONTIER MENU INPUT204 ENTRY
+// FRONTIER MUTATION POOL204 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierMutationPool204Tests")) {scrFRIntegrationTestStart("mutation-pool204");return;}
+// FRONTIER RED CONNECTIVITY204 SCAN ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierRedConnectivity204Scan")) {global.fr_red204_fast_scan=true;scrFRIntegrationTestStart("red-connectivity204");return;}
+// FRONTIER RED CONNECTIVITY204 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierRedConnectivity204Tests")) {scrFRIntegrationTestStart("red-connectivity204");return;}
+// FRONTIER ART204 ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierLoadoutArt204Tests")) {scrFRIntegrationTestStart("loadout-art204");return;}
+if(scrNTTEFullSmokeAsyncCase("FrontierBossArt204Tests")) {scrFRIntegrationTestStart("boss-art204");return;}
+// BEGIN FRONTIER QUEST PORTAL204 TEST ENTRY
+if(scrNTTEFullSmokeAsyncCase("FrontierQuestPortal204Tests")) {scrFRIntegrationTestStart("quest-portal204");return;}
+// END FRONTIER QUEST PORTAL204 TEST ENTRY
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}
         if(scrNTTEFullSmokeAsyncCase("Release124SpiderRouteTests")) {scrRelease124SpiderRouteTests();return;}

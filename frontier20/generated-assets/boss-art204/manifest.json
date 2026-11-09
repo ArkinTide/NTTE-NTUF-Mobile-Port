@@ -1,0 +1,400 @@
+{
+  "schema": "frontier-boss-art204-v1",
+  "resource_count": 15,
+  "alias_count": 30,
+  "base_manifest_sha256": "cb28e2689075ae2bcdff61249cd0d1af336bdf8924829f32c392db3ab7d2f6ef",
+  "assets": [
+    {
+      "boss": "CoveHyperCrystal",
+      "role": "Main",
+      "target": "sprBossIntro",
+      "path": "Sprites/Menu/Intros/sprCoveHyperCrystalMain.png",
+      "resource": "sprFR_sprCoveHyperCrystalMain_df6757642bf6",
+      "aliases": [
+        "sprites/menu/intros/sprcovehypercrystalmain.png",
+        "../sprites/menu/intros/sprcovehypercrystalmain.png"
+      ],
+      "source_sha256": "deaf15256234e3ac53cf261d37f3289328b731d9453463a9f2a9127b2bb03b71",
+      "source_bytes": 12280,
+      "rgba_sha256": "13bd986b46b2a59f35782985b49e9d1a86ce080cf8e7e76be0b5b3a4d25be0ac",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 30337,
+      "authored_transparent": false
+    },
+    {
+      "boss": "CoveHyperCrystal",
+      "role": "Back",
+      "target": "sprBossIntroBackLayer",
+      "path": "Sprites/Menu/Intros/sprCoveHyperCrystalBack.png",
+      "resource": "sprFR_sprCoveHyperCrystalBack_3f44aeae6797",
+      "aliases": [
+        "sprites/menu/intros/sprcovehypercrystalback.png",
+        "../sprites/menu/intros/sprcovehypercrystalback.png"
+      ],
+      "source_sha256": "f1bec11afafd08ff76ccd656ea170063b5f3bb5f951523ee3b62b6d0282d744e",
+      "source_bytes": 2887,
+      "rgba_sha256": "91fd2f10256a6510d00c28568f2a4aaa0b072544f4892d70e3fb4b2491dce9e7",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 4915,
+      "authored_transparent": false
+    },
+    {
+      "boss": "CoveHyperCrystal",
+      "role": "Name",
+      "target": "sprBossName",
+      "path": "Sprites/Menu/Intros/sprCoveHyperCrystalName.png",
+      "resource": "sprFR_sprCoveHyperCrystalName_6fae8740117b",
+      "aliases": [
+        "sprites/menu/intros/sprcovehypercrystalname.png",
+        "../sprites/menu/intros/sprcovehypercrystalname.png"
+      ],
+      "source_sha256": "57f284b5e34edf4820ca2aa8f83b1e8aabf95370dd8be3189e36f2ad04db212a",
+      "source_bytes": 1453,
+      "rgba_sha256": "a4ee0c7b0ff9c7641dca1581f27ebaec0238a3b91f8986dc22c75998b94011a4",
+      "width": 181,
+      "height": 75,
+      "frames": 1,
+      "origin": [
+        40,
+        37
+      ],
+      "alpha_coverage": 3492,
+      "authored_transparent": false
+    },
+    {
+      "boss": "GraveyardBoss",
+      "role": "Main",
+      "target": "sprBossIntro",
+      "path": "Sprites/Menu/Intros/sprGraveyardBossMain.png",
+      "resource": "sprFR_sprGraveyardBossMain_be3e9cdc8cae",
+      "aliases": [
+        "sprites/menu/intros/sprgraveyardbossmain.png",
+        "../sprites/menu/intros/sprgraveyardbossmain.png"
+      ],
+      "source_sha256": "dc1a0e6aba02b7d12ed3a1f4fb0ed31c8a89c610b93ffa77e015e004a9ae0a97",
+      "source_bytes": 541,
+      "rgba_sha256": "7699184ea888d0a8a9a402a3030e950001b249ea389ab9a8ad80ed17fcf1e3b0",
+      "width": 481,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 0,
+      "authored_transparent": true
+    },
+    {
+      "boss": "GraveyardBoss",
+      "role": "Back",
+      "target": "sprBossIntroBackLayer",
+      "path": "Sprites/Menu/Intros/sprGraveyardBossBack.png",
+      "resource": "sprFR_sprGraveyardBossBack_347fb671702c",
+      "aliases": [
+        "sprites/menu/intros/sprgraveyardbossback.png",
+        "../sprites/menu/intros/sprgraveyardbossback.png"
+      ],
+      "source_sha256": "fe8eef69f9141efb558576618a769c5e620c2f376ad81f7e8e6301c16cea8207",
+      "source_bytes": 5044,
+      "rgba_sha256": "a6aea2c32e37d09cea04f7023f9cfa39d4a166f01dabbfcf0b122e9f6ff07560",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 23032,
+      "authored_transparent": false
+    },
+    {
+      "boss": "GraveyardBoss",
+      "role": "Name",
+      "target": "sprBossName",
+      "path": "Sprites/Menu/Intros/sprGraveyardBossName.png",
+      "resource": "sprFR_sprGraveyardBossName_b62b8a76b8a8",
+      "aliases": [
+        "sprites/menu/intros/sprgraveyardbossname.png",
+        "../sprites/menu/intros/sprgraveyardbossname.png"
+      ],
+      "source_sha256": "57f284b5e34edf4820ca2aa8f83b1e8aabf95370dd8be3189e36f2ad04db212a",
+      "source_bytes": 1453,
+      "rgba_sha256": "a4ee0c7b0ff9c7641dca1581f27ebaec0238a3b91f8986dc22c75998b94011a4",
+      "width": 181,
+      "height": 75,
+      "frames": 1,
+      "origin": [
+        40,
+        37
+      ],
+      "alpha_coverage": 3492,
+      "authored_transparent": false
+    },
+    {
+      "boss": "LightningHyperCrystal",
+      "role": "Main",
+      "target": "sprBossIntro",
+      "path": "Sprites/Menu/Intros/sprLightningHyperCrystalMain.png",
+      "resource": "sprFR_sprLightningHyperCrystal_56c456497c3c",
+      "aliases": [
+        "sprites/menu/intros/sprlightninghypercrystalmain.png",
+        "../sprites/menu/intros/sprlightninghypercrystalmain.png"
+      ],
+      "source_sha256": "381526a1c03be0373db91e59f208a4f27c29a14155d7013afe15247963c8ab3b",
+      "source_bytes": 12974,
+      "rgba_sha256": "6b130dc818cb711d47117835943934dd53001e4fdca642e418e1b3381f809c6e",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 31234,
+      "authored_transparent": false
+    },
+    {
+      "boss": "LightningHyperCrystal",
+      "role": "Back",
+      "target": "sprBossIntroBackLayer",
+      "path": "Sprites/Menu/Intros/sprLightningHyperCrystalBack.png",
+      "resource": "sprFR_sprLightningHyperCrystal_694e5b2678e8",
+      "aliases": [
+        "sprites/menu/intros/sprlightninghypercrystalback.png",
+        "../sprites/menu/intros/sprlightninghypercrystalback.png"
+      ],
+      "source_sha256": "96b39265aa9fc9b75657d7f7ea2ab77b3eb64d0ec954dd29df8f3bf8bfb472bc",
+      "source_bytes": 2870,
+      "rgba_sha256": "046884fe1a69782066a6b0ba39508ef779bdef944defdeac1325ce9d2578a6fd",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 4915,
+      "authored_transparent": false
+    },
+    {
+      "boss": "LightningHyperCrystal",
+      "role": "Name",
+      "target": "sprBossName",
+      "path": "Sprites/Menu/Intros/sprLightningHyperCrystalName.png",
+      "resource": "sprFR_sprLightningHyperCrystal_84d4ac8c183d",
+      "aliases": [
+        "sprites/menu/intros/sprlightninghypercrystalname.png",
+        "../sprites/menu/intros/sprlightninghypercrystalname.png"
+      ],
+      "source_sha256": "57f284b5e34edf4820ca2aa8f83b1e8aabf95370dd8be3189e36f2ad04db212a",
+      "source_bytes": 1453,
+      "rgba_sha256": "a4ee0c7b0ff9c7641dca1581f27ebaec0238a3b91f8986dc22c75998b94011a4",
+      "width": 181,
+      "height": 75,
+      "frames": 1,
+      "origin": [
+        40,
+        37
+      ],
+      "alpha_coverage": 3492,
+      "authored_transparent": false
+    },
+    {
+      "boss": "OurpleCursedHyperCrystal",
+      "role": "Main",
+      "target": "sprBossIntro",
+      "path": "Sprites/Menu/Intros/sprOurpleCursedHyperCrystalMain.png",
+      "resource": "sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a",
+      "aliases": [
+        "sprites/menu/intros/sprourplecursedhypercrystalmain.png",
+        "../sprites/menu/intros/sprourplecursedhypercrystalmain.png"
+      ],
+      "source_sha256": "be051a569639f6036bb6f72a5d18447f6d0507589aa7d1365fa315fbcf03abde",
+      "source_bytes": 12719,
+      "rgba_sha256": "670b3d0b7acf2083f5bf48ab180345829979253bb9b7d96faa1667d720a2f6b6",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 30337,
+      "authored_transparent": false
+    },
+    {
+      "boss": "OurpleCursedHyperCrystal",
+      "role": "Back",
+      "target": "sprBossIntroBackLayer",
+      "path": "Sprites/Menu/Intros/sprOurpleCursedHyperCrystalBack.png",
+      "resource": "sprFR_sprOurpleCursedHyperCrys_b624af675437",
+      "aliases": [
+        "sprites/menu/intros/sprourplecursedhypercrystalback.png",
+        "../sprites/menu/intros/sprourplecursedhypercrystalback.png"
+      ],
+      "source_sha256": "ec281a25d27a60b29d466bc4546c629796b08ac9ce3981046a197a0250986efe",
+      "source_bytes": 2907,
+      "rgba_sha256": "e222b91b233884f69edbb6e1091c6e27bb870f0d54533a62cf932bbf52a2a098",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 4915,
+      "authored_transparent": false
+    },
+    {
+      "boss": "OurpleCursedHyperCrystal",
+      "role": "Name",
+      "target": "sprBossName",
+      "path": "Sprites/Menu/Intros/sprOurpleCursedHyperCrystalName.png",
+      "resource": "sprFR_sprOurpleCursedHyperCrys_a6761418f8a2",
+      "aliases": [
+        "sprites/menu/intros/sprourplecursedhypercrystalname.png",
+        "../sprites/menu/intros/sprourplecursedhypercrystalname.png"
+      ],
+      "source_sha256": "0a4f7a4668cb17f576f31dd9be461743f092f8ff28156953069f50e0285461a4",
+      "source_bytes": 1577,
+      "rgba_sha256": "6ac30690fbd34598e760d66b23056532ea37aa5f6033c0d0ec8a2289535e952e",
+      "width": 181,
+      "height": 75,
+      "frames": 1,
+      "origin": [
+        40,
+        37
+      ],
+      "alpha_coverage": 3492,
+      "authored_transparent": false
+    },
+    {
+      "boss": "RoboBoss",
+      "role": "Main",
+      "target": "sprBossIntro",
+      "path": "Sprites/Menu/Intros/sprRoboBossMain.png",
+      "resource": "sprFR_sprRoboBossMain_d17ac338163c",
+      "aliases": [
+        "sprites/menu/intros/sprrobobossmain.png",
+        "../sprites/menu/intros/sprrobobossmain.png"
+      ],
+      "source_sha256": "1f6daccaa88c70ff284bb35ee7e9c84a1bda8cfafa5a1311798cd01b6abc6d9f",
+      "source_bytes": 1982,
+      "rgba_sha256": "fa7e6b7caba6da76108a578b94c24f2dcaba1787207509f5dd953b99377f8e82",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 12106,
+      "authored_transparent": false
+    },
+    {
+      "boss": "RoboBoss",
+      "role": "Back",
+      "target": "sprBossIntroBackLayer",
+      "path": "Sprites/Menu/Intros/sprRoboBossBack.png",
+      "resource": "sprFR_sprRoboBossBack_825752740731",
+      "aliases": [
+        "sprites/menu/intros/sprrobobossback.png",
+        "../sprites/menu/intros/sprrobobossback.png"
+      ],
+      "source_sha256": "7a474564db75bb92588fb27a7def813ffacfd78f3de0ef6fafbfa42895310941",
+      "source_bytes": 9445,
+      "rgba_sha256": "037619bddff009d5870300b6c49acf44e21d19f4a39779ad859db23f3e07cb7c",
+      "width": 492,
+      "height": 240,
+      "frames": 1,
+      "origin": [
+        246,
+        0
+      ],
+      "alpha_coverage": 54714,
+      "authored_transparent": false
+    },
+    {
+      "boss": "RoboBoss",
+      "role": "Name",
+      "target": "sprBossName",
+      "path": "Sprites/Menu/Intros/sprRoboBossName.png",
+      "resource": "sprFR_sprRoboBossName_a1e4264b989d",
+      "aliases": [
+        "sprites/menu/intros/sprrobobossname.png",
+        "../sprites/menu/intros/sprrobobossname.png"
+      ],
+      "source_sha256": "1036453b8024ba0b73e7ea1eda00a08d10f20f3419bc18f15eec0e1ef25d707d",
+      "source_bytes": 1865,
+      "rgba_sha256": "c527bdab6c1e83aa1bf223e194b0544f87521dbfa53fb8e3f43a502690aea2e5",
+      "width": 181,
+      "height": 75,
+      "frames": 1,
+      "origin": [
+        40,
+        37
+      ],
+      "alpha_coverage": 4180,
+      "authored_transparent": false
+    }
+  ],
+  "files": {
+    "sprites/sprFR_sprCoveHyperCrystalBack_3f44aeae6797/3f6e202c-49cc-5f63-aa4a-baa5f21550c3.png": "fbd7b15c021970b017c7d75c79bde1a31b5505bbd237d0ce7c709c292f6935ae",
+    "sprites/sprFR_sprCoveHyperCrystalBack_3f44aeae6797/layers/3f6e202c-49cc-5f63-aa4a-baa5f21550c3/2cd6e76d-6956-5609-8817-652d5cd2f04c.png": "fbd7b15c021970b017c7d75c79bde1a31b5505bbd237d0ce7c709c292f6935ae",
+    "sprites/sprFR_sprCoveHyperCrystalBack_3f44aeae6797/sprFR_sprCoveHyperCrystalBack_3f44aeae6797.yy": "7b6b18b22fb0ff72c903580e31b1d7f5645190ed7e8aeb246a05e77b36782dda",
+    "sprites/sprFR_sprCoveHyperCrystalMain_df6757642bf6/60c5d13e-b62d-580f-99d0-bb9e2c881c0c.png": "c59bbf7541b9b215afa7d5ac6c7c289734f621b3e98f776263a71c27d2fa61bd",
+    "sprites/sprFR_sprCoveHyperCrystalMain_df6757642bf6/layers/60c5d13e-b62d-580f-99d0-bb9e2c881c0c/42736a72-6c7d-563d-a01d-5ed2437b84e9.png": "c59bbf7541b9b215afa7d5ac6c7c289734f621b3e98f776263a71c27d2fa61bd",
+    "sprites/sprFR_sprCoveHyperCrystalMain_df6757642bf6/sprFR_sprCoveHyperCrystalMain_df6757642bf6.yy": "68edb992fb578ccc8432b3db204aee4ae6b4f06db1439f83451ecb2e5f2d51bf",
+    "sprites/sprFR_sprCoveHyperCrystalName_6fae8740117b/2a0b8c0d-eec3-5074-bec7-1a6cabf5913a.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprCoveHyperCrystalName_6fae8740117b/layers/2a0b8c0d-eec3-5074-bec7-1a6cabf5913a/fa942e0b-91a7-5954-b9b6-f4dbe5ee666f.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprCoveHyperCrystalName_6fae8740117b/sprFR_sprCoveHyperCrystalName_6fae8740117b.yy": "351f48b09743b08394e00f24d328e8c17bd1f9b70a673f77e3e0bfd50ceb4b0b",
+    "sprites/sprFR_sprGraveyardBossBack_347fb671702c/f53a4f62-315e-51eb-a4df-49e081fe0d91.png": "8b30b65d8defcc3b4eb065610c209497db10f2a89f7847990a3e1e738de24925",
+    "sprites/sprFR_sprGraveyardBossBack_347fb671702c/layers/f53a4f62-315e-51eb-a4df-49e081fe0d91/c19da952-d582-582e-9c95-9c2d683afc18.png": "8b30b65d8defcc3b4eb065610c209497db10f2a89f7847990a3e1e738de24925",
+    "sprites/sprFR_sprGraveyardBossBack_347fb671702c/sprFR_sprGraveyardBossBack_347fb671702c.yy": "7b678d936449144ccc8d3838355c49e020f9581d7426fd58ca4e2da410a2b00e",
+    "sprites/sprFR_sprGraveyardBossMain_be3e9cdc8cae/cddf2f72-289d-5e10-9707-fbcb358c39c4.png": "60040a83dafdfa6cfb35b0008353516276ddb5b29f92df50ce7a9e85ad323641",
+    "sprites/sprFR_sprGraveyardBossMain_be3e9cdc8cae/layers/cddf2f72-289d-5e10-9707-fbcb358c39c4/2bd74a05-dddc-52b0-be64-19989f822205.png": "60040a83dafdfa6cfb35b0008353516276ddb5b29f92df50ce7a9e85ad323641",
+    "sprites/sprFR_sprGraveyardBossMain_be3e9cdc8cae/sprFR_sprGraveyardBossMain_be3e9cdc8cae.yy": "6d77bf43e886d0e65bc677ff21b73705e85d434170591e67a6965fac65517fb1",
+    "sprites/sprFR_sprGraveyardBossName_b62b8a76b8a8/29a2c5ab-08a2-5ae0-8c9d-43460328846d.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprGraveyardBossName_b62b8a76b8a8/layers/29a2c5ab-08a2-5ae0-8c9d-43460328846d/eae135cc-d523-5e48-b9e5-90dbad228e44.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprGraveyardBossName_b62b8a76b8a8/sprFR_sprGraveyardBossName_b62b8a76b8a8.yy": "799bd53132d2cd82758727d9f381d6bfe3a9462602ea9745fdfc1af89ac8456c",
+    "sprites/sprFR_sprLightningHyperCrystal_56c456497c3c/ba922519-20d3-5268-9dc2-bf19de0a9a1a.png": "2c7c9e1a40103837fea9512fd00199700580cf089db269bd2e2daba172bff49b",
+    "sprites/sprFR_sprLightningHyperCrystal_56c456497c3c/layers/ba922519-20d3-5268-9dc2-bf19de0a9a1a/63fc0398-7ed4-5c0a-b824-10562dcb3c7b.png": "2c7c9e1a40103837fea9512fd00199700580cf089db269bd2e2daba172bff49b",
+    "sprites/sprFR_sprLightningHyperCrystal_56c456497c3c/sprFR_sprLightningHyperCrystal_56c456497c3c.yy": "245c24071dac674af99097c289364bc55246949b7382db61b82dccbf6952c798",
+    "sprites/sprFR_sprLightningHyperCrystal_694e5b2678e8/1fda4abf-42b5-5e11-9541-afa16c3d259e.png": "26c40d435503fb5a28049ad6079317d15dafe8fdb5115a9b335f168e49b75666",
+    "sprites/sprFR_sprLightningHyperCrystal_694e5b2678e8/layers/1fda4abf-42b5-5e11-9541-afa16c3d259e/def6d812-a539-50d9-80ec-ce1b4fb00d55.png": "26c40d435503fb5a28049ad6079317d15dafe8fdb5115a9b335f168e49b75666",
+    "sprites/sprFR_sprLightningHyperCrystal_694e5b2678e8/sprFR_sprLightningHyperCrystal_694e5b2678e8.yy": "49bcac6d2aba1d0be3ce5a0473466ef86f89425b91bb307368ccc1b22bc883b8",
+    "sprites/sprFR_sprLightningHyperCrystal_84d4ac8c183d/0c503d93-8142-5c6b-a559-04649e2ea708.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprLightningHyperCrystal_84d4ac8c183d/layers/0c503d93-8142-5c6b-a559-04649e2ea708/405ce46e-9340-5533-b7b6-60f6adb716f6.png": "82c730ab76fef50684f5c87483a907153ab9285652453f24842954134cbfcd9f",
+    "sprites/sprFR_sprLightningHyperCrystal_84d4ac8c183d/sprFR_sprLightningHyperCrystal_84d4ac8c183d.yy": "a106c6b3f28d0cc1b79c16f1ed273be9c927a33d9cbe445047b9e2c05f9c7446",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2/44707490-090f-5ea7-8f8c-fcb114c7e5c1.png": "5c5000359b804c53f081b2943e078bf571ceb63e9c8f60103696b243375bdef5",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2/layers/44707490-090f-5ea7-8f8c-fcb114c7e5c1/54ecfb7b-af82-54b9-90e4-96fdc0b30e46.png": "5c5000359b804c53f081b2943e078bf571ceb63e9c8f60103696b243375bdef5",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2.yy": "5dfdd476770234e822b047a439f479f6b1368ef08e5f72a3b082cfc58442c921",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_b624af675437/b9573c32-f0ee-5360-a26c-f705da78853a.png": "cea8670cf60414f0fb3180dbe9253defa500494a74c171064c49147429260ab7",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_b624af675437/layers/b9573c32-f0ee-5360-a26c-f705da78853a/7de3bad4-8de4-572c-8908-7dd721f84e63.png": "cea8670cf60414f0fb3180dbe9253defa500494a74c171064c49147429260ab7",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_b624af675437/sprFR_sprOurpleCursedHyperCrys_b624af675437.yy": "01e13b1ad0a1c6d3ffbba32ca7d851093e61dcbf4ed29a2727c4cea17b535f98",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a/4451c5c7-03f8-5d77-b1ab-ac6ded23176e.png": "901047f1c7e7588deb7cec811f4fd3c62faf1db19b0033820c8d639a97e31a2c",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a/layers/4451c5c7-03f8-5d77-b1ab-ac6ded23176e/8b28389a-492d-5b18-876f-6745fa412195.png": "901047f1c7e7588deb7cec811f4fd3c62faf1db19b0033820c8d639a97e31a2c",
+    "sprites/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a.yy": "2ae494b7eee71f5f87766157f3693e9554fa022aa6559b673ddd1e0bebfbf50a",
+    "sprites/sprFR_sprRoboBossBack_825752740731/f802992a-7075-5356-b373-9d738b5b7cc3.png": "56882a5f913ba398ee49ade392d48893600540c1fe915d7dfe2298b53f8cb62a",
+    "sprites/sprFR_sprRoboBossBack_825752740731/layers/f802992a-7075-5356-b373-9d738b5b7cc3/38bce82a-6995-55f9-8342-4534f85628d5.png": "56882a5f913ba398ee49ade392d48893600540c1fe915d7dfe2298b53f8cb62a",
+    "sprites/sprFR_sprRoboBossBack_825752740731/sprFR_sprRoboBossBack_825752740731.yy": "56e2a25c0dcb557c084ee7e3d8a7909ed969f4337198c66d609f448c7ae8ca71",
+    "sprites/sprFR_sprRoboBossMain_d17ac338163c/cac07f4d-633f-5efb-9f1d-4d8a9952a859.png": "7a284021700db01bb0a1e0586609e920c92f8701e0d3b4115a2d7f2b3852216f",
+    "sprites/sprFR_sprRoboBossMain_d17ac338163c/layers/cac07f4d-633f-5efb-9f1d-4d8a9952a859/ea281793-6d40-5c53-a801-bdee8f1254ac.png": "7a284021700db01bb0a1e0586609e920c92f8701e0d3b4115a2d7f2b3852216f",
+    "sprites/sprFR_sprRoboBossMain_d17ac338163c/sprFR_sprRoboBossMain_d17ac338163c.yy": "0653c11c41a820bd02ad1212a4dcfc56e627c1d8117b927af67930b01b551bad",
+    "sprites/sprFR_sprRoboBossName_a1e4264b989d/56fa3c69-c1e6-5b9e-b2f8-120c90ba313b.png": "bcaeda64f1abd7bca4dcd09d55fe0e664476ab2387ece2fce2349580458cde03",
+    "sprites/sprFR_sprRoboBossName_a1e4264b989d/layers/56fa3c69-c1e6-5b9e-b2f8-120c90ba313b/8c540d85-4d88-56dc-a27f-2215a543b866.png": "bcaeda64f1abd7bca4dcd09d55fe0e664476ab2387ece2fce2349580458cde03",
+    "sprites/sprFR_sprRoboBossName_a1e4264b989d/sprFR_sprRoboBossName_a1e4264b989d.yy": "f396a61ae453f9454a3a99c93c36544c5f7300ffcc2b92572f5f0d9af8203c62"
+  }
+}

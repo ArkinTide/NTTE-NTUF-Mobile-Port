@@ -33,7 +33,17 @@ if UberCont.opt_griller && !instance_exists(CrownIcon) && !instance_exists(Ultra
 		
 		_step = 32,
 		_count = (view_width - (_step * 2)) div 32,
-		_pagemax = maxskill div _count
+        _pool = []
+
+    // FRONTIER MUTATION POOL204 ELIGIBLE PAGES
+    // Griller is another presentation of normal level-up choices. Checking
+    // ownership alone admits station-only and temporary reward mutations.
+    for(var _candidate=1;_candidate<=maxskill;++_candidate) {
+        var _heavy_ready=_candidate==mut_heavy_heart && !scr_skill_get(_candidate)
+            && GameCont.heavyheart>=3;
+        if(scr_skill_can_appear(_candidate) || _heavy_ready) array_push(_pool,_candidate);
+    }
+    var _pagemax=max(0,(array_length(_pool)-1) div _count)
 	
 	// simulate initial input
 	if (grillpage == -1) _change = 1
@@ -74,27 +84,14 @@ if UberCont.opt_griller && !instance_exists(CrownIcon) && !instance_exists(Ultra
 			_dy = view_yview + view_height - 20,
 			_page = grillpage, _num = 0
 		
-		for(var i = 0; i < _count; i ++) {
-			with instance_create(i * 32, _dy, SkillIcon) {
-				var _tries = 1
-				
-				do {
-					skill = (i + (_page * _count)) % (maxskill) + _tries
-					
-					if (++ _tries) > 99 {
-						instance_destroy()
-						break
-					}
-				}
-				until skill > 0 && !scr_skill_get(skill) && !instance_exists_var_notme(SkillIcon, "skill", skill)
-				
-				if (skill < 0) skill = maxskill + skill
-				
-				if (skill < 0 || skill > maxskill) instance_destroy()
-				
-				num = i
-			}
-		}
+        // FRONTIER MUTATION POOL204 DISTINCT PAGE SLICE
+        for(var i = 0; i < _count; i ++) {
+            var _at=_page*_count+i;
+            if(_at>=array_length(_pool)) break;
+            with instance_create(i * 32, _dy, SkillIcon) {
+                skill=_pool[_at];num=i;
+            }
+        }
 		
 		if (_change > 0) {
 			with (SkillIcon) num = i--
@@ -103,7 +100,7 @@ if UberCont.opt_griller && !instance_exists(CrownIcon) && !instance_exists(Ultra
 	
 	if !instance_exists(SkillIcon) {
 		with instance_create(view_width / 2, view_yview + view_height - 20, SkillIcon) {
-			mut = mut_last_wish
+			skill = mut_last_wish // FRONTIER MUTATION POOL204 FALLBACK
 		}
 		
 		overgrilled = true

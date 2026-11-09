@@ -177,6 +177,9 @@ function scrNTTEFullLockedQuestUnlock(_player) {
     with(_player) { wep=wep_none;ntte_state=undefined;scrSwapWeps(false);clicked=false;swapmove=1;drawempty=30 }
     if(instance_exists(prompt)) instance_destroy(prompt,false)
     instance_destroy(id,false)
+// BEGIN FRONTIER QUEST PORTAL204 TEST NATIVE UNLOCK
+    scrFRQuestPortal204UnlockedProbe();
+// END FRONTIER QUEST PORTAL204 TEST NATIVE UNLOCK
     return true
 }
 function scrNTTEFullLockedQuestStep() {

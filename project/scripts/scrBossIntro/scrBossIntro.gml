@@ -4,6 +4,7 @@ function scrBossIntro(_boss_index) {
     with UberCont {
         if instance_exists(CoopController) || !opt_bossintro || !instance_exists(Player) exit
 		
+		scrFRBossArt204NativeStart(); // FRONTIER BOSS ART204 ACCEPTED NATIVE INTRO
 		scrGetPauseImage()
 		scrLetterbox(true)
 		

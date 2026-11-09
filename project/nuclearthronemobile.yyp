@@ -61030,6 +61030,144 @@
         "name": "scrFrontier_menu_input204_tests",
         "path": "scripts/scrFrontier_menu_input204_tests/scrFrontier_menu_input204_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_mutation_pool204_tests",
+        "path": "scripts/scrFrontier_mutation_pool204_tests/scrFrontier_mutation_pool204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_red_connectivity204_tests",
+        "path": "scripts/scrFrontier_red_connectivity204_tests/scrFrontier_red_connectivity204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_red_wall_query204",
+        "path": "scripts/scrFrontier_red_wall_query204/scrFrontier_red_wall_query204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_loadout_art204_tests",
+        "path": "scripts/scrFrontier_loadout_art204_tests/scrFrontier_loadout_art204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprCoveHyperCrystalMain_df6757642bf6",
+        "path": "sprites/sprFR_sprCoveHyperCrystalMain_df6757642bf6/sprFR_sprCoveHyperCrystalMain_df6757642bf6.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprCoveHyperCrystalBack_3f44aeae6797",
+        "path": "sprites/sprFR_sprCoveHyperCrystalBack_3f44aeae6797/sprFR_sprCoveHyperCrystalBack_3f44aeae6797.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprCoveHyperCrystalName_6fae8740117b",
+        "path": "sprites/sprFR_sprCoveHyperCrystalName_6fae8740117b/sprFR_sprCoveHyperCrystalName_6fae8740117b.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprGraveyardBossMain_be3e9cdc8cae",
+        "path": "sprites/sprFR_sprGraveyardBossMain_be3e9cdc8cae/sprFR_sprGraveyardBossMain_be3e9cdc8cae.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprGraveyardBossBack_347fb671702c",
+        "path": "sprites/sprFR_sprGraveyardBossBack_347fb671702c/sprFR_sprGraveyardBossBack_347fb671702c.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprGraveyardBossName_b62b8a76b8a8",
+        "path": "sprites/sprFR_sprGraveyardBossName_b62b8a76b8a8/sprFR_sprGraveyardBossName_b62b8a76b8a8.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprLightningHyperCrystal_56c456497c3c",
+        "path": "sprites/sprFR_sprLightningHyperCrystal_56c456497c3c/sprFR_sprLightningHyperCrystal_56c456497c3c.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprLightningHyperCrystal_694e5b2678e8",
+        "path": "sprites/sprFR_sprLightningHyperCrystal_694e5b2678e8/sprFR_sprLightningHyperCrystal_694e5b2678e8.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprLightningHyperCrystal_84d4ac8c183d",
+        "path": "sprites/sprFR_sprLightningHyperCrystal_84d4ac8c183d/sprFR_sprLightningHyperCrystal_84d4ac8c183d.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a",
+        "path": "sprites/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a/sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprOurpleCursedHyperCrys_b624af675437",
+        "path": "sprites/sprFR_sprOurpleCursedHyperCrys_b624af675437/sprFR_sprOurpleCursedHyperCrys_b624af675437.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprOurpleCursedHyperCrys_a6761418f8a2",
+        "path": "sprites/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2/sprFR_sprOurpleCursedHyperCrys_a6761418f8a2.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprRoboBossMain_d17ac338163c",
+        "path": "sprites/sprFR_sprRoboBossMain_d17ac338163c/sprFR_sprRoboBossMain_d17ac338163c.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprRoboBossBack_825752740731",
+        "path": "sprites/sprFR_sprRoboBossBack_825752740731/sprFR_sprRoboBossBack_825752740731.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "sprFR_sprRoboBossName_a1e4264b989d",
+        "path": "sprites/sprFR_sprRoboBossName_a1e4264b989d/sprFR_sprRoboBossName_a1e4264b989d.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_boss_art204_tests",
+        "path": "scripts/scrFrontier_boss_art204_tests/scrFrontier_boss_art204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_boss_art204",
+        "path": "scripts/scrFrontier_boss_art204/scrFrontier_boss_art204.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_quest_portal204_tests",
+        "path": "scripts/scrFrontier_quest_portal204_tests/scrFrontier_quest_portal204_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_quest_portal204",
+        "path": "scripts/scrFrontier_quest_portal204/scrFrontier_quest_portal204.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

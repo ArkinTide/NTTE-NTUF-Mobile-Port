@@ -1,18 +1,23 @@
 {
   "source_candidate": "2.0.4",
   "version": "2.0.4",
-  "internal": 100,
+  "internal": 102,
   "date": "2026-11-08",
-  "base_commit": "bce57723c9b341b74313947553e80d0de087025f",
-  "source_manifest_sha256": "60a31c739c5fc52b3a953f3d5c549dcd7ba760de4d08615b91517ecae77f6b85",
-  "native_acceptance_sha256": "2190d9358e37f25d9589c96aab2149f8b47d30ad6f0176a1e7ff0d07f0257f4c",
-  "development_regression_sha256": "76b784e727b37b0851d87c4baa01d7283de7b221022bed789b7e0f5b8aa1e18a",
-  "mobile_delivery_sha256": "e1bc59ade52227c4aacf6136a5160c758e252608f6c4f4885bfe8701d9c73f6d",
-  "vm_sha256": "da2a770b768d84227bf415bc7b458b056612317b2ebf09820826b7889b9860b6",
-  "independent_package_audit_sha256": "9e70d0b960552b3d398584cabc463136d5919e32c5d0abb7147be42070835a86",
-  "independent_package_audit_public_summary_sha256": "bb08677736d0acd5e115d75d9c5ca9d7672d8bdde1a6708e3e4abd5d7048b2f6",
-  "input_sha256": "b8bc9c5d34f76840e0a849c072d01ea5c7f0d87759ab69688f70636335a0f2ad",
+  "base_commit": "85d839ebc513e30e0df1f155e7a0bae8d1ce5a1a",
+  "source_manifest_sha256": "f99a88460173ec3a73a70d56a198f32d13386fc58fdd50d794dee64ffbd04737",
+  "native_acceptance_sha256": "f286e94fc65c1b7586a78f44a36b67baefd99ece0b6b7f1d91adbece7657df52",
+  "development_regression_sha256": "4cd683110a3737e838c0290abbceff6f55969f8ce90dec5e83e3f48bfd058e80",
+  "mobile_delivery_sha256": "a4264f68bad5c708698b343fcfbf51012215d585e2c748e1167c2396ad14f1e8",
+  "vm_sha256": "369cc798ca60c93e0b09fb0f8f4938bc23f8a70a5d8eb22e0d386477bdc0f36e",
+  "independent_package_audit_sha256": "e0b8642f2503913c75c14743135181f8f064a5eec6feb16506df4e841873e974",
+  "independent_package_audit_public_summary_sha256": "5ceefd61305a98c955b8e7ce6e152cfff1cd59c89b0cd3a1a5636f8f1d17d640",
+  "input_sha256": "7c77b58dee311823f45aa6f16e310d0e63900f492a178f95ab533522136c769a",
   "selected_windows_cases": [
+    "FrontierQuestPortal204Tests",
+    "FrontierBossArt204Tests",
+    "FrontierLoadoutArt204Tests",
+    "FrontierMutationPool204Tests",
+    "FrontierRedConnectivity204Tests",
     "FrontierPost203CompatTests",
     "FrontierPost203WeatherWallTests",
     "FrontierEnemyPossessionTests",
@@ -81,8 +86,8 @@
     "FrontierEnemyCloneTossTests",
     "FrontierPerformanceTests"
   ],
-  "windows_cases": 67,
-  "python_tests": 256,
+  "windows_cases": 72,
+  "python_tests": 362,
   "python_historical_source_binding": false,
   "rates": [
     30,
@@ -94,18 +99,18 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.4.apk",
-      "bytes": 304998240,
-      "sha256": "900745f4af346c585862d74a844573227386f1092087ef717e523e89f1df4ece"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.0.4-build102.apk",
+      "bytes": 305278679,
+      "sha256": "75e65bc4400a15b9d7aa6a5920a9a14071b17e5ba60d64df738df8f2b810687d"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.4.ipa",
-      "bytes": 212860387,
-      "sha256": "778a32cc4ee2aca2f06b3697a53966b8c1f5134b3f9876d891ba7f58d4fbbb32"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.0.4-build102.ipa",
+      "bytes": 212976623,
+      "sha256": "834f141f7bf926b0d28aeea29ab98c46fb570e8066ceeb246965dc888b1bd05b"
     }
   },
-  "android_version_code": 3000100,
-  "ios_bundle_version": "100",
+  "android_version_code": 3000102,
+  "ios_bundle_version": "102",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
     "GAME_VERSION": "2.0.4",
@@ -138,5 +143,5 @@
   "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
   "persistent_mobile_audio_noise": "unresolved",
   "invisible_enemies": "unverified",
-  "publication_plan_sha256": "18843818eb2d530acd1bef623aa10a4c6f49980b4ee42bcb6ea6d179e337558d"
+  "publication_plan_sha256": "f8552f2a4bbd29b7df9b6098bc6e25573a2df9fc13c255790142b04d09a0de77"
 }

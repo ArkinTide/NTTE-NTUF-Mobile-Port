@@ -42,7 +42,7 @@ if (bossintro) {
             splatindex+= timescale
         }
 		
-		var _boss_name = scrNTTEFullBossIntroActive() ? scrNTTEFullBossIntroChineseName() : scrMenuButtonName(sprBossName, boss)
+		var _boss_name = scrFRBossArt204IntroName(scrNTTEFullBossIntroActive() ? scrNTTEFullBossIntroChineseName() : scrMenuButtonName(sprBossName, boss)) // FRONTIER BOSS ART204 NATIVE NAME
 		
 		if is_string(_boss_name) {
 	        draw_align(fa_left, fa_middle)

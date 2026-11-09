@@ -61,7 +61,7 @@ function scrFRWeaponsRefresh() {
         wep_mele[_weapon]=scrFRWeaponProperty(_key,"weapon_melee",false);
         wep_gold[_weapon]=scrFRWeaponProperty(_key,"weapon_gold",false);
         wep_rads[_weapon]=scrFRWeaponProperty(_key,"weapon_rads",0);
-        wep_lout[_weapon]=-1; wep_naim[_weapon]=false;
+        wep_lout[_weapon]=scrFRWeaponProperty(_key,"weapon_loadout",-1); wep_naim[_weapon]=false;
     }
 }
 

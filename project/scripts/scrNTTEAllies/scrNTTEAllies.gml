@@ -24,6 +24,12 @@ function scrNTTEPortalRecoveryAllowed() {
         && !instance_exists(Cinematic) && !instance_exists(GameOver)
 }
 function scrNTTEAllyPortalStep() {
+// BEGIN FRONTIER QUEST PORTAL204 TEST RECOVERY
+    scrFRQuestPortal204RecoveryProbe();
+// END FRONTIER QUEST PORTAL204 TEST RECOVERY
+    // BEGIN FRONTIER QUEST PORTAL204 RECOVERY SCHEDULER
+    if(scrFRQuestPortal204Blocked()) return;
+    // END FRONTIER QUEST PORTAL204 RECOVERY SCHEDULER
     if (!global.is_server || !scrNTTEPortalRecoveryAllowed() || !instance_exists(Player) || instance_exists(Portal)) return;
     if (!variable_instance_exists(id,"ntte_ally_portal_timer")) ntte_ally_portal_timer=0
     ntte_ally_portal_timer-=timescale

@@ -1,6 +1,6 @@
 // Release numbering is independent of GAME_BUILD, which belongs to save formats.
 
-#macro NTTE_RELEASE_NUMBER 100
+#macro NTTE_RELEASE_NUMBER 102
 
 #macro NTTE_RELEASE_TAG "2.0.4"
 

@@ -35,7 +35,10 @@ function scrNTTEFullQuestHubNaturalAfterSample(_keycont,_index) {
     if(!instance_exists(_player) || !instance_is(_player,Player) || _player.index!=_index) return;
     // Input has already been sampled. Only the normal native key is supplied;
     // actual Player pickup/Prompt and source controller Steps do the transfer.
+// BEGIN FRONTIER QUEST PORTAL204 TEST INPUT
+    if(!scrFRQuestPortal204InputAllowed(_observer)) return;
     _keycont.press_pick[_index]=true
+// END FRONTIER QUEST PORTAL204 TEST INPUT
     _observer.input_injections++
 }
 function scrNTTEFullQuestHubNaturalMove(_x,_y) {
@@ -118,6 +121,9 @@ function scrNTTEFullQuestHubNaturalShootEnemies() {
     }
 }
 function scrNTTEFullQuestHubNaturalGateBegin() {
+// BEGIN FRONTIER QUEST PORTAL204 TEST BEGIN
+    scrFRQuestPortal204NaturalBegin(id);
+// END FRONTIER QUEST PORTAL204 TEST BEGIN
     gate_sample=undefined
     if(phase!=5 || !is_struct(hub) || !instance_exists(hub.main.chest)) return;
     var _chest=hub.main.chest
@@ -146,7 +152,9 @@ function scrNTTEFullQuestHubNaturalGateEndBody() {
         heart_intervals:heart_gate_intervals,enemy_intervals:enemy_gate_intervals,logic_scale:timescale}))
 }
 function scrNTTEFullQuestHubNaturalGateEnd() {
-    try {scrNTTEFullQuestHubNaturalGateEndBody()}
+// BEGIN FRONTIER QUEST PORTAL204 TEST END
+    try {scrNTTEFullQuestHubNaturalGateEndBody();scrFRQuestPortal204NaturalEnd(id)}
+// END FRONTIER QUEST PORTAL204 TEST END
     catch(_error) {scrNTTEFullQuestHubNaturalFinish();throw _error}
 }
 function scrNTTEFullQuestHubNaturalMergeDiagnostic() {
@@ -265,6 +273,9 @@ function scrNTTEFullQuestHubNaturalObserveMerges() {
     }
 }
 function scrNTTEFullQuestHubNaturalFinish() {
+// BEGIN FRONTIER QUEST PORTAL204 TEST FINISH
+    scrFRQuestPortal204NaturalFinish(id);
+// END FRONTIER QUEST PORTAL204 TEST FINISH
     var _state=state,_directory=old_directory,_scratch=scratch,_player=player,_pick=old_pick
     scrNTTEFullWorldEventsNaturalWorldRestore(_state)
     game_directory=_directory;KeyCont.press_pick[_player.index]=_pick
@@ -272,6 +283,9 @@ function scrNTTEFullQuestHubNaturalFinish() {
     for(var _i=0;_i<array_length(_files);++_i) if(file_exists(_files[_i])) file_delete(_files[_i])
 }
 function scrNTTEFullQuestHubNaturalStepBody() {
+// BEGIN FRONTIER QUEST PORTAL204 TEST STEP
+    if(scrFRQuestPortal204NaturalBefore(id)) return;
+// END FRONTIER QUEST PORTAL204 TEST STEP
     elapsed+=timescale
     scrNTTEFullQuestHubNaturalHeartbeat()
     assert(elapsed<18000,"Actual quest hub normal-frame chain timed out phase="+string(phase)+" part="+string(part_index))

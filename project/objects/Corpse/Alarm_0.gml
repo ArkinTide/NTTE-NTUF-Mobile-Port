@@ -11,6 +11,9 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(id)
     && instance_exists(NTTEFullOasisTrenchNaturalEntryTest))
     scrNTTEFullOasisTrenchEntryProbe("Corpse.Alarm0.before");
 // END NTTE OASIS TRENCH READONLY PROBE Corpse.Alarm0.before
+// BEGIN FRONTIER QUEST PORTAL204 TEST CORPSE BEFORE
+scrFRQuestPortal204CorpseProbe("before");
+// END FRONTIER QUEST PORTAL204 TEST CORPSE BEFORE
 if (
     !scrNTTEPortalRecoveryAllowed() || scrNTTEFullPortalBlocked() ||
 	instance_exists(Portal) || instance_exists(GenCont) || (!forceportal && scr_check_enemies()) || GameCont.area == area_crib || instance_exists(RadMaggotChest)
@@ -18,6 +21,9 @@ if (
 	|| instance_exists(BecomeScrapBoss) || ((GameCont.area == area_palace || GameCont.area == area_hq) && GameCont.subarea == GameCont.maxsubarea)
 	|| instance_exists(SitDown)
 ) {
+// BEGIN FRONTIER QUEST PORTAL204 TEST CORPSE REJECT
+scrFRQuestPortal204CorpseProbe("rejected");
+// END FRONTIER QUEST PORTAL204 TEST CORPSE REJECT
 	exit
 }
 
@@ -50,3 +56,6 @@ else {
 	    }
 	}
 }
+// BEGIN FRONTIER QUEST PORTAL204 TEST CORPSE PASS
+scrFRQuestPortal204CorpseProbe("passed");
+// END FRONTIER QUEST PORTAL204 TEST CORPSE PASS

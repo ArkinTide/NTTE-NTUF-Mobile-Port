@@ -1,4 +1,36 @@
 function scrFRRegisterAssets() {
+    // FRONTIER BOSS ART204 BEGIN
+    global.fr_asset_sources[$ "sprites/menu/intros/sprcovehypercrystalmain.png"]=sprFR_sprCoveHyperCrystalMain_df6757642bf6;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprcovehypercrystalmain.png"]=sprFR_sprCoveHyperCrystalMain_df6757642bf6;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprcovehypercrystalback.png"]=sprFR_sprCoveHyperCrystalBack_3f44aeae6797;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprcovehypercrystalback.png"]=sprFR_sprCoveHyperCrystalBack_3f44aeae6797;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprcovehypercrystalname.png"]=sprFR_sprCoveHyperCrystalName_6fae8740117b;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprcovehypercrystalname.png"]=sprFR_sprCoveHyperCrystalName_6fae8740117b;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprgraveyardbossmain.png"]=sprFR_sprGraveyardBossMain_be3e9cdc8cae;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprgraveyardbossmain.png"]=sprFR_sprGraveyardBossMain_be3e9cdc8cae;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprgraveyardbossback.png"]=sprFR_sprGraveyardBossBack_347fb671702c;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprgraveyardbossback.png"]=sprFR_sprGraveyardBossBack_347fb671702c;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprgraveyardbossname.png"]=sprFR_sprGraveyardBossName_b62b8a76b8a8;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprgraveyardbossname.png"]=sprFR_sprGraveyardBossName_b62b8a76b8a8;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprlightninghypercrystalmain.png"]=sprFR_sprLightningHyperCrystal_56c456497c3c;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprlightninghypercrystalmain.png"]=sprFR_sprLightningHyperCrystal_56c456497c3c;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprlightninghypercrystalback.png"]=sprFR_sprLightningHyperCrystal_694e5b2678e8;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprlightninghypercrystalback.png"]=sprFR_sprLightningHyperCrystal_694e5b2678e8;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprlightninghypercrystalname.png"]=sprFR_sprLightningHyperCrystal_84d4ac8c183d;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprlightninghypercrystalname.png"]=sprFR_sprLightningHyperCrystal_84d4ac8c183d;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprourplecursedhypercrystalmain.png"]=sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprourplecursedhypercrystalmain.png"]=sprFR_sprOurpleCursedHyperCrys_c58d1aa88f7a;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprourplecursedhypercrystalback.png"]=sprFR_sprOurpleCursedHyperCrys_b624af675437;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprourplecursedhypercrystalback.png"]=sprFR_sprOurpleCursedHyperCrys_b624af675437;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprourplecursedhypercrystalname.png"]=sprFR_sprOurpleCursedHyperCrys_a6761418f8a2;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprourplecursedhypercrystalname.png"]=sprFR_sprOurpleCursedHyperCrys_a6761418f8a2;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprrobobossmain.png"]=sprFR_sprRoboBossMain_d17ac338163c;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprrobobossmain.png"]=sprFR_sprRoboBossMain_d17ac338163c;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprrobobossback.png"]=sprFR_sprRoboBossBack_825752740731;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprrobobossback.png"]=sprFR_sprRoboBossBack_825752740731;
+    global.fr_asset_sources[$ "sprites/menu/intros/sprrobobossname.png"]=sprFR_sprRoboBossName_a1e4264b989d;
+    global.fr_asset_sources[$ "../sprites/menu/intros/sprrobobossname.png"]=sprFR_sprRoboBossName_a1e4264b989d;
+    // FRONTIER BOSS ART204 END
     global.fr_sound_assets[$ "sounds/ambience/ambblizzard.ogg"]=sndFR_ambBlizzard_7b33b7ddd201;
     global.fr_sound_assets[$ "sounds/ambience/ambcyberspace.ogg"]=sndFR_ambCyberspace_d10d45e043f3;
     global.fr_sound_assets[$ "sounds/ambience/ambdeeplabs.ogg"]=sndFR_ambDeeplabs_0b618c29e379;

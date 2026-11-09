@@ -51,11 +51,11 @@ The Storm Crown menu art is derived from the separately obtained upstream
 regenerates the unlocked icon and matching locked silhouette from the tracked
 resource template; `--check` verifies the resulting PNG hashes without writing.
 
-For 2.0.4, the game display/updater/tag use `2.0.4` and internal build 100;
+For 2.0.4, the game display/updater/tag use `2.0.4` and internal build 102;
 GAME_BUILD/save protocol remains 3004. The common accepted project retains the
 canonical `2.0` platform option declarations. Delivery compiler copies normalize
 the iOS/Android platform version to `2.0.4`; the public Android overlay includes
-its version option and bootstrap adjustment. The iOS package has build 100 and
+its version option and bootstrap adjustment. The iOS package has build 102 and
 requires the user's own re-signing. Private host packaging/signing machinery is
 not published and should not be inferred from the common option declarations.
 
@@ -63,3 +63,21 @@ The current Chinese source inputs are `localization/phrases.zh-CN.tsv`,
 `localization/settings.zh-CN.tsv` and `localization/surgery.zh-CN.tsv`, together
 with localization coverage/inventory JSON. TSV files are plain UTF-8 source and
 must not be omitted when regenerating localization or auditing the checkout.
+
+Build102 also preserves text-only supplemental boss artwork manifests and resource declarations under `generated-assets/boss-art204/`. Image bytes remain excluded. Restore the separately authorized upstream artwork before regenerating these resources. This draft directory does not establish successful build or acceptance.
+
+The narrow supplement is regenerated after restoring the original Frontier
+archive media and native target sprite declarations:
+
+```sh
+python frontier20/tools/fr_boss_art204_hooks.py --emit /path/to/private/staging/project
+python frontier20/tools/fr_boss_art204_hooks.py --apply /path/to/private/staging/project
+```
+
+The maintained stage builder emits this supplement immediately before applying
+its boss artwork hook. It verifies the frozen original-media inventory, authored
+RGBA and native target origins, then generates only the 15 missing sprites and
+30 aliases. Do not run a full asset reimport or alter baseline manifest counts
+to reproduce this supplement. The supplemental manifest, verification JSON and
+resource declarations are text references; all PNG files for these 15 authored sprites remain excluded
+from the public source payload.
