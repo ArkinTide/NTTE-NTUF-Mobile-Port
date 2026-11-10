@@ -63,16 +63,17 @@ function scrNTTEFullProgressSave(_path="ntte-full-progress.json") {
 
 function scrNTTEFullUnlockGet(_key,_default=false) {
     if (!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-    return scrNTTEFullValue(global.ntte_full_progress.unlocks,_key,_default)
+    return scrNTTEFullValue(scrFRProgress210State().unlocks,_key,_default)
 }
 function scrNTTEFullUnlockSet(_key,_value=true) {
+    if(!scrFRProgress210CanUnlock()) return false;
     if (!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
     var _achievement_dirty=scrNTTEFullAchievementAward(_key,_value)
     if (scrNTTEFullUnlockGet(_key,undefined)==_value) {
         if(_achievement_dirty) scrNTTEFullProgressSave()
         return false
     }
-    variable_struct_set(global.ntte_full_progress.unlocks,_key,_value)
+    variable_struct_set(scrFRProgress210State().unlocks,_key,_value)
     scrNTTEFullProgressSave()
     // BEGIN NTTE OWNED UNLOCK NOTIFY
     scrNTTEFullUnlockNotify(_key,_value);
@@ -81,18 +82,21 @@ function scrNTTEFullUnlockSet(_key,_value=true) {
 }
 function scrNTTEFullLoadoutGet(_key,_default=undefined) {
     if (!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-    return scrNTTEFullValue(global.ntte_full_progress.loadouts,_key,_default)
+    var _shared=string_pos("option:",_key)==1;
+    return scrNTTEFullValue(_shared?global.ntte_full_progress.loadouts:scrFRProgress210State().loadouts,_key,_default)
 }
 function scrNTTEFullLoadoutSet(_key,_value) {
     if (!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-    variable_struct_set(global.ntte_full_progress.loadouts,_key,_value)
+    var _shared=string_pos("option:",_key)==1;
+    if(!_shared && !scrFRProgress210CanUnlock()) return false;
+    variable_struct_set(_shared?global.ntte_full_progress.loadouts:scrFRProgress210State().loadouts,_key,_value)
     scrNTTEFullProgressSave()
 }
 
 // Include this struct in the native continue-game save, only for this same run.
 function scrNTTEFullSystemsExport() {
     scrNTTEFullSystemsInit()
-    return {schema:1,skills:GameCont.ntte_full_skills,native_counts:GameCont.ntte_full_native_skill_counts,
+    return {schema:1,progress210:{blocked:scrFRProgress210Cheated(),slot:scrFRProgress210Slot(),cyberspace_return:scrNTTEFullValue(GameCont,"fr_cyberspace_return210",undefined)},content210:{ntuf:scrFRContent210Active("ntuf"),undergrowth:scrFRContent210Active("undergrowth")},achievements_blocked210:!scrFRAchievementsAllowed210(),skills:GameCont.ntte_full_skills,native_counts:GameCont.ntte_full_native_skill_counts,
         order:GameCont.ntte_full_skill_order,pet_max:GameCont.ntte_pet_max,
         annihilation:GameCont.annihilation_list,
         reroll:scrNTTEFullValue(GameCont,"ntte_reroll",undefined),
@@ -106,6 +110,12 @@ function scrNTTEFullSystemsImport(_state) {
     scrNTTEFullSystemsInit()
     if (!is_struct(_state) || scrNTTEFullValue(_state,"schema",0)!=1) return false
     if (!is_struct(scrNTTEFullValue(_state,"skills")) || !is_array(scrNTTEFullValue(_state,"order"))) return false
+    GameCont.fr_achievements_blocked210=scrNTTEFullValue(GameCont,"fr_achievements_blocked210",false) || (_state[$ "achievements_blocked210"]??false);
+    var _scope210=_state[$ "progress210"]??{};
+    GameCont.fr_progress210_blocked=scrNTTEFullValue(GameCont,"fr_progress210_blocked",false) || (_scope210[$ "blocked"]??false);
+    if((_scope210[$ "slot"]??-1)>=0) GameCont.fr_progress210_slot=_scope210.slot;
+    GameCont.fr_cyberspace_return210=_scope210[$ "cyberspace_return"]??undefined;
+    scrFRContent210Import(_state); // FRONTIER210 CONTINUE CONTENT
     GameCont.ntte_full_skills=_state.skills
     GameCont.ntte_full_native_skill_counts=scrNTTEFullValue(_state,"native_counts",{})
     GameCont.ntte_full_skill_order=_state.order

@@ -1740,9 +1740,9 @@ break;
 case 4: // Frontier_Events.mod.gml:1067
 {
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -1759,9 +1759,9 @@ case 7: // Frontier_Events.mod.gml:1062
 {
 _fr.vars._EventMusic = global.fr_module_vars[$ "mod:Frontier_Events"].musDesertNight;
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -3371,9 +3371,9 @@ break;
 case 4: // Frontier_Events.mod.gml:1884
 {
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -3390,9 +3390,9 @@ case 7: // Frontier_Events.mod.gml:1879
 {
 _fr.vars._EventMusic = global.fr_module_vars[$ "mod:Frontier_Events"].musThunderstorm;
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -3665,9 +3665,9 @@ break;
 case 4: // Frontier_Events.mod.gml:2011
 {
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -3682,9 +3682,9 @@ _fr.pc = (scrFRTaskFork(_fr, 5)) ? 5 : 1;
 break;
 case 7: // Frontier_Events.mod.gml:2007
 {
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -4667,9 +4667,9 @@ break;
 case 4: // Frontier_Events.mod.gml:2487
 {
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -4686,9 +4686,9 @@ case 7: // Frontier_Events.mod.gml:2482
 {
 _fr.vars._EventMusic = global.fr_module_vars[$ "mod:Frontier_Events"].musFrozenCityNight;
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -6416,9 +6416,9 @@ break;
 case 4: // Frontier_Events.mod.gml:3336
 {
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }
@@ -6473,9 +6473,9 @@ global.fr_module_vars[$ "mod:Frontier_Events"].nightCredits += 1;
 }
 _fr.vars._EventMusic = frMacro_Frontier_Events_mod_gml__temus.CoastB;
 ;
-if ((! audio_is_playing(_fr.vars._EventMusic))) {
+if (true) { // FRONTIER210 RECORD EVEN AN ALREADY PLAYING WEATHER TRACK
 {
-scrFRSoundMusic(_fr.vars._EventMusic);
+scrFRWeatherMusic210(_fr.vars._EventMusic);
 ;
 }
 }

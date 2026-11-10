@@ -16,6 +16,7 @@ def main():
     ap.add_argument("cases", nargs="*", help="Explicit native harness cases")
     ap.add_argument("--baseline", action="store_true", help="Run the frozen NTTE 1.2.7 case selection against this VM")
     ap.add_argument("--keep-going", action="store_true")
+    ap.add_argument("--resume-run", help="Retry only failed/missing cases in an unchanged compiled run; preserve failed evidence")
     ap.add_argument("--timeout", type=int, default=180)
     ap.add_argument("--stall-timeout", type=int, default=180,
                     help="Fail when the smoke log makes no progress for this many seconds")
@@ -52,9 +53,16 @@ def main():
     silent_digest = hashlib.sha256(data).hexdigest()
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     run = ROOT / "tests" / stamp
-    run.mkdir(parents=True)
-    (run / "compiled-build.json").write_text(json.dumps(compiled, indent=2), encoding="utf8")
-    (run / "compile.log").write_bytes((BUILD / "compile.log").read_bytes())
+    if args.resume_run:
+        assert Path(args.resume_run).name==args.resume_run and args.resume_run.endswith('Z')
+        run=(ROOT/'tests'/args.resume_run).resolve(strict=True)
+        assert run.parent==(ROOT/'tests').resolve() and not run.is_symlink()
+        assert json.loads((run/'compiled-build.json').read_text('utf8'))==compiled
+        assert (run/'compile.log').read_bytes()==(BUILD/'compile.log').read_bytes()
+    else:
+        run.mkdir(parents=True)
+        (run / "compiled-build.json").write_text(json.dumps(compiled, indent=2), encoding="utf8")
+        (run / "compile.log").write_bytes((BUILD / "compile.log").read_bytes())
     user = ctypes.windll.user32
     user.CreateDesktopW.restype = ctypes.c_void_p
     user.CreateDesktopW.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_void_p,
@@ -66,6 +74,19 @@ def main():
     try:
         for case in args.cases:
             out = run / case
+            previous_attempt=None
+            if args.resume_run and out.exists():
+                old=json.loads((out/'receipt.json').read_text('utf8'))
+                assert old['case']==case and old['status']=='FAIL', 'Preserve completed passing cases'
+                assert old['vm_sha256']==digest and old['silent_vm_sha256']==silent_digest
+                assert old['input_sha256']==compiled['input_sha256']
+                archive=(ROOT/'tests/failed-attempts'/run.name/(case+'-'+stamp)).resolve()
+                assert archive.is_relative_to((ROOT/'tests/failed-attempts').resolve())
+                assert out.resolve().parent==run and not archive.exists()
+                archive.parent.mkdir(parents=True,exist_ok=True)
+                old_sha=hashlib.sha256((out/'receipt.json').read_bytes()).hexdigest()
+                out.rename(archive)
+                previous_attempt={'path':archive.relative_to(ROOT).as_posix(),'receipt_sha256':old_sha}
             out.mkdir()
             smoke = BUILD / "ntte-smoke.txt"
             smoke.write_text("", encoding="utf8")
@@ -128,6 +149,7 @@ def main():
                            muted_resources=muted, desktop="private, never activated",
                            physical_device_tested=False,
                            utc=datetime.now(timezone.utc).isoformat())
+            if previous_attempt: receipt['previous_failed_attempt']=previous_attempt
             (out / "receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf8")
             print(case + ": " + receipt["status"] + " (" + str(receipt["elapsed_seconds"]) + "s)", flush=True)
             print("Evidence: " + str(out), flush=True)

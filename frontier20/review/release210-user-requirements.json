@@ -1,0 +1,64 @@
+{
+  "version": "2.1.0",
+  "requirements": [
+    {
+      "id": 1,
+      "text": "Hyperion drone must pass allied NTTE/NTUF fire; optimize dense interception"
+    },
+    {
+      "id": 2,
+      "text": "Repair Red Caves walls, transition caps and ordinary/hidden-route connectivity"
+    },
+    {
+      "id": 3,
+      "text": "Match Storms locked crown silhouette to native RGB66"
+    },
+    {
+      "id": 4,
+      "text": "Translate beetle unlock as 打开秘密宝箱"
+    },
+    {
+      "id": 5,
+      "text": "Default-on NTUF content switch; other NTUF settings disabled when off"
+    },
+    {
+      "id": 6,
+      "text": "Default-on independent Undergrowth content switch"
+    },
+    {
+      "id": 7,
+      "text": "NTTE-style charge bars for NTUF charge weapons"
+    },
+    {
+      "id": 8,
+      "text": "Exclude console, practice and custom runs from achievements, including Continue"
+    },
+    {
+      "id": 9,
+      "text": "Weather music starts in the triggering room, not the next level"
+    }
+  ],
+  "live_run_policy": "Both switches are disabled during a live run. Changes are only allowed in menus. Continue retains that run's saved packs.",
+  "followup": [
+    {
+      "id": 10,
+      "text": "Native UI dispatch must activate both menu content switches"
+    },
+    {
+      "id": 11,
+      "text": "Player charged Powder Hammer flight/ground powder must pass Hyperion"
+    },
+    {
+      "id": 12,
+      "text": "Real Robot Cyberspace entry and completed exit must return to a normal area; recover old overwritten lastarea"
+    },
+    {
+      "id": 13,
+      "text": "Console runs cannot store gold or unlock content; custom-mode NTTE/NTUF progress persists only in its own slot"
+    },
+    {
+      "id": 14,
+      "text": "Actual Beetle character tooltip must display 打开秘密宝箱"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 // The source crown keeps native selection, ownership and save flows. Its ID
 // follows NTTE's existing14..16 crowns without renumbering a saved selection.
 function scrFRCrownReady() {
-    return variable_global_exists("fr_enabled") && global.fr_enabled
+    return scrFREnabled()
         && scrFRScriptExists("crown","storms","crown_object");
 }
 function scrFRCrownKey(_crown) {

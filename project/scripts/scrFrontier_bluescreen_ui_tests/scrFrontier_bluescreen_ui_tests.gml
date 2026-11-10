@@ -11,7 +11,7 @@ function scrFRBluescreenUITestsNativeBootstrap() {
     // this fixture's genuine YES callback/Portal may the normal room restart
     // initialize its destination. Keep the global smoke/save isolation flag.
     var _s=scrFRBluescreenUITestsState();
-    return is_struct(_s) && _s.accept && _s.phase==5
+    return is_struct(_s) && _s.accept && (_s.phase==5 || _s.phase==12)
         && is_real(_s[$ "clicked_at"]??undefined) && _s.input_stage==3;
 }
 function scrFRBluescreenUITestsPointer() {
@@ -217,8 +217,8 @@ function scrFRBluescreenUITestsStart(_driver,_rate=30,_accept=true,_entry_mode="
 function scrFRBluescreenUITestsStep(_driver) {
     var _s=_driver.fr_bluescreen_ui;
     _s.host++;
-    scrFRBluescreenUITestsCheck(_s,_s.host<_s.rate*70,
-        "Bluescreen UI scheduled lifecycle exceeded70seconds");
+    scrFRBluescreenUITestsCheck(_s,_s.host<_s.rate*180,
+        "Bluescreen UI and real Cyberspace exit lifecycle exceeded180seconds");
     if(scrFRReadyTick()) _s.ticks++;
     if(_s.eligible && ((_s.phase>=1 && _s.phase<=3) || (_s.phase==4 && _s.input_stage==0)))
         scrFRBluescreenUITestsCheck(_s,!instance_exists(GameOver),
@@ -327,7 +327,8 @@ function scrFRBluescreenUITestsStep(_driver) {
         scrFRBluescreenUITestsSnapshot(_s,"after-touch-and-endstep");
         if(_s.accept) {
             scrFRBluescreenUITestsCheck(_s,instance_exists(_s.controller)
-                && _s.controller.drawConnect && GameCont.area==302 && GameCont.subarea==0
+                && _s.controller.drawConnect && GameCont.area==1 && GameCont.subarea==1
+                && GameCont.ntte_full_pending_destination.area==302
                 && instance_exists(Portal),"Natural raw YES did not preserve its connection UI and genuine Portal");
             _s.portal=real(instance_find(Portal,0));
         } else scrFRBluescreenUITestsCheck(_s,!instance_exists(_s.controller)
@@ -365,12 +366,28 @@ function scrFRBluescreenUITestsStep(_driver) {
             "NO lost its authored denial Draw binding after deferred button disposal");
         _s.phase=7;
     }
+    if(_s.phase==11) {
+        if(!scrFRAreaTestsCyber(_driver,{loops:0},_s.cyber_live)) return false;
+        _s.exit_portal=scrFRAreaTestsPortal(3);_s.exit_started=_s.host;
+        scrFRAreaTestsMove(_s.cyber_live.player,_s.exit_portal.x,_s.exit_portal.y);
+        _s.phase=12;return false;
+    }
+    if(_s.phase==12) {
+        if(GameCont.area==302 || instance_exists(GenCont) || instance_exists(FloorMaker)) return false;
+        scrFRBluescreenUITestsCheck(_s,GameCont.area==1 && GameCont.subarea==1
+            && instance_exists(Player) && instance_number(Floor)>0,
+            "Actual Cyberspace exit portal did not return to the normal origin area");
+        scrNTTESmokeLog("PASS NTUF210 real Robot death -> raw YES -> three processors/waves -> actual portal -> normal desert");
+        _s.phase=7;
+    }
     if(_s.phase==6) {
         if(_s.host-_s.destination_at<_s.rate) return false;
         scrFRBluescreenUITestsCheck(_s,instance_exists(Player) && GameCont.area==302
             && GameCont.subarea==1 && array_length(scrFRBluescreenUITestsButtons())==0,
             "Cyberspace admission regressed during later actual gameplay frames");
-        _s.phase=7;
+        _s.phase=11;
+        var _p=scrFRPlayerFind(_s.slot);_p.max_hp=100000;_p.hp=100000;
+        _s.cyber_live={phase:0,player:_p,prompts:0,waves:0,damage_calls:0};
     }
     if(_s.phase==10) {
         if(_s.host-_s.native_death_at<_s.rate) return false;

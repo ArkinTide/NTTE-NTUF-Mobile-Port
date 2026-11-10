@@ -251,7 +251,7 @@ function scrUnlocksWinOrLoop() {
 }
 
 function scrPlayerTryUnlockGoldenWeapons(_player) {
-    if(scrGameIsCustomMode()) exit;
+    if(!scrFRProgress210CanStoreGold()) exit;
     with(_player) {
         if(!scr_player_is_local(index) || !scr_loadout_is_available_for_race(race)) continue;
         // Pick a stable priority before comparing ownership. Skipping the

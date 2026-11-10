@@ -556,9 +556,18 @@ function scrFREventTestsEntryStep(_driver) {
             scrFRInvoke(_yes,_yes.clickScr,[]);_record.prompt_inputs++;_live.phase=4;
         }
         if(_live.phase==4) {
-            assert(GameCont.area==302 && GameCont.subarea==0 && instance_exists(Portal),
-                "NTUF actual bluescreen confirmation did not enter Cyberspace");
-            _record.destination=scrFREventTestsQueue(302);return true;
+            assert(GameCont.area==_case.area && GameCont.fr_cyberspace_return210==_case.area
+                && instance_exists(Portal),
+                "NTUF bluescreen confirmation overwrote its live return area");
+            // Admission now queues the native destination without rewriting
+            // the departing world. Observe that actual queue without clearing
+            // or manufacturing it through the legacy finish helper.
+            _record.destination=scrNTTEFullAreaTakeDestination();
+            assert(is_struct(_record.destination) && _record.destination.area==302
+                && _record.destination.subarea==1
+                && _record.destination.fr_entry_finish.from_area==_case.area,
+                "NTUF actual bluescreen confirmation did not queue Cyberspace");
+            return true;
         }
         return false;
     }

@@ -98,8 +98,8 @@ function scrNTTEFullSkinSwapNative(_sound) {
 // awards Bonus Robot at eight hours when a Robot player is present.
 function scrNTTEFullSkinTimeStatTick() {
     if(!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-    var _time=scrNTTEFullValue(global.ntte_full_progress.stats,"time",0)+timescale/30
-    variable_struct_set(global.ntte_full_progress.stats,"time",_time)
+    var _time=scrNTTEFullValue(scrFRProgress210State().stats,"time",0)+timescale/30
+    variable_struct_set(scrFRProgress210State().stats,"time",_time)
     if(_time>=28800) {
         var _robot=false
         with(Player) if(race==Race.Robot) _robot=true

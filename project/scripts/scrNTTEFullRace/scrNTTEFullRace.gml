@@ -8,7 +8,7 @@ function scrNTTEFullRaceKey(_race) {
 }
 function scrNTTEFullRaceStatAdd(_key,_amount) {
     if(!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-    variable_struct_set(global.ntte_full_progress.stats,_key,scrNTTEFullValue(global.ntte_full_progress.stats,_key,0)+_amount)
+    variable_struct_set(scrFRProgress210State().stats,_key,scrNTTEFullValue(scrFRProgress210State().stats,_key,0)+_amount)
 }
 function scrNTTEFullRaceReady(_race) {
     var _key=scrNTTEFullRaceKey(_race)
@@ -41,7 +41,7 @@ function scrNTTEFullRaceText(_race,_part,_ultra=0) {
                 case "name":return "BEETLE"
                 case "passive":return "BEETLE CHEST"
                 case "active":return "MERGE WEAPONS"
-                case "lock":return "OPEN THE CHEST"
+                case "lock":return scrNTTEUpdateText("OPEN THE SECRET CHEST","打开秘密宝箱")
                 case "unlock":return "FOR OPENING THE CHEST"
                 case "butt":return "PARTS OF @wMERGED WEAPONS @sCAN BE REPLACED#BY WEAPONS OF THE SAME @yAMMO TYPE"
                 case "ultra_name":return _ultra==1 ? "CRITICAL THORAX":"AUXILIARY MANDIBLES"

@@ -10,6 +10,9 @@ function scrFRHyperionProjectileTestsNullFX() {
 }
 
 function scrFRHyperionProjectileTestsShot(_blocker,_object,_team,_creator,_label,_blocked,_typ=undefined) {
+    // Each invocation is an independent sparse fixture. Dense same-frame
+    // coalescing is covered separately by DronePerformance's 512-shot burst.
+    global.fr_drone204_batch=undefined;
     var _shot=instance_create(_blocker.x,_blocker.y,_object);
     _shot.team=_team;_shot.creator=_creator;_shot.speed=3*timescale;_shot.direction=17;
     if(!is_undefined(_typ)) _shot.typ=_typ;

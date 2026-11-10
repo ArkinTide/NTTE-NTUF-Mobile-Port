@@ -1,3 +1,4 @@
+scrFRAchievementsAllowed210(); // FRONTIER210 RUN ELIGIBILITY
 // BEGIN NTTE BONUS SCHEDULED COLD Step.entry
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullBonusScheduledColdTest)) try { scrNTTEFullBonusColdProbe("Step.entry"); }
 catch(_ntte_bonus_cold_error) { scrNTTEFullBonusColdAbort(_ntte_bonus_cold_error); }

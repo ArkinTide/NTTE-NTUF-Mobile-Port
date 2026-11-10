@@ -37,6 +37,7 @@ function scrGameUnpause() {
 	if (!scrGameIsPaused()) exit
 	
 	instance_activate_all()
+    scrFRContent210Suspend(); // FRONTIER210 DISABLED CONTENT AFTER UNPAUSE
 	
     with UberCont {
 		if (surface_exists(pauseimg)) surface_free(pauseimg)

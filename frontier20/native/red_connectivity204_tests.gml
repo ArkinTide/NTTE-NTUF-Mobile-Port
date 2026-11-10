@@ -587,7 +587,7 @@ function scrFRRedConnectivity204RegressionTests() {
         _old_active=variable_global_exists("fr_red204_active")?global.fr_red204_active:false,
         _old_fast=variable_global_exists("fr_red204_fast_scan")?global.fr_red204_fast_scan:false,
         _quest_had=variable_struct_exists(global.ntte_full_progress.unlocks,"quest:part:3"),
-        _quest_value=scrNTTEFullUnlockGet("quest:part:3",undefined),_seams=[],_worlds=[],_walks=[],_queries=[];
+        _quest_value=scrNTTEFullUnlockGet("quest:part:3",undefined),_seams=[],_worlds=[],_walks=[],_queries=[],_generated_seams=0;
     try {
         lockstep_stop=false;global.fr_red204_active=false;
         _queries=scrFRRedConnectivity204QueryTests(_state);
@@ -600,13 +600,22 @@ function scrFRRedConnectivity204RegressionTests() {
             for(var _rate=30;_rate<=60;_rate+=30) {
                 global.time_scale=30/_rate;
                 var _seam=scrFRRedConnectivity204Seam(_player);
-                assert(_seam.candidate,"Known generated seam witness was not found");
-                scrFRRedConnectivity204AssertSeam(_seam.fixture);
+                //210 removes duplicate corridor boundaries. Some seeds no
+                // longer contain the old diagonal-seam geometry. Validate
+                // any surviving witness and the actual mask road graph.
+                if(_seam.candidate) {
+                    scrFRRedConnectivity204AssertSeam(_seam.fixture);_generated_seams++;
+                } else {
+                    var _connected=scrFRRedConnectivity204Map(_player);
+                    assert(_connected.components==1 && array_length(_connected.nodes)>0,
+                        "Seed without the old seam witness has a disconnected road");
+                }
                 var _row={seed:_seed,rate:_rate,generation_rate:30,seam:_seam,boundaries:_boundaries,
                     actual_gencont:true,actual_player_collision_event:true,actual_helper_endstep:true};
                 array_push(_worlds,_row);scrNTTESmokeLog("NTUF RED REGRESSION204 WORLD "+json_stringify(_row));
             }
         }
+        assert(_generated_seams>=2,"Generated seam controls lost all positive witnesses");
         // One complete independently generated map exercises both ordinary
         // Warp approaches (style 1) and the entire hidden Twins path.
         var _player=scrFRRedConnectivity204Generate(_state,91);

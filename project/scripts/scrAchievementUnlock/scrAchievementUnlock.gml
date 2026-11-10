@@ -3,7 +3,7 @@
 function scrAchievementUnlock(_achievement_id) {
 	assert(_achievement_id >= 0 && _achievement_id <= achievementmax)
 	
-	if (scrGameIsCustomMode()) exit
+	if (!scrFRAchievementsAllowed210()) exit // FRONTIER210 ACHIEVEMENTS
 	
     if (scrAchievementIsUnlocked(_achievement_id)) exit
 	

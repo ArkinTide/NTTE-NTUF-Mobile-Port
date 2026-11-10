@@ -2,6 +2,7 @@ scrNTTEUpdateStep()
 // BEGIN FRONTIER RESTART OBSERVERS
 if(os_type==os_windows && scrNTTEFullSmokeEnabled()) {
     scrFRRestartTestsObserve();
+    scrFRContent210TestsObserve();
     scrFRProtoChestTestsObserve();
     scrFRCaptainChairTestsObserve();
     scrFRMenuAudioTestsObserve();

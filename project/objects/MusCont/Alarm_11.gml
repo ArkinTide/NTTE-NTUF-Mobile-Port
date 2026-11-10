@@ -24,7 +24,7 @@ with Player {
 if instance_exists(Player)
 	alarm[0] = -1
 
-if(scrNTTEFullMusicArea()) exit;
+if(scrNTTEFullMusicArea()) {scrFRWeatherMusic210Apply();exit;} // FRONTIER210 WEATHER MUSIC
 var _area = GameCont.area
 
 if oldarea != _area || !audio_is_playing(song) || !audio_is_playing(amb) {
@@ -80,6 +80,7 @@ if oldarea != _area || !audio_is_playing(song) || !audio_is_playing(amb) {
 	
 	oldarea = _area
 }
+scrFRWeatherMusic210Apply(); // FRONTIER210 WEATHER AFTER NATIVE THEME
 // BEGIN NTTE CUZ AUDIO TEST ALARM 11 AFTER
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(NTTEFullCuzConnectedTest) && variable_instance_exists(instance_find(NTTEFullCuzConnectedTest,0),"ntte_cuz_audio")) try { var _ntte_cuz_audio_event_receiver=id; with(instance_find(NTTEFullCuzConnectedTest,0)) { scrNTTEFullCuzMusicAlarm("MusCont.Alarm11.after"); } } catch(_ntte_cuz_audio_error) { with(instance_find(NTTEFullCuzConnectedTest,0)) scrNTTEFullCuzConnectedAbort(_ntte_cuz_audio_error); }
 // END NTTE CUZ AUDIO TEST ALARM 11 AFTER

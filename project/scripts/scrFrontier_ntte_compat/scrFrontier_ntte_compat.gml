@@ -16,7 +16,10 @@ function scrFRNTTEHandles(_type,_module) {
     }
     return false;
 }
-function scrFRNTTEExists(_type,_module) {return scrFRNTTEHandles(_type,_module);}
+function scrFRNTTEExists(_type,_module) {
+    if(!scrFRContent210Active("undergrowth") && (_module=="undergrowth" || string_pos("fossil ",string(_module))==1)) return false;
+    return scrFRNTTEHandles(_type,_module);
+}
 function scrFRNTTEKey(_type,_module) {
     var _kind=string_lower(string(_type)),_name=string_lower(string(_module));
     if(_kind=="wep") _kind="weapon";
@@ -183,6 +186,7 @@ function scrFRNTTECall(_type,_module,_script,_args) {
 // Native consumers call these BEFORE their fixed switches/caches. Undefined
 // explicitly means fall through to the existing native implementation.
 function scrFRNTTESpriteOverride(_key,_index=-1) {
+    if(!scrFRContent210Active("ntuf")) return undefined; // FRONTIER210 NTTE RESTORE
     if(!variable_global_exists("fr_module_vars") || !variable_struct_exists(global.fr_module_vars,"mod:teassets")) return undefined;
     var _root=global.fr_module_vars[$ "mod:teassets"].spr,_value;
     if(string_pos("BigTopDecal.",_key)==1 || string_pos("msk.BigTopDecal.",_key)==1)
@@ -195,11 +199,13 @@ function scrFRNTTESpriteOverride(_key,_index=-1) {
     return _value[_index];
 }
 function scrFRNTTENativeSprite(_sprite) {
+    if(!scrFRContent210Active("ntuf")) return _sprite; // FRONTIER210 NTTE RESTORE
     if(!variable_global_exists("fr_module_vars") || !variable_struct_exists(global.fr_module_vars,"mod:__frontier_ntte_adapter")) return _sprite;
     var _sprites=global.fr_module_vars[$ "mod:__frontier_ntte_adapter"].native_sprites,_key=string(_sprite);
     return variable_struct_exists(_sprites,_key) ? _sprites[$ _key]:_sprite;
 }
 function scrFRNTTEWeaponSprite(_weapon) {
+    if(!scrFRContent210Active("ntuf")) return undefined; // FRONTIER210 NTTE RESTORE
     if(!is_real(_weapon) || _weapon!=wep_ntte_energy_bat) return undefined;
     if(!variable_global_exists("fr_module_vars") || !variable_struct_exists(global.fr_module_vars,"weapon:energy bat")) return undefined;
     return global.fr_module_vars[$ "weapon:energy bat"].sprWep;
@@ -216,6 +222,7 @@ function scrFRNTTEOriginalNativeSprite(_module_key,_field) {
     return undefined;
 }
 function scrFRNTTEStatueSprites(_area) {
+    if(!scrFRContent210Active("ntuf")) return undefined; // FRONTIER210 NTTE RESTORE
     if(!variable_global_exists("fr_module_vars") || !variable_struct_exists(global.fr_module_vars,"mod:__frontier_ntte_adapter")) return undefined;
     var _items=scrFRNTTEState().statues,_key=string(_area);
     if(variable_struct_exists(_items,_key)) return _items[$ _key];
@@ -231,6 +238,7 @@ function scrFRNTTEStatueSprites(_area) {
     return undefined;
 }
 function scrFRNTTEScorchSprites(_floor) {
+    if(!scrFRContent210Active("ntuf")) return undefined; // FRONTIER210 NTTE RESTORE
     if(!variable_global_exists("fr_module_vars") || !variable_struct_exists(global.fr_module_vars,"mod:__frontier_ntte_adapter")) return undefined;
     var _items=scrFRNTTEState().scorches,_key=string(_floor);
     return variable_struct_exists(_items,_key) ? _items[$ _key]:undefined;

@@ -55,7 +55,7 @@ function scrFRDroneIntercept204(_shot) {
     // source flashes plus one flash at each new position up to64 per host
     // frame. This cap applies only to Null sprites, never to hostile shots,
     // shock damage, collision events or the native projectile death effect.
-    if(_state.effects<32 || (!_seen && _state.effects<64)) {
+    if(_state.effects<4 || (!_seen && _state.effects<8)) {
         var _effect=instance_create(_shot.x,_shot.y,BulletHit),
             _vars=global.fr_module_vars[$ "skill:AugmentCompassion"];
         _effect.sprite_index=scrFRAreaSourceSprite(_vars.settingGreenAugments?_vars.sprGreenNull:_vars.sprNull);

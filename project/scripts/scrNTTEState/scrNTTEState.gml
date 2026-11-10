@@ -194,6 +194,7 @@ function scrNTTEHeldSprite(_w, _back = false) {
 }
 
 function scrNTTEDrawStatus() {
+    scrFRChargeBars210Draw(); // FRONTIER210 SOURCE CHARGE HUD
     if (wep < wep_ntte_bubble_bat || !variable_instance_exists(id,"ntte_state") || !is_struct(ntte_state)) return;
     var _s = ntte_state, _max = scrNTTEChargeMax(wep)
     if (_s.charge > 0 && _max > 0) {

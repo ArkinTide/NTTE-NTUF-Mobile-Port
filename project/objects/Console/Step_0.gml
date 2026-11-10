@@ -124,6 +124,7 @@ var _ai_submit = keyboard_check_pressed(vk_enter) || (os_type == os_android && (
 // 打开瞬间 keyboard_string 里可能还残留 IME 的 "\n"（尚未被下面的「开关过渡」块还原成 pending_input），
 // 不挡住的话会「开了立刻关」（实测：空回车关闭后每次重开都秒关）。
 if (global.console_active && !prev_active) _ai_submit = false
+scrFRAchievementsAllowed210();scrFRProgress210Cheated(); // FRONTIER210 CONSOLE RUN EXCLUSION
 
 // 命令补全：算候选（输入没变就不重算，免得每帧把选中项重置）。
 if (!global.console_active) {

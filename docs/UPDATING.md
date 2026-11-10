@@ -2,6 +2,12 @@
 
 [简体中文](UPDATING.md) | [English](UPDATING.en.md) | [首页](../README.md)
 
+## 2.1.0 build105 版本
+
+游戏显示、更新器、平台版本及正式标签统一为 `2.1.0`，内部构建 105。
+本次使用重新编译并验证的游戏 VM，不能沿用 2.0.0 的元数据正规化描述。
+GAME_BUILD 3004 与存档协议保持。
+
 ## 2.0.5 build103 版本
 
 游戏显示、更新器、平台版本及正式标签统一为 `2.0.5`，内部构建 103。
@@ -60,6 +66,6 @@ Android请下载后覆盖安装，保留存档。iOS仍需自行重新签名IPA�
 
 ## 发布策略
 
-当前版本 **2.0.5**，内部构建103（Android versionCode 3000103，iOS build103），整合 Uncharted Frontier（NTUF）1.0.3.3。仓库已更名为 `NTTE-NTUF-Mobile-Port`；旧 GitHub 地址保留重定向，固定 MEGA 文件夹保持。后续修复按0.0.1递增；1.0.4及后续1.0.x保留原NTTE内容。`GAME_BUILD`属于存档格式，不随发布修改。
+当前版本 **2.1.0**，内部构建105（Android versionCode 3000105，iOS build105），整合 Uncharted Frontier（NTUF）1.0.3.3。仓库已更名为 `NTTE-NTUF-Mobile-Port`；旧 GitHub 地址保留重定向，固定 MEGA 文件夹保持。后续修复按0.0.1递增；1.0.4及后续1.0.x保留原NTTE内容。`GAME_BUILD`属于存档格式，不随发布修改。
 
 每次同步游戏/更新器/平台版本并完成测试；源码上传前执行 `python tools/audit_source_only.py --index` 和 `--history`。不上传图片、音频、字体、运行库、安装包、签名或个人存档。发布同名正式标签，双语说明附上同一MEGA下载链接和第三方鸣谢。

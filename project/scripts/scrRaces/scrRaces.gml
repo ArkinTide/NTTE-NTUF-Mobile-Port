@@ -51,11 +51,12 @@ function scr_race_is_unlocked(_race) {
 /// @param {Real|Enum.Race} race
 /// @param is_unlocked=true
 function scr_race_set_unlocked(_race, _unlocked = true) {
+    if(!scrFRProgress210CanUnlock()) return false;
     // BEGIN FRONTIER RACE UNLOCK SET
     if(scrFRRaceIs(_race)) {scrFRRaceUnlockSet(_unlocked);return;}
     // END FRONTIER RACE UNLOCK SET
 
-    if(scrNTTEFullRaceNumeric(_race)>=0) scrNTTEFullUnlockSet("race:"+scrNTTEFullRaceKey(_race),_unlocked)
+    if(scrNTTEFullRaceNumeric(_race)>=0) return scrNTTEFullUnlockSet("race:"+scrNTTEFullRaceKey(_race),_unlocked)
 	with (UberCont) cgot[_race] = _unlocked
 }
 
@@ -80,12 +81,13 @@ function scr_race_is_skin_unlocked(_race, _skin = 1) {
 /// @param {Real|Enum.SkinLetter} skin=SkinLetter.B
 /// @param is_unlocked=true
 function scr_race_set_skin_unlocked(_race, _skin=SkinLetter.B, _unlock=true) {
+    if(!scrFRProgress210CanUnlock()) return false;
     // BEGIN FRONTIER RACE SKIN UNLOCK SET
     if(scrFRRaceIs(_race)) return scrFRRaceUnlockSet(_unlock,_skin);
     if(scrFRSkinMatches(_race,_skin)) return true;
     // END FRONTIER RACE SKIN UNLOCK SET
 
-    if(scrNTTEFullRaceNumeric(_race)>=0 && _skin==1) scrNTTEFullUnlockSet("skin:"+scrNTTEFullRaceKey(_race)+":"+string(_skin),_unlock)
+    if(scrNTTEFullRaceNumeric(_race)>=0 && _skin==1) return scrNTTEFullUnlockSet("skin:"+scrNTTEFullRaceKey(_race)+":"+string(_skin),_unlock)
     if (_skin>=200) return scrNTTEFullSkinMatches(_race,_skin) && scrNTTEFullUnlockSet("skin:"+scrNTTEFullSkinKey(_skin),_unlock)
 	with UberCont cskingot[_race, _skin] = _unlock
 }
@@ -615,7 +617,9 @@ function scrRaceIsHidden(_race, _count_in_unlockable = true) {
 /// @function scrRaceUnlock
 /// @param {Real|Enum.Race} race_id
 function scrRaceUnlock(_race) {
-	if (scrGameIsCustomMode()) exit
+    if(!scrFRProgress210CanUnlock()) return;
+    if(scrFRRaceIs(_race)) {scrFRRaceUnlockSet(true);return;}
+	if (scrGameIsCustomMode() && scrNTTEFullRaceNumeric(_race)<0) exit
     // BEGIN NTTE OWNED MOD RACE NOTIFY
     if(scrNTTEFullRaceNumeric(_race)>=0) { scrNTTEFullUnlockSet("race:"+scrNTTEFullRaceKey(_race),true);return; }
     // END NTTE OWNED MOD RACE NOTIFY
@@ -655,7 +659,9 @@ function scrRaceUnlock(_race) {
 /// @param {Real|Enum.Race} race_id
 /// @param {Real|Enum.SkinLetter} skin
 function scrRaceUnlockSkin(_race, _skin_id) {
-	if (scrGameIsCustomMode()) exit
+    if(!scrFRProgress210CanUnlock()) return;
+    if(scrFRRaceIs(_race)) {scrFRRaceUnlockSet(true,_skin_id);return;}
+	if (scrGameIsCustomMode() && scrNTTEFullRaceNumeric(_race)<0 && _skin_id<200) exit
     // BEGIN NTTE OWNED MOD SKIN NOTIFY
     if(scrNTTEFullRaceNumeric(_race)>=0 || (_skin_id>=200 && scrNTTEFullSkinMatches(_race,_skin_id))) {
         if(scr_race_is_unlocked(_race) && !scr_race_is_skin_unlocked(_race,_skin_id)) scr_race_set_skin_unlocked(_race,_skin_id,true);

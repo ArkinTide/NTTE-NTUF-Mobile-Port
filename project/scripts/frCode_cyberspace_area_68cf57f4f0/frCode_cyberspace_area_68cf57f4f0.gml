@@ -168,7 +168,7 @@ return 220;
 
 // Original Areas/cyberspace.area.gml:83
 function fr_Areas_cyberspace_area_gml_area_next() {
-return [GameCont.lastarea, 1];
+return [scrFRCyberspaceReturn210(), 1];
 ;
 }
 
@@ -2051,9 +2051,8 @@ function fr_Areas_cyberspace_area_gml_bluescreen_accept(_frl__controller=undefin
 for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
-area = scrFRAreaResolve("cyberspace");
-;
-subarea = 0;
+fr_cyberspace_return210 = area;
+scrFRAreaSet("cyberspace",0);
 ;
 }
 }

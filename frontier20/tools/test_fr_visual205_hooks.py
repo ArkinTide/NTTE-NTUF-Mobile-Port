@@ -73,7 +73,7 @@ class Visual205Tests(unittest.TestCase):
             self.assertIsNone(ImageChops.difference(locked.getchannel('A'), expected_alpha).getbbox())
             self.assertEqual(sum(value > 0 for value in expected_alpha.getdata()), 396)
             self.assertTrue(all(locked.getpixel(point)[3] == 0 for point in ((0, 0), (31, 0), (0, 31), (31, 31))))
-            self.assertTrue(all(pixel[:3] == (40, 40, 40) for pixel in locked.getdata()))
+            self.assertTrue(all(pixel[:3] == (66, 66, 66) for pixel in locked.getdata()))
             unlocked = Image.open(output / (metadata['frames'][0]['name'] + '.png')).convert('RGBA')
             source = Image.open(SOURCE).convert('RGBA')
             self.assertIsNone(ImageChops.difference(unlocked.crop((4, 0, 28, 32)), source).getbbox())

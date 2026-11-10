@@ -103,6 +103,11 @@ function scrFRMenuInput204Start(_driver,_rate) {
     scrNTTESmokeLog("MENU INPUT204 START rate="+string(_rate));
 }
 function scrFRMenuInput204Keyboard(_kind,_key) {
+    if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) {
+        var _driver=instance_find(FRIntegrationTest,0),
+            _sample=_driver[$ "fr_followup210_keyboard"]??undefined;
+        if(is_struct(_sample)) return _key==_sample[$ _kind];
+    }
     var _s=scrFRMenuInput204State();
     if(is_undefined(_s) || _s.phase!=4) return undefined;
     return _key==_s.keyboard[$ _kind];

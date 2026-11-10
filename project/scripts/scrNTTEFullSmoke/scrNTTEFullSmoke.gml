@@ -202,6 +202,10 @@ if(scrNTTEFullSmokeAsyncCase("FrontierPirateVisibility205Tests")) {scrFRIntegrat
 // BEGIN FRONTIER BLOODLUST205 COMBAT ENTRY
 if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTestStart("bloodlust205");return;}
 // END FRONTIER BLOODLUST205 COMBAT ENTRY
+        if(scrNTTEFullSmokeAsyncCase("FrontierRedTerrain210Tests")) {scrFRIntegrationTestStart("red-terrain210");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierContent210Tests")) {scrFRIntegrationTestStart("content210");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierFollowup210Tests")) {scrFRIntegrationTestStart("followup210");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierFeatures210Tests")) {scrFRIntegrationTestStart("features210");return;}
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}
         if(scrNTTEFullSmokeAsyncCase("Release124SpiderRouteTests")) {scrRelease124SpiderRouteTests();return;}

@@ -75,6 +75,7 @@ if(!is_undefined(_fr_weapon)) return _fr_weapon;
     return is_undefined(_record)?wep_none:_record.weapon
 }
 function scrNTTEFullWeaponDropArea(_raw,_context) {
+    if(!scrFRContent210Active("undergrowth") && array_contains(["fossil pistol","fossil gun","fossil cannon","fossil hammer","mega grenade launcher",174,175,176,177,178],_raw)) return -1; // FRONTIER210 CONTENT GATE
 // BEGIN FRONTIER WEAPON DROP AREA
 var _fr_weapon=scrFRWeaponDropRaw(_raw);
 if(!is_undefined(_fr_weapon)) return scr_weapon_get_area(_fr_weapon);

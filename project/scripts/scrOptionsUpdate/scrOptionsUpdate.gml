@@ -161,6 +161,7 @@ function scrOptionsUpdate() {
 		// 开启「原版控制台」时等价于同时开启 CONSOLE。
 		// 否则「~」只会打开 GM debug 面板，游戏内 console 永远不会被激活。
 		if (opt_orig_console) opt_console = true
+        scrFRAchievementsAllowed210();scrFRProgress210Cheated(); // FRONTIER210 PRACTICE/CONSOLE EXCLUSION
         scrNTTEFullConsoleApplyOption();
 		
 		if opt_gamepad {

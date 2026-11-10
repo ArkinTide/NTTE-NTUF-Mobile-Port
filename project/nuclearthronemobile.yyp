@@ -61264,6 +61264,60 @@
         "name": "scrFrontier_bloodlust205_tests",
         "path": "scripts/scrFrontier_bloodlust205_tests/scrFrontier_bloodlust205_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_features210",
+        "path": "scripts/scrFrontier_features210/scrFrontier_features210.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_features210_tests",
+        "path": "scripts/scrFrontier_features210_tests/scrFrontier_features210_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_content210",
+        "path": "scripts/scrFrontier_content210/scrFrontier_content210.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_weather_music210",
+        "path": "scripts/scrFrontier_weather_music210/scrFrontier_weather_music210.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_red_terrain210_tests",
+        "path": "scripts/scrFrontier_red_terrain210_tests/scrFrontier_red_terrain210_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_red_terrain210",
+        "path": "scripts/scrFrontier_red_terrain210/scrFrontier_red_terrain210.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_content210_tests",
+        "path": "scripts/scrFrontier_content210_tests/scrFrontier_content210_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_progress210",
+        "path": "scripts/scrFrontier_progress210/scrFrontier_progress210.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_followup210_tests",
+        "path": "scripts/scrFrontier_followup210_tests/scrFrontier_followup210_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

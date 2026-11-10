@@ -152,8 +152,8 @@ function scrNTTEFullCrabbonePhysicalPickup(_part,_primary) {
             var _held=_primary || race==Race.Steroids
             if(_held) {variable_instance_set(id,_primary?"wkick":"bwkick",0);if(_new_artifact) gunshine=max(scrNTTEFullValue(id,"gunshine",0),2)}
             if(!_held || _new_artifact) scrPopupCreate(x,y,loc_fmt("HUD:GotWeapon","%!",scr_weapon_get_name(_pickup.wep))+" x"+string(_amount))
-            if(!_new_artifact && _state.ammo>scrNTTEFullValue(global.ntte_full_progress.stats,"bone",0)) {
-                global.ntte_full_progress.stats.bone=_state.ammo;scrNTTEFullProgressSave()
+            if(!_new_artifact && _state.ammo>scrNTTEFullValue(scrFRProgress210State().stats,"bone",0)) {
+                scrFRProgress210State().stats.bone=_state.ammo;scrNTTEFullProgressSave()
             }
             var _fx=instance_create(_pickup.x,_pickup.y,DiscDisappear)
             _fx.image_angle=scrNTTEFullValue(_pickup,"rotation",0)

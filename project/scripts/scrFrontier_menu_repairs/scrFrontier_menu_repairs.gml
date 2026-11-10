@@ -96,8 +96,9 @@ function scrFRCustomWeaponGroups() {
             (_i==group_count-2?"NTTE":(_i==group_count-1?"NTUF":loc("Ammo:Type",_i-1,typ_name[_i-1])));
     }
     for(var _weapon=1;_weapon<=maxwep;++_weapon) {
+        if(!scrFRContent210WeaponEnabled(_weapon)) continue;
         if(variable_struct_exists(global.fr_weapon_keys,string(_weapon))) {
-            array_push(groups[group_count-1],_weapon);continue;
+            if(scrFRContent210Active("ntuf")) array_push(groups[group_count-1],_weapon);continue;
         }
         if(_weapon>=wep_ntte_rogue_carbine && _weapon<=wep_ntte_last) {
             array_push(groups[group_count-2],_weapon);continue;

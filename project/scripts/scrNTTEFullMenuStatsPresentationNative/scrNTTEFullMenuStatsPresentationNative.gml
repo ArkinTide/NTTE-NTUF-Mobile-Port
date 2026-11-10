@@ -60,13 +60,13 @@ function scrNTTEFullMenuAreaText(_value) {
     return _text;
 }
 function scrNTTEFullMenuPresentationStatText(_key,_kind="number") {
-    var _value=scrNTTEFullValue(global.ntte_full_progress.stats,_key,0)
+    var _value=scrNTTEFullValue(scrFRProgress210State().stats,_key,0)
     if(_kind=="time") return scrNTTEFullMenuTime(_value);
     if(_kind=="area") return scrNTTEFullMenuAreaText(_value);
     return string(_value);
 }
 function scrNTTEFullMenuPresentationPetValue(_pet,_key) {
-    var _stat=scrNTTEFullValue(global.ntte_full_progress.stats,"pet:"+_pet+".petlib.mod",{}),
+    var _stat=scrNTTEFullValue(scrFRProgress210State().stats,"pet:"+_pet+".petlib.mod",{}),
         _value=scrNTTEFullValue(_stat,_key,0)
     if(_pet=="Mimic" && _key=="weapons") return scrNTTEFullMenuMimicCollection(_value).text;
     if(_key=="owned" || (_pet=="Octo" && _key=="arcing") || (_pet=="Cuz" && _key=="playtime"))
@@ -111,7 +111,7 @@ function scrNTTEFullMenuPresentationPetPage(_pet) {
     var _sprite=scrNTTEFullMenuPetPreviewSprite(_pet)
     scrOptionsMenuCreateElement({name:"",value:"",ntte_pet:_pet,available:false,
         height:max(16,sprite_get_height(_sprite)),draw:method(id,scrNTTEFullMenuPetPreviewDraw)})
-    var _stats=scrNTTEFullValue(global.ntte_full_progress.stats,"pet:"+_pet+".petlib.mod",{}),
+    var _stats=scrNTTEFullValue(scrFRProgress210State().stats,"pet:"+_pet+".petlib.mod",{}),
         _keys=variable_struct_get_names(_stats)
     for(var _i=0;_i<array_length(_keys);++_i) {
         var _key=_keys[_i]

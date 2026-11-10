@@ -1,3 +1,4 @@
+if(scrFRHyperionAlliedPair210(id,other.id)) exit; // FRONTIER210 ALLIED INTERCEPTOR
 if(scrNTTEFullFriendlyMonsterShot(id,other.id)) exit;
 // NTTE merged native collision entry, preserving inherited dispatch.
 var _ntte_merge_collision=scrNTTEFullMergedNativeCollisionBegin(id,other.id);

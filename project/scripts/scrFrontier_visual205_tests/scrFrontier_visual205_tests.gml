@@ -273,7 +273,7 @@ function scrFRVisual205Tests() {
         draw_sprite(_locked[0],_locked[1],gui_w/2,gui_h/2);
         draw_sprite(_unlocked[0],_unlocked[1],gui_w/2+48,gui_h/2);
         assert(surface_getpixel(_screen,gui_w/2-12,gui_h/2-14)==make_color_rgb(62,62,74)
-            && surface_getpixel(_screen,gui_w/2,gui_h/2)==make_color_rgb(40,40,40),
+            && surface_getpixel(_screen,gui_w/2,gui_h/2)==make_color_rgb(66,66,66),
             "Locked Storms uses an opaque icon rectangle rather than original transparent crown shape");
         surface_save(_screen,working_directory+"frontier-visual205-locked-storms.png");
         surface_reset_target();_target=false;

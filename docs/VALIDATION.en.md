@@ -2,6 +2,25 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.1.0 build105 — Content controls, walls and drone fixes
+
+The newly compiled final Windows VM/input passed 28 explicitly selected native
+cases. A hash-verified Python log records 403 passing checks. Earlier VM passes
+are not inherited. See the [current validation summary](validation/2.1.0-development-regression.json)
+for exact cases and evidence.
+
+Fix reciprocal allied-fire collisions for Hyperion drones and batch dense interception effects; repair duplicate Red Caves walls, isolated caps and road boundaries; match the Storms locked silhouette and translate the Beetle unlock hint. Add default-on independent NTUF and Undergrowth switches: disabling NTUF greys out its other settings, both switches are locked during live runs, and Continue retains the saved packs. Add NTTE-style NTUF charge bars, persistent achievement exclusion for console/practice/custom runs, and weather music in the triggering room. Fix native content-switch input, allied Powder Hammer provenance, and the complete Cyberspace return including old saves. Block console-run gold/content persistence and isolate NTTE/NTUF custom progress per preset slot.
+
+Android versionCode is 3000105, retaining application/signing identities and checked
+16KB layout. iOS build 105 requires re-signing; new game data uses a retained native
+Runner without a fresh Mac native build. GAME_BUILD/save protocol remains 3004.
+
+This release validates the selected content switches, charge HUD, achievement exclusion,
+same-room weather music, drone collisions and red terrain scenarios. Unknown random
+maps and every weapon combination are not generally certified. Silent background desktop tests do not establish phone mixing or frame
+rates. No physical Android/iOS, complete random campaign or universal FPS acceptance
+is claimed.
+
 ## 2.0.5 build103 — Resume audio, outline settings, walls and level exits
 
 The newly compiled final Windows VM/input passed 82 explicitly selected native

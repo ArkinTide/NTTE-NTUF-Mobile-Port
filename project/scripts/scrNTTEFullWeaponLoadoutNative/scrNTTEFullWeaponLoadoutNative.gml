@@ -148,7 +148,7 @@ function scrNTTEFullLoadoutWeaponSignature(_weapon) {
 function scrNTTEFullLoadoutWeaponStore(_race,_weapon) {
     // A custom selection grants temporary use, never a permanent starting
     // weapon. This shared boundary also covers native stored-weapon setters.
-    if(scrGameIsCustomMode()) return false
+    if(!scrFRProgress210CanStoreGold()) return false
     if(!scrNTTEFullLoadoutWeaponEligible(_weapon)) return false
     var _key=scrNTTEFullLoadoutWeaponKey(_race),_data=scrNTTEFullLoadoutWeaponPack(_weapon),
         _old=scrNTTEFullUnlockGet(_key+":main",undefined)

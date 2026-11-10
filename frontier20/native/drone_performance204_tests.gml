@@ -115,7 +115,7 @@ function scrFRDronePerformance204Bench(_reference,_rate,_shock) {
         var _callbacks_us=get_timer()-_callbacks_start,_effects=scrFRHyperionProjectileTestsNullFX()-_null_before;
         for(var _i=0;_i<5;++_i) {array_push(_native_next,random(1));array_push(_source_next,scrFRSourceRandom(1));}
         assert(_intercepted==_hostile && _passed==_count-_hostile,"Hyperion204 dense collision lost a shot");
-        assert(_reference?_effects==_hostile:(_effects>=32 && _effects<=64),
+        assert(_reference?_effects==_hostile:(_effects>=4 && _effects<=8),
             "Hyperion204 cosmetic budget altered sparse/dense feedback outside its bounds");
         _result={rate:_rate,shock:_shock,reference:_reference,projectiles:_count,
             hostile_intercepted:_intercepted,allied_neutral_typ0_passed:_passed,

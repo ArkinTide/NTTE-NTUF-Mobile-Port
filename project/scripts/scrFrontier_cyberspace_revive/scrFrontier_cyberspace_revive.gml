@@ -1,6 +1,17 @@
 // NTT's Revive has a scripted collision/Alarm0 revival API. Epsilon's
 // ordinary Revive is a delayed co-op body and has no Alarm0. Only the two
 // calls compiled from cyberspace_revive use this adapter.
+function scrFRCyberspaceReturn210() {
+    var _area=scrNTTEFullValue(GameCont,"fr_cyberspace_return210",undefined)??GameCont.lastarea;
+    if(is_real(_area) && _area!=302) return _area;
+    // Recover pre-fix Continue saves whose lastarea was already overwritten.
+    for(var _i=GameCont.waypoints-1;_i>=0;--_i) {
+        var _candidate=GameCont.waypnt[_i];
+        if(is_real(_candidate) && _candidate>=0 && _candidate!=302) return _candidate;
+    }
+    return area_desert;
+}
+
 function scrFRCyberspaceRememberStatuses(_player) {
     var _effects=scrFRModGet("mod","Frontier_StatusEffects","statusEffects"),
         _names=variable_instance_get_names(_player),_saved=[];

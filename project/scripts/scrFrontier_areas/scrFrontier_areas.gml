@@ -406,6 +406,8 @@ function scrFRAreaDebugAreas(_base) {
         _extra=[201,202,203,204,205,206,207,301,302,303,304,305,306];
     array_copy(_areas,0,_base,0,array_length(_base));
     for(var _i=0;_i<array_length(_extra);++_i) {
+        if((_extra[_i]>=301 && !scrFRContent210Active("ntuf"))
+            || (_extra[_i]==207 && !scrFRContent210Active("undergrowth"))) continue; // FRONTIER210 AREA POOL
         var _found=false;
         for(var _j=0;_j<array_length(_areas);++_j) if(_areas[_j]==_extra[_i]) {_found=true;break;}
         if(!_found) array_push(_areas,_extra[_i]);

@@ -352,6 +352,7 @@ function scrFRActorStep(_field) {
 }
 
 function scrFRActorDraw() {
+    if(!scrFRContent210Active("ntuf")) return; // FRONTIER210 HIDDEN CONTENT
     if(!is_undefined(on_draw)) {
         scrFRInvokeDraw(id,on_draw,[]);
         return;
@@ -382,8 +383,12 @@ function scrFRProjectileWall() {
 
 function scrFRSlashProjectileCallback() {
     if(lockstep_stop) return true;
+    if(scrFRHyperionAlliedPair210(id,other.id)) return true;
     var _field=instance_is(other.id,Grenade)?"on_grenade":"on_projectile";
     if(is_undefined(variable_instance_get(id,_field))) return false;
+    if(scrFRHyperionInterceptor210(id) && !scrFRDroneReference204Enabled()) {
+        scrFRDroneIntercept204(other.id);return true;
+    }
     scrFRActorCallback(_field);
     return true;
 }

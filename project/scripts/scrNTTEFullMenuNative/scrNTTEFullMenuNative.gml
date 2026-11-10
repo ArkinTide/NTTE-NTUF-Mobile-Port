@@ -100,7 +100,7 @@ function scrNTTEFullMenuPets() {
     return ["Scorpion","Parrot","Slaughter","CoolGuy","Salamander","Mimic","Octo","Spider","Prism","Orchid","Weapon","Twins","Cuz","Guardian"];
 }
 function scrNTTEFullMenuPetKnown(_pet) {
-    var _stat=scrNTTEFullValue(global.ntte_full_progress.stats,"pet:"+_pet+".petlib.mod",{})
+    var _stat=scrNTTEFullValue(scrFRProgress210State().stats,"pet:"+_pet+".petlib.mod",{})
     return scrNTTEFullValue(_stat,"found",0)>0 || scrNTTEFullValue(_stat,"owned",0)>0;
 }
 function scrNTTEFullMenuPetPage(_pet) {

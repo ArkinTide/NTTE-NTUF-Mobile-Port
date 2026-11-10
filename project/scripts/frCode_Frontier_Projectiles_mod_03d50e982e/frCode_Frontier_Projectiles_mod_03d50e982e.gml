@@ -379,6 +379,7 @@ typ = (- 1);
 damage = 0;
 ;
 team = 1724;
+fr_powder_team210 = other[$ "fr_powder_team210"]??(other[$ "team"]??team_none);
 ;
 hitid = [sprite_index, "GUNPOWDER"];
 ;

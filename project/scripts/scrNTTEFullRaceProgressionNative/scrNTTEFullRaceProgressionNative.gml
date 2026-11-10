@@ -78,9 +78,9 @@ function scrNTTEFullRaceProgressEndStep() {
             scrNTTEFullRaceStatAdd(_key+":time",timescale/30)
         if(!is_undefined(_last) && _kills!=_last) {
             scrNTTEFullRaceStatAdd(_key+":kill",_kills-_last)
-            if(_kills>=scrNTTEFullValue(global.ntte_full_progress.stats,_key+":best:kill",0)) {
-                global.ntte_full_progress.stats[$ _key+":best:area"]=[GameCont.area,GameCont.subarea,GameCont.loops]
-                global.ntte_full_progress.stats[$ _key+":best:kill"]=_kills
+            if(_kills>=scrNTTEFullValue(scrFRProgress210State().stats,_key+":best:kill",0)) {
+                scrFRProgress210State().stats[$ _key+":best:area"]=[GameCont.area,GameCont.subarea,GameCont.loops]
+                scrFRProgress210State().stats[$ _key+":best:kill"]=_kills
             }
         }
     }

@@ -39,7 +39,7 @@ def generate(source=SOURCE, output=TEMPLATE, check=False):
     alpha = shape.getchannel('A').resize((32, 32), Image.Resampling.NEAREST)
     assert 0 < sum(value != 0 for value in alpha.getdata()) < 32 * 32
     assert all(alpha.getpixel(point) == 0 for point in ((0, 0), (31, 0), (0, 31), (31, 31)))
-    shade = Image.new('L', unlocked.size, 40)
+    shade = Image.new('L', unlocked.size, 66) # Match sprLockedLoadoutCrown exactly
     locked = Image.merge('RGBA', (shade, shade, shade, alpha))
     layer = metadata['layers'][0]['name']
     files = {}
@@ -61,7 +61,7 @@ def generate(source=SOURCE, output=TEMPLATE, check=False):
             'frame_size': [32, 32], 'origin': [16, 16],
             'locked_shape': str(LOCKED_SHAPE),
             'locked_shape_sha256': hashlib.sha256(LOCKED_SHAPE.read_bytes()).hexdigest(),
-            'derivation': 'unlocked upstream icon padded x+4; locked transparent upstream Idle nearest2x alpha, native RGB40 silhouette',
+            'derivation': 'unlocked upstream icon padded x+4; locked transparent upstream Idle nearest2x alpha, native RGB66 silhouette',
             'check_only': check, 'files_sha256': files}
 
 

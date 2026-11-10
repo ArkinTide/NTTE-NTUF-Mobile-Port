@@ -77,6 +77,7 @@ function fr_dependencies_libSaves_mod_gml_save_load() { return scrFRSaveLoad((ar
 
 // Original dependencies/libSaves.mod.gml:59
 function fr_dependencies_libSaves_mod_gml_save_get() {
+if(scrFRProgress210SourceScoped(argument[0])) return scrFRProgress210SourceGet(argument[1],argument_count>2?argument[2]:noone,argument[0]);
 if ((!scrFRVariableExists(global.fr_module_vars[$ "mod:libSaves"].saves, (argument_count>0 ? argument[0] : undefined)))) {
 {
 fr_dependencies_libSaves_mod_gml_save_load((argument_count>0 ? argument[0] : undefined));
@@ -101,6 +102,8 @@ return noone;
 
 // Original dependencies/libSaves.mod.gml:73
 function fr_dependencies_libSaves_mod_gml_save_set(_frl__mod=undefined, _frl__name=undefined, _frl__value=undefined) {
+if(scrFRProgress210ContentModule(_frl__mod) && !scrFRProgress210CanUnlock()) return false;
+if(scrFRProgress210SourceScoped(_frl__mod)) return scrFRProgress210SourceSet(_frl__name,_frl__value,_frl__mod);
 if ((!scrFRVariableExists(global.fr_module_vars[$ "mod:libSaves"].saves, _frl__mod))) {
 {
 var _frl_save = {};
@@ -122,6 +125,12 @@ scrFRStringSave(scrFRJsonEncode(scrFRLQGet(global.fr_module_vars[$ "mod:libSaves
 
 // Original dependencies/libSaves.mod.gml:83
 function fr_dependencies_libSaves_mod_gml_save_reset(_frl__mod=undefined, _frl__lwo=undefined) {
+if(scrFRProgress210SourceScoped(_frl__mod)) {
+    if(!scrFRProgress210CanUnlock()) return scrFRProgress210Frontier(_frl__mod);
+    var _scope=scrFRProgress210State(),_field=scrFRProgress210Field(_frl__mod);
+    _scope[$ _field]=json_parse(json_stringify(_frl__lwo));
+    scrNTTEFullProgressSave();return _scope[$ _field];
+}
 scrFRLQSet(global.fr_module_vars[$ "mod:libSaves"].saves, _frl__mod, _frl__lwo);
 ;
 scrFRStringSave(scrFRJsonEncode(scrFRLQGet(global.fr_module_vars[$ "mod:libSaves"].saves, _frl__mod)), (_frl__mod + "Save.json"));

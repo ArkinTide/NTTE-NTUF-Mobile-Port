@@ -282,6 +282,7 @@ function scrCreatePlayers(_my_index = global.index) {
 		
 		KeyCont.activeforever[_pinst.index] = false
 
+        scrFRContent210Selections(); // FRONTIER210 VALIDATE RANDOM LOADOUT TOO
         // FRONTIER SKIN STARTER: changing A/B must retain each player's own starter.
         if(scrFRRaceIs(_pinst.race) && (_pinst.cwep==FR_BUBBLES_CUTLASS || _pinst.cwep==FR_BUBBLES_SHOVEL)) _pinst.cwep=scrFRRaceStarterWeapon(_pinst.skin);
         with scrPlayerCreate(_pinst.index, _pinst.race, _pinst.skin) {

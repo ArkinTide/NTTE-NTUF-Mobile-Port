@@ -1,4 +1,5 @@
 function scr_weapon_is_valid(_weapon) {
+    if(!scrFRContent210WeaponEnabled(_weapon)) return false; // FRONTIER210 CONTENT GATE
     if(is_struct(_weapon) || scrNTTEFullWeaponIsNative(_weapon)) {
         var _model=scrNTTEFullWeaponModel(_weapon),_raw=scrNTTEFullWeaponRaw(_model)
         return is_numeric(_raw) && _raw>=0 && _raw<=maxwep && (_raw>0 || scrNTTEFullWeaponHasMerge(_model)!=false)
@@ -86,6 +87,7 @@ function scr_weapon_get_rads(_weapon) {
 }
 
 function scr_weapon_get_area(_weapon) {
+    if(!scrFRContent210WeaponEnabled(_weapon)) return -1; // FRONTIER210 CONTENT GATE
 // BEGIN FRONTIER WEAPON DYNAMIC AREA
 var _fr_property=scrFRWeaponRuntimeProperty(_weapon,"area");
 if(!is_undefined(_fr_property)) return _fr_property;

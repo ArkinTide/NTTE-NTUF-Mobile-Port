@@ -21,6 +21,33 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    if(fr_test_case=="followup210") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRFollowup210Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+    if(fr_test_case=="content210") {
+        if(scrFRContent210TestsStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+            game_end();
+        }
+        return;
+    }
+    if(fr_test_case=="red-terrain210") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRRedTerrain210Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+    if(fr_test_case=="features210") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRFeatures210Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
     if(fr_test_case=="ammo-pickups" && variable_instance_exists(id,"fr_ammo_pickup")) {
         if(scrFRAmmoPickupTestsStep(id)) {
             scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");

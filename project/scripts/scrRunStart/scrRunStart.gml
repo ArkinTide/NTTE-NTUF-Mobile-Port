@@ -1,4 +1,5 @@
 function scrRunStart() {
+    scrFRContent210NewRun(); // FRONTIER210 RETRY AND NEW GAME
 	if (!instance_exists(GameCont)) instance_create(0, 0, GameCont)
 	
     random_set_seed(global.seed)

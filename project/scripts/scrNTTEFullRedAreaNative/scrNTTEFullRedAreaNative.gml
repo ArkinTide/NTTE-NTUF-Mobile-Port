@@ -70,7 +70,7 @@ function scrNTTEFullRedWarpRoom() {
 function scrNTTEFullRedPopProps() {
     if(scrNTTEFullSourceRandom(5)<1 && point_distance(x,y,10000,10000)>16
         && !place_meeting(x,y,NOWALLSHEREPLEASE) && !place_meeting(x,y,hitme)) {
-        instance_create(x+scrNTTEFullSourceChoose([0,16]),y+scrNTTEFullSourceChoose([0,16]),Wall)
+        var _rock=instance_create(x+scrNTTEFullSourceChoose([0,16]),y+scrNTTEFullSourceChoose([0,16]),Wall);_rock.fr_red210_rock=true;
         instance_create(x,y,NOWALLSHEREPLEASE)
     }
     else if(scrNTTEFullSourceRandom(4)<1) instance_create(x+16,y+16,styleb?NTTEFullCrystalPropWhite:NTTEFullCrystalPropRed)
@@ -123,7 +123,7 @@ function scrNTTEFullRedPopExtras() {
         case 3:scrNTTEFullRedBossRoom();break;
     }
 }
-function scrNTTEFullRedPopulateNative() {scrPopulate();scrNTTEFullRedPopExtras()}
+function scrNTTEFullRedPopulateNative() {scrPopulate();scrNTTEFullRedPopExtras();scrFRRedTerrain210Finish();}
 function scrNTTEFullRedStart() {
     GameCont.ntte_active_red=true;GameCont.ntte_full_active_red=true
     var _wall=instance_find(Wall,0)

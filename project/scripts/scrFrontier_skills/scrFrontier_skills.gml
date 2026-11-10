@@ -43,6 +43,7 @@ function scrFRGetSkill(_skill) {
     if(!instance_exists(GameCont)) return 0;
     var _key=scrFRSkillKey(_skill);
     if(is_undefined(_key)) return scr_skill_get(_skill);
+    if(!scrFRContent210Active("ntuf")) return 0; // FRONTIER210 OWNED SKILL GATE
     var _values=scrNTTEFullValue(GameCont,"fr_skills",{});
     return _values[$ string(_skill)]??0;
 }
@@ -80,6 +81,7 @@ function scrFRSkillSetActive(_skill,_value) {
 }
 
 function scrFRSkillAvailable(_skill) {
+    if(!scrFREnabled()) return false; // FRONTIER210 CONTENT POOL
     if(!scrFRSkillActive(_skill) || scrFRGetSkill(_skill)>0) return false;
     var _key=scrFRSkillKey(_skill);
     return !is_undefined(_key) && scrFRWeaponProperty(_key,"skill_avail",true);

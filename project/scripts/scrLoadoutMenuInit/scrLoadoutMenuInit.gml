@@ -54,6 +54,7 @@ function scr_loadout_race_get_stored_weapon(_race_id) {
 /// @function scr_loadout_race_set_stored_weapon
 /// @param {Real|Enum.Race} race_id
 function scr_loadout_race_set_stored_weapon(_race_id, _weapon_id) {
+    if(!scrFRProgress210CanStoreGold()) return false;
     if(scrNTTEFullLoadoutWeaponEligible(_weapon_id)) return scrNTTEFullLoadoutWeaponStore(_race_id,_weapon_id);
     // Ordinary golden weapons use a stable native ID in permanent storage.
     _weapon_id=scrNTTEFullWeaponRaw(_weapon_id);

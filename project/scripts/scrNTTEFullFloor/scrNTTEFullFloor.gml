@@ -231,7 +231,7 @@ function scrNTTEFullFloorWalls(_floor) {
     for(var _i=0;_i<array_length(_fs);++_i) with (_fs[_i]) {
         var _x1=bbox_left-16,_y1=bbox_top-16,_x2=(bbox_right-1)+17,_y2=(bbox_bottom-1)+17
         for(var _x=_x1;_x<_x2;_x+=16) for(var _y=_y1;_y<_y2;_y+=16) {
-            if ((_x==_x1 || _y==_y1 || _x==_x2-16 || _y==_y2-16) && !position_meeting(_x,_y,Floor)) array_push(_out,instance_create(_x,_y,Wall))
+            if ((_x==_x1 || _y==_y1 || _x==_x2-16 || _y==_y2-16) && !position_meeting(_x,_y,Floor) && !scrNTTESolidWallPlanPoint(_x,_y)) array_push(_out,instance_create(_x,_y,Wall))
         }
     }
     return _out
@@ -242,8 +242,8 @@ function scrNTTEFullWallUpdate(_x1,_y1,_x2,_y2) {
     for(var _i=0;_i<array_length(_ws);++_i) with (_ws[_i]) {
         if(instance_is(id,NTTESolidWall)) continue;
         visible=place_meeting(x,y+16,Floor)
-        l=place_free(x-16,y) ? 0:4; w=(place_free(x+16,y) ? 24:20)-l
-        r=place_free(x,y-16) ? 0:4; h=(place_free(x,y+16) ? 24:20)-r
+        l=scrFRWallArtFree205(x-16,y) ? 0:4; w=(scrFRWallArtFree205(x+16,y) ? 24:20)-l
+        r=scrFRWallArtFree205(x,y-16) ? 0:4; h=(scrFRWallArtFree205(x,y+16) ? 24:20)-r
         instance_create(x-16,y-16,Top); instance_create(x-16,y,Top); instance_create(x,y-16,Top); instance_create(x,y,Top)
     }
 }

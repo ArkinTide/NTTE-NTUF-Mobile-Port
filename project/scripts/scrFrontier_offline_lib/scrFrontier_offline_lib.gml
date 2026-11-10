@@ -83,7 +83,7 @@ function scrFRInvokeDraw(_scope,_reference,_args) {
 function scrFREnabled() {
     // A stale flag is insufficient after a complete world teardown. Native
     // callers must not dispatch source hooks without their owning controller.
-    return variable_global_exists("fr_enabled") && global.fr_enabled && instance_exists(FRWorld);
+    return scrFRContent210RuntimeReady() && scrFRContent210Active("ntuf");
 }
 function scrFRReadyTick() {
     // The native pause UI can still query area metadata or submit a choice.
@@ -114,7 +114,8 @@ function scrFRSessionPreserve(_instance) {
 }
 
 function scrFRSessionPrepare() {
-    if(!scrFREnabled()) return;
+    if(!scrFRContent210RuntimeReady()) return;
+    scrFRContent210Wake();
     scrFRLibGlobal();
     // Authored cleanup can read the old GameCont. Retire source actors while
     // that native session still exists, before its ordinary with-all sweep.
@@ -144,7 +145,7 @@ function scrFRSessionCancelLoading() {
 }
 
 function scrFRSessionRetired(_retain_game=false) {
-    if(!scrFREnabled()) return;
+    if(!scrFRContent210RuntimeReady()) return;
     // A final callback snapshot or world-scoped wait belongs to the retired
     // run too. None may later spawn old actors or alter the new room's music.
     global.fr_tasks=[];global.fr_final_callback_scope=undefined;
@@ -203,6 +204,7 @@ function scrFRWorldInit() {
     global.fr_boot_generation=(variable_global_exists("fr_boot_generation")?global.fr_boot_generation:0)+1;
     logic_accumulator=0; logic_tick=true; logic_serial=0;
     fr_previous_game=noone; global.fr_render_context=false;global.fr_source_scale_override=undefined;
+    global.fr_content210_ntuf=true; // Bootstrap source settings before applying the saved content switch.
     scrFRRuntimeInit();
     global.fr_boot_errors=[];
     global.fr_collect_errors=(os_type==os_windows && scrNTTEFullSmokeEnabled());
@@ -268,6 +270,7 @@ function scrFRWorldBegin() {
 }
 
 function scrFRWorldStep() {
+    scrFRContent210Sync(); // FRONTIER210 CONTENT LIFECYCLE
     if(!scrFREnabled() || lockstep_stop) return;
     if(UberCont.paused) {
         // UberCont advances current_frame in normal Step, after this world's

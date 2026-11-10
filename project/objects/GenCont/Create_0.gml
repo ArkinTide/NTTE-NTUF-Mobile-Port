@@ -1,3 +1,4 @@
+if(instance_exists(GameCont)) GameCont.fr_weather_music210=undefined; // FRONTIER210 ROOM MUSIC RESET
 scrFRContinueGenerationBegin();
 with(GameCont) scrNTTEPortalDeathReset();
 random_set_seed(global.rng_state[RNGStates.Generation])

@@ -1,3 +1,4 @@
+if(scrFRHyperionAlliedPair210(id,other.id)) exit; // FRONTIER210 ALLIED INTERCEPTOR
 if (image_speed > 0 || team == other.team) exit
 
 if other.typ == 1 {

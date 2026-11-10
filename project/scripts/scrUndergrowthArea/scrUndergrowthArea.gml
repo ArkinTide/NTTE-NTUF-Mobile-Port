@@ -42,10 +42,12 @@ function scrUG_area_sprite(_spr) {
     return _spr;
 }
 function scrUGRoomStart() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER210 CONTENT GATE
     if(!instance_exists(UGWorld)) instance_create(0,0,UGWorld);
     if(!instance_exists(UGTop)) instance_create(0,0,UGTop);
 }
 function scrUGAfterGeneration() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER210 CONTENT GATE
     // Run at the real GenCont finalization boundary, after source floors and
     // chests exist. No per-frame scan of ordinary rooms.
     if(GameCont.loops>0) {

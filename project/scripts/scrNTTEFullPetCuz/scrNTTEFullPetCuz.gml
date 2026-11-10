@@ -196,7 +196,7 @@ function scrNTTEFullPetCuzPlayerPower() {
             else { ntte_cuz_snd=snd_valt; ntte_cuz_snd_id=snd_play(ntte_cuz_snd) }
         }
     }
-    var _key="pet:Cuz.petlib.mod",_stat=scrNTTEFullValue(global.ntte_full_progress.stats,_key,undefined)
+    var _key="pet:Cuz.petlib.mod",_stat=scrNTTEFullValue(scrFRProgress210State().stats,_key,undefined)
     if(is_struct(_stat) && scrNTTEFullValue(GameCont,"ntte_cuz_stat_frame",-1)!=current_frame) {
         _stat.playtime+=timescale/30; GameCont.ntte_cuz_stat_frame=current_frame
     }

@@ -3,6 +3,11 @@ if (scrNTTESolidWallPlanPoint(x, y) /* FRONTIER PACKED CAP LAYOUT */ || position
     exit
 }
 
+// FRONTIER210 UNIQUE TRANSITION CELL
+var _tx=x,_ty=y,_tid=real(id),_duplicate=false;
+with(TopSmall) if(x==_tx && y==_ty && real(id)<_tid) {_duplicate=true;break;}
+if(_duplicate) {instance_destroy(id,false);exit;}
+
 var _area;
 
 if (!instance_exists(MenuGen) && !instance_exists(Menu)) {

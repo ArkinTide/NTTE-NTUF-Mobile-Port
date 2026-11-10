@@ -1,6 +1,7 @@
 // Content-independent legacy NTT APIs used by the frozen Frontier source.
 // Native parity providers stay responsible for damage, seeded drops and text.
 function scrFRSoundResolve(_sound) {
+    if(!scrFRContent210Active("ntuf")) return _sound; // FRONTIER210 ORIGINAL SOUND
     if(!variable_global_exists("fr_sound_replacements")) return _sound;
     // Each value is a physical packaged sample captured at assignment time.
     // Do not follow it as another logical target: later assignments to that
@@ -215,6 +216,15 @@ function scrFRStringSave(_text,_path) {
 }
 
 function scrFRSaveLoad(_module,_defaults=undefined,_merge_defaults=false) {
+    if(scrFRProgress210SourceScoped(_module)) {
+        var _data=scrFRProgress210Frontier(_module);
+        if(_merge_defaults) {
+            var _keys=variable_struct_get_names(_defaults);
+            for(var _i=0;_i<array_length(_keys);++_i)
+                if(!variable_struct_exists(_data,_keys[_i])) _data[$ _keys[_i]]=_defaults[$ _keys[_i]];
+        }
+        return _data;
+    }
     // Exact libSaves.save_load boundary for already-local native files. Its
     // authored wait(file_load()) waited for remote NTT file availability;
     // carrying that suspension over local I/O exposes partially loaded saves

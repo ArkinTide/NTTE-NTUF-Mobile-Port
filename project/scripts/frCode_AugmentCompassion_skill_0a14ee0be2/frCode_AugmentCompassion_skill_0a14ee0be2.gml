@@ -277,9 +277,9 @@ image_index = 0;
 }
 if ((shockCooldown <= 0)) {
 {
-var _frl__nearestProjectile = (scrFRDroneReference204Enabled() ? frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRHyperionEnemyProjectiles() /* FRONTIER HYPERION HOSTILE TARGETS */) : scrFRDroneNearestHostile204(x,y)) /* FRONTIER DRONE204 DIRECT NEAREST */;
+var _frl__nearestProjectile = (scrFRDroneReference204Enabled() ? frMacro_Mutations_AugmentCompassion_skill_gml_call(frMacro_Mutations_AugmentCompassion_skill_gml_scr.instance_nearest_array, x, y, scrFRHyperionEnemyProjectiles() /* FRONTIER HYPERION HOSTILE TARGETS */) : noone) /* FRONTIER DRONE204 DIRECT NEAREST */;
 ;
-if (((distance_to_object(enemy) < 48) || (distance_to_object(_frl__nearestProjectile) < 64))) {
+if (((distance_to_object(enemy) < 48) || (scrFRDroneReference204Enabled() ? distance_to_object(_frl__nearestProjectile) < 64 : scrFRDroneThreat210()))) {
 {
 fr_Mutations_AugmentCompassion_skill_gml_DroneShock_create(x, y, 0.8);
 ;

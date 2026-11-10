@@ -186,7 +186,7 @@ function scrFRMenuOptionsDescription(_text) {
 }
 
 function scrFRMenuOptionsBuild() {
-    if(!scrFREnabled()) return;
+    if(!scrFRContent210RuntimeReady()) return;
     scrOptionsMenuCategoryBegin(OptionCategory.Frontier);
     scrOptionsMenuCreateElement({name:scrFRLocalize("UNCHARTED FRONTIER (NTUF)"),available:false,skip:true});
     var _keys=variable_struct_get_names(global.fr_option_pages);
@@ -199,6 +199,7 @@ function scrFRMenuOptionsBuild() {
         }});
     }
     scrOptionsMenuCategoryEnd();
+    scrFRContent210Options(); // FRONTIER210 CONTENT SETTINGS
     var _main=options[OptionCategory.Main],_existing=[];
     for(var _i=0;_i<array_length(_main);++_i) if(!(_main[_i][$ "fr_menu_entry"]??false)) array_push(_existing,_main[_i]);
     scrOptionsMenuCategoryBegin(OptionCategory.Main);

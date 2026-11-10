@@ -38,7 +38,7 @@ function scrNTTEFullRaceNewMarker(_icon,_hover=false) {
 
     if(!instance_exists(_icon) || !_icon.visible || !_icon.can) return undefined
     var _key=scrNTTEFullRaceKey(_icon.race)
-    if(_key=="" || scrNTTEFullValue(global.ntte_full_progress.stats,"race:"+_key+":runs",0)>0) return undefined
+    if(_key=="" || scrNTTEFullValue(scrFRProgress210State().stats,"race:"+_key+":runs",0)>0) return undefined
     // Native character slots already use GUI coordinates and have no source
     // alarm1 bump. Use their actual stable start position and pointer state.
     return {sprite:sprNew,image:_icon.image_index,x:_icon.xstart,y:_icon.ystart-_hover}

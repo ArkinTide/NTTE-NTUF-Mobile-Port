@@ -84,8 +84,8 @@ function scrNTTEFullCrabboneStackPickup(_primary,_state) {
             if(_primary || race==Race.Steroids) variable_instance_set(id,_primary?"wkick":"bwkick",0)
             else scrPopupCreate(x,y,loc_fmt("HUD:GotWeapon","%!",scr_weapon_get_name(wep_ntte_bone))+" x"+string(_amount))
             if(!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
-            if(_state.ammo>scrNTTEFullValue(global.ntte_full_progress.stats,"bone",0)) {
-                global.ntte_full_progress.stats.bone=_state.ammo;scrNTTEFullProgressSave()
+            if(_state.ammo>scrNTTEFullValue(scrFRProgress210State().stats,"bone",0)) {
+                scrFRProgress210State().stats.bone=_state.ammo;scrNTTEFullProgressSave()
             }
             var _fx=instance_create(_pickup.x,_pickup.y,DiscDisappear)
             _fx.image_angle=scrNTTEFullValue(_pickup,"rotation",0)

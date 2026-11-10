@@ -26,10 +26,10 @@ function scrNTTEFullPetCreate(_x,_y,_pet) {
     var _pet_inst=instance_create(_x,_y,NTTEFullPet),_init=variable_struct_get(global.ntte_full_pet_species,_pet)
     if(!variable_global_exists("ntte_full_progress")) scrNTTEFullProgressLoad()
     var _stat_key="pet:"+_pet+".petlib.mod"
-    if(!is_struct(scrNTTEFullValue(global.ntte_full_progress.stats,_stat_key,undefined)))
-        variable_struct_set(global.ntte_full_progress.stats,_stat_key,{found:0,owned:0})
+    if(!is_struct(scrNTTEFullValue(scrFRProgress210State().stats,_stat_key,undefined)))
+        variable_struct_set(scrFRProgress210State().stats,_stat_key,{found:0,owned:0})
     with(_pet_inst) {
-        pet=_pet; stat=variable_struct_get(global.ntte_full_progress.stats,_stat_key)
+        pet=_pet; stat=variable_struct_get(scrFRProgress210State().stats,_stat_key)
         _init(); if(hp==0) hp=max_hp; sprite_index=scrNTTEFullValue(hooks,"initial_sprite",spr_idle)
         scrNTTEFullPetSetSkin(id,bskin)
     }
@@ -451,7 +451,7 @@ function scrNTTEFullPetImport(_data) {
         if(_pet.pet=="Mimic" && is_struct(scrNTTEFullValue(_pet,"ntte_state",undefined)))
             _pet.ntte_state=scrNTTEStateRestored(_pet.ntte_state)
         scrNTTEFullPetSetSkin(_pet,_pet.bskin)
-        variable_struct_set(global.ntte_full_progress.stats,"pet:"+_pet.pet+".petlib.mod",_pet.stat)
+        variable_struct_set(scrFRProgress210State().stats,"pet:"+_pet.pet+".petlib.mod",_pet.stat)
         if(scrNTTEFullValue(_row,"slot",true)) array_push(_owner.ntte_pet,_pet)
         if(_row.dead) { _pet.revive=instance_create(_pet.x,_pet.y,NTTEFullPetRevive); _pet.revive.creator=_pet }
     }
