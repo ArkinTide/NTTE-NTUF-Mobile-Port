@@ -21,6 +21,21 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    if(fr_test_case=="render211") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRRender211Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+    if(fr_test_case=="repairs211") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRRepairs211Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+
     if(fr_test_case=="followup210") {
         if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
         scrFRFollowup210Tests();
@@ -47,6 +62,370 @@ function scrFRIntegrationTestStep() {
         scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
         game_end();return;
     }
+
+// BEGIN FRONTIER BLOODLUST205 COMBAT DRIVER
+if(fr_test_case=="bloodlust205") {
+    if(!variable_instance_exists(id,"fr_bloodlust205")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBloodlust205TestsStart(id);return;
+    }
+    if(scrFRBloodlust205TestsStep(id)) {
+        scrNTTESmokeLog("PASS Carnivorous Enzymes actual AugmentStation grant, native projectiles,12+1 deaths, deduplication and injured Player healing across native/NTTE/NTUF at30/60Hz");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BLOODLUST205 COMBAT DRIVER
+
+// BEGIN FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC DRIVER
+if(fr_test_case=="pirate-visibility205") {
+    if(!variable_instance_exists(id,"fr_pirate_visibility205")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRPirateVisibility205TestsStart(id);return;
+    }
+    if(scrFRPirateVisibility205TestsStep(id)) {
+        scrNTTESmokeLog("PASS real Cove L1 source-factory loop clusters at 30/60Hz: initialized species/HP/callbacks/masks, native scatter, scheduled Bullet1 deaths and natural exits");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER PIRATE VISIBILITY205 DIAGNOSTIC DRIVER
+
+    // BEGIN FRONTIER QUEST PORTAL205 TEST DRIVER
+    if(fr_test_case=="quest-vault205") {
+        if(variable_instance_exists(id,"fr_quest_portal205")) {
+            if(scrFRQuestPortal205TestsStep(id)) {
+                scrNTTESmokeLog("PASS FRONTIER ordinary generated Vault205 genuine four guardians/deaths/native corpse exit x30/60");
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+                game_end();
+            }
+            return;
+        }
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRQuestPortal205TestsStart(id);return;
+    }
+    // END FRONTIER QUEST PORTAL205 TEST DRIVER
+
+// BEGIN FRONTIER VISUAL205 FOCUSED DRIVER
+if(fr_test_case=="visual205") {
+    if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRVisual205Tests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER VISUAL205 FOCUSED DRIVER
+
+// FRONTIER AUDIO BUBBLES205 TEST DISPATCH
+    if(fr_test_case=="continue_audio205") {
+        if(!variable_instance_exists(id,"fr_continue_audio205")) {
+            if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+            if(++fr_test_ticks<45) return;
+            scrFRContinueAudio205TestsStart(id);return;
+        }
+        if(scrFRContinueAudio205TestsStep(id)) {scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();}
+        return;
+    }
+    if(fr_test_case=="bubbles_attack205") {
+        if(!variable_instance_exists(id,"fr_bubbles_attack205")) {
+            if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+            if(++fr_test_ticks<45) return;
+            scrFRBubblesAttack205TestsStart(id);return;
+        }
+        if(scrFRBubblesAttack205TestsStep(id)) {scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();}
+        return;
+    }
+
+    // FRONTIER WALL SURFACE205 TEST DRIVER
+    if(fr_test_case=="wall-surface205") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRWallSurface205Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+    // BEGIN FRONTIER QUEST PORTAL204 TEST DRIVER
+    if(fr_test_case=="quest-portal204") {
+        if(variable_instance_exists(id,"fr_quest_portal204")) {
+            if(scrFRQuestPortal204TestsStep(id)) {
+                scrNTTESmokeLog("PASS FRONTIER QUEST PORTAL204 six real source routes, recovery/corpse alarms, reward and legal crown exit");
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+                game_end();
+            }
+            return;
+        }
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRQuestPortal204TestsStart(id);return;
+    }
+    // END FRONTIER QUEST PORTAL204 TEST DRIVER
+
+// FRONTIER ART204 DRIVER
+    if(fr_test_case=="loadout-art204" || fr_test_case=="boss-art204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        if(fr_test_case=="loadout-art204") scrFRLoadoutArt204Tests();
+        else scrFRBossArt204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+// FRONTIER RED CONNECTIVITY204 DRIVER
+    if(fr_test_case=="red-connectivity204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRRedConnectivity204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+// FRONTIER MUTATION POOL204 DRIVER
+    if(fr_test_case=="mutation-pool204") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRMutationPool204Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+// BEGIN FRONTIER MENU INPUT204 DRIVER
+if(string_pos("menu-input204-",fr_test_case)==1) {
+    if(!variable_instance_exists(id,"fr_menu_input204")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRMenuInput204Start(id,string_pos("60",fr_test_case)>0?60:30);
+    }
+    if(scrFRMenuInput204Step(id)) {
+        scrNTTESmokeLog("PASS scheduled raw JoystickMove owner removal, native menu idle, touch/keyboard/controller/mode positive controls");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER MENU INPUT204 DRIVER
+
+// BEGIN FRONTIER BLUESCREEN UI204 DRIVER
+if(string_pos("bluescreen-ui204-",fr_test_case)==1) {
+    if(!variable_instance_exists(id,"fr_bluescreen_ui")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        var _rate=string_pos("60",fr_test_case)>0?60:30;
+        var _entry=string_pos("disabled",fr_test_case)>0?"disabled":
+            (string_pos("visited",fr_test_case)>0?"visited":"eligible");
+        scrFRBluescreenUITestsStart(id,_rate,string_pos("yes",fr_test_case)>0,_entry);
+    }
+    if(scrFRBluescreenUITestsStep(id)) {
+        scrNTTESmokeLog("PASS scheduled Robot fatal damage, auto-created blue YES/NO, raw touch, delayed EndStep and native destination/death lifecycle");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BLUESCREEN UI204 DRIVER
+
+// BEGIN FRONTIER BIOME CLEARANCE204 MAP DRIVER
+if(fr_test_case=="biome-clearance204-maps") {
+    if(!variable_instance_exists(id,"fr_biome_clearance204_maps")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBiomeClearance204MapTestsStart(id);
+    }
+    if(scrFRBiomeClearance204MapTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BIOME CLEARANCE204 MAP DRIVER
+
+// BEGIN FRONTIER DRONE204 PERFORMANCE DRIVER
+if(fr_test_case=="drone-performance204") {
+    if(!variable_instance_exists(id,"fr_drone_performance204")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRDronePerformance204TestsStart(id);
+    }
+    if(scrFRDronePerformance204TestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER DRONE204 PERFORMANCE DRIVER
+
+// BEGIN FRONTIER BIOME CLEARANCE204 ACCEPTANCE DRIVER
+if(fr_test_case=="biome-clearance204-acceptance") {
+    if(!variable_instance_exists(id,"fr_biome_clearance204_acceptance")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBiomeClearance204AcceptanceStart(id);
+    }
+    if(scrFRBiomeClearance204AcceptanceStep(id)) {
+        scrNTTESmokeLog("PASS biome clearance actual30/60Hz native wake, Top landing, Bullet1 damage/death and ordinary exit");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BIOME CLEARANCE204 ACCEPTANCE DRIVER
+
+// BEGIN FRONTIER BIOME CLEARANCE204 NATURAL DIAGNOSTIC DRIVER
+if(fr_test_case=="biome-clearance204-natural" || fr_test_case=="biome-clearance204-suspects") {
+    if(!variable_instance_exists(id,"fr_biome_clearance204_natural")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBiomeClearance204NaturalTestsStart(id,fr_test_case=="biome-clearance204-suspects");
+    }
+    if(scrFRBiomeClearance204NaturalTestsStep(id)) {
+        scrNTTESmokeLog("PASS populated biome clearance diagnostic completed; not proof of a repair");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BIOME CLEARANCE204 NATURAL DIAGNOSTIC DRIVER
+
+// BEGIN FRONTIER BIOME CLEARANCE204 DIAGNOSTIC DRIVER
+if(fr_test_case=="biome-clearance204") {
+    if(!variable_instance_exists(id,"fr_biome_clearance204")) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBiomeClearance204TestsStart(id);
+    }
+    if(scrFRBiomeClearance204TestsStep(id)) {
+        scrNTTESmokeLog("PASS biome clearance read-only native diagnostic completed; not proof of a repair");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER BIOME CLEARANCE204 DIAGNOSTIC DRIVER
+
+// BEGIN FRONTIER POST203 WEATHER WALL DRIVER
+if(fr_test_case=="post203-weather-wall") {
+    if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRPost203WeatherWallTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER POST203 WEATHER WALL DRIVER
+
+// BEGIN FRONTIER POST203 COMPAT DRIVER
+if(fr_test_case=="post203-compat") {
+    if(!scrFRReadyTick()) return;
+    if(++fr_test_ticks<45) return;
+    scrFRPost203CompatTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER POST203 COMPAT DRIVER
+
+// BEGIN FRONTIER ENEMY POSSESSION DIAGNOSTIC DRIVER
+if(fr_test_case=="enemy-possession") {
+    if(!variable_instance_exists(id,"fr_enemy_possession")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFREnemyPossessionTestsStart(id);
+    }
+    if(scrFREnemyPossessionTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER ENEMY POSSESSION DIAGNOSTIC DRIVER
+
+// BEGIN FRONTIER AURORA NATIVE TEST DRIVER
+if(fr_test_case=="aurora-native") {
+    if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRAuroraPerformanceTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER AURORA NATIVE TEST DRIVER
+
+// BEGIN FRONTIER BLIZZARD LIVE TEST DRIVER
+if(fr_test_case=="blizzard-live") {
+    if(!variable_instance_exists(id,"fr_blizzard_live")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRBlizzardLiveTestsStart(id);return;
+    }
+    if(scrFRBlizzardLiveTestsStep(id)) {
+        scrNTTESmokeLog("PASS FRONTIER actual live Blizzard component/count diagnostics");
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }return;
+}
+// END FRONTIER BLIZZARD LIVE TEST DRIVER
+
+// BEGIN FRONTIER MENU AUDIO COLD BOOT DRIVER
+if(fr_test_case=="menu_audio_boot") {scrFRMenuAudioBootTestsStep(id);return;}
+// END FRONTIER MENU AUDIO COLD BOOT DRIVER
+
+// BEGIN FRONTIER BLIZZARD TEST DRIVER
+if(fr_test_case=="blizzard-perf") {
+    if(!scrFRReadyTick()) return;
+    if(instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+    if(++fr_test_ticks<45) return;
+    scrFRBlizzardPerformanceTests();
+    scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+    game_end();return;
+}
+// END FRONTIER BLIZZARD TEST DRIVER
+
+// BEGIN FRONTIER ENEMY VISIBILITY DIAGNOSTIC DRIVER
+if(fr_test_case=="enemy-visibility" || fr_test_case=="enemy-visibility-clone"
+    || fr_test_case=="enemy-visibility-toss") {
+    if(!variable_instance_exists(id,"fr_enemy_visibility")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFREnemyVisibilityTestsStart(id,fr_test_case=="enemy-visibility-clone",
+            fr_test_case=="enemy-visibility-toss");
+    }
+    if(scrFREnemyVisibilityTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER ENEMY VISIBILITY DIAGNOSTIC DRIVER
+
+// BEGIN FRONTIER PALACE PLAYER CONTACT TEST DRIVER
+if(fr_test_case=="palace-player-contact") {
+    if(!variable_instance_exists(id,"fr_palace_contacts")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRPalacePlayerContactTestsStart(id);
+    }
+    if(scrFRPalacePlayerContactTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER PALACE PLAYER CONTACT TEST DRIVER
+
+// BEGIN FRONTIER PALACE BLOCK TEST DRIVER
+if(fr_test_case=="palace-block") {
+    if(!variable_instance_exists(id,"fr_palace_blocks")) {
+        if(!scrFRReadyTick()) return;
+        if(++fr_test_ticks<45) return;
+        scrFRPalaceBlockTestsStart(id);
+    }
+    if(scrFRPalaceBlockTestsStep(id)) {
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();
+    }
+    return;
+}
+// END FRONTIER PALACE BLOCK TEST DRIVER
 
     if(fr_test_case=="ammo-pickups" && variable_instance_exists(id,"fr_ammo_pickup")) {
         if(scrFRAmmoPickupTestsStep(id)) {
@@ -293,6 +672,10 @@ function scrFRCoreTests() {
         "Legacy source self must remain a real instance ID for authored context guards");
     scrFRPlayerCompatTests();
     scrFRCyberspaceReviveTests();
+// BEGIN FRONTIER BLUESCREEN UI204 NATIVE DEATH GATE TESTS
+scrFRBluescreen204Tests();
+// END FRONTIER BLUESCREEN UI204 NATIVE DEATH GATE TESTS
+
     scrFRAmmoTests();
     scrFRButtonInputTests();
     scrFRSoundAssignmentTests();

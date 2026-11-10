@@ -442,7 +442,9 @@ if (instance_exists(CustomModeMenu)) {
 		if (other.scroll_check) {
 			event_user(0)
 		}
-		other.scroll_max = max(0, (height - (gui_h div 2) - LETTERBOX_SIZE) div 2)
+		if(object_index==CustomModeSkillSelector)
+			other.scroll_max = max(0, (height - (gui_h - LETTERBOX_SIZE - 8)) / 2); // FRONTIER211 SKILL SCROLL
+		else other.scroll_max = max(0, (height - (gui_h div 2) - LETTERBOX_SIZE) div 2)
 	}
 	scroll_min = -scroll_max
 	_has_scrollbar = true
@@ -489,26 +491,29 @@ if !(scroll_max == 0 && scroll_min == 0) {
 	
 	_has_scrollbar = true
 	
+	if(instance_exists(CustomModeSkillSelector)) scroll=clamp(scroll,scroll_min,scroll_max);
 	#region Slider element
 	
 	var _slider_size = 80,
-		_slider_bottom = view_height - _slider_size,
+		_slider_w211 = instance_exists(CustomModeSkillSelector)?gui_w:view_width,
+		_slider_h211 = instance_exists(CustomModeSkillSelector)?gui_h:view_height,
+		_slider_bottom = _slider_h211 - _slider_size,
 		_progress = (scroll - scroll_min) / scroll_max * 0.5
 	
-	draw_sprite_ext(sprOptionSlider, 0, view_width - 16, 36, 1.6, 1, 270, c_white, 1)
+	draw_sprite_ext(sprOptionSlider, 0, _slider_w211 - 16, 36, 1.6, 1, 270, c_white, 1)
 	
 	draw_sprite_ext(sprSliderEndHorizontal, 0,
-		view_width - 20 + (dragging > 0), 40 + _slider_bottom * _progress,
+		_slider_w211 - 20 + (dragging > 0), 40 + _slider_bottom * _progress,
 		1, 1, 0, dragging ? c_uigray : c_white, 1)
 	
-	if is_undefined(slider) && mouse_check_button(mb_left) {
+	if is_undefined(slider) && (instance_exists(CustomModeSkillSelector)?scrFRCustom211Held():mouse_check_button(mb_left)) {
 		if (dragging != -1) for(var i = 0; i < 4; i ++) {
-			if (!device_mouse_check_button(i, mb_left)) continue
+			if (!scrFRTouchHeld(i)) continue
 			
-			var mx = device_mouse_x_to_gui(i),
-				my = device_mouse_y_to_gui(i)
+			var mx = scrFRTouchX(i),
+				my = scrFRTouchY(i)
 			
-			if (mx >= view_width - 32 && mx <= view_width) || dragging {
+			if (mx >= _slider_w211 - 32 && mx <= _slider_w211) || dragging {
 				var _p = clamp((my - LETTERBOX_SIZE) / _slider_bottom, 0, 1)
 				scroll = scroll_min + scroll_max * _p * 2
 				

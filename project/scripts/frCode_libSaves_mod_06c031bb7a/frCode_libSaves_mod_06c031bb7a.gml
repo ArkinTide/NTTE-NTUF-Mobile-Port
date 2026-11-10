@@ -139,6 +139,7 @@ scrFRStringSave(scrFRJsonEncode(scrFRLQGet(global.fr_module_vars[$ "mod:libSaves
 
 // Original dependencies/libSaves.mod.gml:88
 function fr_dependencies_libSaves_mod_gml_unlock_popup(_frl__name=undefined, _frl__text=undefined) {
+if(!scrFRProgress210CanUnlock()) return {nam:["",""],txt:"",spr:-1,img:0,snd:-1}; // FRONTIER211 NO CHEAT NOTICES
 if ((! array_length(scrFRMatching(FRCustomObject, "name", "UnlockCont")))) {
 {
 scrFRScriptCall(["mod", "libGeneral", "obj_create"], 0, 0, "UnlockCont");
@@ -169,6 +170,7 @@ return _frl__unlock;
 
 // Original dependencies/libSaves.mod.gml:112
 function fr_dependencies_libSaves_mod_gml_unlock_splat(_frl__name=undefined, _frl__text=undefined, _frl__sprite=undefined, _frl__sound=undefined) {
+if(!scrFRProgress210CanUnlock()) return {nam:["",""],txt:"",spr:-1,img:0,snd:-1}; // FRONTIER211 NO CHEAT NOTICES
 if ((! array_length(scrFRMatching(FRCustomObject, "name", "UnlockCont")))) {
 {
 scrFRScriptCall(["mod", "libGeneral", "obj_create"], 0, 0, "UnlockCont");
@@ -199,6 +201,7 @@ return _frl__unlock;
 
 // Original dependencies/libSaves.mod.gml:137
 function fr_dependencies_libSaves_mod_gml_unlock_splat_ext(_frl__name=undefined, _frl__gameovername=undefined, _frl__text=undefined, _frl__sprite=undefined, _frl__image=undefined, _frl__sound=undefined) {
+if(!scrFRProgress210CanUnlock()) return {nam:["",""],txt:"",spr:-1,img:0,snd:-1}; // FRONTIER211 NO CHEAT NOTICES
 if ((! array_length(scrFRMatching(FRCustomObject, "name", "UnlockCont")))) {
 {
 scrFRScriptCall(["mod", "libGeneral", "obj_create"], 0, 0, "UnlockCont");

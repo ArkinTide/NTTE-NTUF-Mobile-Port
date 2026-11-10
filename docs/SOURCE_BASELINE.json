@@ -1,18 +1,20 @@
 {
-  "source_candidate": "2.1.0",
-  "version": "2.1.0",
-  "internal": 105,
+  "source_candidate": "2.1.1",
+  "version": "2.1.1",
+  "internal": 106,
   "date": "2026-11-10",
-  "base_commit": "22c46a0721098bef9505fa91e4c0b1e67db085a1",
-  "source_manifest_sha256": "47ed363489fef07eabcb735489487f0b90a9b14e84d530ca5183432242ba97a8",
-  "native_acceptance_sha256": "c188741f9131df6ab0d3dbff21fa7aba7db8f635a9a1ee619f651a2433779bd7",
-  "development_regression_sha256": "d6d9626232f0f7603c44e0641ece60c4d712a12296135684d0d2b06a4390a9ed",
-  "mobile_delivery_sha256": "cc3d99fb5c19d847ed34163ecca3de793d68a89ecf1d45e0391d820f21ea0b82",
-  "vm_sha256": "0631e12ef03923517be3a5a4ed52204bff9560be34175eb4f65f9a3e73c2eb7a",
-  "independent_package_audit_sha256": "36695fe36823e72681684edd20c65baeecf65d59bc32eb4f5c62a4ccf9b39762",
-  "independent_package_audit_public_summary_sha256": "9fcb5727dec720b00fc2a178f26f01835308862d1cf3b4e48ae80c2018ee146a",
-  "input_sha256": "4c416460eaa76535ffe9dc6aa99f3861785e088255604cb01af1dca9153f4d9d",
+  "base_commit": "1653cd34bc238a4ac92140586d89c1c64e69a316",
+  "source_manifest_sha256": "52a8bf8df3dbfdbac06751547b6675046ef61319c28223e44fc01b47db661ae1",
+  "native_acceptance_sha256": "ab491fe9e1b9c5a7779f0786e2a27cd9f2513cecf64da45822c7d537df6d5842",
+  "development_regression_sha256": "d6777e79d3480c284c14e9a9d3b260e1a024acc4568b7381036e1bf4b32dcb54",
+  "mobile_delivery_sha256": "86a47dbf4ed3db33effc2431f341258f6fab1f72d8d837dae181ab5c64733877",
+  "vm_sha256": "9266303a3cc9f8e121a2601072304a4d5b06ca20b6b59026925b971619c8a308",
+  "independent_package_audit_sha256": "6ff769484568bc352942c8d6e52ccf8246e7482a1bacd559218b7e4fb3751060",
+  "independent_package_audit_public_summary_sha256": "072eaa5869dbe19af3ae7529af5694128303af5ee1d99e280c04ae1a6bd348f5",
+  "input_sha256": "62ed4a216ed10c19249bdfebeb42cdc16effa568e60ccfbcf220e5a0e4084d57",
   "selected_windows_cases": [
+    "FrontierRepairs211Tests",
+    "FrontierRender211Tests",
     "FrontierFeatures210Tests",
     "FrontierContent210Tests",
     "FrontierRedTerrain210Tests",
@@ -40,9 +42,13 @@
     "FrontierOutlineTests",
     "FrontierFollowup210Tests",
     "FrontierBluescreenUI204Yes30Tests",
-    "FrontierBluescreenUI204Yes60Tests"
+    "FrontierBluescreenUI204Yes60Tests",
+    "FrontierBluescreenUI204No30Tests",
+    "FrontierBluescreenUI204No60Tests",
+    "VisualOptionsDrawTests",
+    "IOSRenderSurfaceTests"
   ],
-  "windows_cases": 28,
+  "windows_cases": 34,
   "python_tests": 403,
   "python_historical_source_binding": false,
   "rates": [
@@ -55,25 +61,25 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.0.apk",
-      "bytes": 305521112,
-      "sha256": "57b397d5b7f2f18ff6cc24a713323460c5b2a62a7a0e38ad58d77881302b76ee"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.1.apk",
+      "bytes": 305562451,
+      "sha256": "e405d0d8b259070404aab0d9fadb85e172d392279ccb67135de5729df0b65e58"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.0.ipa",
-      "bytes": 213041651,
-      "sha256": "d577ef40480c3659b2d23d992e037b255416f7c98c439869c49277b1851e2fcc"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.1.ipa",
+      "bytes": 213039266,
+      "sha256": "68f2a5af44238ab622333fe88f33ee6fa537624b6a359e86d384915883664e76"
     }
   },
-  "android_version_code": 3000105,
-  "ios_bundle_version": "105",
+  "android_version_code": 3000106,
+  "ios_bundle_version": "106",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.1.0",
-    "NTTE_RELEASE_VERSION": "2.1.0",
-    "NTTE_RELEASE_TAG": "2.1.0",
-    "compiler_ios": "2.1.0",
-    "compiler_android": "2.1.0"
+    "GAME_VERSION": "2.1.1",
+    "NTTE_RELEASE_VERSION": "2.1.1",
+    "NTTE_RELEASE_TAG": "2.1.1",
+    "compiler_ios": "2.1.1",
+    "compiler_android": "2.1.1"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -99,5 +105,5 @@
   "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
   "persistent_mobile_audio_noise": "unresolved",
   "invisible_enemies": "not exhaustively tested this round",
-  "publication_plan_sha256": "0745be4a92ce1a8fceb9279c46dfee6a55707d07332bca8b03de93c4e14e0719"
+  "publication_plan_sha256": "8ff94fdf98f94f0131be24945e3b57135a478fb7081a049a1c2da511e7ad99cf"
 }

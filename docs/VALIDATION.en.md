@@ -2,6 +2,26 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.1.1 build106 — Disabled-content compatibility, water and Robot UI repairs
+
+The newly compiled final Windows VM/input passed 34 explicitly selected native
+cases. A hash-verified Python log records 403 passing checks. Earlier VM passes
+are not inherited. See the [current validation summary](validation/2.1.1-development-regression.json)
+for exact cases and evidence.
+
+Repair disabled NTUF scalar/fusion presets with per-character default starters and disk migration; hide disabled Bubbles selection/statistics and gate Undergrowth factories. Preserve native actor pixels in all water intermediates; optimize content queries/menu synchronization. Suppress authored unlock notices in console runs, normalize notification text color and anchor Robot YES/NO to the live viewport. Correct Custom starting-mutation overflow, reuse the settings scrollbar and preserve scrolled icon hitboxes.
+
+Android versionCode is 3000106, retaining application/signing identities and checked
+16KB layout. iOS build 106 requires re-signing; new game data uses a retained native
+Runner without a fresh Mac native build. GAME_BUILD/save protocol remains 3004.
+
+This release validates disabled-content preset migration, selection/statistics filtering,
+water pixels, notification rendering, the Robot blue-screen lifecycle, and custom mutation
+scrollbar dragging and final-row selection. Unknown random
+maps and every weapon combination are not generally certified. Silent background desktop tests do not establish phone mixing or frame
+rates. No physical Android/iOS, complete random campaign or universal FPS acceptance
+is claimed.
+
 ## 2.1.0 build105 — Content controls, walls and drone fixes
 
 The newly compiled final Windows VM/input passed 28 explicitly selected native

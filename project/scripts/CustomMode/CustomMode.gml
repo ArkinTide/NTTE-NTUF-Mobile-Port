@@ -125,7 +125,7 @@ function scrCustomParam(_key, _default=undefined) {
 		assert(variable_struct_exists(UberCont.custom_options, _key),
 			  "{0} is not a valid custom mode parameter", _key)
 		
-		return variable_struct_get(UberCont.custom_options, _key)
+		return scrFRContent211CustomWeapon(_key,variable_struct_get(UberCont.custom_options, _key))
 	}
 	
 	return _default

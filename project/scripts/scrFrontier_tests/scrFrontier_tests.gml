@@ -21,6 +21,21 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    if(fr_test_case=="render211") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRRender211Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+    if(fr_test_case=="repairs211") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRRepairs211Tests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+
+
     if(fr_test_case=="followup210") {
         if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
         scrFRFollowup210Tests();

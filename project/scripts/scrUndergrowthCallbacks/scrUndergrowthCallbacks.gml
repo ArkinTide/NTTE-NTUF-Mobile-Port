@@ -105,6 +105,7 @@ var _x = x,
 
 // Undergrowth area::area_pop_props
 function scrUG_area_pop_props() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 SOURCE AREA GATE
 if(
 		(random(10) < 1)
 		&& point_distance(x, y, 10000, 10000) > 96
@@ -167,6 +168,7 @@ if(
 
 // Undergrowth area::area_pop_extras
 function scrUG_area_pop_extras() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 SOURCE AREA GATE
 for(var _ug_each0=scrNTTEFullInstances(chestprop),_ug_each0i=0;_ug_each0i<array_length(_ug_each0);++_ug_each0i) with(_ug_each0[_ug_each0i]){
         scrUGCreate(x, y, "UndergrowthBandit");
     }
@@ -235,6 +237,7 @@ for(var _ug_each0=scrNTTEFullInstances(chestprop),_ug_each0i=0;_ug_each0i<array_
 
 // Undergrowth area::area_pop_enemies
 function scrUG_area_pop_enemies() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 SOURCE AREA GATE
 var _x = (bbox_left + bbox_right)  / 2,
 		_y = (bbox_top  + bbox_bottom) / 2;
 		

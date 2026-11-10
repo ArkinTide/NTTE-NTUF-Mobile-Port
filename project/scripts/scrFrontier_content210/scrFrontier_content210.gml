@@ -16,12 +16,12 @@ function scrFRContent210InRun() {
         && !instance_exists(MainMenu);
 }
 function scrFRContent210WeaponEnabled(_weapon) {
+    var _ntuf=scrFRContent210Active("ntuf"),_ug=scrFRContent210Active("undergrowth");
+    if(_ntuf && _ug) return true; // FRONTIER211 COMMON CONTENT HOT PATH
     var _part=scrNTTEFullWeaponModel(_weapon),_depth=0;
     while(true) {
         var _raw=scrNTTEFullWeaponRaw(_part);
-        if(_raw>=174 && _raw<=178 && !scrFRContent210Active("undergrowth")) return false;
-        if(variable_global_exists("fr_weapon_keys") && !is_undefined(global.fr_weapon_keys[$ string(_raw)])
-            && !scrFRContent210Active("ntuf")) return false;
+        if(!scrFRContent211RawEnabled(_raw,_ntuf,_ug)) return false;
         if(scrNTTEFullWeaponHasMerge(_part)==false) break;
         if(++_depth>100) return false;
         _part=scrNTTEFullWeaponMergedPart(_part);
@@ -55,8 +55,8 @@ function scrFRContent210Selections() {
             if(scrFRRaceIs(_p.race)) {_p.race=Race.Fish;_p.skin=0;}
             if(scrFRSkinIs(_p.skin)) _p.skin=0;
         }
-        if(!scrFRContent210WeaponEnabled(_p.cwep)) _p.cwep=wep_revolver;
-        if(!scrFRContent210WeaponEnabled(_p.bwep)) _p.bwep=wep_none;
+        if(!scrFRContent210WeaponEnabled(_p.cwep)) _p.cwep=scrFRContent211Starter(_p.race,_p.skin);
+        if(!scrFRContent210WeaponEnabled(_p.bwep)) _p.bwep=scrFRContent211Starter(_p.race,_p.skin);
     }
     if(!scrFRContent210Active("ntuf") && scrFRCrownKey(global.crownpick)!="")
         global.crownpick=crwn_none;
@@ -65,6 +65,7 @@ function scrFRContent210NewRun() {
     // Also runs for Retry, where a menu frame may never occur.
     global.fr_content210_undergrowth=scrFRContent210Requested("undergrowth");
     scrFRContent210Apply(scrFRContent210Requested("ntuf"));
+    scrFRContent211Presets();
     scrFRContent210Selections();
 }
 function scrFRContent210Apply(_on) {
@@ -127,9 +128,18 @@ function scrFRContent210Sync() {
         }
         FRWorld.fr_content210_boot_ready=true;
     }
-    global.fr_content210_undergrowth=scrFRContent210Requested("undergrowth");
-    scrFRContent210Apply(scrFRContent210Requested("ntuf"));
-    scrFRContent210Selections();
+    var _ntuf=scrFRContent210Requested("ntuf"),_ug=scrFRContent210Requested("undergrowth"),
+        _menu=instance_find(Menu,0),_custom=scrNTTEFullValue(UberCont,"custom_options",-1);
+    if(scrNTTEFullValue(FRWorld,"fr_sync211_menu",-1)==_menu
+        && scrNTTEFullValue(FRWorld,"fr_sync211_custom",-1)==_custom
+        && scrNTTEFullValue(FRWorld,"fr_sync211_ntuf",undefined)==_ntuf
+        && scrNTTEFullValue(FRWorld,"fr_sync211_ug",undefined)==_ug
+        && scrFRContent210Active("ntuf")==_ntuf && scrFRContent210Active("undergrowth")==_ug) return;
+    global.fr_content210_undergrowth=_ug;scrFRContent210Apply(_ntuf);
+    scrFRContent211Presets();scrFRContent210Selections();
+    if(instance_exists(Menu)) with(Menu) scrFRContent211BuildSelect();
+    FRWorld.fr_sync211_menu=_menu;FRWorld.fr_sync211_custom=_custom;
+    FRWorld.fr_sync211_ntuf=_ntuf;FRWorld.fr_sync211_ug=_ug;
 }
 function scrFRContent210Toggle(_option) {
     if(scrFRContent210InRun()) return false;

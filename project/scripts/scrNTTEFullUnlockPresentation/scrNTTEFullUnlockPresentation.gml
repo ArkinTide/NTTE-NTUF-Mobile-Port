@@ -30,6 +30,7 @@ function scrNTTEFullUnlockPendingPortrait() {
     return _pending;
 }
 function scrNTTEFullUnlockSplat(_name,_text,_sprite,_sound) {
+    if(!scrFRProgress210CanUnlock()) return {nam:["",""],txt:"",spr:-1,img:0,snd:-1}; // FRONTIER211 NO CHEAT NOTICES
     if(!instance_exists(NTTEFullUnlockCont)) instance_create(0,0,NTTEFullUnlockCont);
     var _unlock={nam:[_name,_name],txt:_text,spr:_sprite,img:0,snd:_sound};
     with(NTTEFullUnlockCont) {
@@ -282,6 +283,8 @@ else if(!instance_exists(Player) && !scrGameIsPaused() && !instance_exists(Pause
 function scrNTTEFullUnlockDraw() {
 var _font=draw_get_font(),_ha=draw_get_halign(),_va=draw_get_valign(),_col=draw_get_color(),_alpha=draw_get_alpha();
 try {
+if(!scrFRProgress210CanUnlock()) return;
+draw_set_color(c_white);draw_set_alpha(1);
 // Epsilon native UnlockScreen's death dim; source TopCont fields are not present.
 if(!instance_exists(Player) && unlock_delay<=0 && unlock_index<array_length(unlock)) {
     draw_set_color(c_black);draw_set_alpha(0.6);

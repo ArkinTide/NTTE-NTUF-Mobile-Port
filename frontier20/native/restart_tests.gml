@@ -164,6 +164,10 @@ function scrFRRestartTestsGenerate(_state) {
 
 function scrFRRestartTestsStep(_driver) {
     var _state=_driver.fr_restart;
+    if((_state[$ "reported_phase"]??-1)!=_state.phase) {
+        _state.reported_phase=_state.phase;
+        scrNTTESmokeLog("NTUF RESTART phase="+string(_state.phase)+" round="+string(_state.round));
+    }
     assert(++_state.ticks<6000,"Frontier genuine restart acceptance timed out phase="+string(_state.phase));
     scrFRRestartTestsOwner(_state);
     with(Player) {hp=100000;max_hp=100000;nexthurt=current_frame+100000;can_walk=false;can_aim=false;speed=0;}

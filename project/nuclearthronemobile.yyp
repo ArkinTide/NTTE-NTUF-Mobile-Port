@@ -61318,6 +61318,24 @@
         "name": "scrFrontier_followup210_tests",
         "path": "scripts/scrFrontier_followup210_tests/scrFrontier_followup210_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_content211",
+        "path": "scripts/scrFrontier_content211/scrFrontier_content211.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_repairs211_tests",
+        "path": "scripts/scrFrontier_repairs211_tests/scrFrontier_repairs211_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_render211_tests",
+        "path": "scripts/scrFrontier_render211_tests/scrFrontier_render211_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

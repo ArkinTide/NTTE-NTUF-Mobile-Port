@@ -1965,6 +1965,7 @@ if(__fr_break3) break;
 
 // Original Areas/cyberspace.area.gml:1009
 function fr_Areas_cyberspace_area_gml_bluescreen_step() {
+scrFRBluescreen211Align();
 blueTime += scrFRSourceScale();
 ;
 if (((blueTime >= 30) && (blueChecks == 0))) {
@@ -2004,10 +2005,10 @@ if (((blueTime >= 115) && (blueChecks == 3))) {
 scrFRSoundPitch(sndNoSelect, 1.2);
 ;
 var __fr_other1=scrFROther(other);
-fr_Areas_cyberspace_area_gml_BluescreenButton_create((x - 87), (y + 51), __fr_other1, global.fr_module_vars[$ "area:cyberspace"].sprBluescreenButtonYes, true);
+fr_Areas_cyberspace_area_gml_BluescreenButton_create((x - 87), (y + 51), id, global.fr_module_vars[$ "area:cyberspace"].sprBluescreenButtonYes, true);
 ;
 var __fr_other2=scrFROther(other);
-fr_Areas_cyberspace_area_gml_BluescreenButton_create((x - 16), (y + 51), __fr_other2, global.fr_module_vars[$ "area:cyberspace"].sprBluescreenButtonNo, false);
+fr_Areas_cyberspace_area_gml_BluescreenButton_create((x - 16), (y + 51), id, global.fr_module_vars[$ "area:cyberspace"].sprBluescreenButtonNo, false);
 ;
 barHeight -= 80;
 ;
@@ -2019,6 +2020,7 @@ blueChecks += 1;
 
 // Original Areas/cyberspace.area.gml:1035
 function fr_Areas_cyberspace_area_gml_bluescreen_draw() {
+scrFRBluescreen211Align();
 if (scrFRInstanceExists(Player)) {
 {
 draw_sprite_tiled(global.fr_module_vars[$ "area:cyberspace"].sprBluescreenBackgroundExt, 0, scrFRViewCoordinate(0), scrFRViewCoordinate(1));

@@ -392,8 +392,9 @@ function scrNTTEFullCoastSeaDraw() {
     draw_set_color(c_white);draw_set_alpha(1)
     try {
     scrNTTEFullIOSSurfaceProbe()
+    var _actors=max(1,_main); // FRONTIER211 KEEP ACTOR TEXELS THROUGH COMPOSITOR
     var _sizes=[[2*(_w+32),2*(_h+32),_minor],[2*(_w+32),2*(_h+32),_minor],
-        [_w+16,_h+16,_minor],[_w+16,_h+16,_minor],[_w,_h,_minor],[_w,_h,_main],[_w,_h,_main],[_w,_h,_minor]]
+        [_w+16,_h+16,_minor],[_w+16,_h+16,_minor],[_w,_h,_actors],[_w,_h,_actors],[_w,_h,_actors],[_w,_h,_actors]]
     for(var _i=0;_i<8;++_i) if(!scrNTTEFullCoastSurfaceEnsure(ntte_coast_surfaces[_i],_sizes[_i][0],_sizes[_i][1],_sizes[_i][2])) {
         throw {ntte_coast_target_failed:true,surface:-1,width:_sizes[_i][0],height:_sizes[_i][1],scale:_sizes[_i][2]};
     }

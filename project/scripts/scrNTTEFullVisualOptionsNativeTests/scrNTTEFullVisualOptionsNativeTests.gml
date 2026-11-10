@@ -35,7 +35,7 @@ function scrNTTEFullVisualOptionsDrawTests() {
             +" beforeAlpha="+string_format(_draw_alpha,1,12)+" math_epsilon="+string_format(math_get_epsilon(),1,12)
             +" checks="+string([real(surface_get_target())==real(_output),draw_get_color()==c_aqua,draw_get_alpha()==_draw_alpha]))
         for(var _i=0;_i<8;++_i) {
-            var _s=_sea.ntte_coast_surfaces[_i],_expected=(_i==5 || _i==6)?_main:_minor
+            var _s=_sea.ntte_coast_surfaces[_i],_expected=_i>=4?max(1,_main):_minor
             assert(abs(_s.scale-_expected)<=0.0000001 && surface_get_width(_s.surf)==max(1,ceil(_s.w*_expected))
                 && surface_get_height(_s.surf)==max(1,ceil(_s.h*_expected)),
                 "Coast actual surface lost main/minor source selector or floating display scale: "+string(_i))
@@ -44,7 +44,7 @@ function scrNTTEFullVisualOptionsDrawTests() {
         // including fractions and a value above the old invented quality cap.
         global.ntte_full_minor_quality=5.25
         with(_sea) event_perform(ev_draw,0)
-        assert(_sea.ntte_coast_surfaces[7].scale==5.25
+        assert(_sea.ntte_coast_surfaces[7].scale==max(1,_main)
             && surface_get_width(_sea.ntte_coast_surfaces[0].surf)==ceil(2*(view_width+32)*5.25),
             "Coast actual minor surface imposed a custom cap or ignored fixture override")
         global.ntte_full_minor_quality=undefined

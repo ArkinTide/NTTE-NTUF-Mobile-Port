@@ -1,0 +1,48 @@
+{
+  "version": "2.1.1",
+  "requirements": [
+    {
+      "id": 1,
+      "text": "Disabled NTUF weapons in all Custom presets become character-default weapons; protect invalid icon rendering."
+    },
+    {
+      "id": 2,
+      "text": "Keep actors at native or main resolution through every Coast water intermediate."
+    },
+    {
+      "id": 3,
+      "text": "Remove disabled Bubbles from both newly-created and already-open character selection."
+    },
+    {
+      "id": 4,
+      "text": "Remove disabled Bubbles from native statistics and hide Frontier statistics."
+    },
+    {
+      "id": 5,
+      "text": "Gate Undergrowth factories, source population callbacks, weapons and custom area starts."
+    },
+    {
+      "id": 6,
+      "text": "Optimize enabled-pack weapon queries and avoid unchanged per-frame menu selection rescans; measure native cost."
+    },
+    {
+      "id": 7,
+      "text": "Suppress authored NTTE/NTUF and native achievement notices for console runs, including after closing console."
+    },
+    {
+      "id": 8,
+      "text": "Set and restore white text/alpha for authored unlock notifications regardless of prior draw state."
+    },
+    {
+      "id": 9,
+      "text": "Anchor Robot YES/NO buttons to the same live viewport as the blue background; preserve actual YES/NO callbacks."
+    },
+    {
+      "id": 10,
+      "text": "Custom mutation selection uses the settings scrollbar, exposes the entire final row and keeps touch hitboxes aligned after scrolling."
+    }
+  ],
+  "followup": [],
+  "hardmode_changed": false,
+  "physical_device_tested": false
+}

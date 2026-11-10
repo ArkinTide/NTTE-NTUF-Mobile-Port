@@ -162,6 +162,7 @@ function scrUGMeeting(_x,_y,_objects) {
     return _out;
 }
 function scrUGCreate(_x,_y,_name) {
+    if(!scrFRContent210Active("undergrowth")) return noone; // FRONTIER211 ALL UG FACTORIES
     if(is_numeric(_name) && object_exists(_name)) return instance_create(_x,_y,_name);
     switch(_name) {
         case "BugBones":return scrUG_BugBones_create(_x,_y);
@@ -238,6 +239,7 @@ function scrUGWeaponReloaded(_weapon) {
     return true;
 }
 function scrUGWeaponStep() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 UG RUNTIME
     if(scrNTTEFullWeaponRaw(wep)==wep_ug_fossil_hammer) scrUG_fossil_hammer_step(true);
 }
 function scrUGWeaponFire(_weapon,_primary) {
@@ -281,6 +283,7 @@ function scrUGChestStep() {
 }
 
 function scrUGDrawTop() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 UG RUNTIME
     var _segments=[];with(UGEnemy) if(name=="MillipedeSegment" && visible) array_push(_segments,id);
     array_sort(_segments,function(_a,_b){return _a.y-_b.y;});
     for(var _i=0;_i<array_length(_segments);++_i) with(_segments[_i]) if(instance_exists(parent)) scrUGLeg(90);
@@ -309,6 +312,7 @@ function scrUGLeg(_base) {
     if(_hurt) gpu_set_fog(false,c_white,0,0);
 }
 function scrUGDark(_gray,_vx,_vy) {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 UG RUNTIME
     with(UGEnemy) if(visible) {
         var _radius=0;
         switch(name) {
@@ -327,10 +331,12 @@ function scrUGDark(_gray,_vx,_vy) {
         draw_rectangle(0,0,view_width,view_height,false);
 }
 function scrUGBloom() {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 UG RUNTIME
     with(UGProjectile) if(visible && (name=="LavaBomb" || name=="LavaBombBig"))
         draw_sprite_ext(sprite_index,image_index,x,y,image_xscale*2,image_yscale*2,image_angle,image_blend,image_alpha/10);
 }
 function scrUGShadows(_vx,_vy) {
+    if(!scrFRContent210Active("undergrowth")) return; // FRONTIER211 UG RUNTIME
     with(UGObject) if(visible && name=="FireflyExplode" && sprite_exists(spr_shadow))
         draw_sprite(spr_shadow,0,x-_vx+spr_shadow_x,y-_vy+spr_shadow_y);
 }

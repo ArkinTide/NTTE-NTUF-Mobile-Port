@@ -45,7 +45,7 @@ function scr_loadout_race_get_stored_weapon(_race_id) {
 			return race_swep[_race_id]
 		}
 		
-		return _cwep
+		return scrFRContent210WeaponEnabled(_cwep)?_cwep:scrFRContent211Starter(_race_id)
 	}
 	
 	return wep_none

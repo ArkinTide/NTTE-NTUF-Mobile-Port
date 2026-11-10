@@ -83,6 +83,8 @@ function scrFRUnlockDraw() {
     var _font=draw_get_font(),_halign=draw_get_halign(),_valign=draw_get_valign();
     var _colour=draw_get_color(),_alpha=draw_get_alpha();
     try {
+        if(!scrFRProgress210CanUnlock()) return;
+        draw_set_color(c_white);draw_set_alpha(1);
         if(scrFRUnlockPresentationContext() && unlock_delay<=0
            && unlock_index>=0 && unlock_index<array_length(unlock)) {
             draw_set_color(c_black);draw_set_alpha(.6);

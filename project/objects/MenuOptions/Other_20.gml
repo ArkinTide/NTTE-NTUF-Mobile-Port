@@ -1085,7 +1085,7 @@ L = LF("CustomMode.Setup")
 scrOptionsMenuCategoryBegin(OptionCategory.CustomMode_Loadout)
 
 __custom_mode_weapon = function(_key) {
-	var _weapon = scrCustomParam(_key), _sprite;
+	var _weapon = scrCustomParam(_key), _sprite = sprCustomModeWeaponDefault; // FRONTIER211 TOTAL ICON FALLBACK
 	
 	var _ox = 16, _oy = 0;
 	

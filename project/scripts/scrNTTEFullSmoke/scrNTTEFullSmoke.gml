@@ -204,6 +204,8 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTest
 // END FRONTIER BLOODLUST205 COMBAT ENTRY
         if(scrNTTEFullSmokeAsyncCase("FrontierRedTerrain210Tests")) {scrFRIntegrationTestStart("red-terrain210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierContent210Tests")) {scrFRIntegrationTestStart("content210");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierRender211Tests")) {scrFRIntegrationTestStart("render211");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierRepairs211Tests")) {scrFRIntegrationTestStart("repairs211");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierFollowup210Tests")) {scrFRIntegrationTestStart("followup210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierFeatures210Tests")) {scrFRIntegrationTestStart("features210");return;}
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}

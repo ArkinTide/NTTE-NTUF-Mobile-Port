@@ -1,4 +1,4 @@
-"""Read-only review of selected 2.1.0 evidence. Never build or publish."""
+"""Read-only review of selected 2.1.1 evidence. Never build or publish."""
 from pathlib import Path
 from datetime import datetime, timezone
 import argparse
@@ -12,8 +12,8 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
 import build_input_manifest
 
-CASE_SELECTION=ROOT/'review/release210-cases.json'
-PRIOR_MANIFEST=ROOT/'mobile-release205-20261109/staged-source-manifest.json'
+CASE_SELECTION=ROOT/'review/release211-cases.json'
+PRIOR_MANIFEST=ROOT/'mobile-release210-build105-20261110/staged-source-manifest.json'
 
 def sha(path):
     h=hashlib.sha256()
@@ -24,8 +24,8 @@ def sha(path):
 def read(path): return json.loads(Path(path).read_text('utf-8-sig'))
 
 PRIOR_MANIFEST_SHA256=sha(PRIOR_MANIFEST)
-REQUIRED210_CASES=frozenset({
-    'FrontierFeatures210Tests','FrontierContent210Tests','FrontierRedTerrain210Tests',
+REQUIRED211_CASES=frozenset({
+    'FrontierRepairs211Tests','FrontierRender211Tests','FrontierFeatures210Tests','FrontierContent210Tests','FrontierRedTerrain210Tests',
     'FrontierDronePerformance204Tests','HyperionProjectileTests','FrontierVisual205Tests',
     'FrontierOptionTests','FrontierWeaponTests','FrontierAreaTests','FrontierRestartTests',
     'FrontierContinueWriteTests','FrontierContinueReadTests','FrontierEventTests',
@@ -33,9 +33,9 @@ REQUIRED210_CASES=frozenset({
 
 def load_cases():
     s=read(CASE_SELECTION)
-    assert s['version']=='2.1.0' and s['internal']==105
+    assert s['version']=='2.1.1' and s['internal']==106
     c=s['cases']
-    assert len(c)==len(set(c))==28 and REQUIRED210_CASES<=set(c)
+    assert len(c)==len(set(c))==34 and REQUIRED211_CASES<=set(c)
     assert all(re.fullmatch(r'[A-Za-z]\w+Tests',v) for v in c)
     return tuple(c)
 
@@ -45,6 +45,9 @@ def verify_case_identity(case,smoke,artifacts,directory):
     assert case in FINAL_CASES
     assert smoke.count('PASS full internal selected implemented branches')==1
     markers={
+      'FrontierRepairs211Tests':['PASS NTUF211 actual Custom menu','PASS NTUF211 console authored notification exclusion','NTUF211 weapon-pool hot path'],
+      'FrontierRender211Tests':['PASS NTUF211 native one-pixel swimmer detail','PASS NTUF211 real NTTE/NTUF notification pixels',
+                                'PASS NTUF211 actual Custom mutation slider raw top/bottom drag'],
       'FrontierFeatures210Tests':[
         'PASS NTUF210 source charge HUD and sticky achievement gates',
         'PASS NTUF210 same-room weather/native music boundary and next-room isolation',
@@ -67,6 +70,23 @@ def verify_case_identity(case,smoke,artifacts,directory):
       'FrontierDronePerformance204Tests':['FRONTIER DRONE204 ACCEPTED '],
     }
     for marker in markers.get(case,[]): assert marker in smoke,(case,marker)
+    if case=='FrontierRepairs211Tests':
+        data=read(directory/'frontier-repairs211.json')
+        assert data['version']=='2.1.1' and data['physical_device_tested'] is False
+        assert len(data['checks'])==7 and len(data['starters'])==5
+        assert data['benchmark']['calls']==15000 and data['benchmark']['optimized_us']>0 and data['benchmark']['previous_us']>0
+    if case=='FrontierRender211Tests':
+        data=read(directory/'frontier-water211.json')
+        assert data['physical_device_tested'] is False and len(data['rows'])==2
+        assert {r['compat'] for r in data['rows']}=={0,1}
+        assert all(r['edge_changes']>=11 and r['opaque_samples']>=12 and min(r['actor_scales'])>=1 for r in data['rows'])
+        assert len(data['notices'])==2 and all(n['identical_under_black'] and n['bright_pixels']>20 for n in data['notices'])
+        assert len(data['custom_scroll'])==4 and all(r['range']>0 and r['selected']==r['last_id'] and r['last_bottom']<r['viewport_bottom'] for r in data['custom_scroll'])
+    if case.startswith('FrontierBluescreenUI204'):
+        data=read(directory/'frontier-bluescreen-ui204.json')
+        assert data['passed'] and data['physical_device_tested'] is False
+        assert data['rate']==(60 if '60' in case else 30) and data['accept']==('Yes' in case)
+        assert len(data['input_frames'])>=2 and data['actual_click']['click']==0
     if case=='FrontierDronePerformance204Tests':
         name='frontier-drone-performance204.json'
         assert name in artifacts
@@ -114,14 +134,14 @@ def check_run(name,cases,compiled):
 def capture_module():
     directory=str(ROOT/'review')
     if directory not in sys.path:sys.path.insert(0,directory)
-    p=ROOT/'review/capture210_python.py'
-    spec=importlib.util.spec_from_file_location('capture210_current',p)
+    p=ROOT/'review/capture211_python.py'
+    spec=importlib.util.spec_from_file_location('capture211_current',p)
     m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
     return m
 
 def verify_python_sources(evidence):
     m=capture_module()
-    assert evidence['version']=='2.1.0' and evidence['internal']==105
+    assert evidence['version']=='2.1.1' and evidence['internal']==106
     assert evidence['exit']==0 and evidence['tests']>=110
     assert evidence['source_inputs_unchanged'] and evidence['reviewer_inputs_unchanged']
     assert evidence['source_inputs']==m.inputs() and evidence['reviewer_inputs']==m.reviewer_inputs()
@@ -137,17 +157,17 @@ def main():
     assert current['input_sha256']==compiled['input_sha256']
     assert sha(ROOT/'build-windows/nuclearthronemobile.win')==compiled['vm_sha256']
     assert sha(ROOT/'build-windows/compile.log')==compiled['log_sha256']
-    assert '#macro GAME_VERSION "2.1.0"' in (ROOT/'staging/project/objects/UberCont/Create_0.gml').read_text('utf8')
+    assert '#macro GAME_VERSION "2.1.1"' in (ROOT/'staging/project/objects/UberCont/Create_0.gml').read_text('utf8')
     observed=check_run(Path(args.run).name,FINAL_CASES,compiled)
     python=read(ROOT/args.python_evidence);verify_python_sources(python)
     python={**python,'evidence_scope':'exact current maintained Python/native/reviewer inputs and passing aggregate log'}
     old=read(PRIOR_MANIFEST)['files'];new=current['staged_files']
     changes=[{'path':n,'before':old.get(n),'after':new.get(n)} for n in sorted(old.keys()|new.keys()) if old.get(n)!=new.get(n)]
     workspace=ROOT.parents[2]
-    protected=[workspace/'github-publish/release-2.0.5/publication-receipt.json',
-               ROOT/'mobile-release205-20261109/deliverables/NuclearThrone.NTTE-NTUF-Android-2.0.5.apk',
-               ROOT/'mobile-release205-20261109/deliverables/NuclearThrone.NTTE-NTUF-iOS-2.0.5.ipa']
-    report={'status':'SELECTED_DEVELOPMENT_CHECKS_VERIFIED','version':'2.1.0','internal':105,
+    protected=[workspace/'github-publish/release-2.1.0/publication-receipt.json',
+               ROOT/'mobile-release210-build105-20261110/deliverables/NuclearThrone.NTTE-NTUF-Android-2.1.0.apk',
+               ROOT/'mobile-release210-build105-20261110/deliverables/NuclearThrone.NTTE-NTUF-iOS-2.1.0.ipa']
+    report={'status':'SELECTED_DEVELOPMENT_CHECKS_VERIFIED','version':'2.1.1','internal':106,
       'current_compiled_build':compiled,'current_native_run':observed,'python':python,
       'case_selection':CASE_SELECTION.relative_to(ROOT).as_posix(),'case_selection_sha256':sha(CASE_SELECTION),
       'prior_vm_runs':[],'prior_source_manifest_sha256':PRIOR_MANIFEST_SHA256,
@@ -155,7 +175,7 @@ def main():
       'published_files_unchanged':{str(p):sha(p) for p in protected},
       'physical_device_tested':False,'packaging_commit_publication_upload_performed':False,
       'utc':datetime.now(timezone.utc).isoformat()}
-    out=ROOT/'review'/('post210-development-review-'+Path(args.run).name+'.json')
+    out=ROOT/'review'/('post211-development-review-'+Path(args.run).name+'.json')
     with out.open('x',encoding='utf8') as f: json.dump(report,f,ensure_ascii=False,indent=2)
     print(out)
 

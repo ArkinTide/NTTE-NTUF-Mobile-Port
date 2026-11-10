@@ -43,6 +43,7 @@ function scrFRMenuBestArea(_best) {
     return _name+" L"+string(_loops);
 }
 function scrFRMenuStatistics() {
+    if(!scrFRContent210Active("ntuf")) return; // FRONTIER211 HIDDEN PACK
     scrFRMenuInfoRow("GENERAL","",true);
     var _names=string_split(scrFROptionText("MEALS EATEN#AUGMENTS TAKEN#PROTO CACHES OPENED#CORE DETONATIONS#HOARDER K/E RATIO#CYBERSPACE VISITS"),"\n"),
         _keys=["meals_eaten","augments_taken","caches_opened","deeplabs_finales","hoarder_kills","cyberspace_visits"];

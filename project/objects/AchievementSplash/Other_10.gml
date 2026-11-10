@@ -1,3 +1,4 @@
+if(!scrFRAchievementsAllowed210()) exit // FRONTIER211 HIDE QUEUED CHEAT ACHIEVEMENT
 if instance_exists(Spiral) || !(ok && index > 0.4) exit
 
 var _width = gui_w,

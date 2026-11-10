@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "version": "2.1.1",
+  "internal": 106,
+  "scope": "Independent concrete NTTE + NTUF 2.1.1/internal106 APK/IPA audit.\n\nRead-only inspection of real packages, their exact compiler archives and the\nroot's completed acceptance/delivery receipts. No build, game, stage scan,\nfull delivery validator, drive mapping, network or publication is invoked.\nOnly this review's new JSON is written, after every check passes. The frozen\n2.0 reader is reused solely for bounded binary/resource inspection, never its\nhistorical acceptance constants or CLI. Phone performance is not tested.",
+  "delivery_receipt_sha256": "86a47dbf4ed3db33effc2431f341258f6fab1f72d8d837dae181ab5c64733877",
+  "packages": {
+    "iOS": {
+      "path": "mobile-release211-build106-20261110/deliverables/NuclearThrone.NTTE-NTUF-iOS-2.1.1.ipa",
+      "sha256": "68f2a5af44238ab622333fe88f33ee6fa537624b6a359e86d384915883664e76",
+      "bytes": 213039266,
+      "validation_sha256": "4d8af1760498db1fd182efc28276e8fced238f84add22a55e655dd356b3092df",
+      "receipt_sha256": "0d8b29f99ea909511aaf12f20a64c0557311ac9e20f05f90ce99e95a7d2db7d1"
+    },
+    "Android": {
+      "path": "mobile-release211-build106-20261110/deliverables/NuclearThrone.NTTE-NTUF-Android-2.1.1.apk",
+      "sha256": "e405d0d8b259070404aab0d9fadb85e172d392279ccb67135de5729df0b65e58",
+      "bytes": 305562451,
+      "validation_sha256": "4e6e71f5594bd39b029de72af7502e8f208ec4ba83ddaa6a21ab9e4956f457f8",
+      "receipt_sha256": "d66a3c9bffe6a041474f2c4c76815615a75843c827aa39091f4c61528d77dd6f"
+    }
+  },
+  "native_acceptance_sha256": "ab491fe9e1b9c5a7779f0786e2a27cd9f2513cecf64da45822c7d537df6d5842",
+  "source_manifest_sha256": "52a8bf8df3dbfdbac06751547b6675046ef61319c28223e44fc01b47db661ae1",
+  "development_evidence": {
+    "report": "review/post211-development-review-20261110T145912919872Z.json",
+    "report_sha256": "d6777e79d3480c284c14e9a9d3b260e1a024acc4568b7381036e1bf4b32dcb54",
+    "native_selected_cases": 34,
+    "native_run": "tests/20261110T145912919872Z",
+    "vm_sha256": "9266303a3cc9f8e121a2601072304a4d5b06ca20b6b59026925b971619c8a308",
+    "input_sha256": "62ed4a216ed10c19249bdfebeb42cdc16effa568e60ccfbcf220e5a0e4084d57",
+    "python_tests": 403,
+    "scope": "34 selected current native VM cases and hash-bound Python log; earlier VMs do not contribute."
+  },
+  "ios_actual_checks": {
+    "bundle_identifier": "com.arkintide.nuclearthronentte",
+    "display_version": "2.1.1",
+    "bundle_version": "106",
+    "native_executable_mode_preserved": true,
+    "native_matches_retained_base_bytes": true,
+    "native_sha256": "95371eafb06cb2744a342d34f103c13d975bacdbc81e96e4078f2bb96df62efd",
+    "file_sharing_enabled": true,
+    "opening_documents_in_place": true,
+    "requires_resigning": true,
+    "signed": false,
+    "additional_native_builtins_hash_bound": 157,
+    "unique_safe_zip_members": 218,
+    "fresh_source_game_sha256": "8d0d14ede707c723d4ced941e8260ac4a2f03804f9b902f48237cf1499f27ce4",
+    "packaged_game_sha256": "d74c90bb8ce9b766f2a3e0c79105886123c8f36f837b5f2b8a4da8abfc120b5a",
+    "compiler_input_sha256": "2d7bd44a361975e547eccab51225adf400a1e58ce573e716e7d2364c596446e5"
+  },
+  "android_actual_checks": {
+    "package": "com.arkintide.nuclearthronentte",
+    "version_name": "2.1.1",
+    "version_code": 3000106,
+    "min_sdk": 21,
+    "target_sdk": 36,
+    "debuggable": false,
+    "fresh_apksigner_v1_v2": true,
+    "fresh_aapt_badging": true,
+    "fresh_zipalign": true,
+    "certificate_sha256": "bbf4736b3ccdbc822ffd46d148780a05fec6a20a19d00f67afc3808f596bbe81",
+    "native_libraries_match_retained_baseline": true,
+    "native_zip_offsets": {
+      "armeabi-v7a": 16842752,
+      "arm64-v8a": 2310144
+    },
+    "elf_load_alignments": {
+      "armeabi-v7a": [
+        4096,
+        4096,
+        4096
+      ],
+      "arm64-v8a": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    "fresh_tool_output_sha256": {
+      "signature": "71f26cd103c595da933c9a89d3fc9a67230e775c87320f3cf485a68a44c5588c",
+      "badging": "3f34f7003757c3dbeb91b82c60dea92a7c29f4597375d9b03fe206afe2b239e8",
+      "alignment": "6e4b1eceaaf19ca8a88732d2b5ed581861ce7fa1caae2be95af8ef96c5a49917"
+    },
+    "unique_safe_zip_members": 673,
+    "fresh_source_game_sha256": "669faaee8ec94328e014079e6a166b7a526e3f8783f1dea22d48e52a241ca530",
+    "packaged_game_sha256": "0b687851be727ff1ee20eaa256053d4cd1fd1fe4b94ff13fea3eda167febfe56",
+    "compiler_input_sha256": "cf37d23af12f07506a26c50472e7d1511c5e148e8569e307a935f41786016e1d"
+  },
+  "save_compatibility_checks": {
+    "canonical_and_both_compiler_version_sources_bound_to_manifests": true,
+    "targeted_source_files_checked_per_platform": 16,
+    "public_update_tag_version": "2.1.1",
+    "internal": 106,
+    "game_build_save_protocol": 3004,
+    "android_app_id_and_certificate_retained": true,
+    "ios_app_id_retained": true,
+    "physical_device_save_migration_tested": false
+  },
+  "limitations": [
+    "No Android/iOS physical-device, emulator, full random-campaign, phone FPS or save-migration acceptance.",
+    "The retained native debugger range and font resource are checked; phone overlay rendering is not tested.",
+    "iOS requires re-signing. Root full validation is bound through its receipt, never re-executed by this audit."
+  ],
+  "physical_device_tested": false,
+  "full_campaign_acceptance_claimed": false,
+  "publication_performed_by_this_reviewer": false,
+  "original_audit_sha256": "6ff769484568bc352942c8d6e52ccf8246e7482a1bacd559218b7e4fb3751060",
+  "public_summary": "Selected concrete package/validation fields; local draft-note and mock-tool records omitted."
+}

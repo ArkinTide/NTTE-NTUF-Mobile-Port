@@ -9,9 +9,9 @@ var	_start_x = gui_w div 6,
 	_height = gui_h,
 	_xstep = sprite_get_width(sprSkillIcon) + 4,
 	_ystep = sprite_get_height(sprSkillIcon) + 4,
-	_mx = gui_x,
-	_my = gui_y,
-	_ypos = 0,
+	_mx = scrFRTouchX(0),
+	_my = scrFRTouchY(0),
+	_ypos = 0, _last_ypos211 = 0,
 	_any = false
 
 draw_align(fa_center, fa_middle)
@@ -32,6 +32,7 @@ var _mutlist = scrCustomParam("skill_start"),
 tooltip_pop = approach(tooltip_pop, 0, timescale)
 
 for(var i = 1; i <= maxskill; ++i) {
+	_last_ypos211 = _ypos;
 	var _dx = _drawx,
 		_dy = _drawy + _ypos,
 		_enabled = array_contains(_mutlist, i),
@@ -90,7 +91,7 @@ for(var i = 1; i <= maxskill; ++i) {
 			}
 		}
 		
-		if (mouse_ui_clicked()) {
+		if (scrFRCustom211Clicked()) {
 			if (!is_touch()) option_selected = i
 			
 			if (_pointed && option_selected == i) {
@@ -123,7 +124,7 @@ for(var i = 1; i <= maxskill; ++i) {
 draw_align()
 
 if (!_any) {
-	if (mouse_ui_clicked()) {
+	if (scrFRCustom211Clicked()) {
 		option_selected = -1
 	}
 	hovered_mutation = -1
@@ -132,5 +133,4 @@ if (!_any) {
 
 free_touch = _any
 
-height = _ypos + LETTERBOX_SIZE + 16
-if ((height - _height) < 20) height = 0
+height = _start_y + _last_ypos211 + _half_h + 8; // FRONTIER211 COMPLETE LAST ROW
