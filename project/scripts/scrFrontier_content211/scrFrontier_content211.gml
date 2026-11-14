@@ -71,13 +71,7 @@ function scrFRContent211Presets() {
 // world coordinate10016. Anchor its buttons to the same view every frame,
 // including a resized mobile viewport, camera shake and cooperative views.
 function scrFRBluescreen211Align() {
-    if(!instance_exists(id)) return;
-    x=scrFRViewCoordinate(0)+view_width/2;
-    y=scrFRViewCoordinate(1)+view_height/2;
-    var _buttons=scrFRMatching(FRCustomObject,"fr_bluescreenbutton",true);
-    for(var _i=0;_i<array_length(_buttons);++_i) with(_buttons[_i]) {
-        x=other.x+(yesButton?-87:-16);y=other.y+51;
-    }
+    scrFRBluescreen212Align();
 }
 
 function scrFRContent211BuildSelect() {

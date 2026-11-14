@@ -54,8 +54,7 @@ function scrNTTEFullPlayerRateSync() {
     ntte_player_physics_scale=_now;
 }
 function scrNTTEFullRateApply() {
-    global.time_scale=scrNTTEFullRateScale(game_get_speed(gamespeed_fps));
-    with(Player) scrNTTEFullPlayerRateSync();
+    scrFRClockApply212(instance_exists(UberCont)?UberCont.opt_framerate:game_get_speed(gamespeed_fps));
 }
 function scrNTTEFullPlayerRateAfterLoad(_saved) {
     if(!variable_instance_exists(id,"maxspeed") || !variable_instance_exists(id,"race") || !variable_instance_exists(id,"footextra")) return;
@@ -65,7 +64,7 @@ function scrNTTEFullPlayerRateAfterLoad(_saved) {
     else if(race==Race.Skeleton) _base=3;
     var _canonical=_base+0.5*footextra;
     var _old=variable_struct_exists(_saved,"ntte_player_physics_scale")?_saved.ntte_player_physics_scale:(_canonical>0?maxspeed/_canonical:timescale);
-    if(is_real(_old) && _old>0) maxspeed*=timescale/_old;
+    if(is_real(_old) && _old>0) scrFRClockActor212(_old,timescale);
     else maxspeed=_canonical*timescale;
     ntte_player_physics_scale=timescale;
 }

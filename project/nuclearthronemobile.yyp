@@ -61336,6 +61336,54 @@
         "name": "scrFrontier_render211_tests",
         "path": "scripts/scrFrontier_render211_tests/scrFrontier_render211_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menus212",
+        "path": "scripts/scrFrontier_menus212/scrFrontier_menus212.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menus212_tests",
+        "path": "scripts/scrFrontier_menus212_tests/scrFrontier_menus212_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_attack212_tests",
+        "path": "scripts/scrFrontier_bubbles_attack212_tests/scrFrontier_bubbles_attack212_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles_preference212_tests",
+        "path": "scripts/scrFrontier_bubbles_preference212_tests/scrFrontier_bubbles_preference212_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_clock212",
+        "path": "scripts/scrFrontier_clock212/scrFrontier_clock212.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_clock212_tests",
+        "path": "scripts/scrFrontier_clock212_tests/scrFrontier_clock212_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_collision212_tests",
+        "path": "scripts/scrFrontier_collision212_tests/scrFrontier_collision212_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_red212_probe_tests",
+        "path": "scripts/scrFrontier_red212_probe_tests/scrFrontier_red212_probe_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

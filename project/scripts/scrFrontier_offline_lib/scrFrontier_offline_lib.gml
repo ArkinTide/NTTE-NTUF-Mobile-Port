@@ -252,6 +252,7 @@ function scrFRModuleInit(_key) {
 }
 
 function scrFRWorldBegin() {
+    scrFRClockBegin212();
     logic_tick=false;
     if(!scrFREnabled() || lockstep_stop) return;
     if(UberCont.paused) {

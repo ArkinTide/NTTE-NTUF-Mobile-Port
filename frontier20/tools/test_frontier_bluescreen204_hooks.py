@@ -8,7 +8,8 @@ from fr_gml_frontend import tokenize
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FROZEN = ROOT / "history/2.0-delivered-20261106/staging/project"
+from frozen212_fixtures import project as frozen_project212
+FROZEN = frozen_project212('frontier20')
 
 
 class Bluescreen204HookTests(unittest.TestCase):

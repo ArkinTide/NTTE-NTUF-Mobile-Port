@@ -180,6 +180,7 @@ if(scrNTTEFullSmokeAsyncCase("FrontierQuestPortal204Tests")) {scrFRIntegrationTe
 if(scrNTTEFullSmokeAsyncCase("FrontierWallSurface205Tests")) {scrFRIntegrationTestStart("wall-surface205");return;}
         // FRONTIER AUDIO BUBBLES205 SMOKE ENTRY
         if(scrNTTEFullSmokeAsyncCase("FrontierContinueAudio205Tests")) {scrFRIntegrationTestStart("continue_audio205");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierBubblesAttack212Tests")) {scrFRIntegrationTestStart("bubbles_attack212");return;} // FRONTIER BUBBLES212
         if(scrNTTEFullSmokeAsyncCase("FrontierBubblesAttack205Tests")) {scrFRIntegrationTestStart("bubbles_attack205");return;}
 // BEGIN FRONTIER VISUAL205 ENTRY
 if(scrNTTEFullSmokeAsyncCase("FrontierVisual205Tests")) {scrFRIntegrationTestStart("visual205");return;}
@@ -205,8 +206,14 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTest
         if(scrNTTEFullSmokeAsyncCase("FrontierRedTerrain210Tests")) {scrFRIntegrationTestStart("red-terrain210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierContent210Tests")) {scrFRIntegrationTestStart("content210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierRender211Tests")) {scrFRIntegrationTestStart("render211");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierClock212Tests")) {scrFRIntegrationTestStart("clock212");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierClock212LiveTests")) {scrFRIntegrationTestStart("clock212-live");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierMenus212Tests")) {scrFRIntegrationTestStart("menus212");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierRepairs211Tests")) {scrFRIntegrationTestStart("repairs211");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierFollowup210Tests")) {scrFRIntegrationTestStart("followup210");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierCollision212Tests")) {scrFRIntegrationTestStart("collision212");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierRed212ScheduledTests")) {scrFRIntegrationTestStart("red212-scheduled");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierRed212ProbeTests")) {scrFRIntegrationTestStart("red212-probe");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierFeatures210Tests")) {scrFRIntegrationTestStart("features210");return;}
         if(scrNTTEFullSmokeAsyncCase("Release127PerfTests")) {scrRelease127PerfStart();return;}
         if(scrNTTEFullSmokeAsyncCase("Release127LabNaturalTests")) {scrRelease127LabNaturalTests();return;}

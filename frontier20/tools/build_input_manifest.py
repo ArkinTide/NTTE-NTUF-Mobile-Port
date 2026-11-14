@@ -2,6 +2,7 @@
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
+import os
 import json
 import sys
 from datetime import datetime, timezone
@@ -9,6 +10,7 @@ from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build-windows"
 PROJECT = ROOT / "staging/project"
+if os.name=="nt": PROJECT=Path("\\\\?\\"+str(PROJECT.resolve()))
 
 
 def sha(path):

@@ -1,0 +1,441 @@
+{
+  "version": "2.1.2",
+  "internal": 107,
+  "status": "READY",
+  "scope_statement": "Reviewed required native case contracts only. Runtime PASS and final package acceptance require fresh source-bound evidence.",
+  "cases": {
+    "FrontierRed212ScheduledTests": {
+      "required": true,
+      "requirements": [1],
+      "markers": [
+        "PASS RED212 native scheduled normal and in-room 30/60Hz expected ordinary roads, zero post-population shifts, rocks and Warp/Twins round trips"
+      ],
+      "artifacts": ["frontier-red212-scheduled.json"],
+      "source_files": ["native/red212_probe_tests.gml"],
+      "validator": "red212"
+    },
+    "FrontierBubblesAttack212Tests": {
+      "required": true,
+      "requirements": [
+        6
+      ],
+      "markers": [
+        "PASS NTUF BUBBLES212 saved bits/default, real touch mode button, simultaneous fire/release mapping, preserved charge/click, disabled preference, JSON, menu and other race",
+        "PASS NTUF BUBBLES212 actual General + native controller + touch JoystickAttack/ButtonActive + real Player firing/source race EndStep at30/60Hz"
+      ],
+      "artifacts": [],
+      "validator": "bubbles212"
+    },
+    "FrontierMenus212Tests": {
+      "required": true,
+      "requirements": [
+        2,
+        4
+      ],
+      "markers": [
+        "PASS NTUF212 Robot native GUI-End pixels in four viewport/GUI mappings and all IDPD augment layouts"
+      ],
+      "artifacts": [
+        "ntuf212-menus.json",
+        "ntuf212-robot-view-0.png",
+        "ntuf212-robot-view-1.png",
+        "ntuf212-robot-view-2.png",
+        "ntuf212-robot-view-3.png",
+        "ntuf212-idpd-tooltip-0.png",
+        "ntuf212-idpd-tooltip-1.png"
+      ],
+      "png_artifacts": [
+        "ntuf212-robot-view-0.png",
+        "ntuf212-robot-view-1.png",
+        "ntuf212-robot-view-2.png",
+        "ntuf212-robot-view-3.png",
+        "ntuf212-idpd-tooltip-0.png",
+        "ntuf212-idpd-tooltip-1.png"
+      ],
+      "validator": "menus212"
+    },
+    "FrontierClock212Tests": {
+      "required": true,
+      "requirements": [
+        5
+      ],
+      "markers": [
+        "PASS NTUF212 default/persisted automatic cap, actual Video confirmation, budget recovery, API unit preservation, pause guards",
+        "PASS NTUF212 native physical and NTUF/Red/Venom/CustomShell logical wall-bounce fields and actual collision callbacks across60->30->60->30"
+      ],
+      "artifacts": [
+        "ntuf212-clock-unit.json",
+        "ntuf212-auto-framerate-video.png"
+      ],
+      "png_artifacts": [
+        "ntuf212-auto-framerate-video.png"
+      ],
+      "validator": "clock212"
+    },
+    "FrontierClock212LiveTests": {
+      "required": true,
+      "requirements": [
+        5
+      ],
+      "markers": [
+        "PASS NTUF212 actual host60->30->60 callbacks, equal physical travel, native alarms and FR30Hz ticks"
+      ],
+      "artifacts": [
+        "ntuf212-clock-live.json"
+      ],
+      "validator": "clock212-live"
+    },
+    "FrontierBluescreenUI204Yes30Tests": {
+      "required": true,
+      "requirements": [
+        2
+      ],
+      "markers": [
+        "PASS scheduled Robot fatal damage, auto-created blue YES/NO, raw touch, delayed EndStep and native destination/death lifecycle",
+        "PASS NTUF210 real Robot death -> raw YES -> three processors/waves -> actual portal -> normal desert"
+      ],
+      "artifacts": [
+        "frontier-bluescreen-ui204.json",
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "png_artifacts": [
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "validator": "bluescreen204"
+    },
+    "FrontierBluescreenUI204No30Tests": {
+      "required": true,
+      "requirements": [
+        2
+      ],
+      "markers": [
+        "PASS scheduled Robot fatal damage, auto-created blue YES/NO, raw touch, delayed EndStep and native destination/death lifecycle"
+      ],
+      "artifacts": [
+        "frontier-bluescreen-ui204.json",
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "png_artifacts": [
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "validator": "bluescreen204"
+    },
+    "FrontierBluescreenUI204Yes60Tests": {
+      "required": true,
+      "requirements": [
+        2
+      ],
+      "markers": [
+        "PASS scheduled Robot fatal damage, auto-created blue YES/NO, raw touch, delayed EndStep and native destination/death lifecycle",
+        "PASS NTUF210 real Robot death -> raw YES -> three processors/waves -> actual portal -> normal desert"
+      ],
+      "artifacts": [
+        "frontier-bluescreen-ui204.json",
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "png_artifacts": [
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "validator": "bluescreen204"
+    },
+    "FrontierBluescreenUI204No60Tests": {
+      "required": true,
+      "requirements": [
+        2
+      ],
+      "markers": [
+        "PASS scheduled Robot fatal damage, auto-created blue YES/NO, raw touch, delayed EndStep and native destination/death lifecycle"
+      ],
+      "artifacts": [
+        "frontier-bluescreen-ui204.json",
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "png_artifacts": [
+        "frontier-bluescreen-ui204-after.png"
+      ],
+      "validator": "bluescreen204"
+    },
+    "FrontierCollision212Tests": {
+      "required": true,
+      "requirements": [
+        3
+      ],
+      "markers": [
+        "PASS NTUF212 native stale wall and live Slash contact rate=30",
+        "PASS NTUF212 native stale wall and live Slash contact rate=60"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "native/collision212_tests.gml"
+      ]
+    },
+    "FrontierPlayerWallTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS FRONTIER PLAYER WALL real tile/packed overlap/walk/slide/seam/negative/fractional/equal-floor/roll/Frog/Hammerhead at30/60Hz"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "native/player_wall_tests.gml"
+      ]
+    },
+    "FrontierRedConnectivity204Tests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "NTUF RED REGRESSION204 PASS generated seams, ordinary Warp paths and hidden-room round trips"
+      ],
+      "artifacts": [
+        "frontier-red-regression204.json"
+      ],
+      "source_files": [
+        "native/red_connectivity204_tests.gml"
+      ],
+      "validator": "red204"
+    },
+    "FrontierWallSurface205Tests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS WALL SURFACE205 actual native art/collision, all29 area styles and independent GPU reference"
+      ],
+      "artifacts": [
+        "frontier-wall-surface205.json",
+        "frontier-wall-surface205-area0.png",
+        "frontier-wall-surface205-reference0.png",
+        "frontier-wall-surface205-area7.png",
+        "frontier-wall-surface205-reference7.png",
+        "frontier-wall-surface205-area206.png",
+        "frontier-wall-surface205-reference206.png"
+      ],
+      "source_files": [
+        "native/wall_surface205_tests.gml"
+      ],
+      "png_artifacts": [
+        "frontier-wall-surface205-area0.png",
+        "frontier-wall-surface205-reference0.png",
+        "frontier-wall-surface205-area7.png",
+        "frontier-wall-surface205-reference7.png",
+        "frontier-wall-surface205-area206.png",
+        "frontier-wall-surface205-reference206.png"
+      ],
+      "validator": "wall205",
+      "png_exact_dimensions": {
+        "frontier-wall-surface205-area0.png": [
+          128,
+          96
+        ],
+        "frontier-wall-surface205-reference0.png": [
+          128,
+          96
+        ],
+        "frontier-wall-surface205-area7.png": [
+          128,
+          96
+        ],
+        "frontier-wall-surface205-reference7.png": [
+          128,
+          96
+        ],
+        "frontier-wall-surface205-area206.png": [
+          128,
+          96
+        ],
+        "frontier-wall-surface205-reference206.png": [
+          128,
+          96
+        ]
+      }
+    },
+    "FrontierWeaponTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS FRONTIER 77 ordinary input and NPC fire paths at30/60, charge release, team/owner, inventory, dynamic metadata and mixed fusion",
+        "PASS FRONTIER ordinary source MOD strings through locals/arrays/controller slots and actual metadata dispatch; native numeric inventory and canonical LWO identity retained",
+        "PASS FRONTIER actual native same-type twin swap, source ground assignment, two-way pickup/drop and extra-slot state identity",
+        "PASS FRONTIER real weapon fire and state compatibility"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "native/weapon_tests.gml",
+        "native/tests.gml"
+      ]
+    },
+    "FrontierWeaponVisualTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS FRONTIER native scrWeapons rebuild retained77 source metadata rows, both Bubbles starters and a physical fusion",
+        "PASS FRONTIER real GPU native Bubbles health anchor119,11, ordinary/paused/low-health/fainted GUI, neutral restored drawing state, source fill and no duplicate old projection",
+        "PASS FRONTIER all10 NTUF melee callbacks match native fire, all7 NTTE melee swings and source primary/secondary physical reload at30/60Hz"
+      ],
+      "artifacts": [
+        "frontier-bubbles-meter-hud.png",
+        "frontier-bubbles-tinted-hud.png",
+        "frontier-bubbles-native-hud.png",
+        "frontier-bubbles-retired-hud.png",
+        "frontier-bubbles-normal-hud.png",
+        "frontier-bubbles-pause-hud.png",
+        "frontier-bubbles-low-hud.png",
+        "frontier-bubbles-fainted-hud.png",
+        "frontier-bubbles-health-hud.png",
+        "frontier-bubbles-partial-hud.png"
+      ],
+      "source_files": [
+        "native/weapon_visual_tests.gml",
+        "native/tests.gml"
+      ],
+      "png_artifacts": [
+        "frontier-bubbles-meter-hud.png",
+        "frontier-bubbles-tinted-hud.png",
+        "frontier-bubbles-native-hud.png",
+        "frontier-bubbles-retired-hud.png",
+        "frontier-bubbles-normal-hud.png",
+        "frontier-bubbles-pause-hud.png",
+        "frontier-bubbles-low-hud.png",
+        "frontier-bubbles-fainted-hud.png",
+        "frontier-bubbles-health-hud.png",
+        "frontier-bubbles-partial-hud.png"
+      ],
+      "png_exact_dimensions": {
+        "frontier-bubbles-meter-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-tinted-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-native-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-retired-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-normal-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-pause-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-low-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-fainted-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-health-hud.png": [
+          160,
+          96
+        ],
+        "frontier-bubbles-partial-hud.png": [
+          160,
+          96
+        ]
+      }
+    },
+    "FrontierContinueWriteTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "FRONTIER COLD WRITE native session/globals/Player binary + independent symbolic expected fixture OK",
+        "FRONTIER COLD WRITE ordinary next-room lifecycle preserved source ammo deltas and native live caps/grants"
+      ],
+      "artifacts": [
+        "frontier-cold-expected.json"
+      ],
+      "source_files": [
+        "native/continue_tests.gml",
+        "native/tests.gml"
+      ]
+    },
+    "FrontierContinueReadTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "FRONTIER COLD READ native preview/full loader + new Bubbles Player + Surgery/assets/cache/pool/LWO/status/ammo adoption OK",
+        "FRONTIER COLD READ real room_restart + async terrain + saved events + finalized Bubbles/LWO +24source ticks OK"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "native/continue_tests.gml",
+        "native/tests.gml"
+      ]
+    },
+    "FrontierLifecycleTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "NTUF LIFECYCLE native pause/Continue/SkillIcon.Mouse4/GenCont PASS",
+        "PASS FRONTIER native pause, mutation and generation lifecycle at30/60Hz"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "native/lifecycle_tests.gml",
+        "native/tests.gml"
+      ],
+      "marker_counts": {
+        "NTUF LIFECYCLE native pause/Continue/SkillIcon.Mouse4/GenCont PASS": 2
+      }
+    },
+    "FrontierWeatherPerformanceTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS NTUF actual Aurora/Meteor/Scrapyards nested actor callbacks use live native background colour",
+        "PASS NTUF FRESH WEATHER FILTER"
+      ],
+      "artifacts": [
+        "frontier-weather-performance.json"
+      ],
+      "source_files": [
+        "native/weather_performance_tests.gml",
+        "native/tests.gml"
+      ],
+      "validator": "weather-perf"
+    },
+    "VisualOptionsDrawTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "PASS Trench actual land pixels/pit alpha/nested sparks/cache frame/target loss/two quality settings",
+        "FULL VISUAL OPTIONS actual Coast8/Sludge/Pit mask+wall+spark targets/main+minor/default floating display/min1of3/fractional resize/no cap/sourceSludge2of3 threshold/Unblend[2]1of4+partial fallback pixels/caller target+draw state OK @30",
+        "FULL VISUAL OPTIONS actual Coast8/Sludge/Pit mask+wall+spark targets/main+minor/default floating display/min1of3/fractional resize/no cap/sourceSludge2of3 threshold/Unblend[2]1of4+partial fallback pixels/caller target+draw state OK @60"
+      ],
+      "artifacts": [
+        "ntte-trench-alpha-30.png",
+        "ntte-trench-alpha-60.png"
+      ],
+      "source_files": [
+        "staging/project/scripts/scrNTTEFullVisualOptionsNativeTests/scrNTTEFullVisualOptionsNativeTests.gml"
+      ],
+      "png_artifacts": [
+        "ntte-trench-alpha-30.png",
+        "ntte-trench-alpha-60.png"
+      ],
+      "marker_counts": {
+        "PASS Trench actual land pixels/pit alpha/nested sparks/cache frame/target loss/two quality settings": 2
+      }
+    },
+    "IOSRenderSurfaceTests": {
+      "required": true,
+      "requirements": [],
+      "markers": [
+        "IOS SURFACE BOUNDS: actual eight Coast targets/phone-scale>5000 request/bind rejection parent protection/direct shore safe-frame/native visibility/next-frame smaller recovery/resume OK @30",
+        "IOS SURFACE BOUNDS: actual eight Coast targets/phone-scale>5000 request/bind rejection parent protection/direct shore safe-frame/native visibility/next-frame smaller recovery/resume OK @60"
+      ],
+      "artifacts": [],
+      "source_files": [
+        "staging/project/scripts/scrNTTEFullIOSRenderSurfaceTests/scrNTTEFullIOSRenderSurfaceTests.gml"
+      ]
+    }
+  }
+}

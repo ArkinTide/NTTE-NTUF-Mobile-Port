@@ -352,6 +352,7 @@ function scrFRActorStep(_field) {
 }
 
 function scrFRActorDraw() {
+    if(!UberCont.paused && !instance_exists(MenuOptions) && scrFRBluescreen212Actor(id)) return; // FRONTIER212 SCREEN REBOOT UI
     if(!scrFRContent210Active("ntuf")) return; // FRONTIER210 HIDDEN CONTENT
     if(!is_undefined(on_draw)) {
         scrFRInvokeDraw(id,on_draw,[]);

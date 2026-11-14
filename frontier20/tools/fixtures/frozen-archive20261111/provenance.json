@@ -1,0 +1,50 @@
+{
+  "purpose": "Frozen source inputs for current Python installer tests; no old test results reused",
+  "archive_sha256": "940d1fd99debf10c29657744843f1202c073767d557a9fb4877422e3832d0574",
+  "full_aes_gcm_and_all_member_verification": true,
+  "complete_archive_verified_files": 925048,
+  "fixtures": [
+    {
+      "fixture": "host/objects/Player/Destroy_0.gml",
+      "archive_member": "work/ntte-complete/project/objects/Player/Destroy_0.gml",
+      "bytes": 4686,
+      "sha256": "3a870056a703bc6bfb42d9ec2bbe0c0a26b5a64ff340fe266a423686e652daec"
+    },
+    {
+      "fixture": "host/objects/IDPDSpawn/Create_0.gml",
+      "archive_member": "work/ntte-complete/project/objects/IDPDSpawn/Create_0.gml",
+      "bytes": 834,
+      "sha256": "7f5b10b381c70b6c918a3bae28b4bd2a61a25bae979a9edc49115a80fda172e4"
+    },
+    {
+      "fixture": "host/objects/HyperCrystal/Create_0.gml",
+      "archive_member": "work/ntte-complete/project/objects/HyperCrystal/Create_0.gml",
+      "bytes": 934,
+      "sha256": "305dfd23e184749ca631a56a78e401d569180070c22275e2f973193bb8f24a08"
+    },
+    {
+      "fixture": "frontier20/scripts/scrUndergrowthCallbacks/scrUndergrowthCallbacks.gml",
+      "archive_member": "work/ntte-complete/frontier20/history/2.0-delivered-20261106/staging/project/scripts/scrUndergrowthCallbacks/scrUndergrowthCallbacks.gml",
+      "bytes": 104119,
+      "sha256": "fce2fb5b89e443b9357c572d4679cf628fa4f8f5e6889aa41337b7086c55f596"
+    },
+    {
+      "fixture": "frontier20/objects/WepPickup/Collision_Wall.gml",
+      "archive_member": "work/ntte-complete/frontier20/history/2.0-delivered-20261106/staging/project/objects/WepPickup/Collision_Wall.gml",
+      "bytes": 667,
+      "sha256": "c4e83c0d200b339dc855680c235483fc6d182fadfe081fbc27a633d223c77e1d"
+    },
+    {
+      "fixture": "frontier20/objects/TopCont/Step_2.gml",
+      "archive_member": "work/ntte-complete/frontier20/history/2.0-delivered-20261106/staging/project/objects/TopCont/Step_2.gml",
+      "bytes": 1094,
+      "sha256": "4dc3f59f399fef724bb49c04b6eec3311025bb8fdf9b3cce0517473d0793f446"
+    },
+    {
+      "fixture": "frontier20/objects/Player/Collision_Wall.gml",
+      "archive_member": "work/ntte-complete/frontier20/history/2.0-delivered-20261106/staging/project/objects/Player/Collision_Wall.gml",
+      "bytes": 2354,
+      "sha256": "aaab1f0f2ee109be27988d0e06dad5f11dd750395430db52f38f1b630322332c"
+    }
+  ]
+}

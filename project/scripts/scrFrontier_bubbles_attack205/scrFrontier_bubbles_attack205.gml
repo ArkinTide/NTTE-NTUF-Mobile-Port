@@ -1,5 +1,5 @@
-// The saved preference selects a weapon/ability mode switch. Bubbles only
-// sprays while the ordinary attack input is held, as Horror's mobile mode.
+// The ability button toggles additional bubble fire while the ordinary
+// attack input continues to drive the equipped weapon. // FRONTIER BUBBLES212
 function scrFRBubblesPlayer205(_index) {
     var _player=noone;
     with(Player) if(index==_index) {_player=id;break;}
@@ -17,11 +17,9 @@ function scrFRBubblesToggle205(_index) {
 }
 
 function scrFRBubblesWeaponBlocked205(_player) {
-    if(!scrFREnabled() || !instance_exists(_player) || !scrFRRaceIs(_player.race)
-        || scrNTTEFullMountedAbilityRaw(_player)) return false;
-    var _pinst=scr_playerinstance_find(_player.index);
-    return is_struct(_pinst) && scr_player_pref(_pinst,"bubbles")
-        && KeyCont.activeforever[_player.index];
+    // Keep the established firing boundary/API without suppressing or
+    // invoking the weapon a second time. PlayerFiring remains its sole owner.
+    return false; // FRONTIER BUBBLES212 SIMULTANEOUS WEAPON
 }
 
 function scrFRBubblesAttackInput205(_index) {
@@ -42,14 +40,7 @@ function scrFRBubblesAttackInput205(_index) {
     KeyCont.hold_spec[_index]=!_blocked && _active && KeyCont.hold_fire[_index];
     KeyCont.press_spec[_index]=!_blocked && _active && KeyCont.press_fire[_index];
     KeyCont.release_spec[_index]=!_blocked && _active && KeyCont.release_fire[_index];
-    if(_active && !_blocked) {
-        if(!(_player[$ "fr_bubbles_attack_mode205"]??false))
-            scrNTTEFullChargeInputCancel(_player);
-        KeyCont.hold_fire[_index]=false;
-        KeyCont.press_fire[_index]=false;
-        KeyCont.release_fire[_index]=false;
-        // A nonautomatic weapon may have buffered this from the last mode.
-        _player.clicked=false;
-    }
-    _player.fr_bubbles_attack_mode205=_active && !_blocked;
+    // Preserve all physical weapon edges, accumulated charge and the click
+    // buffer. The source race consumes the added spec edges in End Step.
+    _player.fr_bubbles_attack_mode205=_active && !_blocked; // FRONTIER BUBBLES212
 }

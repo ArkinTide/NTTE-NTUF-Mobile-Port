@@ -3,25 +3,25 @@
 [简体中文](README.md) | [English](README.en.md)
 
 NTTE 与 **Uncharted Frontier（NTUF）1.0.3.3** 的 Android／iOS 移植源码，
-保留 Undergrowth、Details+ 和简体中文。当前版本 **2.1.1**，内部构建 **106**。
+保留 Undergrowth、Details+ 和简体中文。当前版本 **2.1.2**，内部构建 **107**。
 
 从 [MEGA 下载文件夹](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) 获取 APK／IPA，并核对同目录的
-`SHA256SUMS-NTTE-NTUF-2.1.1.txt`。GitHub 仅分发文本源码及版本说明；
-iOS 安装包需要重新签名。见 [2.1.1 说明](docs/RELEASE-2.1.1.md)。
+`SHA256SUMS-NTTE-NTUF-2.1.2.txt`。GitHub 仅分发文本源码及版本说明；
+iOS 安装包需要重新签名。见 [2.1.2 说明](docs/RELEASE-2.1.2.md)。
 
-## 2.1.1 build106 — 禁用内容兼容与海水、机器人界面修复
+## 2.1.2 build107 — 红水晶通路、机器人与变异界面修复
 
-当前重新编译的最终 Windows VM／输入通过 34 项明确列出的原生专项，
-另有 403 项 Python 检查日志经哈希核验。旧 VM 的通过数不计入本次验收。
-具体场景和结果见[本次验证摘要](docs/validation/2.1.1-development-regression.json)。
+当前重新编译的最终 Windows VM／输入通过 21 项明确列出的原生专项，
+另有 157 项 Python 检查日志经哈希核验。旧 VM 的通过数不计入本次验收。
+具体场景和结果见[本次验证摘要](docs/validation/2.1.2-development-regression.json)。
 
-修正关闭NTUF后的旧自定义武器及融合武器菜单崩溃，按角色默认武器回退并保存各槽位；隐藏禁用的泡泡选人和统计图标，补齐Undergrowth生成入口。海水中的实体保持原生像素清晰度；优化内容查询和菜单同步。控制台局禁止NTTE/NTUF解锁通知，修正通知文字偶发黑色。机器人蓝屏YES/NO跟随实际镜头和宽屏位置。 自定义初始变异列表补齐高度计算，使用设置菜单滚动条，并保持滚动后的点击位置准确。
+修正红水晶洞窟隐藏小路旁墙体堵住普通道路的问题；机器人重启YES/NO改在最终GUI层绘制并统一缩放后点击范围。修复近战碰墙时偶发崩溃，重新排版警局IDPD变异提示。视频设置新增默认开启的自动降帧开关，并保持切换帧率后的运动和计时单位一致。泡泡角色偏好改为按下技能后同时进行武器攻击和泡泡攻击。
 
-Android versionCode 3000106，保留应用标识和签名，并核验 16KB 布局；
-iOS build 106 需要重新签名。iOS 使用新编译游戏数据及保留的原生 Runner，
+Android versionCode 3000107，保留应用标识和签名，并核验 16KB 布局；
+iOS build 107 需要重新签名。iOS 使用新编译游戏数据及保留的原生 Runner，
 没有新的 Mac 原生编译。GAME_BUILD／存档协议仍为 3004。
 
-本轮验证禁用内容与九槽存档迁移、选人与统计过滤、海水像素、通知绘制、机器人蓝屏，以及自定义变异滚动条拖动与末行选择等明确场景。
+本轮验证红水晶道路、机器人蓝屏可见按钮与触摸、近战碰墙、警局变异文字布局、自动帧率和泡泡双重攻击等明确场景。
 未知随机地图与所有武器组合尚不能作整体保证。
 后台静音桌面测试不能证明手机混音或帧率；未进行 Android／iOS 真机、
 完整随机战役或所有设备帧率验收。

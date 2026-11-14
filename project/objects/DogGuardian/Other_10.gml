@@ -23,7 +23,7 @@ if !leap {
     leap -= timescale
 	speed = (8) * timescale
     z += zspeed
-	zspeed -= (0.5) * timescale
+	zspeed -= (0.5) * timescale * timescale
 	nexthurt = 0
 	
     if zspeed < 0 {

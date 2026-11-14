@@ -8,7 +8,9 @@ function scrFRRedConnectivity204Interior(_wall) {
         && position_meeting(_wall.bbox_right-1,_wall.bbox_bottom-1,Floor);
 }
 function scrFRRedConnectivity204FastBoundary(_phase) {
-    var _player=instance_find(Player,0),_points=[],_lookup={},_blocked=[],_fake_hits=0,_helper_hits=0,_styles=[0,0];
+    var _player=instance_find(Player,0),_points=[],_lookup={},_blocked=[],_blocked_edges=[],
+        _fake_hits=0,_helper_hits=0,_styles=[0,0],
+        _edge_guard=variable_global_exists("fr_red212_edge_guard") && global.fr_red212_edge_guard;
     if(_phase=="secret-before") {
         var _floors=scrNTTEFullInstances(Floor,true);
         for(var _f=0;_f<array_length(_floors);++_f) {
@@ -21,6 +23,18 @@ function scrFRRedConnectivity204FastBoundary(_phase) {
                 }
         }
         global.fr_red204_protected=_points;global.fr_red204_protected_styles=_styles;
+        if(_edge_guard) {
+            var _edges=[];
+            for(var _i=0;_i<array_length(_points);++_i) {
+                var _point=_points[_i],_x=_point[0],_y=_point[1];
+                for(var _d=0;_d<2;++_d) {
+                    var _nx=_x+(_d==0?16:0),_ny=_y+(_d==1?16:0),_key=string(_nx)+","+string(_ny);
+                    if(variable_struct_exists(_lookup,_key) && scrFRRedConnectivity204Edge(_player,_x,_y,_nx,_ny))
+                        array_push(_edges,[_x,_y,_nx,_ny]);
+                }
+            }
+            global.fr_red204_protected_edges=_edges;
+        }
     }
     else {
         _points=global.fr_red204_protected;
@@ -46,9 +60,19 @@ function scrFRRedConnectivity204FastBoundary(_phase) {
                     floor_lost:!position_meeting(_x,_y,Floor),fake:_fake,helper:_helper,walls:_walls});
             }
         }
+        if(_edge_guard) {
+            var _edges=global.fr_red204_protected_edges;
+            for(var _i=0;_i<array_length(_edges);++_i) {
+                var _edge=_edges[_i];
+                if(!scrFRRedConnectivity204Edge(_player,_edge[0],_edge[1],_edge[2],_edge[3]))
+                    array_push(_blocked_edges,_edge);
+            }
+        }
     }
     var _row={phase:_phase,protected_points:array_length(_points),protected_styles:global.fr_red204_protected_styles,changed:_blocked,
-        fake_overlap:_fake_hits,helper_overlap:_helper_hits,helpers:scrFRRedConnectivity204Helpers()};
+        fake_overlap:_fake_hits,helper_overlap:_helper_hits,helpers:scrFRRedConnectivity204Helpers(),
+        pixel_swept_expected_edges:_edge_guard,protected_edges:_edge_guard?array_length(global.fr_red204_protected_edges):0,
+        blocked_expected_edges:_blocked_edges};
     array_push(global.fr_red204_boundaries,_row);
     scrNTTESmokeLog("NTUF RED SCAN204 BOUNDARY "+_phase+" points="+string(array_length(_points))+" changed="+string(array_length(_blocked)));
 }
@@ -244,7 +268,9 @@ function scrFRRedConnectivity204Open(_player,_x,_y,_ignore_internal=false,_norma
             // The authored hidden passage deliberately shares real floor
             // with visual fake walls and their proximity-opened helpers.
             if(instance_is(_wall,NTTEFullWallFake)) continue;
-            if(!_wall.solid) continue;
+            // PlayerWallMeeting blocks every other Wall regardless of solid.
+            // InvisiWall and optional Helper keep their native solid policy.
+            if(!instance_is(_wall,Wall) && !_wall.solid) continue;
             if(_ignore_internal && scrFRRedConnectivity204Interior(_wall)) continue;
             _open=false;break;
         }
@@ -335,11 +361,25 @@ function scrFRRedConnectivity204Route(_graph,_from,_to) {
     for(var _i=array_length(_to_path)-1;_i>=0;--_i) array_push(_route,_to_path[_i]);
     return _route;
 }
-function scrFRRedConnectivity204Walk(_player,_graph,_target) {
+function scrFRRedConnectivity204Walk(_player,_graph,_target,_via_node=-1) {
     var _spawn=[_player.x,_player.y],_from=scrFRRedConnectivity204Nearest(_graph,_player.x,_player.y),
         _to=scrFRRedConnectivity204Nearest(_graph,_target.x,_target.y),_route=scrFRRedConnectivity204Route(_graph,_from,_to),
-        _parked=[],_steps=0,_contacts=0,_blocked=[],_peak=0,_overlap_closed=0,_hits=ds_list_create(),_reached=false;
-    if(!array_length(_route)) {ds_list_destroy(_hits);return {steps:0,reached:false,reason:"no structural route"};}
+        _parked=[],_steps=0,_contacts=0,_contact_ids=[],_blocked=[],_peak=0,_overlap_closed=0,_hits=ds_list_create(),_reached=false;
+    if(_via_node>=0) {
+        var _first=scrFRRedConnectivity204Route(_graph,_from,_via_node),
+            _second=scrFRRedConnectivity204Route(_graph,_via_node,_to);
+        _route=[];
+        if(array_length(_first) && array_length(_second)) {
+            _route=_first;
+            for(var _i=1;_i<array_length(_second);++_i) array_push(_route,_second[_i]);
+        }
+    }
+    var _route_meta={spawn:_spawn,target:[_target.x,_target.y],from:_from,to:_to,
+        from_node:_from<0?undefined:_graph.nodes[_from],to_node:_to<0?undefined:_graph.nodes[_to],
+        target_floor:position_meeting(_target.x,_target.y,Floor),
+        target_edge_open:_to>=0 && scrFRRedConnectivity204Edge(_player,_graph.nodes[_to].x,_graph.nodes[_to].y,_target.x,_target.y)};
+    if(!array_length(_route)) {ds_list_destroy(_hits);return {steps:0,reached:false,returned:false,blocked:[],
+        fake_collision_events:0,fake_contact_ids:[],peak_reveal:0,reason:"no structural route",route_meta:_route_meta};}
     var _actors=scrNTTEFullInstances(hitme);
     for(var _i=0;_i<array_length(_actors);++_i) if(_actors[_i]!=_player) {
         array_push(_parked,_actors[_i]);instance_deactivate_object(_actors[_i]);
@@ -358,17 +398,27 @@ function scrFRRedConnectivity204Walk(_player,_graph,_target) {
         // the temporary solid state and masks. This is not a hardware input test.
         for(var _leg=1;_leg<array_length(_points);++_leg) {
             var _start=[_player.x,_player.y],_goal=_points[_leg],
-                _distance=max(abs(_goal[0]-_start[0]),abs(_goal[1]-_start[1]));
+                // Genuine pets can already have fractional world coordinates.
+                // Keep each axis step <=1px and include the exact final target.
+                _distance=ceil(max(abs(_goal[0]-_start[0]),abs(_goal[1]-_start[1])));
             for(var _pixel=1;_pixel<=_distance;++_pixel) {
                 var _x=lerp(_start[0],_goal[0],_pixel/_distance),_y=lerp(_start[1],_goal[1],_pixel/_distance);
                 _player.xprevious=_player.x;_player.yprevious=_player.y;
                 _player.hspeed=_x-_player.x;_player.vspeed=_y-_player.y;
                 _player.x=_x;_player.y=_y;
+                var _contact_detail=[],_helper_detail=[];
                 ds_list_clear(_hits);
                 with(_player) instance_place_list(x,y,Wall,_hits,false);
                 for(var _w=0;_w<ds_list_size(_hits);++_w) {
                     var _wall=_hits[|_w];
-                    if(instance_is(_wall,NTTEFullWallFake)) _contacts+=1;
+                    array_push(_contact_detail,{id:real(_wall),object:object_get_name(_wall.object_index),
+                        x:_wall.x,y:_wall.y,solid:_wall.solid,
+                        mask:sprite_get_name(_wall.mask_index>=0?_wall.mask_index:_wall.sprite_index),
+                        bbox:[_wall.bbox_left,_wall.bbox_top,_wall.bbox_right,_wall.bbox_bottom]});
+                    if(instance_is(_wall,NTTEFullWallFake)) {
+                        _contacts+=1;
+                        if(array_get_index(_contact_ids,real(_wall))<0) array_push(_contact_ids,real(_wall));
+                    }
                     with(_wall) with(_player) event_perform(ev_collision,Wall);
                 }
                 with(NTTEFullWallFakeController) event_perform(ev_step,2);
@@ -377,10 +427,13 @@ function scrFRRedConnectivity204Walk(_player,_graph,_target) {
                 with(_player) instance_place_list(x,y,NTTEFullWallFakeHelper,_hits,false);
                 for(var _h=0;_h<ds_list_size(_hits);++_h) {
                     var _helper_hit=_hits[|_h];if(_helper_hit.solid) _overlap_closed+=1;
+                    array_push(_helper_detail,{id:real(_helper_hit),solid:_helper_hit.solid,x:_helper_hit.x,y:_helper_hit.y,
+                        mask:sprite_get_name(_helper_hit.mask_index>=0?_helper_hit.mask_index:_helper_hit.sprite_index)});
                 }
                 _steps+=1;
                 if(point_distance(_player.x,_player.y,_x,_y)>0.01) {
-                    array_push(_blocked,{at:[_x,_y],actual:[_player.x,_player.y],walls:ds_list_size(_hits)});
+                    array_push(_blocked,{leg:_leg,forward_count:_forward_count,from:_start,goal:_goal,
+                        at:[_x,_y],actual:[_player.x,_player.y],walls:_contact_detail,helpers:_helper_detail});
                     break;
                 }
             }
@@ -392,7 +445,8 @@ function scrFRRedConnectivity204Walk(_player,_graph,_target) {
         repeat(ceil(12/timescale)) with(NTTEFullWallFakeController) event_perform(ev_step,2);
         var _orphans=0,_open=0;
         with(NTTEFullWallFakeHelper) {if(!instance_exists(creator)) _orphans+=1;if(!solid) _open+=1;}
-        return {steps:_steps,reached:_reached,returned:_returned,blocked:_blocked,final:_final,fake_collision_events:_contacts,
+        return {steps:_steps,reached:_reached,returned:_returned,blocked:_blocked,final:_final,route_meta:_route_meta,fake_collision_events:_contacts,
+            fake_contact_ids:_contact_ids,
             peak_reveal:_peak,closed_overlapping_after_endstep:_overlap_closed,
             orphan_helpers_after_endstep:_orphans,open_helpers_after_return:_open,
             reveal_after_return:scrNTTEFullValue(_player,"red_wall_fake",0),
@@ -527,6 +581,9 @@ function scrFRRedConnectivity204DiagnosticTests() {
 }
 function scrFRRedConnectivity204Generate(_state,_seed) {
     scrFRWallFixTestsReset(_state);global.time_scale=1;
+    // Fresh isolated saves default to tutorial=true. Tutorial Alarm0 would
+    // delete the authored Red rocks and fake walls instead of testing a run.
+    save_set_value("game","tutorial",false);
     global.fr_red204_active=true;global.fr_red204_fast_scan=true;global.fr_red204_boundaries=[];
     global.fr_red204_protected=[];global.fr_red204_protected_styles=[0,0];
     variable_struct_set(global.ntte_full_progress.unlocks,"quest:part:3",false);
@@ -541,6 +598,9 @@ function scrFRRedConnectivity204Generate(_state,_seed) {
     with(_gen) event_perform(ev_alarm,0);
     _gen.ntte_full_sync_compact_defer=true;
     with(_gen) event_perform(ev_alarm,1);
+    assert(!instance_exists(TutCont),"Red generation accidentally tested tutorial cleanup");
+    assert(instance_exists(NTTEFullWallFake) && instance_exists(NTTEFullWallFakeHelper),
+        "Red generation must retain real hidden-corridor fake walls and helpers");
     return instance_find(Player,0);
 }
 function scrFRRedConnectivity204QueryTests(_state) {

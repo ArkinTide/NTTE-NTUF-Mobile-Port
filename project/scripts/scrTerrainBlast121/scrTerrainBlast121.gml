@@ -15,10 +15,10 @@ function scrTerrainBlastRefreshWalls() {
             if(instance_is(id,NTTESolidWall) || point_distance(x,y,other.x,other.y)>32) continue;
             if(position_meeting(x,y,FloorExplo)) {instance_destroy();continue;}
             visible=place_meeting(x,y+16,Floor);
-            if(place_free(x-16,y)) l=0;else l=4;
-            if(place_free(x+16,y)) w=24-l;else w=20-l;
-            if(place_free(x,y-16)) r=0;else r=4;
-            if(place_free(x,y+16)) h=24-r;else h=20-r;
+            if(scrFRWallArtFree205(x-16,y)) l=0;else l=4;
+            if(scrFRWallArtFree205(x+16,y)) w=24-l;else w=20-l;
+            if(scrFRWallArtFree205(x,y-16)) r=0;else r=4;
+            if(scrFRWallArtFree205(x,y+16)) h=24-r;else h=20-r;
         }
     } finally {ds_list_destroy(_list);}
 }

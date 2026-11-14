@@ -36,6 +36,9 @@ function scrNTTEFullMergedNativeCopy(_perform_events=false) {
     return _copy
 }
 function scrNTTEFullMergedNativeCollisionBegin(_target,_other) {
+    // A prior collision or merged callback may destroy a queued pair.
+    // Do not enter a native handler with a dead `other` reference.
+    if(!instance_exists(_target) || !instance_exists(_other)) return {allow:false,stacked:false};
     if(lockstep_stop || !variable_global_exists("ntte_merge_native_collision_mode") || !global.ntte_merge_native_collision_mode
         || !instance_exists(_target) || !instance_exists(_other)) return undefined
     // Ordinary bullets do not allocate a struct, temporary array or stack.
@@ -56,7 +59,10 @@ function scrNTTEFullMergedNativeCollisionBegin(_target,_other) {
     }
     var _entry={target:_target,other:_other,event:_event,allow:true,stacked:false}
     array_push(global.ntte_merge_native_collision_stack,_entry); _entry.stacked=true
-    try { _entry.allow=scrNTTEFullMergedProjectileEvent(_target,_other,_entry.event) }
+    try {
+        _entry.allow=scrNTTEFullMergedProjectileEvent(_target,_other,_entry.event)
+            && instance_exists(_target) && instance_exists(_other);
+    }
     catch(_error) { scrNTTEFullMergedNativeCollisionEnd(_entry); throw _error }
     return _entry
 }

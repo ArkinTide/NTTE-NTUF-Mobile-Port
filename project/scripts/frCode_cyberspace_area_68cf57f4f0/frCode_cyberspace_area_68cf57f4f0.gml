@@ -2321,6 +2321,7 @@ for (var __fr_index2=0; __fr_index2<array_length(__fr_with1); ++__fr_index2) {
 if(scrFRScopeExists(__fr_with1[__fr_index2])) with (__fr_with1[__fr_index2]) {
 {
 fr_bluescreenbutton = true;
+on_step = scrFRBluescreen212ButtonStep; // FRONTIER212 MATCH SCALED RAW TOUCH
 ;
 sprite_index = scrFRAreaSourceSprite(_frl__spr);
 mask_index = global.fr_module_vars[$ "area:cyberspace"].mskBluescreenButton;

@@ -1,0 +1,29 @@
+{
+  "version": "2.1.2",
+  "internal": 107,
+  "status": "READY",
+  "modules": [
+    "review/test_delivery212.py",
+    "review/test_review212.py",
+    "review/test_prepare_review212.py",
+    "review/test_package_review212.py",
+    "tools/test_frontier_compiler.py",
+    "tools/test_frontier_native_test_entrypoints.py",
+    "tools/test_frontier_content_hooks.py",
+    "tools/test_fr_bluescreen_ui_hooks.py",
+    "tools/test_frontier_bluescreen204_hooks.py",
+    "tools/test_frontier_bubbles_preference_hooks.py",
+    "tools/test_frontier_lifecycle_hooks.py",
+    "tools/test_frontier_wall_hooks.py",
+    "tools/test_frontier_wall_surface205_hooks.py",
+    "tools/test_frontier_red_connectivity204_hooks.py",
+    "tools/test_fr_red212_hooks.py",
+    "tools/test_frontier_red_wall_query204_hooks.py",
+    "tools/test_frontier_weapon_visual_hooks.py",
+    "tools/test_frontier_post203_weather_wall_hooks.py",
+    "tools/test_frontier_lib_performance_hooks.py",
+    "tools/test_frontier_performance_hooks.py",
+    "tools/test_frontier_menu_hooks.py"
+  ],
+  "scope": "Explicit fixture/compiler/installer/gate tests on current maintained source. Native runtime results are separate."
+}

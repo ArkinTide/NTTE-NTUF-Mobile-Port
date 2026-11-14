@@ -20,10 +20,10 @@ function scrFRWeaponTestsStart(_driver) {
     }
     _driver.fr_wep_target=_target;
     _driver.fr_wep_baseline=scrNTTEFullInstances(all);
-    scrFRWeaponTestsRate(30);
+    scrFRWeaponTestsRate(_driver,30);
 }
 
-function scrFRWeaponTestsRate(_rate) {
+function scrFRWeaponTestsRate(_driver,_rate) {
     // Native options reload from the isolated save. Transient UberCont writes
     // are overwritten by scrOptionsUpdate and would both reset30 to60 and
     // enable focus-loss pause in the background acceptance runner.
@@ -32,8 +32,9 @@ function scrFRWeaponTestsRate(_rate) {
     save_set_value("visual","freezeframes",0);
     save_set_value("visual","bossintro",false);
     scrOptionsUpdate();
-    assert(game_get_speed(gamespeed_fps)==_rate && UberCont.opt_framerate==_rate
-        && !UberCont.opt_autopause,"Frontier weapon fixture lost its native rate or background focus policy");
+    // Options now request a transaction; the next real safe BeginStep owns
+    // native actor rebasing. Do not sample/fire until that commit is visible.
+    _driver.fr_wep_requested_rate=_rate;_driver.fr_wep_rate_wait=0;
 }
 
 function scrFRWeaponTestsDamageIdentity(_shot,_owner) {
@@ -80,6 +81,19 @@ function scrFRWeaponTestsFireInput(_player,_held,_pressed) {
 }
 
 function scrFRWeaponTestsStep(_driver) {
+    var _pending=_driver.fr_wep_requested_rate;
+    if(_pending>0) {
+        assert(++_driver.fr_wep_rate_wait<120,"Frontier weapon rate request did not commit at a safe BeginStep");
+        if(game_get_speed(gamespeed_fps)!=_pending) return false;
+        scrNTTESmokeLog("FRONTIER WEAPON RATE "+json_stringify({requested:_pending,
+            actual:game_get_speed(gamespeed_fps),option:UberCont.opt_framerate,
+            scale:timescale,waited_host_frames:_driver.fr_wep_rate_wait}));
+        _driver.fr_wep_requested_rate=0;
+    }
+    var _rate=_driver.fr_wep_rate==0?30:60;
+    assert(game_get_speed(gamespeed_fps)==_rate && UberCont.opt_framerate==_rate
+        && timescale==30/_rate && !UberCont.opt_autopause,
+        "Frontier weapon fixture lost its native rate, logic scale or background focus policy");
     var _ids=_driver.fr_wep_ids,_index=_driver.fr_wep_index,_player=_driver.fr_wep_player;
     if(_index>=array_length(_ids)) {
         // Random Wormhole outcomes cannot guarantee coverage of its separate
@@ -88,7 +102,7 @@ function scrFRWeaponTestsStep(_driver) {
         scrFRWormholeNTTEAttributionTests(_player);
         if(_driver.fr_wep_rate==0) {
             _driver.fr_wep_rate=1;_driver.fr_wep_index=0;_driver.fr_wep_age=0;
-            scrFRWeaponTestsRate(60);
+            scrFRWeaponTestsRate(_driver,60);
             return false;
         }
         assert(_driver.fr_wep_damage>0,"Real Frontier projectile collisions never damaged a native enemy");

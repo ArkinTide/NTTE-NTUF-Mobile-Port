@@ -2,8 +2,8 @@
 // Turning this preference off retains the authored hold-to-spray controls.
 function scrFRBubblesPreferenceName(_option) {
     var _icon=scrFRRaceNativeSprite("Map",0,sprMapIcon),
-        _name=scrNTTEFullIsSimplifiedChinese()?"泡泡技能切换"
-            :loc("CharacterPrefOptions:BubblesToggle","BUBBLES ABILITY TOGGLE");
+        _name=scrNTTEFullIsSimplifiedChinese()?"按下技能后同时进行泡泡攻击"
+            :loc("CharacterPrefOptions:BubblesSimultaneous","PRESS ABILITY TO ADD BUBBLE ATTACKS");
     return "@("+sprite_get_name(_icon)+",0,0,-10) "+_name;
 }
 

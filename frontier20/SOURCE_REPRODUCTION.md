@@ -52,11 +52,11 @@ regenerates the unchanged unlocked icon and a locked silhouette from the transpa
 `Sprites/Crowns/sprCrownStormsIdle.png` alpha enlarged nearest2x, using the tracked
 resource template; `--check` verifies the resulting PNG hashes without writing.
 
-For 2.1.1, the game display/updater/tag use `2.1.1` and internal build 106;
+For 2.1.2, the game display/updater/tag use `2.1.2` and internal build 107;
 GAME_BUILD/save protocol remains 3004. The common accepted project retains the
-canonical `2.1.1` platform option declarations. Delivery compiler copies retain
-the iOS/Android platform version `2.1.1`; the public Android overlay includes
-its version option and bootstrap adjustment. The iOS package has build 106 and
+canonical `2.1.2` platform option declarations. Delivery compiler copies retain
+the iOS/Android platform version `2.1.2`; the public Android overlay includes
+its version option and bootstrap adjustment. The iOS package has build 107 and
 requires the user's own re-signing. Private host packaging/signing machinery is
 not published and should not be inferred from the common option declarations.
 
@@ -83,5 +83,5 @@ to reproduce this supplement. The supplemental manifest, verification JSON and
 resource declarations are text references; all PNG files for these 15 authored sprites remain excluded
 from the public source payload.
 
-Current2.1.1 maintains the narrow content/UI repair installer and native test sources.
+Current2.1.2 maintains the narrow content/UI repair installer and native test sources.
 Do not rerun the historical full-stage importer over an accepted maintained project.

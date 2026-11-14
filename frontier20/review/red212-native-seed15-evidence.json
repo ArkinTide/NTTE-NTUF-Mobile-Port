@@ -1,0 +1,249 @@
+{
+  "components": 19.0,
+  "sizes": [
+    183.0,
+    1.0,
+    12.0,
+    71.0,
+    1.0,
+    1.0,
+    3.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    20.0,
+    2.0,
+    16.0,
+    4.0,
+    4.0,
+    48.0,
+    3.0,
+    1.0
+  ],
+  "seed": 15.0,
+  "loops": 3.0,
+  "before_secret_protected": 354.0,
+  "expected_edges": 576.0,
+  "actual_player_mask_pixel_sweep": true,
+  "post_wall_shifts": 1.0,
+  "suspect": true,
+  "native_gen_frames": 8.0,
+  "changed_points": 102,
+  "blocked_edges": 182,
+  "changed_sample": [
+    {
+      "helper": 0.0,
+      "walls": [
+        {
+          "id": 548219.0,
+          "x": 9904.0,
+          "solid": 1.0,
+          "y": 10288.0,
+          "bbox": [
+            9904.0,
+            10288.0,
+            9920.0,
+            10304.0
+          ],
+          "object": "NTTESolidWall"
+        }
+      ],
+      "structural_open": false,
+      "floor_lost": true,
+      "fake": 0.0,
+      "point": [
+        9912.0,
+        10296.0,
+        false
+      ]
+    },
+    {
+      "helper": 0.0,
+      "walls": [
+        {
+          "id": 548221.0,
+          "x": 9920.0,
+          "solid": 1.0,
+          "y": 10288.0,
+          "bbox": [
+            9920.0,
+            10288.0,
+            9936.0,
+            10304.0
+          ],
+          "object": "NTTESolidWall"
+        }
+      ],
+      "structural_open": false,
+      "floor_lost": true,
+      "fake": 0.0,
+      "point": [
+        9928.0,
+        10296.0,
+        false
+      ]
+    }
+  ],
+  "shift_trace": [
+    {
+      "alarm2": 2.0,
+      "walls": 0.0,
+      "alarm1": -1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 62.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 0.0,
+      "alarm0": 3.0,
+      "helpers": 0.0,
+      "before": {
+        "alarm2": 1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10000.0,
+        "floors": 62.0,
+        "walls": 0.0,
+        "alarm1": -1.0,
+        "fake": 0.0,
+        "alarm0": 2.0,
+        "helpers": 0.0
+      }
+    },
+    {
+      "alarm2": 2.0,
+      "walls": 0.0,
+      "alarm1": -1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 63.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 0.0,
+      "alarm0": 3.0,
+      "helpers": 0.0,
+      "before": {
+        "alarm2": 1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10032.0,
+        "floors": 62.0,
+        "walls": 0.0,
+        "alarm1": -1.0,
+        "fake": 0.0,
+        "alarm0": 2.0,
+        "helpers": 0.0
+      }
+    },
+    {
+      "alarm2": 2.0,
+      "walls": 0.0,
+      "alarm1": -1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 64.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 0.0,
+      "alarm0": 3.0,
+      "helpers": 0.0,
+      "before": {
+        "alarm2": 1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10064.0,
+        "floors": 63.0,
+        "walls": 0.0,
+        "alarm1": -1.0,
+        "fake": 0.0,
+        "alarm0": 2.0,
+        "helpers": 0.0
+      }
+    },
+    {
+      "alarm2": 2.0,
+      "walls": 0.0,
+      "alarm1": -1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 65.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 0.0,
+      "alarm0": 3.0,
+      "helpers": 0.0,
+      "before": {
+        "alarm2": 1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10096.0,
+        "floors": 64.0,
+        "walls": 0.0,
+        "alarm1": -1.0,
+        "fake": 0.0,
+        "alarm0": 2.0,
+        "helpers": 0.0
+      }
+    },
+    {
+      "alarm2": 2.0,
+      "walls": 0.0,
+      "alarm1": -1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 66.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 0.0,
+      "alarm0": 3.0,
+      "helpers": 0.0,
+      "before": {
+        "alarm2": 1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10128.0,
+        "floors": 65.0,
+        "walls": 0.0,
+        "alarm1": -1.0,
+        "fake": 0.0,
+        "alarm0": 2.0,
+        "helpers": 0.0
+      }
+    },
+    {
+      "alarm2": 2.0,
+      "walls": 362.0,
+      "alarm1": 1.0,
+      "phase": "native-safespawn-shift",
+      "floors": 114.0,
+      "dx": 0.0,
+      "dy": 32.0,
+      "fake": 56.0,
+      "alarm0": 3.0,
+      "helpers": 56.0,
+      "before": {
+        "alarm2": -1.0,
+        "x": 10000.0,
+        "anchor": "@ref instance(525081)",
+        "y": 10160.0,
+        "floors": 113.0,
+        "walls": 362.0,
+        "alarm1": 1.0,
+        "fake": 56.0,
+        "alarm0": 0.0,
+        "helpers": 56.0
+      }
+    }
+  ],
+  "negative_control": {
+    "run": "tests/20261113T172205902876Z",
+    "case": "FrontierRed212ProbeTests",
+    "compiled_build": {
+      "status": "COMPILED_NOT_PLAYABLE_VERIFIED",
+      "utc": "2026-11-13T17:21:41.137406+00:00",
+      "vm_sha256": "9ab12f841785238dbe60dd4048bc70d23ad1e5098e097c23d59208951cbff4fb",
+      "log_sha256": "a1fd9b3a290f2b292ccc87067906e3b2c64fd7027905f425f1c9cce0a2a28835",
+      "input_sha256": "522d0109149074dfe31084d290447b80ad38b84a39221f6a6c30728ccd579c0e",
+      "input_manifest": "analysis/build-inputs/522d0109149074dfe31084d290447b80ad38b84a39221f6a6c30728ccd579c0e.json"
+    },
+    "receipt_sha256": "3b104aabb5d23a4370c1443cd2359e089bbe63b9e83ae195d192ff7dedad55b8",
+    "raw_sweep_sha256": "3193abe067d9507966f96576deaeb079feba4697d11f185eb7b8b424a4719010",
+    "seed15_geometry_sha256": "c1b1424b5911c2d935367c6148939cfb4398fc9dbaf368a871437a8fe0f6c5b1"
+  }
+}

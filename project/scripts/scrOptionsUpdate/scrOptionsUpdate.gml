@@ -33,6 +33,7 @@ function scrOptionsUpdate() {
 		opt_vsync = save_get_option("options", "vsync", false)
 		// 帧率选项（30 / 60），默认 60
 		opt_framerate = save_get_option("options", "framerate", 60)
+        opt_ntte_autoframerate=save_get_option("visual","ntte_autoframerate",true)
 		opt_cursor = save_get_option("options", "cursor", false)
 		opt_mouselock = save_get_option("options", "mouselock", false)
         opt_autopause = save_get_option("options", "autopause", true)
@@ -136,10 +137,10 @@ function scrOptionsUpdate() {
 		if (game_get_speed(gamespeed_fps) != game_speed_uncaped
 			&& game_get_speed(gamespeed_fps) != opt_framerate
 		) {
-			game_set_speed(opt_framerate, gamespeed_fps)
+			// Apply a changed request at safe Begin Step after unpause.
 		}
 		
-		scrNTTEFullRateApply();
+		if(!instance_exists(GameCont)) scrNTTEFullRateApply();
 
 		showtutorial = save_get_option("game", "tutorial", true)
 		

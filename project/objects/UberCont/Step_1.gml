@@ -1,4 +1,5 @@
 /// @description Control pause states
+scrFRClockBegin212();
 
 // 60帧适配：alarm 时间补偿（整数安全版）
 //

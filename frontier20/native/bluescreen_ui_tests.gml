@@ -81,6 +81,7 @@ function scrFRBluescreenUITestsSnapshot(_s,_label) {
         wibbly_managers:array_length(scrFREventTestsNamed(FRCustomObject,"wib_PlayerManager")),
         camera_pan:scrFRViewValue("pan"),draws:_s.draws,pointer:scrFRBluescreenUITestsPointer(),
         native:{floors:instance_number(Floor),walls:instance_number(Wall),tops:instance_number(TopCont),
+            tutorial_controllers:instance_number(TutCont),tutorial_option:save_get_value("game","tutorial",true),
             gen:instance_number(GenCont),floormakers:instance_number(FloorMaker),
             vlambeer:instance_number(Vlambeer),levcont:instance_number(LevCont),
             generation_screen:scrGameIsGenerationScreen(),level_ended:GameCont.is_level_ended,
@@ -190,6 +191,9 @@ function scrFRBluescreenUITestsStart(_driver,_rate=30,_accept=true,_entry_mode="
     assert(os_type==os_windows && scrNTTEFullSmokeEnabled() && scrFREnabled()
         && instance_number(Player)==1 && !instance_exists(GenCont),
         "Bluescreen UI acceptance requires the isolated live native runner");
+    // A fresh isolated save otherwise defaults to the tutorial. Its native
+    // Portal.Alarm1 intentionally game_restart()s, hiding the real cyber exit.
+    save_set_value("game","tutorial",false);
     save_set_value("options","framerate",_rate);save_set_value("options","autopause",false);
     save_set_value("visual","freezeframes",0);save_set_value("visual","bossintro",false);
     scrOptionsUpdate();scrNTTEFullRateApply();
@@ -235,6 +239,8 @@ function scrFRBluescreenUITestsStep(_driver) {
             || !instance_exists(Player)) return false;
         if(scrFRReadyTick()) _s.warm_ticks++;
         if(_s.warm_ticks<24) return false;
+        scrFRBluescreenUITestsCheck(_s,!instance_exists(TutCont) && !save_get_value("game","tutorial",true),
+            "Admission fixture accidentally generated the native tutorial restart path");
         var _managers=scrFREventTestsNamed(FRCustomObject,"wib_PlayerManager");
         scrFRBluescreenUITestsCheck(_s,array_length(_managers)==1,
             "Actual asynchronous generation did not create its ordinary source Wibbly PlayerManager");

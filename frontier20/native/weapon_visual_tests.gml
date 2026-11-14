@@ -200,11 +200,25 @@ function scrFRWeaponVisualTestsHUD(_player) {
     }
 }
 
+function scrFRWeaponVisualTestsRate(_rate) {
+    // This is a synchronous callback comparison, not a scheduled gameplay
+    // transaction. Establish actual physical units before each manual call.
+    save_set_value("options","framerate",_rate);
+    save_set_value("options","autopause",false);
+    save_set_value("visual","freezeframes",0);
+    save_set_value("visual","bossintro",false);
+    scrOptionsUpdate();
+    assert(scrFRClockApply212(_rate) && game_get_speed(gamespeed_fps)==_rate
+        && UberCont.opt_framerate==_rate && timescale==30/_rate && !UberCont.opt_autopause,
+        "Synchronous weapon visual callback fixture did not establish actual rate units");
+}
+
 function scrFRWeaponVisualTests() {
     assert(os_type==os_windows && scrNTTEFullSmokeEnabled() && scrFREnabled(),
         "Source/native melee acceptance requires the isolated desktop runner");
     var _player=instance_find(Player,0),_players=scrNTTEFullAreaGeneratorSnapshot(Player),
         _before=scrNTTEFullInstances(all),_seed=random_get_seed(),_frame=current_frame,
+        _old_rate=game_get_speed(gamespeed_fps),
         _options={rate:save_get_option("options","framerate",60),
             autopause:save_get_option("options","autopause",true),freeze:save_get_option("visual","freezeframes",true),
             bossintro:save_get_option("visual","bossintro",true)},
@@ -222,7 +236,7 @@ function scrFRWeaponVisualTests() {
         assert(array_length(_melee)==10,"Melee visual regression did not enumerate all10 authored NTUF melee weapons");
         for(var _round=0;_round<2;++_round) {
             var _rate=_round==0?30:60;
-            scrFRWeaponTestsRate(_rate);
+            scrFRWeaponVisualTestsRate(_rate);
             for(var _i=0;_i<array_length(_melee);++_i) {
                 var _raw=_melee[_i],_baseline=scrNTTEFullInstances(all),_rng=random_get_seed();
                 scrFRWeaponVisualTestsPrepare(_player,_raw);
@@ -243,7 +257,8 @@ function scrFRWeaponVisualTests() {
                 assert(_player.wepangle==_source.angle && _player.wkick==_source.kick
                     && (_player.wepangle!=120 || _player.wkick!=0),
                     "Native melee fire lost or double-flipped the authored swing "+json_stringify(_diag));
-                array_push(_rows,{weapon:_raw,rate:_rate,angle:_player.wepangle,kick:_player.wkick});
+                array_push(_rows,{weapon:_raw,rate:_rate,engine_rate:game_get_speed(gamespeed_fps),
+                    scale:timescale,manual_callbacks:true,angle:_player.wepangle,kick:_player.wkick});
                 scrFRWeaponVisualTestsRetire(_baseline);
             }
             // Keep the existing native NTTE source ports in the same dispatch
@@ -331,6 +346,7 @@ function scrFRWeaponVisualTests() {
         scrNTTESmokeLog("PASS FRONTIER all10 NTUF melee callbacks match native fire, all7 NTTE melee swings and source primary/secondary physical reload at30/60Hz "+json_stringify(_rows));
     } finally {
         scrFRWeaponVisualTestsRetire(_before);
+        scrFRClockApply212(_old_rate);
         scrNTTEFullAreaGeneratorRestore(_players);
         scrNTTEFullAreaGeneratorRestore({instances:[],containers:_keys.nodes});
         save_set_value("options","framerate",_options.rate);save_set_value("options","autopause",_options.autopause);

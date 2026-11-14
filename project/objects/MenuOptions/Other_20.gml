@@ -100,6 +100,7 @@ scrOptionsMenuCreateElements(
 	/// @loc:token [VideoOptions] WideScreen "WIDESCREEN"
 	{ type: "switch", name: L("WideScreen", "WIDESCREEN"), key: "visual_resolution", mobile_only: true },
 	
+	{type:"switch",name:L("AutoFramerate","AUTO FRAMERATE"),key:"visual_ntte_autoframerate",value:save_get_option("visual","ntte_autoframerate",true)},
 	/// @loc:token [VideoOptions] Framerate "FRAMERATE"
 	{ type: "list", name: L("Framerate", "FRAMERATE"), key: "options_framerate", list: [ 30, 60 ],
 		condition: function(_opt) {

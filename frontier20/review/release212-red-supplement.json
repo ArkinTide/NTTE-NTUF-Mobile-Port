@@ -1,0 +1,32 @@
+{
+  "version": "2.1.2",
+  "internal": 107,
+  "status": "READY",
+  "negative": {
+    "run": "tests/20261113T172205902876Z",
+    "case": "FrontierRed212ProbeTests",
+    "receipt_sha256": "3b104aabb5d23a4370c1443cd2359e089bbe63b9e83ae195d192ff7dedad55b8",
+    "artifact_sha256": "3193abe067d9507966f96576deaeb079feba4697d11f185eb7b8b424a4719010",
+    "vm_sha256": "9ab12f841785238dbe60dd4048bc70d23ad1e5098e097c23d59208951cbff4fb",
+    "input_sha256": "522d0109149074dfe31084d290447b80ad38b84a39221f6a6c30728ccd579c0e"
+  },
+  "positive": {
+    "run": "tests/20261113T194427097402Z",
+    "case": "FrontierRed212ProbeTests",
+    "receipt_sha256": "1eb7d448f740d1b53077b6de5d8af0f7b6048e8c21c132ec14447cdbf24d8402",
+    "artifact_sha256": "ecaeb6d606317c20376952d58ee393c1784d36cd0312b73a6d3f555a073c3559",
+    "vm_sha256": "ed80aa6ece093f09c937e1462f62a526e2bd322e653f523aa23c144bf4373fff",
+    "input_sha256": "9c5e9cd11bb7c2fafc113603ce7aa2bcf69cf1f8c67deb08c975779169c8b352"
+  },
+  "public_evidence": {
+    "review/RED212_CAUSE.md": {
+      "sha256": "8b3ef0d7ad5bb48dc9944b690fe9adeb15244bf616fd372f766a19b8e4977945"
+    },
+    "review/red212-native-seed15-evidence.json": {
+      "sha256": "71480d1a280aca5008f536dd7f75468cd1cfb31d0c341268e5a5cbf385b812a1"
+    },
+    "review/red212-native-sweep-after-summary.json": {
+      "sha256": "195b8ddb050b558f4508d5d8f782f1a7cdb9721f615c586e3e1391e7b04f32b0"
+    }
+  }
+}

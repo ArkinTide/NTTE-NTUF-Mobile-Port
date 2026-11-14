@@ -1,5 +1,5 @@
 if z > 0 {
-	zspeed -= (0.2) * timescale
+	zspeed -= (0.2) * timescale * timescale
 	
 	if (zspeed < 0 && (z + zspeed) <= 0) {
 		if (bounce --) {

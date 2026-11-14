@@ -1,0 +1,78 @@
+{
+  "version": "2.1.2",
+  "internal": 107,
+  "status": "CURRENT_VM_SELECTED_ACCEPTANCE_VERIFIED",
+  "acceptance_report": "review/post212-development-review-20261113T193515988381Z.json",
+  "python_evidence": "review/post212-python-regression-final2.json",
+  "red_generation_supplement": "review/release212-red-supplement.json",
+  "scope": "NTTE + Uncharted Frontier mobile port only",
+  "production_root": "work/ntuf-mobile-212/staging/project",
+  "selection": "review/release212-cases.json",
+  "contracts": "review/release212-case-contracts.json",
+  "python_plan": "review/release212-python-tests.json",
+  "delivery_config": "review/release212-config.json",
+  "historical_pass_evidence_reused": false,
+  "diagnostic_probes_are_acceptance": false,
+  "requirements": [
+    {
+      "id": 1,
+      "request": "修复红水晶洞窟隐藏小路附近的错误墙体堵住普通道路。",
+      "acceptance": "Use the final repair-specific scheduled native generation/traversal case to preserve pre-population open-road points and edges, forbid safe-spawn shifts after Red population, and retain ordinary Warp and hidden-room round trips. Current wall-contact and wall-art regression cases remain required.",
+      "repair_cases": ["FrontierRed212ScheduledTests"],
+      "regression_cases": ["FrontierPlayerWallTests", "FrontierRedConnectivity204Tests", "FrontierWallSurface205Tests"],
+      "root_cause": "A native safe-spawn floor shift ran after hidden-room walls and helpers had been appended, displacing ordinary roads from their collision geometry. Disable safe spawning only in this Red GenCont population callback after its original pre-population shifts have finished.",
+      "supplementary_evidence": "Bind the original failing 96-seed control and a fresh positive 96-seed control to their receipts, compiler inputs and artifact hashes. The positive control must use the same final VM/input as the 21 formal cases; diagnostics do not count as formal acceptance.",
+      "rock_scope": "Retain candidate rock IDs outside the actual native PortalClear collision mask. Record and count native clearance candidates separately; preserve all sampled remaining rock IDs through settling and both traversal round trips."
+    },
+    {
+      "id": 2,
+      "request": "修复安卓版机器人重启页面偶发缺少 YES/NO 按钮。",
+      "acceptance": "Actual native GUI-End rendering must show each button across four viewport/GUI mappings. Separate real death, raw touch, delayed cleanup, Cyberspace and destination cases must pass at 30/60Hz.",
+      "repair_cases": ["FrontierMenus212Tests", "FrontierBluescreenUI204Yes30Tests", "FrontierBluescreenUI204No30Tests", "FrontierBluescreenUI204Yes60Tests", "FrontierBluescreenUI204No60Tests"]
+    },
+    {
+      "id": 3,
+      "request": "修复 Slash 撞墙时 scrNTTESolidWallContact 访问已删除实例的崩溃。",
+      "acceptance": "The actual merged Slash/Wall collision must safely retire a destroyed wall and preserve live-wall collision, contact-array and collision-stack behavior at 30/60Hz.",
+      "repair_cases": ["FrontierCollision212Tests"],
+      "regression_cases": ["FrontierPlayerWallTests", "FrontierWeaponTests"]
+    },
+    {
+      "id": 4,
+      "request": "修复警局选择 IDPD 变异时中文字体挤在一起。",
+      "acceptance": "Measure nonoverlapping title/body/replacement layouts for all IDPD augment definitions in both Simplified Chinese and English, and retain screenshots from the real rendering path.",
+      "repair_cases": ["FrontierMenus212Tests"]
+    },
+    {
+      "id": 5,
+      "request": "在视频设置中加入默认开启、可自由开关并保存的自动降帧选项。",
+      "acceptance": "Test the real Video confirmation, default and saved settings, budget recovery, pause guards and unit preservation. An actual 60→30→60 callback run must preserve physical travel, native alarms and source ticks. Actual collision callbacks across 60→30→60→30 must preserve physical Bullet2 wall-bounce units and logical NTUF/Red/Venom/CustomShell units.",
+      "repair_cases": ["FrontierClock212Tests", "FrontierClock212LiveTests"],
+      "regression_cases": ["FrontierLifecycleTests", "FrontierWeatherPerformanceTests", "VisualOptionsDrawTests", "IOSRenderSurfaceTests"]
+    },
+    {
+      "id": 6,
+      "request": "泡泡开启技能后普通武器攻击和技能泡泡攻击同时发射，偏好文字为“按下技能后同时进行泡泡攻击”。",
+      "acceptance": "Actual General/controller/touch firing must consume weapon ammo and bubble charge together at 30/60Hz, stop on release, preserve charge and clicked state, and retain independent control when the preference is off.",
+      "repair_cases": ["FrontierBubblesAttack212Tests"],
+      "regression_cases": ["FrontierWeaponTests", "FrontierWeaponVisualTests", "FrontierContinueWriteTests", "FrontierContinueReadTests"]
+    }
+  ],
+  "evidence_limits": {
+    "native_runtime": "Isolated Windows GameMaker VM, private desktop never activated, muted resources, isolated saves.",
+    "physical_android_tested": false,
+    "physical_ios_tested": false,
+    "full_campaign_acceptance_claimed": false,
+    "guaranteed_mobile_framerate_claimed": false
+  },
+  "release": {
+    "user_authorized_packaging_and_publication": true,
+    "platforms": ["Android", "iOS"],
+    "retained_package": "com.arkintide.nuclearthronentte",
+    "android_version_code": 3000107,
+    "ios_requires_resigning": true,
+    "github_repository": "ArkinTide/NTTE-NTUF-Mobile-Port",
+    "mega_folder": "/NTTE port",
+    "source_publication_excludes": ["user attachments/media", "private signing", "authentication", "user profiles", "build caches", "prior release trees", "unrelated Hardmode work"]
+  }
+}

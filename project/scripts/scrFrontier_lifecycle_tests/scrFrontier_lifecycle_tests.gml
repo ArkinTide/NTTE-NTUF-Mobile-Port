@@ -63,8 +63,19 @@ function scrFRLifecycleTestsStep(_driver) {
         save_set_value("visual","freezeframes",0);
         save_set_value("visual","bossintro",false);
         scrOptionsUpdate();
-        assert(game_get_speed(gamespeed_fps)==_rate && UberCont.opt_framerate==_rate,
+        // The options consumer requests a cap. Clock212 commits its actor
+        // rebase in the next safe BeginStep, after this genuine EndStep.
+        _state.wait=0;_state.phase=9;return false;
+    }
+    if(_state.phase==9) {
+        var _rate=_state.round==0?30:60;
+        assert(++_state.wait<120,"Lifecycle native frame policy did not commit at a safe BeginStep");
+        if(game_get_speed(gamespeed_fps)!=_rate) return false;
+        assert(UberCont.opt_framerate==_rate && timescale==30/_rate,
             "Lifecycle acceptance did not apply its real native frame policy");
+        scrNTTESmokeLog("NTUF LIFECYCLE RATE "+json_stringify({round:_state.round,
+            requested:_rate,actual:game_get_speed(gamespeed_fps),option:UberCont.opt_framerate,
+            scale:timescale,waited_host_frames:_state.wait}));
         _state.wait=0;_state.phase=1;
         _state.actor=instance_create(14016,14016,FRCustomObject);
         _state.actor.fr_lifecycle_driver=_driver;

@@ -28,7 +28,7 @@ def main():
         args.cases=json.loads((ROOT.parent/"release127/selected-cases.json").read_text("utf-8-sig"))
         assert len(args.cases)==62 and len(set(args.cases))==62
     assert args.cases, "Select at least one native case"
-    sys.path.insert(0, str(ROOT.parents[1] / "hardmode-port"))
+    sys.path.insert(0, str(ROOT / "tools"))
     import test_volume
 
     vm = BUILD / "nuclearthronemobile.win"
@@ -131,7 +131,7 @@ def main():
             text = smoke.read_text("utf8", errors="replace")
             (out / "smoke.txt").write_text(text, encoding="utf8")
             artifacts = {}
-            for path in [*BUILD.glob("frontier-*"), *BUILD.glob("ntuf-*")]:
+            for path in [*BUILD.glob("frontier-*"), *BUILD.glob("ntuf-*"), *BUILD.glob("ntuf212-*"), *BUILD.glob("ntte-*")]:
                 if (path.is_file() and path.suffix.lower() in {".png", ".json"}
                         and path.stat().st_mtime >= start_wall):
                     shutil.copy2(path, out / path.name)

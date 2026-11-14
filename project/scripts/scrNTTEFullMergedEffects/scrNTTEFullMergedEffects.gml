@@ -372,6 +372,10 @@ function scrNTTEFullMergedProjectileEvent(_target,_other,_event,_normal=undefine
         if(!is_undefined(_done) && _done!=0) {
             _refs=scrNTTEFullMergedEffectsRemove(_refs,_iterate[_i]);variable_instance_set(_target,_key,_refs)
         }
+        // Native solid collision can restore the actor before entry,
+        // so the predictive `_meeting` probe may be false. Target
+        // lifetime must be checked independently after every callback.
+        if((_event=="hit" || _event=="wall") && !instance_exists(_other)) {_allow_normal=false;break;}
         if(_meeting) {
             var _still=false
             if(instance_exists(_other)) with(_target) _still=_solid?place_meeting(x+hspeed,y+vspeed,_other):place_meeting(x,y,_other)

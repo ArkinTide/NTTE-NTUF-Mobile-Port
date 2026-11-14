@@ -104,6 +104,9 @@ function scrNTTESolidWallCellAt(_wall,_x,_y) {
 // Nonmutating equivalent of the original tile origin/centre for collision
 // response and impact artwork. Do not split terrain merely to read a point.
 function scrNTTESolidWallContact(_wall,_x,_y,_center=true) {
+    // Public callers retain an array contract even when a terrain
+    // mutation invalidates their cached wall during this event.
+    if(!instance_exists(_wall)) return [_x,_y];
     if(_wall.object_index!=NTTESolidWall)
         return _center?[(_wall.bbox_left+_wall.bbox_right)/2,(_wall.bbox_top+_wall.bbox_bottom)/2]:[_wall.x,_wall.y];
     var _offset=_center?8:0;

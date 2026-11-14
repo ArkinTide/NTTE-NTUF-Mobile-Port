@@ -2,6 +2,13 @@
 
 [简体中文](BUILDING.md) | [English](BUILDING.en.md) | [Home](../README.en.md)
 
+## 2.1.2 build107 source inputs
+
+The current `project/` matches this release's accepted inputs; Android adds two
+text overlays. `frontier20/localization/` retains three Chinese TSV inputs and
+coverage inventories. See [SOURCE_REPRODUCTION](../frontier20/SOURCE_REPRODUCTION.md).
+Host packaging/signing, SDK caches and commercial Runners are not included.
+
 ## 2.1.1 build106 source inputs
 
 The current `project/` matches this release's accepted inputs; Android adds two

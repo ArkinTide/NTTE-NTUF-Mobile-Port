@@ -757,40 +757,8 @@ scrFRDrawSpriteExt(_frl__spr, _frl__img, _frl__x, ((_frl__y - 32) + _frl__bob), 
 
 // Original Objects/Frontier_IDPD.mod.gml:424
 function fr_Objects_Frontier_IDPD_mod_gml_AugmentStation_text(_frl__x=undefined, _frl__y=undefined, _frl__augmentname=undefined, _frl__description=undefined, _frl__oldSkill=undefined, _frl__player=undefined) {
-scrFRInstanceDestroy();
-;
-var _frl__bob = (sin((scrFRSourceFrame() * 0.1)) * 1);
-var _frl__halign = draw_get_halign();
-var _frl__valign = draw_get_valign();
-;
-var _frl__descriptionLength = scrFRStringWidth(_frl__description);
-var _frl__nameLength = string_length(_frl__augmentname);
-var _frl__textLength = max((4 * _frl__nameLength), (0.09 * _frl__descriptionLength));
-;
-var _frl__yoff = ((67 + (6 * round((string_count("#", _frl__description) + 1)))) + _frl__bob);
-var _frl__replacey = ((_frl__yoff - (6 * round((string_count("#", _frl__description) + 1)))) - 13);
-var _frl__xtextoff = 0;
-var _frl__bg_xscale = (3 + _frl__textLength);
-var _frl__bg_yscale = (20 + (3 * round(string_count("#", _frl__description))));
-;
-scrFRDrawSpriteExt(global.fr_module_vars[$ "mod:Frontier_IDPD"].sprAugmentTextBackground, 2, (_frl__x + _frl__xtextoff), ((_frl__y - _frl__yoff) + 8), _frl__bg_xscale, _frl__bg_yscale, 0, c_white, 0.3);
-draw_set_font(fntSmall);
-;
-draw_set_halign(1);
-draw_set_valign(0);
-scrFRDrawText((_frl__x + _frl__xtextoff), (_frl__y - _frl__yoff), _frl__description);
-draw_set_font(fntM1);
-;
-draw_set_valign(2);
-scrFRDrawText((_frl__x + _frl__xtextoff), ((_frl__y - _frl__yoff) - 1), _frl__augmentname);
-scrFRDrawText(((_frl__x + _frl__xtextoff) - 8), (_frl__y - _frl__replacey), "REPLACES");
-var _frl__icon = frMacro_Objects_Frontier_IDPD_mod_gml_call(frMacro_Objects_Frontier_IDPD_mod_gml_scr.skill_get_icon, _frl__oldSkill);
-var _frl__spr = scrFRIndexGet(_frl__icon, 0);
-var _frl__img = scrFRIndexGet(_frl__icon, 1);
-;
-scrFRDrawSprite(_frl__spr, _frl__img, ((_frl__x + _frl__xtextoff) + 33), ((_frl__y - _frl__replacey) - 4));
-draw_set_halign(_frl__halign);
-draw_set_valign(_frl__valign);
+    scrFRInstanceDestroy();
+    return scrFRAugment212Draw(_frl__x,_frl__y,_frl__augmentname,_frl__description,_frl__oldSkill);
 }
 
 // Original Objects/Frontier_IDPD.mod.gml:462

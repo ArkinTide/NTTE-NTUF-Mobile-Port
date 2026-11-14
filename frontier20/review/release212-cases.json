@@ -1,0 +1,36 @@
+{
+  "version": "2.1.2",
+  "internal": 107,
+  "status": "READY",
+  "cases": [
+    "FrontierRed212ScheduledTests",
+    "FrontierCollision212Tests",
+    "FrontierMenus212Tests",
+    "FrontierClock212Tests",
+    "FrontierClock212LiveTests",
+    "FrontierBubblesAttack212Tests",
+    "FrontierBluescreenUI204Yes30Tests",
+    "FrontierBluescreenUI204No30Tests",
+    "FrontierBluescreenUI204Yes60Tests",
+    "FrontierBluescreenUI204No60Tests",
+    "FrontierPlayerWallTests",
+    "FrontierRedConnectivity204Tests",
+    "FrontierWallSurface205Tests",
+    "FrontierWeaponTests",
+    "FrontierWeaponVisualTests",
+    "FrontierContinueWriteTests",
+    "FrontierContinueReadTests",
+    "FrontierLifecycleTests",
+    "FrontierWeatherPerformanceTests",
+    "VisualOptionsDrawTests",
+    "IOSRenderSurfaceTests"
+  ],
+  "scope_statement": "Reviewed ordered 21-case selection. The separate negative and positive 96-seed diagnostics are supplementary and do not count as formal cases or runtime acceptance.",
+  "order_dependencies": [
+    [
+      "FrontierContinueWriteTests",
+      "FrontierContinueReadTests"
+    ]
+  ],
+  "historical_pass_evidence_reused": false
+}

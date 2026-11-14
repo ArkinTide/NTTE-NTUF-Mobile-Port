@@ -2,6 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from frozen212_fixtures import project as frozen_project212
 
 from fr_content_hooks import patch, apply_native_enemy_fields, apply_status_timer_cleanup, apply_path_grid_bounds, apply_millipede_chain_lifetime, apply_cyberspace_revive
 from fr_test_hooks import instrument_path_grid
@@ -125,7 +126,7 @@ class PatchIdempotencyTests(unittest.TestCase):
 class NativeEnemyFieldTests(unittest.TestCase):
     def make_project(self,folder):
         project=Path(folder)
-        host=Path(__file__).resolve().parents[2]/'project'
+        host=frozen_project212('host')
         for relative in ('objects/HyperCrystal/Create_0.gml','objects/IDPDSpawn/Create_0.gml'):
             target=project/relative
             target.parent.mkdir(parents=True)
@@ -250,7 +251,7 @@ class MillipedeChainLifetimeHookTests(unittest.TestCase):
     def make_script(self,folder):
         project=Path(folder)
         root=Path(__file__).resolve().parents[1]
-        source=root/'history/2.0-delivered-20261106/staging/project/scripts/scrUndergrowthCallbacks/scrUndergrowthCallbacks.gml'
+        source=frozen_project212('frontier20')/'scripts/scrUndergrowthCallbacks/scrUndergrowthCallbacks.gml'
         path=project/'scripts/scrUndergrowthCallbacks/scrUndergrowthCallbacks.gml'
         path.parent.mkdir(parents=True)
         original=source.read_text(encoding='utf-8-sig')
@@ -301,7 +302,7 @@ class CyberspaceReviveHookTests(unittest.TestCase):
         script.parent.mkdir(parents=True);script.write_text(code,encoding='utf8')
         destroy=project/'objects/Player/Destroy_0.gml'
         destroy.parent.mkdir(parents=True)
-        destroy.write_text((root.parent/'project/objects/Player/Destroy_0.gml').read_text(encoding='utf-8-sig'),encoding='utf8')
+        destroy.write_text((frozen_project212('host')/'objects/Player/Destroy_0.gml').read_text(encoding='utf-8-sig'),encoding='utf8')
         return project,script,destroy
 
     def test_real_respawn_branch_reconciles_once_and_native_revive_is_untouched(self):

@@ -12,6 +12,7 @@ function scrFRIntegrationTestStart(_case) {
     with(NTTESmokeTest) instance_destroy(id,false);
     // Room setup and rate changes may reload native options. Persist the
     // background runner's focus policy in its isolated save as well.
+    save_set_value("visual","ntte_autoframerate",false); // Isolated tests request explicit rates unless testing the automatic policy.
     save_set_value("options","autopause",false);
     UberCont.opt_autopause=false;UberCont.paused=false;UberCont.opt_freeze=0;
     assert(!save_get_option("options","autopause",true) && !UberCont.opt_autopause,
@@ -21,6 +22,64 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    // FRONTIER BUBBLES212 REAL INPUT ACCEPTANCE
+    if(fr_test_case=="bubbles_attack212") {
+        if(!variable_instance_exists(id,"fr_bubbles_attack212")) {
+            if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker)) return;
+            if(++fr_test_ticks<45) return;
+            scrFRBubblesAttack212TestsStart(id);return;
+        }
+        if(scrFRBubblesAttack212TestsStep(id)) {scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();}
+        return;
+    }
+
+    if(fr_test_case=="red212-probe") {
+        if(variable_instance_exists(id,"fr_red212_sweep")) {
+            if(scrFRRed212SweepStep(id)) {
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();
+            }
+        } else if(scrFRReadyTick() && !instance_exists(GenCont) && !instance_exists(FloorMaker) && ++fr_test_ticks>=45)
+            scrFRRed212SweepStart(id);
+        return;
+    }
+    // NTUF212 SCHEDULED RED WALL LIFECYCLE
+    if(fr_test_case=="red212-scheduled") {
+        if(variable_instance_exists(id,"fr_red212")) {
+            if(scrFRRed212ScheduledStep(id)) {
+                scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();
+            }
+        } else if(scrFRReadyTick() && !instance_exists(GenCont) && !instance_exists(FloorMaker) && ++fr_test_ticks>=45)
+            scrFRRed212ScheduledStart(id);
+        return;
+    }
+    // NTUF212 WALL DIAGNOSTIC AND COLLISION DRIVER
+    if(fr_test_case=="collision212" || fr_test_case=="red212-probe") {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker) || ++fr_test_ticks<45) return;
+        if(fr_test_case=="collision212") scrFRCollision212Tests(); else scrFRRed212ProbeTests();
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+    if(fr_test_case=="clock212") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRClock212Tests();scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+    if(fr_test_case=="menus212") {
+        if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+        scrFRMenus212Tests();scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");
+        game_end();return;
+    }
+    if(fr_test_case=="clock212-live") {
+        if(!variable_instance_exists(id,"fr_clock212_live")) {
+            if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
+            scrFRClock212LiveStart(id);return;
+        }
+        if(scrFRClock212LiveStep(id)) {
+            scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();
+        }
+        return;
+    }
+
     if(fr_test_case=="render211") {
         if(!scrFRReadyTick() || ++fr_test_ticks<45) return;
         scrFRRender211Tests();

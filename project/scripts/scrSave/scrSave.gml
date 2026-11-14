@@ -68,7 +68,7 @@ function scrSave() {
 				"cheats_orig_console",
 				"cheats_framerate_ingame",
 				"options_framerate",
-				"visual_particles",
+				"visual_particles", "visual_ntte_autoframerate",
                 "visual_detailsplus",
 			]
 			

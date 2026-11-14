@@ -94,6 +94,8 @@ if native_cursor_inst == -1 && (is_desktop ? (window_get_cursor() == cr_none) : 
     draw_sprite_ext(sprCrosshair, opt_crosshair, device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), 1, 1, 0, opt_cursorcol, 1)
 }
 
+scrFRBluescreen212DrawGui(); // FRONTIER212 NATIVE GUI END
+
 // BEGIN FRONTIER BLUESCREEN UI204 COMPLETED DRAW
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBluescreenUITestsDraw();
 // END FRONTIER BLUESCREEN UI204 COMPLETED DRAW

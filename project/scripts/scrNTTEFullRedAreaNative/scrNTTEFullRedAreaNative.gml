@@ -123,7 +123,14 @@ function scrNTTEFullRedPopExtras() {
         case 3:scrNTTEFullRedBossRoom();break;
     }
 }
-function scrNTTEFullRedPopulateNative() {scrPopulate();scrNTTEFullRedPopExtras();scrFRRedTerrain210Finish();}
+function scrNTTEFullRedPopulateNative() {
+    // FRONTIER212 RED FINAL POPULATION BOUNDARY
+    // The callback is bound to this GenCont. Its initial safe-spawn shifts
+    // have finished before Alarm0. Appended rooms must not restart Step's
+    // Floor-only translation after Wall/Fake/Helper geometry already exists.
+    if(object_index==GenCont) safespawn=false;
+    scrPopulate();scrNTTEFullRedPopExtras();scrFRRedTerrain210Finish();
+}
 function scrNTTEFullRedStart() {
     GameCont.ntte_active_red=true;GameCont.ntte_full_active_red=true
     var _wall=instance_find(Wall,0)

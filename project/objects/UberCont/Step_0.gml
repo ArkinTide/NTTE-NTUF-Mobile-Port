@@ -28,9 +28,9 @@ if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegra
 // BEGIN FRONTIER MENU INPUT204 BEFORE REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRMenuInput204BeforeInput();
 // END FRONTIER MENU INPUT204 BEFORE REAL INPUT
-if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsBeforeInput(); // FRONTIER BUBBLES205 REAL INPUT FIXTURE
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack212TestsBeforeInput(); // FRONTIER BUBBLES205 REAL INPUT FIXTURE
 scrHandleInputsGeneral(global.index)
-if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsAfterInput();
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack212TestsAfterInput();
 // BEGIN FRONTIER GROUND WEAPON REAL INPUT
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRGroundWeaponTestsAfterInputSample();
 // END FRONTIER GROUND WEAPON REAL INPUT
@@ -123,7 +123,7 @@ camera_set_view_pos(view_camera[0], view_xview, view_yview)
 //     60fps：timescale=0.5 → current_frame 为 0,.5,1,1.5 % 1 交替 0/.5 → 门控正确隔帧生效
 // 同时，所有 `nexthurt = current_frame + N` 这类按帧计时也自动获得帧率无关性，
 // 因为 current_frame 的单位从「帧」变成了「30Hz 逻辑单位」。
-scrNTTEFullRateApply();
+// 2.1.2: rate transactions run before Begin Step timers.
 current_frame += timescale
 
 // debugclear 冷静期倒计时（单位 = 30Hz 逻辑帧；30 帧 = 1 秒）。

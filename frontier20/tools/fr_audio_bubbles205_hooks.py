@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 
-def hook_specs(*, tests=False):
+def hook_specs(*, tests=False, bubbles212=False):
     hooks = []
 
     def add(path, anchor, replacement, marker):
@@ -106,18 +106,25 @@ def hook_specs(*, tests=False):
         add(path, anchor, "if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsBeforeInput(); "
             + marker + "\n" + anchor + "\n"
             + "if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRBubblesAttack205TestsAfterInput();", marker)
+        if bubbles212:
+            hooks[-1]["previous"] = hooks[-1]["replacement"]
+            hooks[-1]["replacement"] = hooks[-1]["replacement"].replace("Attack205Tests", "Attack212Tests")
         path = "scripts/scrFrontier_bubbles_startup_tests/scrFrontier_bubbles_startup_tests.gml"
         anchor = "function scrFRBubblesStartupTestsTouchState() {"
         marker = "// FRONTIER BUBBLES205 RAW TOUCH DEVICE"
         add(path, anchor, anchor + "\n    var _fr205=scrFRBubblesAttack205TouchState();\n"
             + "    if(is_struct(_fr205)) return _fr205; " + marker, marker)
+        if bubbles212:
+            hooks[-1]["previous"] = hooks[-1]["replacement"]
+            hooks[-1]["replacement"] = hooks[-1]["replacement"].replace("Attack205TouchState", "Attack212TouchState")
     return hooks
 
 
 def apply(project, *, tests=False):
     project = Path(project).resolve()
     originals, changed, report = {}, {}, []
-    for hook in hook_specs(tests=tests):
+    bubbles212 = (project / "scripts/scrFrontier_bubbles_attack212_tests/scrFrontier_bubbles_attack212_tests.gml").is_file()
+    for hook in hook_specs(tests=tests, bubbles212=bubbles212):
         path = project / hook["path"]
         if path not in originals:
             originals[path] = path.read_bytes()

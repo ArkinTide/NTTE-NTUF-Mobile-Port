@@ -1,4 +1,5 @@
 /// @description Safespawn creation
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRRed212NativeStepProbe(id,"before");
 
 if (!safespawn || instance_exists(FloorMaker)) exit
 
@@ -47,3 +48,4 @@ with (hitme) if (object_index != Player) {
 }
 
 instance_create(10000, 10000, Floor)
+if(os_type==os_windows && scrNTTEFullSmokeEnabled()) scrFRRed212NativeStepProbe(id,"after-shift");

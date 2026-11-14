@@ -3,6 +3,7 @@ from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
 import unittest
+from frozen212_fixtures import project as frozen_project212
 
 from fr_wall_hooks import (apply, _replace, apply_player_wall_contact, PLAYER_WALL_PATCHES,
                           apply_pickup_wall_contact, PICKUP_WALL_BEFORE, PICKUP_WALL_AFTER)
@@ -80,7 +81,7 @@ class WallColourInstallerTests(unittest.TestCase):
             project=Path(folder)
             target=project/'objects/Player/Collision_Wall.gml'
             target.parent.mkdir(parents=True)
-            frozen=ROOT/'history/2.0-delivered-20261106/staging/project/objects/Player/Collision_Wall.gml'
+            frozen=frozen_project212('frontier20')/'objects/Player/Collision_Wall.gml'
             original=frozen.read_text('utf-8-sig')
             target.write_text(original,'utf-8')
             apply_player_wall_contact(project,[])
@@ -98,7 +99,7 @@ class WallColourInstallerTests(unittest.TestCase):
             self.assertEqual(first,target.read_bytes())
 
     def test_player_contact_changed_or_duplicate_anchor_is_transactional(self):
-        frozen=ROOT/'history/2.0-delivered-20261106/staging/project/objects/Player/Collision_Wall.gml'
+        frozen=frozen_project212('frontier20')/'objects/Player/Collision_Wall.gml'
         source=frozen.read_text('utf-8-sig')
         patched=source
         for before,after in PLAYER_WALL_PATCHES:
@@ -122,7 +123,7 @@ class WallColourInstallerTests(unittest.TestCase):
             project=Path(folder)
             target=project/'objects/WepPickup/Collision_Wall.gml'
             target.parent.mkdir(parents=True)
-            frozen=ROOT/'history/2.0-delivered-20261106/staging/project/objects/WepPickup/Collision_Wall.gml'
+            frozen=frozen_project212('frontier20')/'objects/WepPickup/Collision_Wall.gml'
             original=frozen.read_text('utf-8-sig')
             self.assertEqual(original.count(PICKUP_WALL_BEFORE),1)
             target.write_text(original,'utf-8')
@@ -138,7 +139,7 @@ class WallColourInstallerTests(unittest.TestCase):
             self.assertEqual(first,target.read_bytes())
 
     def test_pickup_contact_changed_or_duplicate_anchor_is_transactional(self):
-        frozen=ROOT/'history/2.0-delivered-20261106/staging/project/objects/WepPickup/Collision_Wall.gml'
+        frozen=frozen_project212('frontier20')/'objects/WepPickup/Collision_Wall.gml'
         source=frozen.read_text('utf-8-sig')
         patched=source.replace(PICKUP_WALL_BEFORE,PICKUP_WALL_AFTER,1)
         for malformed in (source.replace('move_bounce_solid(true)','move_bounce_solid(false)'),

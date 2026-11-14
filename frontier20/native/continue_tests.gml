@@ -69,16 +69,24 @@ function scrFRContinueTestAmmo(_record) {
 function scrFRContinueTestsStart(_driver,_mode) {
     if(os_type!=os_windows || !scrNTTEFullSmokeEnabled()) throw "Frontier cold continuation fixture requires the isolated desktop harness";
     assert(_mode=="write" || _mode=="read","Unknown cold continuation fixture mode");
+    assert(game_directory==working_directory+"smoke-save/"
+        && savegame_file==working_directory+"smoke-save/savegame.dat",
+        "Cold fixture must use the runner's reserved isolated save directory");
     _driver.fr_cold_mode=_mode;_driver.persistent=true;
     _driver.fr_cold_binary=working_directory+"frontier-cold-checkpoint.dat";
     _driver.fr_cold_expected=working_directory+"frontier-cold-expected.json";
     save_set_value("game","tutorial",false);
+    // Both processes own the dedicated cold-save fixture. A fresh profile
+    // must satisfy the source race's unlock gate before creating Bubbles.
+    scrFRRaceUnlockSet(true);
     UberCont.opt_autopause=false;UberCont.opt_bossintro=false;UberCont.opt_freeze=0;
     UberCont.paused=false;UberCont.want_quit_to_menu=false;UberCont.want_menu=false;UberCont.want_restart=false;
     if(_mode=="write") {
         var _player=instance_find(Player,0);
         assert(instance_exists(_player),"Cold fixture writer requires an ordinary native Player");
         scrFRPlayerSetRace(_player.index,"bubbles");
+        assert(_player.race==19 && scr_playerinstance_find(_player.index).race==19,
+            "Cold fixture did not enter the real unlocked native Bubbles race");
         GameCont.area=scrFRAreaResolve("cove");GameCont.subarea=1;GameCont.loops=1;
         GameCont.lastarea=area_labs;GameCont.lastsubarea=3;
         GameCont.maxsubarea=scrAreaGetMaxSubarea(GameCont.area);GameCont.finalsubarea=true;
