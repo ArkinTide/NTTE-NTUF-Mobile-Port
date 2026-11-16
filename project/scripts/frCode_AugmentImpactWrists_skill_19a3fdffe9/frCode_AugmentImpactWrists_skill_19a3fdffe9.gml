@@ -704,8 +704,12 @@ y = creator.y;
 
 // Original Mutations/AugmentImpactWrists.skill.gml:286
 function fr_Mutations_AugmentImpactWrists_skill_gml_ImpactDroneHitbox_destroy() {
+// FRONTIER213 ORPHAN HITBOX DESTROY: endstep deliberately retires this
+// receiver after its drone disappears. Keep the live-owner handoff only.
+if (scrFRInstanceExists(creator)) {
 creator.droneHitbox = noone;
 ;
+}
 }
 
 // Original Mutations/AugmentImpactWrists.skill.gml:289

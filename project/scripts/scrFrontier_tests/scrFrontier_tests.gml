@@ -22,6 +22,19 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    // FRONTIER213 EXPLICIT NATIVE ACCEPTANCE
+    if(array_contains(["crash213","world213","performance213","reticle213","bubbles213"],fr_test_case)) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker) || ++fr_test_ticks<45) return;
+        switch(fr_test_case) {
+            case "crash213":scrFRCrash213Tests();break;
+            case "world213":scrFRWorld213Tests();break;
+            case "performance213":scrFRPerformance213Tests();break;
+            case "reticle213":scrFRReticle213Tests();break;
+            case "bubbles213":scrFRBubbles213Tests();break;
+        }
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();return;
+    }
+
     // FRONTIER BUBBLES212 REAL INPUT ACCEPTANCE
     if(fr_test_case=="bubbles_attack212") {
         if(!variable_instance_exists(id,"fr_bubbles_attack212")) {

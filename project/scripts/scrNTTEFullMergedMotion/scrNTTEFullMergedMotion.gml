@@ -230,14 +230,11 @@ function scrNTTEFullMergedMotionLaserSetup(_instances,_max_distance) {
             _team=team;_enemies=[]
             with(hitme) if(team!=_team) array_push(_enemies,id)
         }
+        var _candidates=scrFRMergedLaserCandidates213(_enemies,_maximum,_dx,_dy)
         while(_distance<_maximum) {
             _distance=min(_distance+_step,_maximum);x=_sx+_dx*_distance;y=_sy+_dy*_distance
-            if(array_length(_enemies) && place_meeting(x,y,hitme)) {
-                var _self=id
-                for(var _e=0;_e<array_length(_enemies);++_e) if(instance_exists(_enemies[_e])) with(_enemies[_e]) {
-                    if(id!=_self && place_meeting(x,y,_self)) { _meeting=true;break }
-                }
-                if(_meeting) { _distance-=_step;break }
+            if(array_length(_candidates) && place_meeting(x,y,hitme) && scrFRMergedLaserMeeting213(_candidates)) {
+                _meeting=true;_distance-=_step;break
             }
             if(place_meeting(x,y,Wall)) { _distance-=_step;break }
             if(random(12*_count)<1) {

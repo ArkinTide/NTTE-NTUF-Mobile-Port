@@ -46,6 +46,93 @@ function scrFRClock212WallBounceTests() {
     return _rows;
 }
 
+function scrFRClock213RecoveryTests() {
+    var _checks=0,_state=scrFRClockState213(60),_recoveries=0,_previous=60;
+    // Model a CPU-light frame whose measured frame cadence is still slow,
+    // as can happen outside the CPU interval. Only one recovery may fail.
+    for(var _i=0;_i<1800;++_i) {
+        _state=scrFRClockBudget212(_state,60,40,1/40,true,120);
+        if(_previous==30 && _state.rate==60) _recoveries++;
+        _previous=_state.rate;
+    }
+    assert(_recoveries==1 && _state.limited && _state.blocked && _state.rate==30,
+        "CPU-only headroom caused repeated failed recovery probes");_checks++;
+
+    var _stable=scrFRClockState213(60);
+    _stable.limited=true;_stable.rate=30;
+    for(var _i=0;_i<151;++_i) _stable=scrFRClockBudget212(_stable,60,30,1/30,true,120);
+    assert(!_stable.limited && _stable.recovered,"First measured-headroom recovery was suppressed");_checks++;
+    for(var _i=0;_i<270;++_i) _stable=scrFRClockBudget212(_stable,60,60,1/60,true,120);
+    assert(_stable.recovered,"Recovery probe accepted before five stable seconds");_checks++;
+    _stable=scrFRClockBudget212(_stable,60,40,1/40,true,120);
+    for(var _i=0;_i<60;++_i) _stable=scrFRClockBudget212(_stable,60,60,1/60,true,120);
+    assert(_stable.recovered,"Interrupted headroom counted as sustained stable recovery");_checks++;
+    for(var _i=0;_i<245;++_i) _stable=scrFRClockBudget212(_stable,60,60,1/60,true,120);
+    assert(!_stable.recovered && !_stable.blocked,"Five sustained stable seconds did not accept recovery");_checks++;
+    for(var _i=0;_i<40;++_i) _stable=scrFRClockBudget212(_stable,60,40,1/40,true,120);
+    assert(_stable.limited && !_stable.blocked,"Later independent load was incorrectly latched after accepted recovery");_checks++;
+    for(var _i=0;_i<151;++_i) _stable=scrFRClockBudget212(_stable,60,30,1/30,true,120);
+    assert(!_stable.limited && _stable.recovered,"Accepted recovery prevented a later legitimate recovery");_checks++;
+    var _disabled=scrFRClockBudget212(_state,60,40,1/40,false,120);
+    assert(!_disabled.blocked && !_disabled.limited && _disabled.rate==60,
+        "Opting out retained the failed-recovery latch");_checks++;
+
+    // Reach the production Begin observer with genuine GenCont identities,
+    // without running generation's map-mutating Create/Destroy callbacks.
+    assert(!instance_exists(GenCont),"Clock scene fixture requires completed generation");
+    var _uber=instance_find(UberCont,0),_gen=noone,
+        _fields=["fr_clock_budget212","fr_clock_generation213","fr_clock_frame212",
+            "fr_clock_started213","fr_clock_measuring213","fr_clock_work213"],_saved={},
+        _paused=UberCont.paused,_quit=UberCont.quit_pause,_auto=UberCont.opt_ntte_autoframerate,
+        _cap=UberCont.opt_framerate,_players=scrNTTEFullInstances(Player);
+    for(var _i=0;_i<array_length(_fields);++_i) _saved[$ _fields[_i]]=_uber[$ _fields[_i]]??undefined;
+    try {
+        UberCont.opt_framerate=60;UberCont.opt_ntte_autoframerate=true;UberCont.paused=true;
+        UberCont.fr_clock_budget212=_state;
+        _gen=instance_create(500000,500000,FRCustomObject);
+        with(_gen) instance_change(GenCont,false);
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(!UberCont.fr_clock_budget212.blocked && !UberCont.fr_clock_budget212.limited,
+            "Production Begin did not clear the latch for a new generator id");_checks++;
+        UberCont.fr_clock_budget212=_state;
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(UberCont.fr_clock_budget212.blocked,"Same generator id repeatedly cleared the latch");_checks++;
+        instance_destroy(_gen,false);_gen=noone;
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(UberCont.fr_clock_budget212.blocked,"Pausing or generator disappearance cleared the scene latch");_checks++;
+        for(var _i=0;_i<array_length(_players);++_i) instance_deactivate_object(_players[_i]);
+        assert(!instance_exists(Player),"Clock pause fixture failed to deactivate the live player");
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(UberCont.fr_clock_budget212.blocked,"A genuinely deactivated paused player cleared the scene latch");_checks++;
+        UberCont.paused=false;UberCont.quit_pause=true;
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(UberCont.fr_clock_budget212.blocked,"Unpause activation boundary cleared the scene latch");_checks++;
+        for(var _i=0;_i<array_length(_players);++_i) instance_activate_object(_players[_i]);
+        UberCont.paused=true;UberCont.quit_pause=false;
+        _gen=instance_create(500000,500000,FRCustomObject);
+        with(_gen) instance_change(GenCont,false);
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(!UberCont.fr_clock_budget212.blocked,"Same-area regeneration with a new generator id retained the latch");_checks++;
+        instance_destroy(_gen,false);_gen=noone;
+        UberCont.fr_clock_budget212=_state;UberCont.opt_ntte_autoframerate=false;
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(!UberCont.fr_clock_budget212.blocked,"Disabling auto cap while paused retained the latch");_checks++;
+        UberCont.opt_ntte_autoframerate=true;UberCont.fr_clock_budget212=_state;
+        _gen=instance_create(500000,500000,FRCustomObject);
+        with(_gen) instance_change(Menu,false);
+        UberCont.fr_clock_frame212=current_frame-1;scrFRClockBegin212();
+        assert(!UberCont.fr_clock_budget212.blocked,"Menu context retained the failed-recovery latch");_checks++;
+    } finally {
+        if(instance_exists(_gen)) instance_destroy(_gen,false);
+        for(var _i=0;_i<array_length(_players);++_i) instance_activate_object(_players[_i]);
+        for(var _i=0;_i<array_length(_fields);++_i) _uber[$ _fields[_i]]=_saved[$ _fields[_i]];
+        UberCont.paused=_paused;UberCont.quit_pause=_quit;
+        UberCont.opt_ntte_autoframerate=_auto;UberCont.opt_framerate=_cap;
+    }
+    return {checks:_checks,failed_recovery_probes:_recoveries,latched_rate:_state.rate,
+        same_area_generation_reset:true,pause_keeps_latch:true,device_tested:false};
+}
+
 function scrFRClock212Tests() {
     var _before=scrNTTEFullInstances(all),_driver=instance_find(FRIntegrationTest,0),
         _old_rate=game_get_speed(gamespeed_fps),_old_cap=UberCont.opt_framerate,
@@ -60,15 +147,18 @@ function scrFRClock212Tests() {
         ds_map_delete(UberCont.saveData,"visual_ntte_autoframerate");scrOptionsUpdate();
         assert(UberCont.opt_ntte_autoframerate && UberCont.saveData[? "visual_ntte_autoframerate"],
             "Missing auto-framerate preference did not initialize ON");_checks++;
+        var _recovery=scrFRClock213RecoveryTests();_checks+=_recovery.checks;
         var _state={limited:false,hot:0,cool:0,rate:60};
         for(var _i=0;_i<45;++_i) _state=scrFRClockBudget212(_state,60,30,1/60,true);
         assert(!_state.limited && _state.rate==60,"Short load spike reduced the engine cap prematurely");
         for(var _i=0;_i<8;++_i) _state=scrFRClockBudget212(_state,60,30,1/60,true);
         assert(_state.limited && _state.rate==30,"Sustained load did not reduce the engine cap");
-        for(var _i=0;_i<140;++_i) _state=scrFRClockBudget212(_state,60,60,1/30,true);
-        assert(_state.limited && _state.rate==30,"Auto cap retried before its recovery interval");
-        for(var _i=0;_i<12;++_i) _state=scrFRClockBudget212(_state,60,60,1/30,true);
-        assert(!_state.limited && _state.rate==60,"Auto cap did not recover to the requested rate");
+        for(var _i=0;_i<600;++_i) _state=scrFRClockBudget212(_state,60,30,1/30,true,45);
+        assert(_state.limited && _state.rate==30,"Auto cap retried despite sustained processing load");
+        for(var _i=0;_i<89;++_i) _state=scrFRClockBudget212(_state,60,30,1/30,true,120);
+        assert(_state.limited && _state.rate==30,"Auto cap recovered before sustained measured headroom");
+        for(var _i=0;_i<3;++_i) _state=scrFRClockBudget212(_state,60,30,1/30,true,120);
+        assert(!_state.limited && _state.rate==60,"Auto cap did not recover after processing load cleared");
         _state=scrFRClockBudget212({limited:true,hot:0,cool:0,rate:30},60,20,.016,false);
         assert(!_state.limited && _state.rate==60,"Disabling auto cap did not restore the requested rate");
         _state=scrFRClockBudget212({limited:true,hot:0,cool:0,rate:30},30,20,.016,true);
@@ -182,7 +272,7 @@ function scrFRClock212Tests() {
         surface_save(_surface,working_directory+"ntuf212-auto-framerate-video.png");_checks+=4;
         var _file=file_text_open_write(working_directory+"ntuf212-clock-unit.json");
         file_text_write_string(_file,json_stringify({passed:true,checks:_checks,transitions:_rows,
-            wallbounce:_bounce_rows,physical_device_tested:false}));
+            wallbounce:_bounce_rows,recovery213:_recovery,physical_device_tested:false}));
         file_text_close(_file);scrNTTESmokeLog("PASS NTUF212 default/persisted automatic cap, actual Video confirmation, budget recovery, API unit preservation, pause guards "+string(_checks));
     } finally {
         _driver.fr_followup210_keyboard=undefined;

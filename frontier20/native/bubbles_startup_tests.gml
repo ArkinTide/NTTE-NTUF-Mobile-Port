@@ -112,6 +112,9 @@ function scrFRBubblesStartupTestsAfterInputSample() {
 }
 
 function scrFRBubblesStartupTestsTouchState() {
+    // FRONTIER213 RAW TOUCH GESTURE FIXTURE
+    var _fr213=scrFRBubbles213TouchState();
+    if(is_struct(_fr213)) return _fr213;
     var _fr205=scrFRBubblesAttack212TouchState();
     if(is_struct(_fr205)) return _fr205; // FRONTIER BUBBLES205 RAW TOUCH DEVICE
     if(os_type!=os_windows || !scrNTTEFullSmokeEnabled()) return undefined;
@@ -127,11 +130,11 @@ function scrFRBubblesStartupTestsTouchNearest(_radius) {
 }
 function scrFRBubblesStartupTestsTouchX(_index) {
     var _state=scrFRBubblesStartupTestsTouchState();
-    return is_struct(_state)?x+rad:device_mouse_x_to_gui(_index);
+    return is_struct(_state)?x+rad*(_state.touch[$ "dx"]??1):device_mouse_x_to_gui(_index);
 }
 function scrFRBubblesStartupTestsTouchY(_index) {
     var _state=scrFRBubblesStartupTestsTouchState();
-    return is_struct(_state)?y:device_mouse_y_to_gui(_index);
+    return is_struct(_state)?y+rad*(_state.touch[$ "dy"]??0):device_mouse_y_to_gui(_index);
 }
 function scrFRBubblesStartupTestsTouchButton(_kind,_index,_button) {
     var _state=scrFRBubblesStartupTestsTouchState();

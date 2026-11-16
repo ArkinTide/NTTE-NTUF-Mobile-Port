@@ -137,12 +137,20 @@ function scrFRInstanceCreate(_x,_y,_type) {
     // libGeneral uses a hidden IceFlower as its interaction collision proxy.
     // The mobile IceFlower has real prop physics and hurt sounds; those must
     // not leak into the invisible prompt receiver. Keep real flowers intact.
-    if(_type==IceFlower && scrFRPromptIs(id)) {
-        var _proxy=instance_create(_x,_y,FRCustomObject);
-        _proxy.name="LibPromptProxy";_proxy.fr_prompt_proxy=true;
-        _proxy.visible=false;_proxy.mask_index=mskNone;_proxy.sprite_index=mskNone;
-        _proxy.image_speed=0;
-        return real(_proxy);
+    // FRONTIER213 DATA CALLBACK CREATION: area and array-with callbacks
+    // may run on plain structs. Never evaluate the instance-only id field
+    // until the scope is known to be a native instance, even when this
+    // runner evaluates both operands of a boolean expression.
+    if(_type==IceFlower) {
+        if(!is_struct(self)) {
+            if(scrFRPromptIs(id)) {
+                var _proxy=instance_create(_x,_y,FRCustomObject);
+                _proxy.name="LibPromptProxy";_proxy.fr_prompt_proxy=true;
+                _proxy.visible=false;_proxy.mask_index=mskNone;_proxy.sprite_index=mskNone;
+                _proxy.image_speed=0;
+                return real(_proxy);
+            }
+        }
     }
     if(_type==FR_OBJECT_GUITAR_SLASH) {
         var _slash=instance_create(_x,_y,Slash);

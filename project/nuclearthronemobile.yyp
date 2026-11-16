@@ -61384,6 +61384,72 @@
         "name": "scrFrontier_red212_probe_tests",
         "path": "scripts/scrFrontier_red212_probe_tests/scrFrontier_red212_probe_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_performance213",
+        "path": "scripts/scrFrontier_performance213/scrFrontier_performance213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_performance213_tests",
+        "path": "scripts/scrFrontier_performance213_tests/scrFrontier_performance213_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_alarms213",
+        "path": "scripts/scrFrontier_alarms213/scrFrontier_alarms213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_world213",
+        "path": "scripts/scrFrontier_world213/scrFrontier_world213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_world213_tests",
+        "path": "scripts/scrFrontier_world213_tests/scrFrontier_world213_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_crash213",
+        "path": "scripts/scrFrontier_crash213/scrFrontier_crash213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_crash213_tests",
+        "path": "scripts/scrFrontier_crash213_tests/scrFrontier_crash213_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_reticle213",
+        "path": "scripts/scrFrontier_reticle213/scrFrontier_reticle213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_reticle213_tests",
+        "path": "scripts/scrFrontier_reticle213_tests/scrFrontier_reticle213_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles213",
+        "path": "scripts/scrFrontier_bubbles213/scrFrontier_bubbles213.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_bubbles213_tests",
+        "path": "scripts/scrFrontier_bubbles213_tests/scrFrontier_bubbles213_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

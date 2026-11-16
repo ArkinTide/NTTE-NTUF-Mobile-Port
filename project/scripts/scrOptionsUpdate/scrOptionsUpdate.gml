@@ -4,6 +4,7 @@ function scrOptionsUpdate() {
         var res = self[$ "opt_resolution"],
 			scaling = self[$ "opt_scaling"],
 			cursor = self[$ "opt_cursor"],
+            cursorcolor = self[$ "opt_cursorcol"],
 			crosshair = self[$ "opt_crosshair"],
 			vsync = self[$ "opt_vsync"]
 		
@@ -43,6 +44,7 @@ function scrOptionsUpdate() {
         opt_assist = save_get_option("controls", "assist", true)
         opt_sideart = save_get_option("options", "sideart", true)
         opt_color = save_get_option("options", "color", false)
+        opt_ntte_reticlecolor=save_get_option("visual","ntte_reticlecolor",true);
 		
         opt_detailsplus = save_get_option("visual", "detailsplus", true)
         scrDPOptionsChanged();
@@ -114,6 +116,7 @@ function scrOptionsUpdate() {
 		if !opt_cursorcol
 			opt_cursorcol = c_white
 		scrFRVisual205ColorSync(); // FRONTIER VISUAL205 LOCAL LIVE COLOR
+        opt_cursorcol=scrFRReticle213Color(); // FRONTIER RETICLE213
 		
 		if opt_stickregions
 			opt_hiddensticks = true
@@ -204,7 +207,7 @@ function scrOptionsUpdate() {
 		
 		save_set_value("etc", "last_os", os_type)
 		
-		if is_desktop && (opt_cursor != cursor or opt_crosshair != crosshair)
+		if is_desktop && (opt_cursor != cursor or opt_crosshair != crosshair or opt_cursorcol != cursorcolor)
 			scrOptionsUpdateNativeCursor()
 		
 		scrKeymapsSetup()
@@ -246,13 +249,8 @@ function scrOptionsUpdateNativeCursor() {
 
 function scrOptionsEraseSettings() {
 	with (MenuOptions) {
-	    array_foreach(options, function(_categories) {
-			array_foreach(_categories, function(_opt) {
-				if (is_string(_opt[$ "key"]) && _opt.key != "game_tutorial") {
-					ds_map_delete(UberCont.saveData, _opt.key)
-				}
-			})
-	    })
+	    // FRONTIER213 SPARSE CATEGORY RESET
+	    scrOptionsEraseKeys213(options,UberCont.saveData)
 		
 		save_set_value("etc", "resourcepack_disclaimer", false)
 		scrOptionsUpdate()

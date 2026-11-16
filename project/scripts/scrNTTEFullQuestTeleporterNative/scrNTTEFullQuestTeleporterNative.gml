@@ -74,7 +74,7 @@ function scrNTTEFullQuestTeleporterBegin() {
     }
 }
 function scrNTTEFullQuestTeleporterEnd() {
-    if(!instance_exists(target)) { instance_destroy();return }
+    if(!scrFRWorld213QuestFloorEnsure(id)) { instance_destroy();return } // FRONTIER213 QUEST PAD RECOVERY
     var _turn=2*timescale,_oy=y;y-=4
     try {
         if(place_meeting(x,y,Player)) {

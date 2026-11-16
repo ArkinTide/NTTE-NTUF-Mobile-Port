@@ -39,15 +39,38 @@ function scrFRClockApply212(_rate) {
     return true;
 }
 
-function scrFRClockBudget212(_state,_target,_capacity,_elapsed,_enabled) {
-    if(!_enabled || _target!=60) return {limited:false,hot:0,cool:0,rate:_target};
+function scrFRClockState213(_rate) {
+    return {limited:false,hot:0,cool:0,rate:_rate,dwell:0,
+        recovered:false,probe_elapsed:0,blocked:false};
+}
+
+function scrFRClockBudget212(_state,_target,_capacity,_elapsed,_enabled,_work_capacity=undefined) {
+    if(!_enabled || _target!=60) return scrFRClockState213(_target);
     var _dt=clamp(_elapsed,0,.1);
+    if(is_undefined(_work_capacity)) _work_capacity=_capacity;
     if(_state.limited) {
-        _state.cool+=_dt;
-        if(_state.cool>=5) {_state.limited=false;_state.hot=0;_state.cool=0;}
+        // delta_time includes the intentional30Hz cap wait. Only measured
+        // processing headroom can justify recovery, never a periodic retry.
+        _state.dwell=(_state[$ "dwell"]??0)+_dt;
+        _state.cool=!(_state[$ "blocked"]??false) && _work_capacity>=90?_state.cool+_dt:0;
+        if(!(_state[$ "blocked"]??false) && _state.dwell>=5 && _state.cool>=3) {
+            _state.limited=false;_state.hot=0;_state.cool=0;_state.dwell=0;
+            _state.recovered=true;_state.probe_elapsed=0;
+        }
     } else {
+        // CPU headroom cannot measure a GPU/presentation bottleneck. A
+        // failed recovery probe must not cause another five-second cycle
+        // in the same scene. Five sustained stable seconds accept a probe.
+        if(_state[$ "recovered"]??false) {
+            _state.probe_elapsed=_capacity>=54?(_state[$ "probe_elapsed"]??0)+_dt:0;
+            if(_state.probe_elapsed>=5) {_state.recovered=false;_state.probe_elapsed=0;}
+        }
         _state.hot=_capacity<54?_state.hot+_dt:max(0,_state.hot-_dt*2);
-        if(_state.hot>=.8) {_state.limited=true;_state.hot=0;_state.cool=0;}
+        if(_state.hot>=.8) {
+            _state.blocked=_state[$ "recovered"]??false;
+            _state.limited=true;_state.hot=0;_state.cool=0;_state.dwell=0;
+            _state.recovered=false;_state.probe_elapsed=0;
+        }
     }
     _state.rate=_state.limited?30:60;
     return _state;
@@ -59,19 +82,46 @@ function scrFRClockSafe212() {
         && !instance_exists(GenCont);
 }
 
+// Called with UberCont before the safe-transaction guard. Pausing keeps the
+// scene's failed-probe latch; a real new generator id, menu or opt-out clears
+// it. Generation ids distinguish even two consecutive maps of the same area.
+function scrFRClockContext213(_generation,_playing,_enabled) {
+    var _new_generation=_generation!=noone && _generation!=(self[$ "fr_clock_generation213"]??noone);
+    if(_generation!=noone) fr_clock_generation213=_generation;
+    if(_new_generation || !_playing || !_enabled || is_undefined(self[$ "fr_clock_budget212"]))
+        fr_clock_budget212=scrFRClockState213(opt_framerate);
+}
+
 function scrFRClockBegin212() {
     if(!instance_exists(UberCont)) return;
     with(UberCont) {
         // Both worlds call before timers; their creation order is immaterial.
         if((self[$ "fr_clock_frame212"]??-999)==current_frame) return;
         fr_clock_frame212=current_frame;
+        fr_clock_started213=get_timer();fr_clock_measuring213=true;
+        // Pause deactivates Player but keeps GameCont alive. Preserve the
+        // scene through that interval and the unpause activation boundary;
+        // only actual campfire/menu controllers count as leaving gameplay.
+        var _pause_boundary=paused || want_pause>0 || quit_pause || instance_exists(PauseImage),
+            _playing=instance_exists(GameCont) && !instance_exists(Menu) && !instance_exists(MenuGen)
+                && (instance_exists(Player) || _pause_boundary),
+            _enabled=self[$ "opt_ntte_autoframerate"]??true;
+        scrFRClockContext213(instance_find(GenCont,0),_playing,_enabled);
         if(!scrFRClockSafe212() || game_get_speed(gamespeed_fps)>=game_speed_uncaped) return;
-        if(is_undefined(self[$ "fr_clock_budget212"]))
-            fr_clock_budget212={limited:false,hot:0,cool:0,rate:opt_framerate};
         var _capacity=delta_time>0?1000000/delta_time:fps_real;
         fr_clock_budget212=scrFRClockBudget212(fr_clock_budget212,opt_framerate,
-            _capacity,delta_time/1000000,instance_exists(GameCont) && instance_exists(Player)
-            && (self[$ "opt_ntte_autoframerate"]??true));
+            _capacity,delta_time/1000000,_playing && _enabled,
+            1000000/max(1,self[$ "fr_clock_work213"]??1000000));
         scrFRClockApply212(fr_clock_budget212.rate);
+    }
+}
+
+// GUI End follows native/source Step and Draw work, before the engine's cap
+// wait. A slow single frame cannot request recovery: Budget needs3s headroom.
+function scrFRClockEnd213() {
+    if(!instance_exists(UberCont)) return;
+    with(UberCont) if(self[$ "fr_clock_measuring213"]??false) {
+        fr_clock_work213=max(1,get_timer()-fr_clock_started213);
+        fr_clock_measuring213=false;
     }
 }

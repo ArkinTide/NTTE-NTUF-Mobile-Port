@@ -31,8 +31,8 @@ function scrDrawSpiral() {
         }
 
         if(!_ntte_source_mesh) {
-        draw_sprite_ext(sprite_index, -1, view_xview + x, view_yview + y, (image_xscale * 10), (image_yscale * 10), (image_angle + 45), c_white, 1)
-        draw_sprite_ext(sprite_index, -1, view_xview + x, view_yview + y, (image_xscale * 10), (image_yscale * 10), (image_angle + 45), c_black, (0.8 - image_xscale))
+        scrFRSpiralDraw213(sprite_index, -1, view_xview + x, view_yview + y, (image_xscale * 10), (image_yscale * 10), (image_angle + 45), c_white, 1)
+        scrFRSpiralDraw213(sprite_index, -1, view_xview + x, view_yview + y, (image_xscale * 10), (image_yscale * 10), (image_angle + 45), c_black, (0.8 - image_xscale))
         }
     }
 

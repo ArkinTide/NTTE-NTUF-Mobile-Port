@@ -1418,6 +1418,7 @@ scrOptionsMenuCategoryEnd()
 
 scrNTTEFullMenuDefine();
 scrFRVisual205Options(); // FRONTIER VISUAL205 VIDEO SETTINGS
+scrFRReticle213Options(); // FRONTIER RETICLE213 SETTINGS
 
 // BEGIN FRONTIER OPTIONS PAGES
 scrFRMenuOptionsBuild();

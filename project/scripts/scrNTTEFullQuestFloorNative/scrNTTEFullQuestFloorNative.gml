@@ -98,7 +98,7 @@ function scrNTTEFullQuestFloorRemember() {
     }
 }
 function scrNTTEFullQuestFloorStep() {
-    if(!instance_exists(target)) { instance_destroy();return }
+    if(!scrFRWorld213QuestFloorEnsure(id)) { instance_destroy();return } // FRONTIER213 QUEST FLOOR RECOVERY
     if((current_frame%10)<timescale && !instance_exists(enemy)) {
         var _sparkle=false
         with(target) _sparkle=place_meeting(x,y,Player)

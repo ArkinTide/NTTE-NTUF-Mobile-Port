@@ -1,0 +1,84 @@
+{
+  "version": "2.1.3",
+  "internal": 108,
+  "status": "READY",
+  "source": "Latest user NTTE+NTUF request; duplicate16 normalized to17.",
+  "requirements": [
+    {
+      "id": 1,
+      "request": "修复墓地区域生成时struct.id未初始化报错"
+    },
+    {
+      "id": 2,
+      "request": "修复海滩区域球生成完全封闭敌人区域"
+    },
+    {
+      "id": 3,
+      "request": "修复自动降帧周期性卡顿"
+    },
+    {
+      "id": 4,
+      "request": "修复追踪弹无效目标实例报错"
+    },
+    {
+      "id": 5,
+      "request": "审计并修复可确认的无预警崩溃生命周期路径"
+    },
+    {
+      "id": 6,
+      "request": "优化本版本的整体性能回退"
+    },
+    {
+      "id": 7,
+      "request": "修复大苍蝇发射的蛆虫被命中后重复分裂"
+    },
+    {
+      "id": 8,
+      "request": "改善内置困难模式掉帧和慢动作"
+    },
+    {
+      "id": 9,
+      "request": "修复泡泡有时无法进行武器攻击"
+    },
+    {
+      "id": 10,
+      "request": "排除诅咒武器箱错误掉落的任务骨头"
+    },
+    {
+      "id": 11,
+      "request": "修复重置选项稀疏分类数组报错"
+    },
+    {
+      "id": 12,
+      "request": "颜色设置加入默认开启的同时更换准心颜色开关，关闭使用白色"
+    },
+    {
+      "id": 13,
+      "request": "重新验证终极解密钥匙合成的顺序、门禁和交付"
+    },
+    {
+      "id": 14,
+      "request": "修复王冠密室终极解密地块被替换后消失"
+    },
+    {
+      "id": 15,
+      "request": "优化Android新增地图速度变慢的共用耗时路径"
+    },
+    {
+      "id": 16,
+      "request": "修复60帧开始菜单背景互补遮罩交替闪烁"
+    },
+    {
+      "id": 17,
+      "request": "优化类行星加农炮融合近战开火时的精确碰撞扫描"
+    }
+  ],
+  "authorized_actions": [
+    "repair",
+    "package Android and iOS",
+    "publish GitHub and MEGA",
+    "clean obsolete generated files after delivery"
+  ],
+  "excluded_project": "Separate Hardmode port and Steam mod",
+  "physical_device_testing_available": false
+}

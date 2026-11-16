@@ -103,11 +103,11 @@ function scrDrawMobileControls(_player = noone, _scale_option = UberCont.opt_con
 			draw_set_alpha(1)
         }
 		else {
-            var _color = 0x0dfd98,
+            var _color = scrFRReticle213Color(_index),
 				_crosshair = UberCont.opt_crosshair,
 				_splitfire = UberCont.opt_splitfire
 			
-			if (!_splitfire && UberCont.opt_cursorcol != c_white) _color = UberCont.opt_cursorcol
+			// FRONTIER RETICLE213: the saved toggle also owns split-fire tint.
 			
 			var _scale = _scale_option
 			
@@ -260,14 +260,13 @@ function scrDrawMobileControls(_player = noone, _scale_option = UberCont.opt_con
             draw_set_alpha(1)
             draw_set_color(c_white)
 			
-			_color = c_white
+			// Keep the chosen crosshair tint in simplified controls.
         }
 		else {
             draw_sprite_ext(sprMobileControlCorners, 0, x, y, _scale_option, _scale_option, 0, c_white, 1)
         }
 		
-	    if _color == c_white
-	        _color = make_color_rgb(125, 253, 13)
+	    // FRONTIER RETICLE213: disabled color matching is white.
 		
         draw_sprite_ext(sprCrosshairBig, UberCont.opt_crosshair, x, y + _scale, _scale, _scale, 0, c_black, 1)
         draw_sprite_ext(sprCrosshairBig, UberCont.opt_crosshair, x, y, _scale, _scale, 0, _color, 1)

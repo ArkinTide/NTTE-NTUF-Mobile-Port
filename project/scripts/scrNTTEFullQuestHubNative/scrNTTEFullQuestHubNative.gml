@@ -32,6 +32,7 @@ function scrNTTEFullQuestTeleporterPair(_tx,_ty,_fx,_fy) {
     var _a=instance_create(_tx,_ty,NTTEFullQuestTeleporterPad),_b=instance_create(_fx,_fy,NTTEFullQuestTeleporterPad)
     _a.target=_to;_a.teleport_x=_fx;_a.teleport_y=_fy
     _b.target=_from;_b.teleport_x=_tx;_b.teleport_y=_ty
+    scrFRWorld213QuestFloorBind(_a);scrFRWorld213QuestFloorBind(_b); // FRONTIER213 QUEST PAD LOCATION
     return [_a,_b]
 }
 function scrNTTEFullQuestHubMain(_room) {
@@ -68,6 +69,7 @@ function scrNTTEFullQuestHubMain(_room) {
         _floor.sprite_index=scrNTTERefSprite("QuestFloor");_floor.image_index=_part
         var _cont=instance_create((_floor.bbox_left+_floor.bbox_right)/2,(_floor.bbox_top+_floor.bbox_bottom)/2,NTTEFullQuestFloorCont)
         _cont.part_index=_part;_cont.target=_floor;array_push(_controllers,_cont)
+        scrFRWorld213QuestFloorBind(_cont); // FRONTIER213 QUEST KEY LOCATION
         if(scrNTTEFullUnlockGet("quest:part:"+string(_part))) {
             scrNTTEFullQuestSpawnedInit();array_push(GameCont.ntte_quest_spawned_part_index_list,_part)
             var _pickup=scrWeaponPickupCreate(_cont.x,_cont.y,scrNTTEFullCrabboneCreateModel(_part))

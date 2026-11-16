@@ -70,6 +70,12 @@ if (!_is_autoaim) {
 			}
 		}
 		
+        // FRONTIER213 BUBBLES VALID GESTURE RELEASE
+        scrFRBubblesManualRelease213(index,mx,my,dis,dir,
+            scrFRBubblesStartupTestsTouchButton("pressed",index,mb_left),
+            scrFRBubblesStartupTestsTouchButton("held",index,mb_left),
+            scrFRBubblesStartupTestsTouchButton("released",index,mb_left));
+		
         if (!scrFRBubblesStartupTestsTouchButton("held",index, mb_left) || (distance_to_point(mx, my) > rad * 3)) {
             index = -1
         }

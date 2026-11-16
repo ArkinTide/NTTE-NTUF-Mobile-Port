@@ -131,7 +131,7 @@ def main():
             text = smoke.read_text("utf8", errors="replace")
             (out / "smoke.txt").write_text(text, encoding="utf8")
             artifacts = {}
-            for path in [*BUILD.glob("frontier-*"), *BUILD.glob("ntuf-*"), *BUILD.glob("ntuf212-*"), *BUILD.glob("ntte-*")]:
+            for path in [*BUILD.glob("frontier-*"), *BUILD.glob("ntuf-*"), *BUILD.glob("ntuf212-*"), *BUILD.glob("ntuf213-*"), *BUILD.glob("ntte-*")]:
                 if (path.is_file() and path.suffix.lower() in {".png", ".json"}
                         and path.stat().st_mtime >= start_wall):
                     shutil.copy2(path, out / path.name)

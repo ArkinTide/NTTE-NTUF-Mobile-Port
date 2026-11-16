@@ -759,10 +759,10 @@ if ((active == true)) {
 {
 if (frMacro_Objects_Frontier_Projectiles2_mod_gml_current_frame_active) {
 {
-if (scrFRInstanceExists(enemy)) {
-{
+// FRONTIER213 VALIDATE SELECTED HOMING TARGET
 var _frl_myTarget = instance_nearest(x, y, enemy);
-;
+if (instance_exists(_frl_myTarget)) {
+{
 direction -= (angle_difference(direction, point_direction(x, y, _frl_myTarget.x, _frl_myTarget.y)) * power(0.12, 1));
 ;
 }
@@ -1058,10 +1058,10 @@ direction += scrFRSourceRandomRange((- 5), 5);
 ;
 if ((scrFRSourceRandom(2) < 1)) {
 {
-if (scrFRInstanceExists(enemy)) {
-{
+// FRONTIER213 VALIDATE SELECTED HOMING TARGET
 var _frl__enemy = instance_nearest(x, y, enemy);
-;
+if (instance_exists(_frl__enemy)) {
+{
 direction = point_direction(x, y, _frl__enemy.x, _frl__enemy.y);
 }
 }
@@ -2232,10 +2232,10 @@ scrFRInstanceDestroy();
 function fr_Objects_Frontier_Projectiles2_mod_gml_QuarkShell_detach() {
 imOnIt = false;
 ;
-if (scrFRInstanceExists(enemy)) {
-{
+// FRONTIER213 VALIDATE SELECTED HOMING TARGET
 var _frl__enemy = instance_nearest(x, y, enemy);
-;
+if (instance_exists(_frl__enemy)) {
+{
 direction = (point_direction(x, y, _frl__enemy.x, _frl__enemy.y) + scrFRSourceRandomRange((- 60), 60));
 ;
 }
@@ -3593,10 +3593,10 @@ fr_Objects_Frontier_Projectiles2_mod_gml_sound_play_hit_ext(sndIDPDNadeExplo, (0
 function fr_Objects_Frontier_Projectiles2_mod_gml_PopoRocketSmall_step() {
 if (frMacro_Objects_Frontier_Projectiles2_mod_gml_current_frame_active) {
 {
-if (scrFRInstanceExists(enemy)) {
-{
+// FRONTIER213 VALIDATE SELECTED HOMING TARGET
 var _frl_myTarget = instance_nearest(x, y, enemy);
-;
+if (instance_exists(_frl_myTarget)) {
+{
 direction -= (angle_difference(direction, point_direction(x, y, _frl_myTarget.x, _frl_myTarget.y)) * power((0.1 * 2), 1));
 ;
 image_angle = direction;

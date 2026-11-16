@@ -52,11 +52,11 @@ regenerates the unchanged unlocked icon and a locked silhouette from the transpa
 `Sprites/Crowns/sprCrownStormsIdle.png` alpha enlarged nearest2x, using the tracked
 resource template; `--check` verifies the resulting PNG hashes without writing.
 
-For 2.1.2, the game display/updater/tag use `2.1.2` and internal build 107;
+For 2.1.3, the game display/updater/tag use `2.1.3` and internal build 108;
 GAME_BUILD/save protocol remains 3004. The common accepted project retains the
-canonical `2.1.2` platform option declarations. Delivery compiler copies retain
-the iOS/Android platform version `2.1.2`; the public Android overlay includes
-its version option and bootstrap adjustment. The iOS package has build 107 and
+canonical `2.1.3` platform option declarations. Delivery compiler copies retain
+the iOS/Android platform version `2.1.3`; the public Android overlay includes
+its version option and bootstrap adjustment. The iOS package has build 108 and
 requires the user's own re-signing. Private host packaging/signing machinery is
 not published and should not be inferred from the common option declarations.
 
@@ -64,6 +64,14 @@ The current Chinese source inputs are `localization/phrases.zh-CN.tsv`,
 `localization/settings.zh-CN.tsv` and `localization/surgery.zh-CN.tsv`, together
 with localization coverage/inventory JSON. TSV files are plain UTF-8 source and
 must not be omitted when regenerating localization or auditing the checkout.
+
+For2.1.3, `tools/fr_perf213_hooks.py` regenerates the exact inherited Alarm
+event table from the accepted object declarations and installs the CPU timing,
+fusion-ray candidate pruning and normal-menu spiral sampling hooks. Its native
+fixture compares precise masks with the unpruned oracle, including fractional
+coordinates, flipped scales and destroyed target IDs. Processing headroom
+measures the CPU interval from Begin Step through the controller GUI End;
+it does not measure GPU presentation or certify phone frame rates.
 
 Build102 also preserves text-only supplemental boss artwork manifests and resource declarations under `generated-assets/boss-art204/`. Image bytes remain excluded. Restore the separately authorized upstream artwork before regenerating these resources. This draft directory does not establish successful build or acceptance.
 
@@ -83,5 +91,5 @@ to reproduce this supplement. The supplemental manifest, verification JSON and
 resource declarations are text references; all PNG files for these 15 authored sprites remain excluded
 from the public source payload.
 
-Current2.1.2 maintains the narrow content/UI repair installer and native test sources.
+Current2.1.3 maintains the narrow content/UI repair installer and native test sources.
 Do not rerun the historical full-stage importer over an accepted maintained project.

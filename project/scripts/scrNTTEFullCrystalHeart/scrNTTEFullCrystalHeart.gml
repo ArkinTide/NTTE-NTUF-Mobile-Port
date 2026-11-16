@@ -261,6 +261,7 @@ function scrNTTEFullCrystalHeartBulletDestroy() {
 // BEGIN FRONTIER HEART AUTHORED EDGE TOPS
     // Finish source decoration before flash/reveal snapshots.
     scrFROrbWallPruneTops(_generation);
+    scrFRWorld213CoastOrbEntry(_generation); // FRONTIER213 COAST ORB SHORE ENTRY
 // END FRONTIER HEART AUTHORED EDGE TOPS
     var _reveal=scrNTTEFullCrystalHeartNewInstances([Floor,Wall,TopSmall],_generation)
     for(var _i=0;_i<array_length(_reveal);++_i) if (array_get_index(_old_tiles,_reveal[_i])<0) {

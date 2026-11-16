@@ -65,7 +65,7 @@ with Player {
 			if (index != global.index) _alpha *= 0.5
 			
 	        draw_sprite_ext(sprCrosshair, KeyCont.crosshair[index],
-				crosshair_x, crosshair_y, 1, 1, 0, (_color ? _color : c_white), _alpha)
+				crosshair_x, crosshair_y, 1, 1, 0, scrFRReticle213Color(index), _alpha)
 	    }
 	}
 	

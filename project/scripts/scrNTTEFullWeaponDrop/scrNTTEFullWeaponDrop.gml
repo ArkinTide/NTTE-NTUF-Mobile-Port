@@ -91,6 +91,8 @@ if(!is_undefined(_fr_weapon)) return scr_weapon_get_area(_fr_weapon);
     if(_raw=="ultra quasar rifle" && (!scrNTTEFullValue(GameCont,"ntte_can_spawn_ultra_quasar_rifle",false)
         || !scrNTTEFullUnlockGet("race:beetle"))) return -1
     if(_raw=="crabbone") {
+        // FRONTIER213 CURSED CHEST EXCLUDES QUEST BONE
+        if(scrNTTEFullValue(_context,"curse",0)>0) return -1;
         var _area=-1
         with(Player) {
             var _w=scrNTTEFullWeaponRaw(wep),_b=scrNTTEFullWeaponRaw(bwep)

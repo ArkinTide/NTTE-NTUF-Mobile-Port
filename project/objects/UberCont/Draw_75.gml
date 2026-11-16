@@ -99,3 +99,6 @@ scrFRBluescreen212DrawGui(); // FRONTIER212 NATIVE GUI END
 // BEGIN FRONTIER BLUESCREEN UI204 COMPLETED DRAW
 if(os_type==os_windows && scrNTTEFullSmokeEnabled() && instance_exists(FRIntegrationTest)) scrFRBluescreenUITestsDraw();
 // END FRONTIER BLUESCREEN UI204 COMPLETED DRAW
+
+// FRONTIER213 PROCESSING TIME EXCLUDES ENGINE CAP WAIT
+scrFRClockEnd213();
