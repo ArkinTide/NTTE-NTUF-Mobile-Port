@@ -61450,6 +61450,60 @@
         "name": "scrFrontier_bubbles213_tests",
         "path": "scripts/scrFrontier_bubbles213_tests/scrFrontier_bubbles213_tests.yy"
       }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_crash214",
+        "path": "scripts/scrFrontier_crash214/scrFrontier_crash214.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_crash214_tests",
+        "path": "scripts/scrFrontier_crash214_tests/scrFrontier_crash214_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_performance214",
+        "path": "scripts/scrFrontier_performance214/scrFrontier_performance214.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_performance214_tests",
+        "path": "scripts/scrFrontier_performance214_tests/scrFrontier_performance214_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_melee214_tests",
+        "path": "scripts/scrFrontier_melee214_tests/scrFrontier_melee214_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menus214",
+        "path": "scripts/scrFrontier_menus214/scrFrontier_menus214.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_menus214_tests",
+        "path": "scripts/scrFrontier_menus214_tests/scrFrontier_menus214_tests.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_movement214",
+        "path": "scripts/scrFrontier_movement214/scrFrontier_movement214.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scrFrontier_movement214_tests",
+        "path": "scripts/scrFrontier_movement214_tests/scrFrontier_movement214_tests.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

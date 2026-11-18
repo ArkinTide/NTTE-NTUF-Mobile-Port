@@ -799,7 +799,7 @@ else for (var i = 0; i < array_length(_items); i++) {
 					_value = _opt.value
 				
 				if is_string(_name) {
-					scrNTTEFullDrawMenuText(drawx, drawy, loc(_name), _text_scale)
+					scrFRPreference214DrawName(drawx,drawy,loc(_name),_text_scale,_opt) // FRONTIER214 NATIVE PREFERENCE COLUMNS
 				}
 				
 				drawx += _opt.width / 2

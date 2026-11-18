@@ -206,6 +206,13 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTest
         if(scrNTTEFullSmokeAsyncCase("FrontierRedTerrain210Tests")) {scrFRIntegrationTestStart("red-terrain210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierContent210Tests")) {scrFRIntegrationTestStart("content210");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierRender211Tests")) {scrFRIntegrationTestStart("render211");return;}
+        // FRONTIER214 NATIVE ENTRY
+        if(scrNTTEFullSmokeAsyncCase("FrontierCrash214Tests")) {scrFRIntegrationTestStart("crash214");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierPerformance214Tests")) {scrFRIntegrationTestStart("performance214");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierMelee214Tests")) {scrFRIntegrationTestStart("melee214");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierMenus214Tests")) {scrFRIntegrationTestStart("menus214");return;}
+        if(scrNTTEFullSmokeAsyncCase("FrontierMovement214Tests")) {scrFRIntegrationTestStart("movement214");return;}
+        // FRONTIER214 END NATIVE ENTRY
         // FRONTIER213 NATIVE ENTRY
         if(scrNTTEFullSmokeAsyncCase("FrontierCrash213Tests")) {scrFRIntegrationTestStart("crash213");return;}
         if(scrNTTEFullSmokeAsyncCase("FrontierWorld213Tests")) {scrFRIntegrationTestStart("world213");return;}

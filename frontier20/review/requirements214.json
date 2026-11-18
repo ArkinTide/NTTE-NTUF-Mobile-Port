@@ -1,0 +1,262 @@
+{
+  "version": "2.1.4",
+  "internal": 109,
+  "status": "READY",
+  "requirements": [
+    {
+      "id": 1,
+      "request": "NTTE/NTUF近战长臂加成，包括骨镰刀及融合路径",
+      "status": "VERIFIED_NOT_REPRODUCED",
+      "resolution_zh": "复核本轮测试的17把 NTTE／NTUF 近战武器（10把 NTUF 和7把选定 NTTE 武器）及其融合前端的长臂加成，当前维护源与最终 Windows VM 未复现报告中的失效，不把原有加成公式描述为新增修复。普通骨镰刀经真实变异选择后，在目标间距为4像素的测试网格上，最远受伤目标的原始中心距离在30Hz为40→60像素、60Hz为44→60像素，重击均为56→80像素；这些数值描述所采样的靶心距离。切换形态、换武器及续局路径也通过本轮验证。",
+      "resolution_en": "Reviewed Long Arms for the 17 tested NTTE/NTUF melee weapons (10 NTUF and 7 selected NTTE weapons), including front-melee fusion paths. The maintained source and final Windows VM did not reproduce the reported failure, so existing formulas are not presented as a new fix. After genuine mutation selection, a target grid spaced 4 pixels apart measured the distance to the original center of the farthest damaged target:40→60 pixels for light attacks at30Hz and44→60 at60Hz; heavy attacks measured56→80 at both rates. These values describe the sampled target centers. Form changes, weapon swaps and continuation also passed the current checks.",
+      "evidence": [
+        {
+          "native_case": "FrontierMelee214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMelee214Tests/receipt.json",
+          "receipt_sha256": "2245eba0f85e5e4751083a00056614b8b8cd21fcae0a0a3d537bfe3a1ac6aa2e",
+          "smoke_sha256": "3c565c2351d910ba034831c1bbd3e13c18c4f7a3dac8675db19601bdb45978c5",
+          "artifacts_sha256": {
+            "ntuf214-scythe-control-no-arrow.png": "0aafa99cbe597bb738c5b554ad0359b8c7671bfba9b60848f8537326dcfbb373",
+            "ntuf214-scythe-control-old-arrow-negative.png": "aa0ea215af07f11f893407e207084fb0474fc511312cf1e8db66425ec7c69201",
+            "ntuf214-scythe-natural-30-0-0.png": "1f3c3d75583658f3bea4a6481b608b4562b57df2435c2870d2d80419d6233cbe",
+            "ntuf214-scythe-natural-30-0-1.png": "9026633064572dcdc7714380d5df21e135d768b17778a43e8b48e325d7bfdc3f",
+            "ntuf214-scythe-natural-30-1-0.png": "607f207270f720cd7435ac2307d759a283ae33b5ba78113dbd7492e006a86898",
+            "ntuf214-scythe-natural-30-1-1.png": "d8448538ba726985405cb264e196e037161d50e7b3e5b84d06d894b0152acf07",
+            "ntuf214-scythe-natural-60-0-0.png": "8d147a99005233aeaf4f727cbf235bcc3f3c4e819f2cc37c42b5c22fabdc9195",
+            "ntuf214-scythe-natural-60-0-1.png": "8c020fefc5b3776e134b57a4c930be75ab129ebb2c064294ccfdf3b99e2ae959",
+            "ntuf214-scythe-natural-60-1-0.png": "99660a6a44073acd818a7e681a2f296ca1b4a8f35d0b1b6895491456bb6e238d",
+            "ntuf214-scythe-natural-60-1-1.png": "c275537d5526045ab40b039aa6d83e29cb96c120446b4537683405cb18fde41a",
+            "ntuf214-scythe-natural.json": "d14a0e0aaca1a6d028043afe52e73ca6a0c860faddcce146418d218648b9a2cd"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "request": "七张截图的全部崩溃路径",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "修正豪宅黄金兑换站局部变量和转场螺旋预热问题；七张截图所涉的失效墙体引用、稀疏设置重置、已销毁追踪目标及自定义数据作用域创建实例的原有防护，也在当前最终 VM 中重新执行验证。",
+      "resolution_en": "Corrected the mansion gold-station local index and transition-spiral warm-up. Existing guards for the seven screenshot paths involving stale walls, sparse settings reset, destroyed homing targets and instance creation from custom data scopes also ran again on the final current VM.",
+      "evidence": [
+        {
+          "native_case": "FrontierCrash214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierCrash214Tests/receipt.json",
+          "receipt_sha256": "3deb0b5ecb03c5585296e2fecb2d4a2e97218d5190b967ce4e39a02706252598",
+          "smoke_sha256": "4a5f5eb4cbee992bd3820bce6ef0897144764d8130a0417648cbc1b564d06653",
+          "artifacts_sha256": {}
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "request": "手术变异中文文字排版",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "手术变异的中文说明按实际字体高度换行并增加行距，标题与说明各自测量，避免中文文字叠在一起。",
+      "resolution_en": "Measured Surgery text with the actual font and added line spacing, independently placing the title and description to prevent overlapping Chinese glyphs.",
+      "evidence": [
+        {
+          "native_case": "FrontierMenus214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMenus214Tests/receipt.json",
+          "receipt_sha256": "ceda7bf532a35be97d250ec31a237ee8f0c47ff08c5df12f67d0dc6e29d34249",
+          "smoke_sha256": "3ebdf7da7026daafa85aa6086d8a443d5267b30860c7832c10919a28a9181d0e",
+          "artifacts_sha256": {
+            "ntuf214-menus.json": "798baf499f2dc99a27c5da244e7206a3e7f2324841a355de93f192c36c5ef222",
+            "ntuf214-preferences-0.png": "400ae2afd627a1033db2e55cd3387340d361974f44e8e10dee5cfbe46a92ea21",
+            "ntuf214-preferences-1.png": "5b5db4684ef94f29d5eb847faa1dd13160a6b4091b5c6c7255a5189a717b357b",
+            "ntuf214-robot-30-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-30-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-robot-60-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-60-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-surgery-0-0-0.png": "73aef5310feb796fd3f232c71734a7015313d548c887c5ed3b8d5058213a6756",
+            "ntuf214-surgery-0-0-1.png": "15af630842858a00f3ec045a0a85f3fc5e6559f55c411b7d53c306aad55afd3e",
+            "ntuf214-surgery-0-0-2.png": "2804191c549f6832d96ea1660ca15c5f509c3f17d53a2415a458cfd010d9db86",
+            "ntuf214-surgery-0-0-3.png": "209e05e677256a8d6ac3aa90364b1e4cc13c0b191fb2f4f44f9220159912d69c",
+            "ntuf214-surgery-0-0-4.png": "ef6a7b501edd7563c28b8bc14543564a4fb364b05e1e93a0bac158a79ba5a621",
+            "ntuf214-surgery-0-1-0.png": "6ae103a7be488c6101d1757843f9913377f1831d0e6bcf19d7dba5fea874c6f6",
+            "ntuf214-surgery-0-1-1.png": "8bd004ea84277b3146f83e1bb387d5143bc608fc0da94c6aa7d6adcb7af5a03f",
+            "ntuf214-surgery-0-1-2.png": "906278df289426edec902e1385162d8b66c36048a3d596e30f37e045eb769b2e",
+            "ntuf214-surgery-0-1-3.png": "6be608208a5dc6f079247554b7cd99d5ca4d95d880a1901fc6a013c07c52aede",
+            "ntuf214-surgery-0-1-4.png": "cad4029002650892c81bbd598b227f8be8d9de47edf46c961eee443e1671e272",
+            "ntuf214-surgery-1-0-0.png": "0f9034846cce842a8e75ca532077cdc5883bf88a5758cb7f4e37ae7ba2f1a79e",
+            "ntuf214-surgery-1-0-1.png": "86b8db423a867bc6b667da03b084b206f5f403e1ff6a06eb968a77c496777992",
+            "ntuf214-surgery-1-0-2.png": "5ba76b815add0de06a8a012b9a920fbb1d0c46d49137494f37c6452bdea42d98",
+            "ntuf214-surgery-1-0-3.png": "52aaecf77eba8cadc1ebf3ffa7c0d9e6c4b66b59bb2b04ca2e972938e44c35a6",
+            "ntuf214-surgery-1-0-4.png": "a936b56970d767059476b992cb4018ed55c433f5c790fdf9edd3ee28e2ca50d9",
+            "ntuf214-surgery-1-1-0.png": "41322aac789eedd3e5882660e73ec455529df43b1953fbd4b1a803daa111f00b",
+            "ntuf214-surgery-1-1-1.png": "ead85140861bb2a17cde9304014e733976b6de11ac36b6637d8ab9f21821ce42",
+            "ntuf214-surgery-1-1-2.png": "42ef3497f0772dcb9edf6bfec827866a50704378b35db4e20c8be26c2671996f",
+            "ntuf214-surgery-1-1-3.png": "3c41e67c88da279d477b3f7eba3093bb01e78364c809a704e9941c6cd5801508",
+            "ntuf214-surgery-1-1-4.png": "b2cf3dbf5a82f87c4a096587c5d1026006bc11239de5e53b151780e81053142c"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "request": "机器人重启YES/NO间歇性缺失",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "机器人重启页面使用独立 GUI 相机绘制 YES／NO，并在原有选项出现时间之后恢复缺失按钮；确认选择后不重复创建或提交。",
+      "resolution_en": "Drew Robot reboot YES/NO choices with an independent GUI camera and restored missing buttons after their authored appearance threshold, while preventing duplicate recreation or submission after a committed choice.",
+      "evidence": [
+        {
+          "native_case": "FrontierMenus214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMenus214Tests/receipt.json",
+          "receipt_sha256": "ceda7bf532a35be97d250ec31a237ee8f0c47ff08c5df12f67d0dc6e29d34249",
+          "smoke_sha256": "3ebdf7da7026daafa85aa6086d8a443d5267b30860c7832c10919a28a9181d0e",
+          "artifacts_sha256": {
+            "ntuf214-menus.json": "798baf499f2dc99a27c5da244e7206a3e7f2324841a355de93f192c36c5ef222",
+            "ntuf214-preferences-0.png": "400ae2afd627a1033db2e55cd3387340d361974f44e8e10dee5cfbe46a92ea21",
+            "ntuf214-preferences-1.png": "5b5db4684ef94f29d5eb847faa1dd13160a6b4091b5c6c7255a5189a717b357b",
+            "ntuf214-robot-30-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-30-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-robot-60-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-60-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-surgery-0-0-0.png": "73aef5310feb796fd3f232c71734a7015313d548c887c5ed3b8d5058213a6756",
+            "ntuf214-surgery-0-0-1.png": "15af630842858a00f3ec045a0a85f3fc5e6559f55c411b7d53c306aad55afd3e",
+            "ntuf214-surgery-0-0-2.png": "2804191c549f6832d96ea1660ca15c5f509c3f17d53a2415a458cfd010d9db86",
+            "ntuf214-surgery-0-0-3.png": "209e05e677256a8d6ac3aa90364b1e4cc13c0b191fb2f4f44f9220159912d69c",
+            "ntuf214-surgery-0-0-4.png": "ef6a7b501edd7563c28b8bc14543564a4fb364b05e1e93a0bac158a79ba5a621",
+            "ntuf214-surgery-0-1-0.png": "6ae103a7be488c6101d1757843f9913377f1831d0e6bcf19d7dba5fea874c6f6",
+            "ntuf214-surgery-0-1-1.png": "8bd004ea84277b3146f83e1bb387d5143bc608fc0da94c6aa7d6adcb7af5a03f",
+            "ntuf214-surgery-0-1-2.png": "906278df289426edec902e1385162d8b66c36048a3d596e30f37e045eb769b2e",
+            "ntuf214-surgery-0-1-3.png": "6be608208a5dc6f079247554b7cd99d5ca4d95d880a1901fc6a013c07c52aede",
+            "ntuf214-surgery-0-1-4.png": "cad4029002650892c81bbd598b227f8be8d9de47edf46c961eee443e1671e272",
+            "ntuf214-surgery-1-0-0.png": "0f9034846cce842a8e75ca532077cdc5883bf88a5758cb7f4e37ae7ba2f1a79e",
+            "ntuf214-surgery-1-0-1.png": "86b8db423a867bc6b667da03b084b206f5f403e1ff6a06eb968a77c496777992",
+            "ntuf214-surgery-1-0-2.png": "5ba76b815add0de06a8a012b9a920fbb1d0c46d49137494f37c6452bdea42d98",
+            "ntuf214-surgery-1-0-3.png": "52aaecf77eba8cadc1ebf3ffa7c0d9e6c4b66b59bb2b04ca2e972938e44c35a6",
+            "ntuf214-surgery-1-0-4.png": "a936b56970d767059476b992cb4018ed55c433f5c790fdf9edd3ee28e2ca50d9",
+            "ntuf214-surgery-1-1-0.png": "41322aac789eedd3e5882660e73ec455529df43b1953fbd4b1a803daa111f00b",
+            "ntuf214-surgery-1-1-1.png": "ead85140861bb2a17cde9304014e733976b6de11ac36b6637d8ab9f21821ce42",
+            "ntuf214-surgery-1-1-2.png": "42ef3497f0772dcb9edf6bfec827866a50704378b35db4e20c8be26c2671996f",
+            "ntuf214-surgery-1-1-3.png": "3c41e67c88da279d477b3f7eba3093bb01e78364c809a704e9941c6cd5801508",
+            "ntuf214-surgery-1-1-4.png": "b2cf3dbf5a82f87c4a096587c5d1026006bc11239de5e53b151780e81053142c"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "request": "全游戏性能审计及有证据的热点优化",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "优化高频弹幕家族的实体类型、数量与存在性查询，减少重复建立完整实体列表。差分测试检查旧实现的返回值、类型及非法输入行为；本轮不作手机帧率承诺。",
+      "resolution_en": "Optimized frequent projectile-family type, count and existence queries to avoid repeatedly assembling complete instance lists. Differential tests check legacy return values, types and invalid-input behavior; no phone frame-rate guarantee is made.",
+      "evidence": [
+        {
+          "native_case": "FrontierPerformance214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierPerformance214Tests/receipt.json",
+          "receipt_sha256": "7f165a96dd29a16d450990f1e3abbbcde97a4ce97a34b4f179a5e94789463868",
+          "smoke_sha256": "387d7046fc4b9e31905e586d23dcb770582db7d345219f8340b46f1b6538b168",
+          "artifacts_sha256": {
+            "ntuf214-performance.json": "daa99889c7a664ee68b6adfeb3a14cf978a6422d538c3bd9bc935f824f3705ab"
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "request": "移除骨镰刀形态按钮右上角箭头",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "移除骨镰刀形态按钮右上角的额外白色箭头，保留武器图标、形态按钮及原有切换功能。",
+      "resolution_en": "Removed the extra white arrow at the upper right of the Scythe form control, retaining its weapon icon, button and switching behavior.",
+      "evidence": [
+        {
+          "native_case": "FrontierMelee214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMelee214Tests/receipt.json",
+          "receipt_sha256": "2245eba0f85e5e4751083a00056614b8b8cd21fcae0a0a3d537bfe3a1ac6aa2e",
+          "smoke_sha256": "3c565c2351d910ba034831c1bbd3e13c18c4f7a3dac8675db19601bdb45978c5",
+          "artifacts_sha256": {
+            "ntuf214-scythe-control-no-arrow.png": "0aafa99cbe597bb738c5b554ad0359b8c7671bfba9b60848f8537326dcfbb373",
+            "ntuf214-scythe-control-old-arrow-negative.png": "aa0ea215af07f11f893407e207084fb0474fc511312cf1e8db66425ec7c69201",
+            "ntuf214-scythe-natural-30-0-0.png": "1f3c3d75583658f3bea4a6481b608b4562b57df2435c2870d2d80419d6233cbe",
+            "ntuf214-scythe-natural-30-0-1.png": "9026633064572dcdc7714380d5df21e135d768b17778a43e8b48e325d7bfdc3f",
+            "ntuf214-scythe-natural-30-1-0.png": "607f207270f720cd7435ac2307d759a283ae33b5ba78113dbd7492e006a86898",
+            "ntuf214-scythe-natural-30-1-1.png": "d8448538ba726985405cb264e196e037161d50e7b3e5b84d06d894b0152acf07",
+            "ntuf214-scythe-natural-60-0-0.png": "8d147a99005233aeaf4f727cbf235bcc3f3c4e819f2cc37c42b5c22fabdc9195",
+            "ntuf214-scythe-natural-60-0-1.png": "8c020fefc5b3776e134b57a4c930be75ab129ebb2c064294ccfdf3b99e2ae959",
+            "ntuf214-scythe-natural-60-1-0.png": "99660a6a44073acd818a7e681a2f296ca1b4a8f35d0b1b6895491456bb6e238d",
+            "ntuf214-scythe-natural-60-1-1.png": "c275537d5526045ab40b039aa6d83e29cb96c120446b4537683405cb18fde41a",
+            "ntuf214-scythe-natural.json": "d14a0e0aaca1a6d028043afe52e73ca6a0c860faddcce146418d218648b9a2cd"
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "request": "鹦鹉与泡泡角色偏好设置列对齐",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "对齐鹦鹉和泡泡角色偏好设置的图标、文字与开关列，给开关保留间距，并按可用宽度缩放长文本。",
+      "resolution_en": "Aligned the Parrot and Bubbles preference icon, label and switch columns, reserving space before each value and fitting long labels to the available width.",
+      "evidence": [
+        {
+          "native_case": "FrontierMenus214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMenus214Tests/receipt.json",
+          "receipt_sha256": "ceda7bf532a35be97d250ec31a237ee8f0c47ff08c5df12f67d0dc6e29d34249",
+          "smoke_sha256": "3ebdf7da7026daafa85aa6086d8a443d5267b30860c7832c10919a28a9181d0e",
+          "artifacts_sha256": {
+            "ntuf214-menus.json": "798baf499f2dc99a27c5da244e7206a3e7f2324841a355de93f192c36c5ef222",
+            "ntuf214-preferences-0.png": "400ae2afd627a1033db2e55cd3387340d361974f44e8e10dee5cfbe46a92ea21",
+            "ntuf214-preferences-1.png": "5b5db4684ef94f29d5eb847faa1dd13160a6b4091b5c6c7255a5189a717b357b",
+            "ntuf214-robot-30-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-30-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-robot-60-0.png": "b414f8e8c05f313c4696b2bb8783e6d02d83371ca2bd1272410e81e90f72b40a",
+            "ntuf214-robot-60-1.png": "5b433a6e49aeceef67d5198f921053a57591aeb22df0b2c59db77df697b99e02",
+            "ntuf214-surgery-0-0-0.png": "73aef5310feb796fd3f232c71734a7015313d548c887c5ed3b8d5058213a6756",
+            "ntuf214-surgery-0-0-1.png": "15af630842858a00f3ec045a0a85f3fc5e6559f55c411b7d53c306aad55afd3e",
+            "ntuf214-surgery-0-0-2.png": "2804191c549f6832d96ea1660ca15c5f509c3f17d53a2415a458cfd010d9db86",
+            "ntuf214-surgery-0-0-3.png": "209e05e677256a8d6ac3aa90364b1e4cc13c0b191fb2f4f44f9220159912d69c",
+            "ntuf214-surgery-0-0-4.png": "ef6a7b501edd7563c28b8bc14543564a4fb364b05e1e93a0bac158a79ba5a621",
+            "ntuf214-surgery-0-1-0.png": "6ae103a7be488c6101d1757843f9913377f1831d0e6bcf19d7dba5fea874c6f6",
+            "ntuf214-surgery-0-1-1.png": "8bd004ea84277b3146f83e1bb387d5143bc608fc0da94c6aa7d6adcb7af5a03f",
+            "ntuf214-surgery-0-1-2.png": "906278df289426edec902e1385162d8b66c36048a3d596e30f37e045eb769b2e",
+            "ntuf214-surgery-0-1-3.png": "6be608208a5dc6f079247554b7cd99d5ca4d95d880a1901fc6a013c07c52aede",
+            "ntuf214-surgery-0-1-4.png": "cad4029002650892c81bbd598b227f8be8d9de47edf46c961eee443e1671e272",
+            "ntuf214-surgery-1-0-0.png": "0f9034846cce842a8e75ca532077cdc5883bf88a5758cb7f4e37ae7ba2f1a79e",
+            "ntuf214-surgery-1-0-1.png": "86b8db423a867bc6b667da03b084b206f5f403e1ff6a06eb968a77c496777992",
+            "ntuf214-surgery-1-0-2.png": "5ba76b815add0de06a8a012b9a920fbb1d0c46d49137494f37c6452bdea42d98",
+            "ntuf214-surgery-1-0-3.png": "52aaecf77eba8cadc1ebf3ffa7c0d9e6c4b66b59bb2b04ca2e972938e44c35a6",
+            "ntuf214-surgery-1-0-4.png": "a936b56970d767059476b992cb4018ed55c433f5c790fdf9edd3ee28e2ca50d9",
+            "ntuf214-surgery-1-1-0.png": "41322aac789eedd3e5882660e73ec455529df43b1953fbd4b1a803daa111f00b",
+            "ntuf214-surgery-1-1-1.png": "ead85140861bb2a17cde9304014e733976b6de11ac36b6637d8ab9f21821ce42",
+            "ntuf214-surgery-1-1-2.png": "42ef3497f0772dcb9edf6bfec827866a50704378b35db4e20c8be26c2671996f",
+            "ntuf214-surgery-1-1-3.png": "3c41e67c88da279d477b3f7eba3093bb01e78364c809a704e9941c6cd5801508",
+            "ntuf214-surgery-1-1-4.png": "b2cf3dbf5a82f87c4a096587c5d1026006bc11239de5e53b151780e81053142c"
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "request": "触屏移动操作响应优化",
+      "status": "VERIFIED_REPAIRED",
+      "resolution_zh": "触屏移动增加连续方向与小幅操作处理，检查原始触点输入、摇杆死区以及30／60Hz下相同时间的响应。",
+      "resolution_en": "Refined continuous touch direction and fine movement, with checks for raw touch input, joystick deadzone and equal-time response at30/60Hz.",
+      "evidence": [
+        {
+          "native_case": "FrontierMovement214Tests",
+          "receipt": "tests/20261118T105514593253Z/FrontierMovement214Tests/receipt.json",
+          "receipt_sha256": "6c59b17d9cb7a4687386af6249bfd19741973a7d57322b27c6d214f699f24594",
+          "smoke_sha256": "a56a19ee322f33727aeb277f41e20f968df0ce7dc52881b125ff0fca8ad55779",
+          "artifacts_sha256": {}
+        }
+      ]
+    }
+  ],
+  "publication": {
+    "github": true,
+    "mega": true,
+    "quark_complete_project": true
+  },
+  "local_source_retirement": "Only after authenticated full cloud download and restoration verification",
+  "validation": {
+    "native_cases": 37,
+    "python_tests": 190,
+    "run": "tests/20261118T105514593253Z",
+    "vm_sha256": "fa5284b3dae13e5fa7df3e6cf7a10660609bfd6b74414e92ff582f79f1a3062b",
+    "input_sha256": "130328c8cc9636cd4625ed4ac490402c185ffbe5e0789a95bfcb9525b0ce0db7",
+    "physical_device_tested": false,
+    "source_review_report_sha256": "d11f5fd38d0f76ace4b5c41e8ef32c27b1531ba7bf1e623506d3102bd9d223ed",
+    "python_evidence_sha256": "cd6948d2340426354390092942e23eee78300a6e8e22e72e3542173610ff9362"
+  },
+  "physical_device_tested": false
+}

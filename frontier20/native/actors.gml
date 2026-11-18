@@ -106,11 +106,17 @@ function scrFRObjectInstances(_selector) {
 }
 
 function scrFRInstanceExists(_target) {
+    // FRONTIER214 FRESH PROJECTILE FAMILY QUERY
+    var _fast214=scrFRProjectileFamilyCount214(_target,true);
+    if(!is_undefined(_fast214)) return _fast214;
     if(scrFRObjectSelector(_target) || is_array(_target)) return array_length(scrFRObjectInstances(_target))>0;
     return instance_exists(_target);
 }
 
 function scrFRInstanceNumber(_target) {
+    // FRONTIER214 FRESH PROJECTILE FAMILY QUERY
+    var _fast214=scrFRProjectileFamilyCount214(_target,false);
+    if(!is_undefined(_fast214)) return _fast214;
     if(scrFRObjectSelector(_target) || is_array(_target)) return array_length(scrFRObjectInstances(_target));
     return instance_number(_target);
 }
@@ -124,6 +130,9 @@ function scrFRInstanceFind(_target,_index) {
 }
 
 function scrFRInstanceIs(_target,_type) {
+    // FRONTIER214 FRESH PROJECTILE FAMILY QUERY
+    var _fast214=scrFRProjectileFamilyIs214(_target,_type);
+    if(!is_undefined(_fast214)) return _fast214;
     if(scrFRObjectSelector(_type) || is_array(_type)) {
         if(!instance_exists(_target)) return false;
         var _items=scrFRObjectInstances(_type),_id=real(_target.id);

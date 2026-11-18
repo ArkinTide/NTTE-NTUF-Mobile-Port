@@ -22,6 +22,19 @@ function scrFRIntegrationTestStart(_case) {
 }
 
 function scrFRIntegrationTestStep() {
+    // FRONTIER214 EXPLICIT NATIVE ACCEPTANCE
+    if(array_contains(["crash214","performance214","melee214","menus214","movement214"],fr_test_case)) {
+        if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker) || ++fr_test_ticks<45) return;
+        switch(fr_test_case) {
+            case "crash214":scrFRCrash214Tests();break;
+            case "performance214":scrFRPerformance214Tests();break;
+            case "melee214":if(!scrFRMelee214ScheduledTests()) return;break;
+            case "menus214":scrFRMenus214Tests();break;
+            case "movement214":scrFRMovement214Tests();break;
+        }
+        scrNTTESmokeLog("PASS full internal selected implemented branches; not complete MOD coverage");game_end();return;
+    }
+    // FRONTIER214 END NATIVE ACCEPTANCE
     // FRONTIER213 EXPLICIT NATIVE ACCEPTANCE
     if(array_contains(["crash213","world213","performance213","reticle213","bubbles213"],fr_test_case)) {
         if(!scrFRReadyTick() || instance_exists(GenCont) || instance_exists(FloorMaker) || ++fr_test_ticks<45) return;

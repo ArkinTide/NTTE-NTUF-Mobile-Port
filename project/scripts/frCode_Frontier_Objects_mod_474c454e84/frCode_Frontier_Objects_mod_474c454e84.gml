@@ -1811,26 +1811,9 @@ scrFRInstanceDestroy();
 
 // Original Objects/Frontier_Objects.mod.gml:951
 function fr_Objects_Frontier_Objects_mod_gml_BetaSurgeryStation_text(_frl__x=undefined, _frl__y=undefined, _frl__surgeryName=undefined, _frl__description=undefined, _frl__player=undefined) {
-var _frl__bob = (sin((scrFRSourceFrame() * 0.1)) * 1);
-var _frl__halign = draw_get_halign();
-var _frl__valign = draw_get_valign();
-;
-var _frl__yoff = (((16 * round((string_count("#", _frl__description) + 1))) + 28) + _frl__bob);
-var _frl__xtextoff = 0;
-;
-draw_set_font(fntSmall);
-;
-draw_set_halign(1);
-draw_set_valign(0);
-scrFRDrawText((_frl__x + _frl__xtextoff), (_frl__y - _frl__yoff), _frl__description);
-draw_set_font(fntM1);
-;
-draw_set_valign(2);
-scrFRDrawText((_frl__x + _frl__xtextoff), ((_frl__y - _frl__yoff) - 1), _frl__surgeryName);
-draw_set_halign(_frl__halign);
-draw_set_valign(_frl__valign);
+// FRONTIER214 MEASURE TRANSLATED SURGERY GLYPHS
+scrFRSurgery214Draw(_frl__x,_frl__y,_frl__surgeryName,_frl__description);
 scrFRInstanceDestroy();
-;
 }
 
 // Original Objects/Frontier_Objects.mod.gml:974

@@ -1953,7 +1953,7 @@ drawConnect = false;
 ;
 on_draw = fr_Areas_cyberspace_area_gml_bluescreen_draw;
 ;
-on_step = fr_Areas_cyberspace_area_gml_bluescreen_step;
+on_step = scrFRBluescreen214ControllerStep; // FRONTIER214 RECOVER LIVE CHOICES
 ;
 return scrFRSelf(self);
 ;
@@ -2351,6 +2351,8 @@ if(__fr_break3) break;
 
 // Original Areas/cyberspace.area.gml:1205
 function fr_Areas_cyberspace_area_gml_BluescreenButton_click() {
+// FRONTIER214 COMMIT ONCE BEFORE THE AUTHORED ACCEPT/DENY CALLBACK
+if(!scrFRBluescreen214CommitChoice(creator)) return;
 if ((yesButton == true)) {
 {
 fr_Areas_cyberspace_area_gml_bluescreen_accept(creator);

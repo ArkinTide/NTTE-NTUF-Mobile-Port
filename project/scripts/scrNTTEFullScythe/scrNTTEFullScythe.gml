@@ -360,7 +360,7 @@ function scrNTTEFullScytheControlDraw(_player,_scale,_simplified) {
         draw_sprite_ext(_sprite,0,x+(sprite_get_xoffset(_sprite)-sprite_get_width(_sprite)/2)*_s,
             y+(sprite_get_yoffset(_sprite)-sprite_get_height(_sprite)/2)*_s,_s,_s,0,c_white,_alpha);
     }
-    draw_sprite_ext(sprLoadoutArrow,0,x+12*_scale,y-12*_scale,0.65*_scale,0.65*_scale,90,c_white,_alpha);
+    // FRONTIER214 Scythe mode control keeps its weapon icon without a corner arrow.
     draw_set_color(c_white);draw_set_alpha(1);
 }
 

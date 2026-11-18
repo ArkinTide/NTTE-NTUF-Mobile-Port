@@ -38,18 +38,18 @@ if instance_exists(GameCont) {
 
 // [60帧适配] 预热循环按「帧」计数，60fps 下会少模拟一半逻辑步 → 按 timescale 折算次数。
 //
-repeat (round(150 / timescale)) {
-    event_perform(ev_step, 0)
-
-    with Spiral
-		event_perform(ev_step, 0)
-
-    with SpiralDebris
-		event_perform(ev_step, 0)
-
-    with SpiralStar
-		event_perform(ev_step, 0)
-}
+// FRONTIER214 bounded decorative warm-up. Only these visual events are
+// simulated here. Restore host timing even if an authored visual callback fails.
+var _fr_spiral_saved_dt214=timescale;
+try {
+    global.time_scale=scrFRSpiralDelta214(_fr_spiral_saved_dt214);
+    repeat (scrFRSpiralWarmCount214(timescale)) {
+        event_perform(ev_step, 0)
+        with Spiral event_perform(ev_step, 0)
+        with SpiralDebris event_perform(ev_step, 0)
+        with SpiralStar event_perform(ev_step, 0)
+    }
+} finally {global.time_scale=_fr_spiral_saved_dt214;}
 
 snd_play_ambience(sndPortalLoop, true)
 

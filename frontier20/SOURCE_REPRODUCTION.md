@@ -52,11 +52,11 @@ regenerates the unchanged unlocked icon and a locked silhouette from the transpa
 `Sprites/Crowns/sprCrownStormsIdle.png` alpha enlarged nearest2x, using the tracked
 resource template; `--check` verifies the resulting PNG hashes without writing.
 
-For 2.1.3, the game display/updater/tag use `2.1.3` and internal build 108;
+For 2.1.4, the game display/updater/tag use `2.1.4` and internal build 109;
 GAME_BUILD/save protocol remains 3004. The common accepted project retains the
-canonical `2.1.3` platform option declarations. Delivery compiler copies retain
-the iOS/Android platform version `2.1.3`; the public Android overlay includes
-its version option and bootstrap adjustment. The iOS package has build 108 and
+canonical `2.1.4` platform option declarations. Delivery compiler copies retain
+the iOS/Android platform version `2.1.4`; the public Android overlay includes
+its version option and bootstrap adjustment. The iOS package has build 109 and
 requires the user's own re-signing. Private host packaging/signing machinery is
 not published and should not be inferred from the common option declarations.
 
@@ -73,7 +73,7 @@ coordinates, flipped scales and destroyed target IDs. Processing headroom
 measures the CPU interval from Begin Step through the controller GUI End;
 it does not measure GPU presentation or certify phone frame rates.
 
-Build102 also preserves text-only supplemental boss artwork manifests and resource declarations under `generated-assets/boss-art204/`. Image bytes remain excluded. Restore the separately authorized upstream artwork before regenerating these resources. This draft directory does not establish successful build or acceptance.
+The historical boss-art supplement also preserves text-only supplemental boss artwork manifests and resource declarations under `generated-assets/boss-art204/`. Image bytes remain excluded. Restore the separately authorized upstream artwork before regenerating these resources. These reference manifests do not establish current build acceptance.
 
 The narrow supplement is regenerated after restoring the original Frontier
 archive media and native target sprite declarations:
@@ -91,5 +91,11 @@ to reproduce this supplement. The supplemental manifest, verification JSON and
 resource declarations are text references; all PNG files for these 15 authored sprites remain excluded
 from the public source payload.
 
-Current2.1.3 maintains the narrow content/UI repair installer and native test sources.
+Current2.1.4 maintains the narrow content/UI repair installer and native test sources.
 Do not rerun the historical full-stage importer over an accepted maintained project.
+
+For2.1.4, the narrow installer is `tools/install214.py`. It installs the
+current crash, query-performance, melee-control, measured-menu and touch-movement
+helpers into a maintained project; it is not a substitute for restoring media.
+Current development review names37 explicit same-VM native cases and binds the
+actual Python test log. These desktop checks do not certify physical phone FPS.

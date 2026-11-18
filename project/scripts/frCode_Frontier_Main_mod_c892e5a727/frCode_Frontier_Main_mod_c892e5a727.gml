@@ -1558,7 +1558,8 @@ if(__fr_break146) break;
 }}
 frMacro_Frontier_Main_mod_gml_call(frMacro_Frontier_Main_mod_gml_scr.array_shuffle, _frl__goldStationFloor);
 ;
-if ((_frl__statueIndex >= 0)) {
+// FRONTIER214 MANSION: this branch owns goldStationIndex, not the Oasis local.
+if ((_frl__goldStationIndex >= 0)) {
 { var __fr_with147 = scrFRWithValues(scrFRIndexGet(_frl__goldStationFloor, (_frl__goldStationIndex--))), __fr_break149=false;
 for (var __fr_index148=0; __fr_index148<array_length(__fr_with147); ++__fr_index148) {
 if(scrFRScopeExists(__fr_with147[__fr_index148])) with (__fr_with147[__fr_index148]) {
