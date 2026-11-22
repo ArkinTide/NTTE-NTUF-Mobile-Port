@@ -1,4 +1,7 @@
 function scrPlayerProcTakeDamage(_amount) {
+    // Some authored projectiles/raw hits bypass ordinary nexthurt checks.
+    // Retain only the transformation's five-tick grace, including those paths.
+    if (_amount > 0 && scrSkeletonRevivalProtected()) return true
 	var _has_inframes = (nexthurt > current_frame)
 	
 	totdamagetaken += _amount

@@ -1,59 +1,32 @@
 {
-  "source_candidate": "2.1.4",
-  "version": "2.1.4",
-  "internal": 109,
-  "date": "2026-11-18",
-  "base_commit": "b777a7d8037feffb3bb541526e10fa77e3101b71",
-  "source_manifest_sha256": "fc842e3c6c6ca05f30c4882f838bf3bbcac16fcaa94fa21f15824864a785695a",
-  "native_acceptance_sha256": "0d6cf9693ed2cb229ab1758ab796eb8e4ed6e231bbdad79e9674e1fb4475e26b",
-  "development_regression_sha256": "d11f5fd38d0f76ace4b5c41e8ef32c27b1531ba7bf1e623506d3102bd9d223ed",
-  "mobile_delivery_sha256": "fa24fd34bbb0cc07d1b63636f379ee2afb41ee746dd2c1f2a099dbea4789b093",
-  "vm_sha256": "fa5284b3dae13e5fa7df3e6cf7a10660609bfd6b74414e92ff582f79f1a3062b",
-  "independent_package_audit_sha256": "3a13d32c23df381a6a3cec322717f270911895c54ec0584a4a443d0edbece8b0",
-  "independent_package_audit_public_summary_sha256": "b52e068d8b41a8282884f293d5c1c60dc38707ded7bf0af1eb8df0be0228048a",
-  "input_sha256": "130328c8cc9636cd4625ed4ac490402c185ffbe5e0789a95bfcb9525b0ce0db7",
+  "source_candidate": "2.1.5",
+  "version": "2.1.5",
+  "internal": 110,
+  "date": "2026-11-22",
+  "base_commit": "1beaf3c6ba4cfd5324ad12205b9b586add16c78a",
+  "source_manifest_sha256": "95a3b1a90d2814a69f6ce28c689abda361c9f4a884df0fb135cf256091e11f30",
+  "native_acceptance_sha256": "73e003f1a9ccf3fb61690ffde9b4f45b0da47d93538285f5239cdcfac3204435",
+  "mobile_delivery_sha256": "3c527f0c1689ce4bf4b595379ce50a28ad564a0e1f63d7feb9d42f1ffce3168d",
+  "development_regression": {
+    "path": "docs/validation/2.1.5-development-regression.json",
+    "sha256": "29baba756b3bc4a8ba34327d1e0350e874149d047b674ace3a73fc9d77e0fed3"
+  },
+  "vm_sha256": "c159dd89921c60bcfdb0476b6b8d33fe897630784e3f86dd4c565548aa1ded20",
+  "input_sha256": "dc8031263c405ff92d736905fc11f2bbec6735902936801dddca4d01facc3334",
   "selected_windows_cases": [
-    "FrontierMelee214Tests",
-    "FrontierCrash214Tests",
-    "FrontierMenus214Tests",
-    "FrontierPerformance214Tests",
-    "FrontierMovement214Tests",
-    "FrontierBubbles213Tests",
-    "FrontierCrash213Tests",
-    "FrontierWorld213Tests",
-    "FrontierPerformance213Tests",
-    "FrontierReticle213Tests",
-    "FrontierRed212ScheduledTests",
-    "FrontierCollision212Tests",
-    "FrontierMenus212Tests",
-    "FrontierClock212Tests",
-    "FrontierClock212LiveTests",
-    "FrontierBubblesAttack212Tests",
-    "FrontierBluescreenUI204Yes30Tests",
-    "FrontierBluescreenUI204No30Tests",
-    "FrontierBluescreenUI204Yes60Tests",
-    "FrontierBluescreenUI204No60Tests",
-    "FrontierPlayerWallTests",
-    "FrontierRedConnectivity204Tests",
-    "FrontierWallSurface205Tests",
-    "FrontierWeaponTests",
-    "FrontierWeaponVisualTests",
-    "FrontierContinueWriteTests",
-    "FrontierContinueReadTests",
-    "FrontierLifecycleTests",
-    "FrontierWeatherPerformanceTests",
-    "VisualOptionsDrawTests",
-    "IOSRenderSurfaceTests",
-    "QuestLockedNativeTests",
-    "QuestFloorNativeTests",
-    "QuestTeleporterNativeTests",
-    "QuestHubNativeTests",
-    "FrontierBubblesStartupATests",
-    "FrontierBubblesStartupBTests"
+    "NewCharacterUnlockTests",
+    "CustomCharacterTests",
+    "SkeletonRevivalTests",
+    "RaceNativeLifecycleTests",
+    "RaceProgressionNativeTests",
+    "WeaponLoadoutNativeTests",
+    "CrownLoadoutNativeTests",
+    "PetSalamanderTests",
+    "FrontierFollowup210Tests",
+    "FrontierUnlockTests"
   ],
-  "windows_cases": 37,
-  "python_tests": 190,
-  "python_historical_source_binding": false,
+  "windows_cases": 10,
+  "python_packaging_boundary_tests": 5,
   "rates": [
     30,
     60
@@ -63,26 +36,26 @@
     "options/android/options_android.yy"
   ],
   "installers": {
-    "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.4.apk",
-      "bytes": 305916244,
-      "sha256": "6872a214d6b516e7e7aa5a0b22881e7366b199171ed6a7b6cd0b2cea5b432fc9"
-    },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.4.ipa",
-      "bytes": 213148460,
-      "sha256": "0fde5773761d2df019f4a700280f726c3873209b4f0c7d2337d2c73a4966613f"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.5.ipa",
+      "bytes": 213156123,
+      "sha256": "2af31e93cbea5949d8b0494868dbcb691f6ca047aa9e44f3321a360b83c97e0e"
+    },
+    "android": {
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.5.apk",
+      "bytes": 305933539,
+      "sha256": "ef22290b70a8f6b7f07ee16d430373629fb618e51f550e14e7bda16b93c87a1e"
     }
   },
-  "android_version_code": 3000109,
-  "ios_bundle_version": "109",
+  "android_version_code": 3000110,
+  "ios_bundle_version": "110",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.1.4",
-    "NTTE_RELEASE_VERSION": "2.1.4",
-    "NTTE_RELEASE_TAG": "2.1.4",
-    "compiler_ios": "2.1.4",
-    "compiler_android": "2.1.4"
+    "GAME_VERSION": "2.1.5",
+    "NTTE_RELEASE_VERSION": "2.1.5",
+    "NTTE_RELEASE_TAG": "2.1.5",
+    "compiler_ios": "2.1.5",
+    "compiler_android": "2.1.5"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -94,109 +67,15 @@
   "upload_installers_to_github": false,
   "download_page": "https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA",
   "repository": "ArkinTide/NTTE-NTUF-Mobile-Port",
-  "preserved_upstream_markdown_web_routes": [
-    {
-      "file": "project/README.md",
-      "target": "../../graphs/contributors",
-      "reason": "preserved canonical upstream web route; not a local file"
-    }
-  ],
+  "requirement_status": {
+    "1": "NOT_REPRODUCED",
+    "2": "VERIFIED_FIXED",
+    "3": "VERIFIED_FIXED"
+  },
+  "known_issue": "Additional-character unlock report not reproduced; remains unresolved pending gameplay/save context.",
   "original_ntte_source": "https://github.com/Yokinman/NTTE",
   "frontier_source": "https://wigglercola.itch.io/uncharted-frontier",
   "frontier_version": "1.0.3.3",
   "undergrowth_source": "https://attfooy.itch.io/undergrowth",
-  "detailsplus_source": "https://wigglercola.itch.io/detailsplus",
-  "requirement_ids": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8
-  ],
-  "request_tracking": [
-    {
-      "id": 1,
-      "request": "NTTE/NTUF近战长臂加成，包括骨镰刀及融合路径",
-      "status": "VERIFIED_NOT_REPRODUCED",
-      "native_cases": [
-        "FrontierMelee214Tests"
-      ],
-      "resolution_zh": "复核本轮测试的17把 NTTE／NTUF 近战武器（10把 NTUF 和7把选定 NTTE 武器）及其融合前端的长臂加成，当前维护源与最终 Windows VM 未复现报告中的失效，不把原有加成公式描述为新增修复。普通骨镰刀经真实变异选择后，在目标间距为4像素的测试网格上，最远受伤目标的原始中心距离在30Hz为40→60像素、60Hz为44→60像素，重击均为56→80像素；这些数值描述所采样的靶心距离。切换形态、换武器及续局路径也通过本轮验证。",
-      "resolution_en": "Reviewed Long Arms for the 17 tested NTTE/NTUF melee weapons (10 NTUF and 7 selected NTTE weapons), including front-melee fusion paths. The maintained source and final Windows VM did not reproduce the reported failure, so existing formulas are not presented as a new fix. After genuine mutation selection, a target grid spaced 4 pixels apart measured the distance to the original center of the farthest damaged target:40→60 pixels for light attacks at30Hz and44→60 at60Hz; heavy attacks measured56→80 at both rates. These values describe the sampled target centers. Form changes, weapon swaps and continuation also passed the current checks."
-    },
-    {
-      "id": 2,
-      "request": "七张截图的全部崩溃路径",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierCrash214Tests"
-      ],
-      "resolution_zh": "修正豪宅黄金兑换站局部变量和转场螺旋预热问题；七张截图所涉的失效墙体引用、稀疏设置重置、已销毁追踪目标及自定义数据作用域创建实例的原有防护，也在当前最终 VM 中重新执行验证。",
-      "resolution_en": "Corrected the mansion gold-station local index and transition-spiral warm-up. Existing guards for the seven screenshot paths involving stale walls, sparse settings reset, destroyed homing targets and instance creation from custom data scopes also ran again on the final current VM."
-    },
-    {
-      "id": 3,
-      "request": "手术变异中文文字排版",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierMenus214Tests"
-      ],
-      "resolution_zh": "手术变异的中文说明按实际字体高度换行并增加行距，标题与说明各自测量，避免中文文字叠在一起。",
-      "resolution_en": "Measured Surgery text with the actual font and added line spacing, independently placing the title and description to prevent overlapping Chinese glyphs."
-    },
-    {
-      "id": 4,
-      "request": "机器人重启YES/NO间歇性缺失",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierMenus214Tests"
-      ],
-      "resolution_zh": "机器人重启页面使用独立 GUI 相机绘制 YES／NO，并在原有选项出现时间之后恢复缺失按钮；确认选择后不重复创建或提交。",
-      "resolution_en": "Drew Robot reboot YES/NO choices with an independent GUI camera and restored missing buttons after their authored appearance threshold, while preventing duplicate recreation or submission after a committed choice."
-    },
-    {
-      "id": 5,
-      "request": "全游戏性能审计及有证据的热点优化",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierPerformance214Tests"
-      ],
-      "resolution_zh": "优化高频弹幕家族的实体类型、数量与存在性查询，减少重复建立完整实体列表。差分测试检查旧实现的返回值、类型及非法输入行为；本轮不作手机帧率承诺。",
-      "resolution_en": "Optimized frequent projectile-family type, count and existence queries to avoid repeatedly assembling complete instance lists. Differential tests check legacy return values, types and invalid-input behavior; no phone frame-rate guarantee is made."
-    },
-    {
-      "id": 6,
-      "request": "移除骨镰刀形态按钮右上角箭头",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierMelee214Tests"
-      ],
-      "resolution_zh": "移除骨镰刀形态按钮右上角的额外白色箭头，保留武器图标、形态按钮及原有切换功能。",
-      "resolution_en": "Removed the extra white arrow at the upper right of the Scythe form control, retaining its weapon icon, button and switching behavior."
-    },
-    {
-      "id": 7,
-      "request": "鹦鹉与泡泡角色偏好设置列对齐",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierMenus214Tests"
-      ],
-      "resolution_zh": "对齐鹦鹉和泡泡角色偏好设置的图标、文字与开关列，给开关保留间距，并按可用宽度缩放长文本。",
-      "resolution_en": "Aligned the Parrot and Bubbles preference icon, label and switch columns, reserving space before each value and fitting long labels to the available width."
-    },
-    {
-      "id": 8,
-      "request": "触屏移动操作响应优化",
-      "status": "VERIFIED_REPAIRED",
-      "native_cases": [
-        "FrontierMovement214Tests"
-      ],
-      "resolution_zh": "触屏移动增加连续方向与小幅操作处理，检查原始触点输入、摇杆死区以及30／60Hz下相同时间的响应。",
-      "resolution_en": "Refined continuous touch direction and fine movement, with checks for raw touch input, joystick deadzone and equal-time response at30/60Hz."
-    }
-  ],
-  "publication_plan_sha256": "593d8cf2803061e8f81000501fcad0376673657f3abfd64c2bc2205f14f11e0b"
+  "detailsplus_source": "https://wigglercola.itch.io/detailsplus"
 }

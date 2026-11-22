@@ -2,6 +2,14 @@
 
 [简体中文](UPDATING.md) | [English](UPDATING.en.md) | [Home](../README.en.md)
 
+## 2.1.5 build 110 version
+
+Display, updater, platform versions and the official tag use `2.1.5`, internal
+build 110 (Android versionCode 3000110; iOS build 110). This release uses the
+current tested VM and fresh platform data; GAME_BUILD/save protocol stays 3004.
+See [2.1.5 changes and the unresolved unlock report](RELEASE-2.1.5.md).
+The existing MEGA folder and application/signing identity remain unchanged.
+
 ## 2.1.4 build109 version
 
 Game display, updater, platform versions and official tag use `2.1.4`, internal
@@ -93,6 +101,6 @@ The idle main menu checks once about 5 seconds after startup. Manual checks are 
 
 ## Publishing policy
 
-Current version: **2.1.4**, internal build109 (Android versionCode3000109; iOS build109), integrating Uncharted Frontier (NTUF) 1.0.3.3. The repository is renamed to `NTTE-NTUF-Mobile-Port`; the old GitHub address redirects, and the fixed MEGA folder is retained. Subsequent fixes increment 0.0.1. Version 1.0.4 and subsequent 1.0.x retain original NTTE content. Keep the save-format `GAME_BUILD` unchanged.
+Current version: **2.1.5**, internal build110 (Android versionCode3000110; iOS build110), integrating Uncharted Frontier (NTUF) 1.0.3.3. The repository is renamed to `NTTE-NTUF-Mobile-Port`; the old GitHub address redirects, and the fixed MEGA folder is retained. Subsequent fixes increment 0.0.1. Version 1.0.4 and subsequent 1.0.x retain original NTTE content. Keep the save-format `GAME_BUILD` unchanged.
 
 Synchronize game, updater, and platform versions and complete validation. Before publishing, run `python tools/audit_source_only.py --index` and `--history`. Never upload artwork, audio, fonts, runtimes, installers, signing data, or personal saves to Git. Publish the official version tag and bilingual notes with the same MEGA link and third-party credits.

@@ -1,5 +1,21 @@
 # Frontier source reproduction
 
+## Current 2.1.5 / build 110 source
+
+The accepted root `project/` now represents 2.1.5. Its display/updater/platform
+versions are 2.1.5; Android versionCode is 3000110 and iOS build is 110.
+The Android text overlay's option version is also 2.1.5, so preparing Android
+cannot restore the prior version metadata. GAME_BUILD/save protocol remains 3004.
+The source baseline and validation are recorded in `docs/SOURCE_BASELINE.json`
+and `docs/validation/2.1.5-development-regression.json`. The new custom-character
+and Skeleton changes are kept in the accepted project and its small maintained
+text patches. The normal unlock report remains unresolved, not claimed fixed.
+Private packaging/signing hosts, assets and native runners remain external;
+the published 2.1.5 packaging interface documents their required layout and does
+not make them part of a source-only checkout or claim phone/Xcode validation.
+
+## Preserved source and historical reproduction notes
+
 The root `project/` is the exact accepted generated game source and resource
 declarations. This directory preserves the native adapters, offline compiler,
 localization, importer, dependency/source inventory and text-only original

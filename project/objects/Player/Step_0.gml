@@ -314,8 +314,10 @@ if hp <= 0 {
 	}
 	else if can_die && !global.__debug_immortality {
 		if race == Race.Melting && place_meeting(x, y, ReviveCircle) && !instance_exists(CoopController) {
-			scrTurnIntoSkeleton()
-			hp = 1
+            scrNTTEFullChargeInputCancel(id);scrNTTEFullPetSalamanderPlayerRestoreInput();
+            scrTurnIntoSkeleton()
+            // Do not reinterpret this frame's firing/ability input after revival.
+            exit
 		}
 		else if UberCont.opt_practice {
 			mask_index = mskNone

@@ -33,6 +33,16 @@ enum SkinLetter {
 /// @function scr_race_is_unlocked
 /// @param {Real|Enum.Race} race
 function scr_race_is_unlocked(_race) {
+    // BEGIN CUSTOM CHARACTER215 ACCESS
+    // Custom character access is temporary; disabled content and
+    // unavailable runtimes retain their ordinary selection gates.
+    if(scrGameIsCustomMode() && scrCustomParam("unlock_chars")) {
+        var _native=scrNTTEFullRaceNumeric(_race);
+        if(_native>=0) return scrNTTEFullRaceReady(_native);
+        if(scrFRRaceIs(_race)) return scrFREnabled();
+    }
+    // END CUSTOM CHARACTER215 ACCESS
+
     // BEGIN FRONTIER RACE AVAILABLE
     if(scrFRRaceIs(_race)) return scrFRRaceAvailable();
     // END FRONTIER RACE AVAILABLE

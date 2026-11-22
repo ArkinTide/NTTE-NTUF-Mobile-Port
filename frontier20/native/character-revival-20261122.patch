@@ -1,0 +1,336 @@
+--- a/scripts/scrTurnIntoSkeleton/scrTurnIntoSkeleton.gml
++++ b/scripts/scrTurnIntoSkeleton/scrTurnIntoSkeleton.gml
+@@ -24,11 +24,89 @@
+ 	
+     with (scr_playerinstance_find(index)) race = other.race
+ 	
+-	hurtframes = current_frame + 5
++    // Complete revival before any later event can observe the new body.
++    hp = 1
++    ntte_skeleton_revive_until = current_frame + 5
++    nexthurt = max(nexthurt, ntte_skeleton_revive_until)
++    // An input sampled for Melting must not become a Skeleton blood gamble.
++    KeyCont.activeforever[index] = false
++    KeyCont.press_spec[index] = false
++    KeyCont.hold_spec[index] = false
++    KeyCont.release_spec[index] = false
+     sprite_index = spr_hurt
+ 	image_index = 0
+     
+ 	snd_play_hit_big(sndMutant14Turn, 0.2)
+     
+ 	scrWeapons()
+-}+}
++
++function scrSkeletonRevivalProtected() {
++    return race == Race.Skeleton
++        && current_frame < (self[$ "ntte_skeleton_revive_until"] ?? -1)
++}
++
++// Runs only via the explicit desktop harness, with redirected disposable saves.
++function scrSkeletonRevivalTests() {
++    var _scope=scrNTTEFullSkinUnlockNaturalBegin("skeleton-revival");
++    try {
++        var _p=instance_find(Player,0),_slot=_p.index;
++        UberCont.custom=false;UberCont.opt_practice=false;UberCont.opt_cheats=false;
++        global.cheats=false;global.__debug_immortality=false;
++        GameCont.fr_progress210_blocked=false;GameCont.fr_achievements_blocked210=false;
++        GameCont.level=7;GameCont.rad=100;GameCont.ultrapoints=1;
++        ds_list_add(GameCont.skills,mut_long_arms);
++        with(_p) {
++            scrPlayerRaceChange(Race.Melting,0);
++            hp=0;spirit=false;spirit_index=0;can_die=true;
++            visible=true;can_shoot=true;can_spec=true;reload=0;
++            wep=wep_revolver;bwep=0;nexthurt=0;
++        }
++        KeyCont.press_fire[_slot]=false;KeyCont.hold_fire[_slot]=false;
++        KeyCont.press_spec[_slot]=true;KeyCont.hold_spec[_slot]=true;
++        KeyCont.activeforever[_slot]=true;
++        // An interrupted mounted-input mask must be restored before clearing
++        // the old body's sampled controls, otherwise cleanup reintroduces them.
++        _p.ntte_salamander_input={hold:true,press:true,can:true,pet:noone};
++        var _circle=instance_create(_p.x,_p.y,ReviveCircle),_shots=instance_number(projectile);
++        with(_p) event_perform(ev_step,ev_step_normal);
++        assert(instance_exists(_p) && instance_is(_p,Player) && _p.race==Race.Skeleton
++            && _p.hp==1 && _p.max_hp==4,
++            "Real Melting death/ReviveCircle did not atomically revive the same body at 1/4 HP");
++        assert(GameCont.level==1 && GameCont.rad==0 && GameCont.ultrapoints==0 && ds_list_size(GameCont.skills)==0,
++            "Skeleton revival lost its original level/radiation/mutation reset");
++        assert(!KeyCont.activeforever[_slot] && !KeyCont.press_spec[_slot]
++            && !KeyCont.hold_spec[_slot] && instance_number(projectile)==_shots,
++            "Melting input was reinterpreted as a Skeleton gamble or shot in the revival event");
++        var _until=_p.ntte_skeleton_revive_until,_begin=current_frame;
++        assert(_until-_begin==5,"Revival protection changed authored five logical ticks");
++        scrPlayerHeal(_p,2);
++        assert(_p.hp==3,"Revival protection prevented healing during grace");
++        _p.hp=1;
++        var _shot=instance_create(_p.x,_p.y,EnemyBullet1),_blast=instance_create(_p.x,_p.y,Explosion);
++        _shot.team=team_enemy;_blast.team=team_enemy;
++        while(current_frame<_until) {
++            with(_shot) if(scr_can_hit(_p,false)) scr_projectile_hit(_p,1);
++            with(_blast) scr_projectile_hit(_p,5,0,0);
++            with(_p) scr_hit_self(1,HitId.BloodGamble);
++            assert(_p.hp==1,"Bypassed iframe/raw damage killed Skeleton during revival grace");
++            current_frame+=timescale;
++        }
++        scrPlayerHeal(_p,2);
++        assert(_p.hp==3,"Revival protection prevented healing");
++        with(_shot) scr_projectile_hit(_p,1);
++        assert(_p.hp==2,"Skeleton stayed invulnerable after the logical revival deadline");
++        with(_p) scr_hit_self(1,HitId.BloodGamble);
++        assert(_p.hp==1,"Ordinary Skeleton gambling stopped costing HP after revival");
++        instance_destroy(_shot,false);instance_destroy(_blast,false);instance_destroy(_circle,false);
++        // Use the actual level-up event to verify the challenge's completion reward.
++        UberCont.cgot[Race.Skeleton]=false;
++        GameCont.level=9;GameCont.rad=10000;
++        with(GameCont) event_perform(ev_step,ev_step_normal);
++        assert(GameCont.level==10 && scr_race_is_unlocked(Race.Skeleton),
++            "Surviving Skeleton could not complete its real level-Ultra unlock");
++        scrNTTESmokeLog("SKELETON REVIVAL: real death/circle/input handoff, same body 1/4HP, five logical ticks vs bullet/explosion/raw hits, expiry and genuine Ultra unlock OK @"+string(30/timescale));
++    } finally {
++        scrNTTEFullSkinUnlockNaturalEnd(_scope);
++    }
++}
+--- a/scripts/scrRaces/scrRaces.gml
++++ b/scripts/scrRaces/scrRaces.gml
+@@ -33,6 +33,16 @@
+ /// @function scr_race_is_unlocked
+ /// @param {Real|Enum.Race} race
+ function scr_race_is_unlocked(_race) {
++    // BEGIN CUSTOM CHARACTER215 ACCESS
++    // Custom character access is temporary; disabled content and
++    // unavailable runtimes retain their ordinary selection gates.
++    if(scrGameIsCustomMode() && scrCustomParam("unlock_chars")) {
++        var _native=scrNTTEFullRaceNumeric(_race);
++        if(_native>=0) return scrNTTEFullRaceReady(_native);
++        if(scrFRRaceIs(_race)) return scrFREnabled();
++    }
++    // END CUSTOM CHARACTER215 ACCESS
++
+     // BEGIN FRONTIER RACE AVAILABLE
+     if(scrFRRaceIs(_race)) return scrFRRaceAvailable();
+     // END FRONTIER RACE AVAILABLE
+--- a/scripts/scrPlayerProcTakeDamage/scrPlayerProcTakeDamage.gml
++++ b/scripts/scrPlayerProcTakeDamage/scrPlayerProcTakeDamage.gml
+@@ -1,4 +1,7 @@
+ function scrPlayerProcTakeDamage(_amount) {
++    // Some authored projectiles/raw hits bypass ordinary nexthurt checks.
++    // Retain only the transformation's five-tick grace, including those paths.
++    if (_amount > 0 && scrSkeletonRevivalProtected()) return true
+ 	var _has_inframes = (nexthurt > current_frame)
+ 	
+ 	totdamagetaken += _amount
+--- a/scripts/scrNTTEFullRaceProgressionNativeTests/scrNTTEFullRaceProgressionNativeTests.gml
++++ b/scripts/scrNTTEFullRaceProgressionNativeTests/scrNTTEFullRaceProgressionNativeTests.gml
+@@ -126,3 +126,184 @@
+     }
+     scrNTTESmokeLog("FULL RACE PROGRESSION NATIVE: source per-slot runs/per-race wins/death same-ID revive/campfire loops+crown+heart/time visibility+generation+level-seat gates/team kills delta+best tuple/JSON persistence OK @"+string(30/timescale))
+ }
++
++// BEGIN NEW CHARACTER215 REGRESSIONS
++// Reuse the existing desktop-only sampled-pointer seam. Production input
++// and hit-testing still consume the actual native loadout rows below.
++function scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_x,_y) {
++    _observer.pointer_x=_x;_observer.pointer_y=_y;_observer.want_pointer=true;
++    var _count=_observer.pointer_injections;
++    with(_menu) scrMenuDrawLoadout(my_player);
++    assert(!_observer.want_pointer && _observer.pointer_injections==_count+1,
++        "Additional-role native loadout did not consume its sampled UI input");
++}
++
++// The real room-start and win/loop providers must accept every mobile race.
++// Keep the caller's live state and durable files outside this isolated fixture.
++function scrNTTEFullNewCharacterUnlockTests() {
++    var _scope=scrNTTEFullSkinUnlockNaturalBegin("new-character-progress215"),_reload_map=-1;
++    try {
++        UberCont.custom=false;UberCont.opt_console=false;UberCont.opt_practice=false;
++        global.console_active=false;GameCont.fr_progress210_blocked=false;
++        GameCont.fr_achievements_blocked210=false;
++        global.ntte_full_feature_ready={};
++        global.ntte_full_feature_ready[$ "race:beetle"]=true;
++        global.ntte_full_feature_ready[$ "race:parrot"]=true;
++        global.ntte_full_progress.unlocks[$ "race:beetle"]=true;
++        global.ntte_full_progress.unlocks[$ "race:parrot"]=true;
++        var _source=global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"];
++        _source.unlock_bubbles=1;
++        var _p=instance_find(Player,0),_slot=scr_playerinstance_find(_p.index);
++        assert(_p.index==global.index && scr_player_is_local(_p.index),"New-role fixture lost its local player slot");
++        for(var _race=17;_race<=19;++_race) {
++            with(_p) scrPlayerRaceChange(_race,0);
++            assert(_p.race==_race && _slot.race==_race && scr_player_is_local(_p.index),
++                "Actual race-change bridge lost source/native local identity: "+string(_race));
++            assert(scr_race_is_unlocked(_race),"Owned additional role is unavailable in a normal run: "+string(_race));
++            _p.extra_weps=[];_p.wep=wep_golden_machinegun;_p.bwep=wep_none;
++            _p.ntte_state=scrNTTENewState(_p.wep);_p.bntte_state=undefined;
++            UberCont.cwep[_race]=scrRaceGetStarterWeapon(_race);
++            save_set_value("achievement",string(Achievement.GOOD_FIND),0);
++            // Actual native Room Start owns the ordinary carried-gold callback.
++            with(_p) event_perform(ev_other,ev_room_start);
++            assert(UberCont.cwep[_race]==wep_golden_machinegun
++                && save_get_value("cwep",string(_race))==wep_golden_machinegun
++                && scrAchievementIsUnlocked(Achievement.GOOD_FIND),
++                "Additional role lost carried gold or its achievement at native Room Start: "+string(_race));
++            GameCont.crown=Crown.Haste;UberCont.crowngot[_race,Crown.Haste]=false;
++            scrUnlocksWinOrLoop();
++            assert(scr_loadout_race_is_crown_unlocked(_race,Crown.Haste)
++                && save_get_value("crowngot"+string(_race),string(Crown.Haste)),
++                "Additional role lost crown ownership at actual win/loop provider: "+string(_race));
++            // Test the common persistent ownership boundary; source-specific
++            // acquisition predicates have their own existing natural fixtures.
++            if(_race<19) variable_struct_remove(global.ntte_full_progress.unlocks,"skin:"+scrNTTEFullRaceKey(_race)+":1");
++            else _source.unlock_bubbles_bskin=0;
++            scrRaceUnlockSkin(_race,1);
++            assert(scr_race_is_skin_unlocked(_race,1),"Additional role skin award was rejected: "+string(_race));
++            scr_loadout_race_set_skin(_race,1);
++            assert(scr_loadout_race_get_skin(_race)==1,"Additional role could not select its earned skin: "+string(_race));
++            scrSave();
++            var _main=json_parse(scrNTTEFullSkinUnlockNaturalRead(game_directory+"NuclearThrone.sav"));
++            assert(_main[$ "cwep_"+string(_race)]==wep_golden_machinegun
++                && _main[$ "crowngot"+string(_race)+"_"+string(Crown.Haste)],
++                "Additional role's native gold/crown was not in the actual saved JSON: "+string(_race));
++            var _owned=json_stringify(global.ntte_full_progress);
++            assert(scrNTTEFullProgressLoad() && json_stringify(global.ntte_full_progress)==_owned,
++                "Additional role progress changed through actual file reload: "+string(_race));
++            if(_race==19) {
++                _source.unlock_bubbles_bskin=0;
++                scrFRSaveLoad("Frontier");
++                _source=global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"];
++                assert(_source.unlock_bubbles_bskin==1,"Bubbles skin was not committed to its actual source save");
++            }
++            scrNTTESmokeLog("NEW ROLE NORMAL PROGRESS "+string(_race)+" native RoomStart/gold/achievement/win-crown/skin award/native+source JSON reload OK");
++        }
++        // Reconstruct the native arrays through the actual startup reader,
++        // rather than treating a successful JSON write as a reload test.
++        save_set_value("cheats","console",false);save_set_value("cheats","orig_console",false);
++        save_set_value("cheats","practice",false);scrSave();
++        for(var _race=17;_race<=19;++_race) {
++            UberCont.cwep[_race]=scrRaceGetStarterWeapon(_race);
++            UberCont.crowngot[_race,Crown.Haste]=false;UberCont.cskin[_race]=0;
++        }
++        global.ntte_full_progress={schema:1,unlocks:{},loadouts:{},stats:{}};
++        assert(scrNTTEFullProgressLoad(),"New-role cold read could not load NTTE source progress");
++        global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"]={};
++        scrFRSaveLoad("Frontier");
++        with(UberCont) scrInit();
++        _reload_map=UberCont.saveData;
++        for(var _race=17;_race<=19;++_race) {
++            assert(scr_race_is_unlocked(_race) && scr_race_is_skin_unlocked(_race,1)
++                && scr_loadout_race_get_skin(_race)==1
++                && scr_loadout_race_get_stored_weapon(_race)==wep_golden_machinegun
++                && scr_loadout_race_get_start_weapon(_race)==wep_golden_machinegun
++                && scr_loadout_race_is_crown_unlocked(_race,Crown.Haste),
++                "Actual native scrInit/file reload lost additional-role ownership/loadout: "+string(_race));
++        }
++        var _menu=instance_create(0,0,Menu),_observer=instance_create(0,0,NTTEFullSkinNativeMenuTest);
++        _observer.menu=_menu;_observer.phase=3;_observer.want_pointer=false;
++        _observer.pointer_injections=0;_observer.injected_phase=-1;
++        _menu.loadout_open=true;_menu.loadout_frame=4;
++        for(var _race=17;_race<=19;++_race) {
++            scrCampfireMenuSelectionChange(_p.index,_race);_observer.target_race=_race;
++            assert(my_player.race==_race,"Native menu could not preview an earned additional role");
++            var _size=sprite_get_height(sprLoadoutCrown)-4,_right=gui_w+12,
++                _rows=max(1,(gui_h-LETTERBOX_SIZE*4) div _size),
++                _left=_right-(array_length(scrNTTEFullCrownLoadoutSlots()) div _rows)*_size,
++                _wepx=(_right+_left) div 2-44+20,
++                _wepy=gui_h-LETTERBOX_SIZE*2+_size div 2-19;
++            scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_wepx,_wepy);
++            assert(my_player.cwep==scrFRContent211Starter(_race,my_player.skin),
++                "Additional-role native default weapon choice failed");
++            scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_wepx+44,_wepy);
++            assert(my_player.cwep==wep_golden_machinegun
++                && scr_loadout_race_get_start_weapon(_race)==wep_golden_machinegun,
++                "Additional-role saved golden weapon was invisible/unselectable in the actual native loadout: "+string(_race));
++            var _skins=scrNTTEFullSkinSlots(_race),_step=sprite_get_width(sprLoadoutSkin)-4,
++                _skin_x=_left-_size div 2-22,_skin_y=gui_h div 2-(_step*.5)*array_length(_skins)-2;
++            scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_skin_x,_skin_y);
++            assert(my_player.skin==0,"Additional-role native A-skin choice failed");
++            scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_skin_x,_skin_y+_step);
++            assert(my_player.skin==1 && scr_loadout_race_get_skin(_race)==1,
++                "Additional-role earned B-skin was unavailable in the actual native loadout: "+string(_race));
++            var _crowns=scrNTTEFullCrownLoadoutSlots(),_cx=_right-_size*3,
++                _cy=LETTERBOX_SIZE*2-24,_found=false;
++            GameCont.crown=crwn_none;
++            for(var _i=0;_i<array_length(_crowns);++_i) {
++                var _crown=_crowns[_i];
++                if(_crown==Crown.Haste) {
++                    scrNTTEFullNewCharacterMenuPoint(_menu,_observer,_cx,_cy);_found=true;break;
++                }
++                _cx+=_size;
++                if(_cx>=_right || _crown==crwn_none) {_cx=_left;_cy+=_size;}
++            }
++            assert(_found && GameCont.crown==Crown.Haste && scr_loadout_race_get_start_crown(_race)==Crown.Haste,
++                "Additional-role earned crown was unavailable in the actual native loadout: "+string(_race));
++        }
++        scrNTTESmokeLog("PASS NEW ROLE COLD READ/UI: actual native scrInit rebuild plus NTTE/Frontier file readers; real native loadout default/gold, A/B skin and crown selection for all3 roles @"+string(30/timescale));
++    } finally {
++        scrNTTEFullSkinUnlockNaturalEnd(_scope);
++        if(_reload_map>=0 && _reload_map!=UberCont.saveData && ds_exists(_reload_map,ds_type_map)) ds_map_destroy(_reload_map);
++    }
++}
++
++function scrNTTEFullCustomCharacterTests() {
++    var _scope=scrNTTEFullSkinUnlockNaturalBegin("custom-character215");
++    try {
++        UberCont.opt_console=false;UberCont.opt_practice=false;global.console_active=false;
++        GameCont.fr_progress210_blocked=false;GameCont.fr_achievements_blocked210=false;
++        GameCont.fr_progress210_slot=undefined;UberCont.custom=true;
++        UberCont.custom_mode_slot_index=0;UberCont.custom_options=new CustomModeOptions("CHARACTER215");
++        UberCont.custom_options.unlock_chars=true;
++        global.ntte_full_feature_ready[$ "race:beetle"]=true;
++        global.ntte_full_feature_ready[$ "race:parrot"]=true;
++        global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"].unlock_bubbles=0;
++        var _before=json_stringify(global.ntte_full_progress),_saved=scrFRProgress210State();
++        var _menu=instance_create(0,0,Menu);
++        for(var _race=17;_race<=19;++_race) {
++            assert(scr_race_is_unlocked(_race),"Custom Unlock Characters excludes an enabled additional role: "+string(_race));
++            var _icon=noone;
++            with(CharSelect) if(race==_race) _icon=id;
++            assert(instance_exists(_icon),"Real custom menu omitted enabled additional role: "+string(_race));
++            with(_icon) event_perform(ev_draw,0);
++            assert(_icon.can,"Real custom CharSelect Draw rejected an additional role: "+string(_race));
++            my_player.race=Race.Fish;
++            with(_icon) event_perform(ev_mouse,ev_left_press);
++            assert(my_player.race==_race,"Custom CharSelect click failed to select additional role: "+string(_race));
++        }
++        assert(scrFRProgress210State()==_saved,"Custom character selection replaced its isolated progress domain");
++        assert(!scrFRProgress210CanStoreGold() && !scrFRAchievementsAllowed210(),
++            "Temporary custom character access enabled permanent gold/achievements");
++        assert(!scrNTTEFullUnlockGet("race:beetle") && !scrNTTEFullUnlockGet("race:parrot")
++            && !scrFRProgress210SourceGet("unlock_bubbles",0),
++            "Custom Unlock Characters awarded permanent role ownership");
++        global.fr_content210_ntuf=false;
++        assert(!scr_race_is_unlocked(19),"Custom Unlock Characters bypassed disabled NTUF content");
++        global.fr_content210_ntuf=true;
++        global.ntte_full_feature_ready[$ "race:beetle"]=false;
++        assert(!scr_race_is_unlocked(17),"Custom Unlock Characters bypassed missing NTTE runtime readiness");
++        scrNTTESmokeLog("PASS CUSTOM NEW ROLES: enabled roles in real CharSelect Draw/click; no permanent unlock/gold/achievement; disabled NTUF/readiness gates retained @"+string(30/timescale));
++    } finally {scrNTTEFullSkinUnlockNaturalEnd(_scope);}
++}
++// END NEW CHARACTER215 REGRESSIONS
+--- a/objects/Player/Step_0.gml
++++ b/objects/Player/Step_0.gml
+@@ -314,8 +314,10 @@
+ 	}
+ 	else if can_die && !global.__debug_immortality {
+ 		if race == Race.Melting && place_meeting(x, y, ReviveCircle) && !instance_exists(CoopController) {
+-			scrTurnIntoSkeleton()
+-			hp = 1
++            scrNTTEFullChargeInputCancel(id);scrNTTEFullPetSalamanderPlayerRestoreInput();
++            scrTurnIntoSkeleton()
++            // Do not reinterpret this frame's firing/ability input after revival.
++            exit
+ 		}
+ 		else if UberCont.opt_practice {
+ 			mask_index = mskNone
+--- a/scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml
++++ b/scripts/scrNTTEFullSmoke/scrNTTEFullSmoke.gml
+@@ -767,6 +767,9 @@
+         if(scrNTTEFullSmokeCase("OrchidBallTests")) scrNTTEFullOrchidBallTests();
+         if(scrNTTEFullSmokeCase("OrchidBallRedTests")) scrNTTEFullOrchidBallRedTests();
+         }
++        if(scrNTTEFullSmokeCase("NewCharacterUnlockTests")) scrNTTEFullNewCharacterUnlockTests();
++        if(scrNTTEFullSmokeCase("CustomCharacterTests")) scrNTTEFullCustomCharacterTests();
++        if(scrNTTEFullSmokeCase("SkeletonRevivalTests")) scrSkeletonRevivalTests();
+         if(scrNTTEFullSmokeCase("PlayerRateBootstrapTests")) scrNTTEFullPlayerRateBootstrapTests();
+         if(scrNTTEFullSmokeAsyncCase("PlayerRateMotionTests")) scrNTTEFullPlayerRateMotionTests();
+         if(scrNTTEFullSmokeAsyncCase("PitSquidKnockbackNativeTests")) scrNTTEFullPitSquidKnockbackNativeTests();

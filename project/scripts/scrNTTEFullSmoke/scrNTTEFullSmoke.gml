@@ -767,6 +767,9 @@ if(scrNTTEFullSmokeAsyncCase("FrontierBloodlust205Tests")) {scrFRIntegrationTest
         if(scrNTTEFullSmokeCase("OrchidBallTests")) scrNTTEFullOrchidBallTests();
         if(scrNTTEFullSmokeCase("OrchidBallRedTests")) scrNTTEFullOrchidBallRedTests();
         }
+        if(scrNTTEFullSmokeCase("NewCharacterUnlockTests")) scrNTTEFullNewCharacterUnlockTests();
+        if(scrNTTEFullSmokeCase("CustomCharacterTests")) scrNTTEFullCustomCharacterTests();
+        if(scrNTTEFullSmokeCase("SkeletonRevivalTests")) scrSkeletonRevivalTests();
         if(scrNTTEFullSmokeCase("PlayerRateBootstrapTests")) scrNTTEFullPlayerRateBootstrapTests();
         if(scrNTTEFullSmokeAsyncCase("PlayerRateMotionTests")) scrNTTEFullPlayerRateMotionTests();
         if(scrNTTEFullSmokeAsyncCase("PitSquidKnockbackNativeTests")) scrNTTEFullPitSquidKnockbackNativeTests();

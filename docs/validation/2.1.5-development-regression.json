@@ -1,0 +1,40 @@
+{
+  "version": "2.1.5",
+  "internal": 110,
+  "request_status": {
+    "1": "NOT_REPRODUCED",
+    "2": "VERIFIED_FIXED",
+    "3": "VERIFIED_FIXED"
+  },
+  "native_case_count": 10,
+  "native_cases": [
+    "NewCharacterUnlockTests",
+    "CustomCharacterTests",
+    "SkeletonRevivalTests",
+    "RaceNativeLifecycleTests",
+    "RaceProgressionNativeTests",
+    "WeaponLoadoutNativeTests",
+    "CrownLoadoutNativeTests",
+    "PetSalamanderTests",
+    "FrontierFollowup210Tests",
+    "FrontierUnlockTests"
+  ],
+  "windows_vm_sha256": "c159dd89921c60bcfdb0476b6b8d33fe897630784e3f86dd4c565548aa1ded20",
+  "input_sha256": "dc8031263c405ff92d736905fc11f2bbec6735902936801dddca4d01facc3334",
+  "physical_device_tested": false,
+  "python_packaging_boundary_tests": 5,
+  "game_build_save_protocol": 3004,
+  "ios_requires_resigning": true,
+  "packages": {
+    "iOS": {
+      "sha256": "2af31e93cbea5949d8b0494868dbcb691f6ca047aa9e44f3321a360b83c97e0e",
+      "bytes": 213156123
+    },
+    "Android": {
+      "sha256": "ef22290b70a8f6b7f07ee16d430373629fb618e51f550e14e7bda16b93c87a1e",
+      "bytes": 305933539
+    }
+  },
+  "source_policy": "Text source and notes on GitHub; installers and checksums in the existing MEGA folder",
+  "known_issue": "Additional character unlock report not reproduced in normal-mode award, save, startup reload and loadout tests; remains unresolved."
+}

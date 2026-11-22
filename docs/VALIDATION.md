@@ -2,6 +2,19 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [返回首页](../README.md)
 
+## 2.1.5 build 110 — 自定义角色与骷髅复活
+
+当前新编译的 Windows VM 已通过十项明确选择的原生专项，包含 30／60 帧逻辑检查；
+另有五项封装边界检查通过。修复自定义模式选择新增角色和熔化变成骷髅后的输入、
+生命及伤害衔接。新增角色无法解锁物品的报告未复现，仍待定位；三个角色的金武器、
+皇冠、皮肤授予、启动重读及实际配装选择均通过本轮检查。
+
+见[当前 2.1.5 摘要](validation/2.1.5-development-regression.json)、
+[源码基线](SOURCE_BASELINE.json)及[版本说明](RELEASE-2.1.5.md)。
+下方历史结果不计入本轮测试数量。Android versionCode 3000110 保留签名并核验 16KB 布局；
+iOS build 110 使用新编译游戏数据和保留的原生 Runner，需要重新签名。
+未进行手机实测、完整随机战役或新的 Xcode 原生编译，存档协议 GAME_BUILD 保持 3004。
+
 ## 2.1.4 build109 — 近战、触屏与兼容性维护
 
 当前重新编译的最终 Windows VM／输入通过 37 项明确列出的原生专项，

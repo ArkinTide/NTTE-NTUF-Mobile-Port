@@ -1,49 +1,20 @@
 # Nuclear Throne: NTTE + Uncharted Frontier — Mobile Port
 
-[简体中文](README.md) | [English](README.en.md)
+[Simplified Chinese](README.md) | [English](README.en.md)
 
-Android/iOS source port of NTTE with **Uncharted Frontier (NTUF) 1.0.3.3**,
-Undergrowth, Details+ and Simplified Chinese support. Current version **2.1.4**,
-internal build **109**.
+Android/iOS source for NTTE with **Uncharted Frontier (NTUF) 1.0.3.3**, Undergrowth, Details+ and Simplified Chinese support. Current version **2.1.5**, internal build **110**.
 
-Get APK/IPA from the [MEGA download folder](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) and verify
-`SHA256SUMS-NTTE-NTUF-2.1.4.txt`. GitHub distributes text source and release notes;
-iOS requires re-signing. See the [2.1.4 notes](docs/RELEASE-2.1.4.md).
+Get APK/IPA packages from the [existing MEGA folder](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) and verify `SHA256SUMS-NTTE-NTUF-2.1.5.txt`. GitHub distributes text source and notes; iOS requires re-signing. See the [2.1.5 notes](docs/RELEASE-2.1.5.md).
 
-## 2.1.4 build109 — Melee, touch controls and compatibility maintenance
+## Changes and known issue
 
-The newly compiled final Windows VM/input passed 37 explicitly selected native
-cases. A hash-verified Python log records 190 passing checks. Earlier VM passes
-are not inherited. See the [current validation summary](docs/validation/2.1.4-development-regression.json)
-for exact cases and evidence.
+- Custom mode's Unlock Characters option now includes Beetle, Parrot and Bubbles while retaining content switches and isolated slot progress.
+- Fixed Melting-to-Skeleton revival continuing the old ability input into a same-frame blood gamble. Restored the intended five logical ticks of revival protection; normal damage resumes afterward.
+- **Unresolved report: additional characters failing to unlock items was not reproduced.** Gold, crowns and skins passed actual writes, startup file reload and loadout selection for all three characters. This is not described as a fix.
 
-1. Reviewed Long Arms for the 17 tested NTTE/NTUF melee weapons (10 NTUF and 7 selected NTTE weapons), including front-melee fusion paths. The maintained source and final Windows VM did not reproduce the reported failure, so existing formulas are not presented as a new fix. After genuine mutation selection, a target grid spaced 4 pixels apart measured the distance to the original center of the farthest damaged target:40→60 pixels for light attacks at30Hz and44→60 at60Hz; heavy attacks measured56→80 at both rates. These values describe the sampled target centers. Form changes, weapon swaps and continuation also passed the current checks.
+The final Windows VM passed ten selected silent background native cases, including 30/60 FPS logic checks, plus five packaging-boundary checks. Console/practice restrictions and custom-slot isolation remain. No physical Android/iOS or complete random-campaign acceptance is claimed.
 
-2. Corrected the mansion gold-station local index and transition-spiral warm-up. Existing guards for the seven screenshot paths involving stale walls, sparse settings reset, destroyed homing targets and instance creation from custom data scopes also ran again on the final current VM.
-
-3. Measured Surgery text with the actual font and added line spacing, independently placing the title and description to prevent overlapping Chinese glyphs.
-
-4. Drew Robot reboot YES/NO choices with an independent GUI camera and restored missing buttons after their authored appearance threshold, while preventing duplicate recreation or submission after a committed choice.
-
-5. Optimized frequent projectile-family type, count and existence queries to avoid repeatedly assembling complete instance lists. Differential tests check legacy return values, types and invalid-input behavior; no phone frame-rate guarantee is made.
-
-6. Removed the extra white arrow at the upper right of the Scythe form control, retaining its weapon icon, button and switching behavior.
-
-7. Aligned the Parrot and Bubbles preference icon, label and switch columns, reserving space before each value and fitting long labels to the available width.
-
-8. Refined continuous touch direction and fine movement, with checks for raw touch input, joystick deadzone and equal-time response at30/60Hz.
-
-Android versionCode is 3000109, retaining application/signing identities and checked
-16KB layout. iOS build 109 requires re-signing; new game data uses a retained native
-Runner without a fresh Mac native build. GAME_BUILD/save protocol remains 3004.
-
-The eight conclusions above cover the Long Arms review, seven screenshot crash paths,
-Surgery text, Robot reboot choices, instance-query performance, the Scythe button,
-preference columns and touch movement. Existing map, save, character and content cases
-also run again on this final VM. Unknown random
-maps and every weapon combination are not generally certified. Silent background desktop tests do not establish phone mixing or frame
-rates. No physical Android/iOS, complete random campaign or universal FPS acceptance
-is claimed.
+Android versionCode 3000110 retains application/signing identity and checked 16KB layout. iOS build 110 uses newly compiled data with a retained native runner and requires re-signing. GAME_BUILD/save protocol remains 3004.
 
 ## Source and building
 

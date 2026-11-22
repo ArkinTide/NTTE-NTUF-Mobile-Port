@@ -2,6 +2,23 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.1.5 build 110 — Custom characters and Skeleton revival
+
+The current freshly compiled Windows VM passed ten explicitly selected native
+cases, including 30/60 FPS logic coverage; five packaging-boundary checks also
+passed. The two fixes are Custom-mode access to enabled additional characters
+and Melting-to-Skeleton input/health/damage handoff. The additional-character
+unlock report was not reproduced and remains unresolved; gold/crown/skin award,
+startup file reload and actual loadout selection passed for all three roles.
+
+See the [current 2.1.5 summary](validation/2.1.5-development-regression.json),
+[source baseline](SOURCE_BASELINE.json) and [release notes](RELEASE-2.1.5.md).
+Historical results below do not contribute to this release's test count.
+Android versionCode 3000110 retains signing identity and verified 16KB layout.
+iOS build 110 requires re-signing and retains the native runner with freshly
+compiled game data. No phone, full random campaign or native Xcode test is claimed.
+GAME_BUILD/save protocol remains 3004.
+
 ## 2.1.4 build109 — Melee, touch controls and compatibility maintenance
 
 The newly compiled final Windows VM/input passed 37 explicitly selected native
