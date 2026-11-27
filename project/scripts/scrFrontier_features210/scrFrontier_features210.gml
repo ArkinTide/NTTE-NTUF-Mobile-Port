@@ -52,8 +52,8 @@ function scrFRAchievementsAllowed210() {
     var _blocked=UberCont.custom || UberCont.opt_practice || UberCont.opt_console
         || (variable_global_exists("console_active") && global.console_active);
     if(instance_exists(GameCont)) {
-        if(_blocked) GameCont.fr_achievements_blocked210=true;
-        return !scrNTTEFullValue(GameCont,"fr_achievements_blocked210",false);
+        if(_blocked && scrFRContent210InRun()) GameCont.fr_achievements_blocked210=true;
+        return !_blocked && !scrNTTEFullValue(GameCont,"fr_achievements_blocked210",false);
     }
     return !_blocked;
 }

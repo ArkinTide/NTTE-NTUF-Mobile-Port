@@ -5,7 +5,7 @@
 // playing the entire intervening campaign. Production feature gates stay shut.
 function scrNTTEFullCrownNaturalClear(_keep_run=false) {
     var _keep=id,_run=_keep_run
-    with(all) if(id!=_keep && object_index!=UberCont && object_index!=Console
+    with(all) if(id!=_keep && object_index!=UberCont && object_index!=Console && !scrFRSessionPreserve(id)
         && !(_run && (object_index==GameCont || instance_is(id,Player) || object_index==CrownObject))) instance_destroy(id,false)
 }
 function scrNTTEFullCrownNaturalProgressDiagnostic(_where) {
@@ -106,8 +106,9 @@ function scrNTTEFullCrownNaturalMenuTests() {
             array_push(old_global_vars,[_name,_value]);scrNTTEFullAreaSnapshotContainer(_value,_graph)
         }
         old_global_graph={instances:[],containers:_graph.nodes}
-        rates=[30,60];pass_index=0;crown_index=0;crowns=[14,15,16]
+        rates=[30,60];pass_index=0;crown_index=0;crowns=[14,15,16,17]
         phase=0;elapsed=0;draw_frames=0;draw_start=0;anchor_x=10016;anchor_y=10016
+        custom_launch=false;
         room_ends=0;room_starts=0;want_pointer=false;pointer_injections=0;injected_phase=-1;menu=noone
         scratch_root=working_directory+"crown-natural-"+string(get_timer())+"/";directory_create(scratch_root)
         global.ntte_smoke_active=false
@@ -272,13 +273,18 @@ function scrNTTEFullCrownNaturalStepBody() {
             scrNTTEFullCrownNaturalGeneration(scrNTTEFullAreaId("pizza"),1,0,5,6123)
             scrNTTEFullCrownNaturalAwait(3);return;
         }
+        if(current_crown==17) {
+            assert(scrFRCrownReady(),"Native Storms fixture did not retain the actual Frontier runtime");
+            scrNTTEFullCrownNaturalGeneration(area_vault,1,0,5,6124);
+            scrNTTEFullCrownNaturalAwait(6);return;
+        }
         // Source Bonus has only loops>0 availability, no invented crown:bonus
         // prerequisite. Controlled vault context exercises real pickup route.
         assert(!scrNTTEFullUnlockGet("crown:bonus"),"Bonus fixture invented a source unlock")
         scrNTTEFullCrownNaturalGeneration(area_vault,1,1,5,6124)
         scrNTTEFullCrownNaturalAwait(6);return;
     }
-    if(phase==1 || phase==11) {
+    if(phase==1 || phase==11 || phase==30) {
         if(instance_exists(Logo)) with(Logo) event_perform(ev_alarm,1)
         var _button=noone
         with(MainMenuButton) if(image_index==0) _button=id
@@ -289,6 +295,22 @@ function scrNTTEFullCrownNaturalStepBody() {
         if(instance_exists(_play)) with(_play) event_user(0)
         assert(instance_exists(Menu) && instance_exists(MenuGen),"Real MainMenu/Play omitted native crown menu")
         menu=instance_find(Menu,0)
+        if(phase==30) {
+            UberCont.custom=true;UberCont.custom_mode_slot_index=0;
+            UberCont.custom_options=new CustomModeOptions("Fresh crown test");
+            UberCont.custom_options.unlock_crowns=true;
+            // Older slots may contain explicit None after the NTUF-off migration.
+            UberCont.custom_options.crown=crwn_none;
+            pointer_injections=0;
+            assert(scr_loadout_race_set_start_crown(Race.Fish,NTTEFullCrown.Crime),
+                "Could not seed the older Custom slot's saved crown choice");
+            my_player.race=Race.Fish;
+            with(menu) scrMenuPrepareCustomLoadout();
+            assert(GameCont.crown==NTTEFullCrown.Crime,
+                "Older Custom None preset hid the saved crown at menu initialization");
+            my_player.race=Race.Random;
+            scrCrownSetCurrent(crwn_none,true);
+        }
         selector=noone;with(CharSelect) if(race==Race.Fish) other.selector=id
         assert(instance_exists(selector),"Fish missing from actual native menu")
         scrNTTEFullCrownNaturalAwait(phase==1?2:12);return;
@@ -305,10 +327,35 @@ function scrNTTEFullCrownNaturalStepBody() {
                 && scr_loadout_race_is_crown_unlocked(Race.Fish,current_crown)
                 && GameCont.crown!=current_crown && !menu.loadout_open && menu.loadout_frame==0,
                 "Naturally earned crown missing or actual click prerequisite was bypassed")
+            if(custom_launch) assert(GameCont.crown==NTTEFullCrown.Crime
+                && !scrNTTEFullUnlockGet("loadout:crown:"+current_key),
+                "Actual Custom selection ignored its older slot's crown or active test crown was already unlocked");
             scrNTTEFullCrownNaturalAwait(20);scrNTTEFullCrownNaturalPointer(false);return;
         }
         else assert(GameCont.crown==crwn_none && global.crownpick==crwn_none,
             "Native Fish selection failed no-crown saved menu prerequisite for source heart run")
+        UberCont.opt_console=true;
+        assert(scrFRProgress210Cheated() && !scrFRAchievementsAllowed210(),
+            "Live Console setting was ignored in the real character menu");
+        var _console=instance_find(Console,0);
+        if(!instance_exists(_console)) _console=instance_create(0,0,Console);
+        assert(instance_exists(_console),"Real character menu command fixture needs the normal lazily created Console");
+        global.console_active=true;
+        with(_console) handle_console_command("hard");
+        UberCont.opt_console=false;global.console_active=false;
+        assert(!scrFRProgress210Cheated() && scrFRAchievementsAllowed210(),
+            "Console toggle and read-only query poisoned the upcoming normal run");
+
+        var _rad=GameCont.rad;
+        UberCont.opt_console=true;global.console_active=true;
+        with(_console) handle_console_command("rads 1");
+        UberCont.opt_console=false;global.console_active=false;
+        assert(GameCont.rad==_rad+1,"The fixture's console command did not modify the prepared GameCont");
+        assert(scrFRProgress210Cheated() && !scrFRAchievementsAllowed210(),
+            "A console command modified the prepared run without blocking its progression");
+        // Continue with the untouched normal run for the vault and award checks.
+        GameCont.rad=_rad;
+        GameCont.fr_progress210_blocked=false;GameCont.fr_achievements_blocked210=false;
         with(GoButton) event_perform(ev_mouse,ev_left_press)
         assert(instance_number(Player)==1 && Player.race==Race.Fish,"Actual native Go failed genuine Player constructor")
         initial_player=Player.id
@@ -337,8 +384,10 @@ function scrNTTEFullCrownNaturalStepBody() {
             "Actual native earned-crown circle hitbox failed current/saved crown propagation")
         scrNTTEFullCrownNaturalRate("actual arrow and earned-crown circle Draw clicks")
         run_ends=room_ends;run_starts=room_starts
+        var _random_character=custom_launch && rates[pass_index]==60;
+        if(_random_character) my_player.race=Race.Random;
         with(GoButton) event_perform(ev_mouse,ev_left_press)
-        assert(instance_number(Player)==1 && Player.race==Race.Fish,
+        assert(instance_number(Player)==1 && (_random_character?Player.race!=Race.Random:Player.race==Race.Fish),
             "Actual native Go after crown click failed genuine Player constructor")
         initial_player=Player.id
         scrNTTEFullCrownNaturalAwait(13);return;
@@ -394,14 +443,16 @@ function scrNTTEFullCrownNaturalStepBody() {
         assert(instance_exists(LevCont) && instance_number(CrownIcon)>0,"Actual Vlambeer crown point failed native LevCont branch")
         chosen=noone;with(CrownIcon) if(crown==other.current_crown) other.chosen=id
         assert(instance_exists(chosen),"Earned source crown unavailable in native LevCont choices")
-        var _bonus=false,_crime=false,_red=false
+        var _bonus=false,_crime=false,_red=false,_storms=false
         with(CrownIcon) {
             if(crown==NTTEFullCrown.Bonus) _bonus=true
             if(crown==NTTEFullCrown.Crime) _crime=true
             if(crown==NTTEFullCrown.Red) _red=true
+            if(crown==17) _storms=true
         }
         assert(_bonus==(GameCont.loops>0) && _crime==(GameCont.loops<=0 && scrNTTEFullUnlockGet("crown:crime"))
-            && _red==(GameCont.loops>0 && scrNTTEFullUnlockGet("crown:red")),"Real LevCont choices changed source loop/unlock crown availability")
+            && _red==(GameCont.loops>0 && scrNTTEFullUnlockGet("crown:red"))
+            && _storms==(GameCont.loops<=0 && scrFRCrownReady()),"Real LevCont choices changed source loop/unlock crown availability")
         scrNTTEFullCrownNaturalAwait(8);return;
     }
     if(phase==8) {
@@ -438,6 +489,16 @@ function scrNTTEFullCrownNaturalStepBody() {
             && instance_exists(TopCont) && room_ends==run_ends+1 && room_starts==run_starts+1,
             "Actual selected-crown Go/room_restart failed normal world or real engine events")
         scrNTTEFullCrownNaturalPhysical("actual Go room_restart world 8Draw")
+        if(custom_launch) {
+            assert(scrGameIsCustomMode() && global.crownpick==current_crown
+                && !scrNTTEFullUnlockGet("loadout:crown:"+current_key),
+                "Custom Go disarmed the selected crown or mistakenly awarded permanent ownership");
+            scrNTTESmokeLog("PASS CROWN CUSTOM GO Storms: unowned crown selected by real Draw hitboxes, equipped through GO, active in generated room @"+string(rates[pass_index]));
+            global.ntte_full_progress=custom_saved_progress;
+            scrGameCustomModeReset();
+            custom_launch=false;
+            scrNTTEFullCrownNaturalNext();return;
+        }
         saved_player=Player.id;scrSavegameSave()
         assert(file_exists(savegame_file),"Actual selected-crown new-run omitted binary save")
         scrNTTEFullCrownNaturalClear();UberCont.want_quit_to_menu=false
@@ -465,6 +526,12 @@ function scrNTTEFullCrownNaturalStepBody() {
             // earned crown to replenish through the source callback only.
             scrNTTEFullCrownNaturalGeneration(area_campfire,1,1,5,713253)
             scrNTTEFullCrownNaturalAwait(18);return;
+        }
+        if(current_crown==17) {
+            custom_saved_progress=global.ntte_full_progress;
+            global.ntte_full_progress={schema:1,unlocks:{},loadouts:{},stats:{}};
+            custom_launch=true;
+            scrNTTEFullCrownNaturalMenu();scrNTTEFullCrownNaturalAwait(30);return;
         }
         scrNTTEFullCrownNaturalNext();return;
     }

@@ -2,13 +2,13 @@
 
 [简体中文](README.md) | [English](README.en.md)
 
-NTTE 与 **Uncharted Frontier（NTUF）1.0.3.3** 的 Android／iOS 移植源码，保留 Undergrowth、Details+ 和简体中文。当前版本 **2.1.6**，内部构建 **111**。
+NTTE 与 **Uncharted Frontier（NTUF）1.0.3.3** 的 Android／iOS 移植源码，保留 Undergrowth、Details+ 和简体中文。当前版本 **2.1.7**，内部构建 **112**。
 
-从 [MEGA 下载文件夹](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) 获取 APK／IPA，并核对 `SHA256SUMS-NTTE-NTUF-2.1.6.txt`。GitHub 分发文本源码及版本说明；iOS 包需要自行重新签名。见 [2.1.6 说明](docs/RELEASE-2.1.6.md)。
+从 [MEGA 下载文件夹](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) 获取 APK／IPA，并核对 `SHA256SUMS-NTTE-NTUF-2.1.7.txt`。GitHub 分发文本源码及版本说明；iOS 包需要自行重新签名。见 [2.1.7 说明](docs/RELEASE-2.1.7.md)。
 
 ## 本次修复
 
-修复自定义角色开局和触屏移动。
+修复新增王冠的选用与解锁，以及水晶蜘蛛下落时的贴图闪烁。
 
 ## 源码与构建
 

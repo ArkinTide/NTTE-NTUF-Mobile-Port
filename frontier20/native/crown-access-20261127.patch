@@ -1,0 +1,597 @@
+--- a/project/scripts/scrCrownCheck/scrCrownCheck.gml
++++ b/project/scripts/scrCrownCheck/scrCrownCheck.gml
+@@ -11,6 +11,8 @@ function scrCrownCheck(_crown) {
+ /// @param is_start_crown=false
+ function scrCrownSetCurrent(_crown, _is_start_crown = false) {
+     _crown=scrFRCrownResolve(_crown);
++    if(is_real(_crown) && _crown>=14 && _crown<=17 && !scrNTTEFullCrownContentAvailable(_crown))
++        _crown=crwn_none;
+ 
+ 	with (GameCont) {
+ 		// unequip old crown
+@@ -53,4 +55,4 @@ function scrCrownGetCurrent() {
+ 	}
+ 	
+ 	return crwn_none
+-}
+\ No newline at end of file
++}
+--- a/project/scripts/scrCrowns/scrCrowns.gml
++++ b/project/scripts/scrCrowns/scrCrowns.gml
+@@ -142,12 +142,11 @@ function scrCrownApplyEquipEffect(_crown_id, _is_equipped) {
+ /// @param {Real|Enum.Race} race_id
+ /// @param {Real|Enum.Crown} crown_id
+ function scrCrownUnlock(_race_id, _crown_id) {
++    // Custom access to every crown is not permanent ownership for that slot.
++    if(_crown_id>=14 && _crown_id<=17) return scr_loadout_race_unlock_crown(_race_id,_crown_id);
+     if(scr_loadout_race_is_crown_unlocked(_race_id,_crown_id)
+         || !scr_loadout_is_available_for_race(_race_id)) return false;
+     if(!scr_loadout_race_unlock_crown(_race_id,_crown_id)) return false;
+-    if(_crown_id==17) return true;
+-    // Source MOD crowns already announce their global ownership once.
+-    if(_crown_id>=14 && _crown_id<=16) return true;
+     var _crown_name=loc("Crowns",_crown_id,"Name",scr_crown_get_name(_crown_id)),
+         _race_name=loc("Races",_race_id,"Name",scrRaceGetName(_race_id));
+     scrShowUnlockPopup(loc_fmt("Unlock:Crown:1","@w%@s",_crown_name),loc_fmt("Unlock:Crown:2","FOR @w%",_race_name));
+--- a/project/scripts/scrFrontier_features210/scrFrontier_features210.gml
++++ b/project/scripts/scrFrontier_features210/scrFrontier_features210.gml
+@@ -52,8 +52,8 @@ function scrFRAchievementsAllowed210() {
+     var _blocked=UberCont.custom || UberCont.opt_practice || UberCont.opt_console
+         || (variable_global_exists("console_active") && global.console_active);
+     if(instance_exists(GameCont)) {
+-        if(_blocked) GameCont.fr_achievements_blocked210=true;
+-        return !scrNTTEFullValue(GameCont,"fr_achievements_blocked210",false);
++        if(_blocked && scrFRContent210InRun()) GameCont.fr_achievements_blocked210=true;
++        return !_blocked && !scrNTTEFullValue(GameCont,"fr_achievements_blocked210",false);
+     }
+     return !_blocked;
+ }
+--- a/project/scripts/scrFrontier_progress210/scrFrontier_progress210.gml
++++ b/project/scripts/scrFrontier_progress210/scrFrontier_progress210.gml
+@@ -4,9 +4,11 @@ function scrFRProgress210Cheated() {
+     if(!instance_exists(UberCont)) return false;
+     var _blocked=scrNTTEFullValue(UberCont,"opt_console",false) || scrNTTEFullValue(UberCont,"opt_practice",false)
+         || (variable_global_exists("console_active") && global.console_active);
++    // Character select also owns GameCont. Its settings take effect at GO;
++    // a console command that modified this controller can already mark it.
+     if(instance_exists(GameCont)) {
+-        if(_blocked) GameCont.fr_progress210_blocked=true;
+-        return scrNTTEFullValue(GameCont,"fr_progress210_blocked",false);
++        if(_blocked && scrFRContent210InRun()) GameCont.fr_progress210_blocked=true;
++        return _blocked || scrNTTEFullValue(GameCont,"fr_progress210_blocked",false);
+     }
+     return _blocked;
+ }
+--- a/project/scripts/scrLoadoutMenuInit/scrLoadoutMenuInit.gml
++++ b/project/scripts/scrLoadoutMenuInit/scrLoadoutMenuInit.gml
+@@ -102,48 +102,36 @@ function scr_loadout_race_set_start_weapon(_race_id, _weapon_id) {
+ /// @function scr_loadout_race_get_start_crown
+ /// @param {Real|Enum.Race} race_id
+ function scr_loadout_race_get_start_crown(_race_id) {
+-    var _fr_saved=save_get_value("ccrown",_race_id,crwn_none);
+-    if(_fr_saved==17) return scrFRCrownLoadoutAvailable(_race_id)?17:crwn_none;
+-
+-    var _ntte_crown=save_get_value("ccrown",_race_id,crwn_none)
+-    if(_ntte_crown>=14 && _ntte_crown<=16) return scrNTTEFullCrownLoadoutAvailable(_race_id,_ntte_crown)?_ntte_crown:crwn_none
+-	if scr_race_is_unlocked(_race_id) {
+-		return save_get_value("ccrown", _race_id, crwn_none)
+-	}
+-	
+-	return crwn_none
++    if(scrGameIsCustomMode()) {
++        var _custom=scrNTTEFullLoadoutGet("start:crown:"+string(_race_id),crwn_none);
++        return scr_loadout_race_is_crown_unlocked(_race_id,_custom)?_custom:crwn_none;
++    }
++    var _saved=save_get_value("ccrown",_race_id,crwn_none);
++    if(_saved>=14 && _saved<=17)
++        return scrNTTEFullCrownLoadoutAvailable(_race_id,_saved)?_saved:crwn_none;
++    return scr_race_is_unlocked(_race_id)?_saved:crwn_none;
+ }
+ 
+ /// @function scr_loadout_race_set_start_crown
+ /// @param {Real|Enum.Race} race_id
+ /// @param crown_id
+ function scr_loadout_race_set_start_crown(_race_id, _crown_id) {
+-    if(_crown_id==17) {
+-        if(!scrFRCrownLoadoutAvailable(_race_id)) return false;
+-        save_set_value("ccrown",_race_id,17);return true;
+-    }
+-
+-    if(_crown_id>=14 && _crown_id<=16) {
+-        if(!scrNTTEFullCrownLoadoutAvailable(_race_id,_crown_id)) return false
+-        save_set_value("ccrown",_race_id,_crown_id)
+-        return true
++    if(!scr_loadout_race_is_crown_unlocked(_race_id,_crown_id)) return false;
++    if(scrGameIsCustomMode()) {
++        if(!scrFRProgress210CanUnlock()) return false;
++        scrNTTEFullLoadoutSet("start:crown:"+string(_race_id),_crown_id);
++    } else {
++        save_set_value("ccrown",_race_id,_crown_id);
+     }
+-	with UberCont {
+-		if scr_race_is_unlocked(_race_id) && crowngot[_race_id, _crown_id] {
+-			save_set_value("ccrown", _race_id, _crown_id)
+-			return true
+-		}
+-	}
+-	return false
++    return true;
+ }
+ 
+ /// @function scr_loadout_race_is_crown_unlocked
+ /// @param {Real|Enum.Race} race_id
+ /// @param crown_id
+ function scr_loadout_race_is_crown_unlocked(_race_id, _crown_id) {
+-    if(_crown_id==17) return scrFRCrownLoadoutAvailable(_race_id);
+-
+-    if(_crown_id>=14 && _crown_id<=16) return scrNTTEFullCrownLoadoutAvailable(_race_id,_crown_id)
++    if(!scr_crown_is_valid(_crown_id)) return false;
++    if(_crown_id>=14 && _crown_id<=17) return scrNTTEFullCrownLoadoutAvailable(_race_id,_crown_id);
+ 	with UberCont {
+ 		if (scrGameIsCustomMode() && scrCustomParam("unlock_crowns")) {
+ 			return true
+@@ -159,9 +147,9 @@ function scr_loadout_race_is_crown_unlocked(_race_id, _crown_id) {
+ /// @param {Real|Enum.Race} race_id
+ /// @param {Real|Enum.Crown} crown_id
+ function scr_loadout_race_unlock_crown(_race_id, _crown_id) {
+-    if(_crown_id==17) return scrNTTEFullUnlockSet("loadout:crown:storms",true);
+-
+-    if(_crown_id>=14 && _crown_id<=16) return scrNTTEFullUnlockSet("loadout:crown:"+scrNTTEFullCrownKey(_crown_id),true);
++    if(!scrNTTEFullCrownContentAvailable(_crown_id) || !scrFRProgress210CanUnlock()) return false;
++    if(_crown_id>=14 && _crown_id<=17)
++        return scrNTTEFullCrownLoadoutUnlock(_crown_id);
+     with(UberCont) {
+         if(crowngot[_race_id,_crown_id]) return false;
+         scr_loadout_race_set_start_crown(_race_id,_crown_id);
+--- a/project/scripts/scrNTTEFullCrownLoadoutNative/scrNTTEFullCrownLoadoutNative.gml
++++ b/project/scripts/scrNTTEFullCrownLoadoutNative/scrNTTEFullCrownLoadoutNative.gml
+@@ -1,27 +1,33 @@
+ // Source crowns/*.crown_menu_avail is global loadout:crown:key ownership;
+ // native per-race crowngot arrays cannot represent that separate progression.
++function scrNTTEFullCrownContentAvailable(_crown) {
++    if(_crown==17) return scrFRCrownReady();
++    if(_crown>=14 && _crown<=16)
++        return scrNTTEFullFeatureReady("crown:"+scrNTTEFullCrownKey(_crown));
++    return scr_crown_is_valid(_crown);
++}
+ function scrNTTEFullCrownLoadoutSlots() {
+     var _slots=[]
+-    for(var _id=0;_id<=13;++_id) array_push(_slots,_id)
+-    for(var _id=14;_id<=16;++_id) if(scrNTTEFullFeatureReady("crown:"+scrNTTEFullCrownKey(_id))) array_push(_slots,_id)
+-    if(scrFRCrownReady()) array_push(_slots,17);
++    for(var _id=0;_id<=17;++_id)
++        if(scrNTTEFullCrownContentAvailable(_id)) array_push(_slots,_id);
+     return _slots
+ }
+ function scrNTTEFullCrownLoadoutAvailable(_race,_crown) {
+-    if(scrFRCrownKey(_crown)!="") return scrFRCrownLoadoutAvailable(_race);
+-
+-    return scr_race_is_unlocked(_race) && scrNTTEFullFeatureReady("crown:"+scrNTTEFullCrownKey(_crown))
+-        && scrNTTEFullCrownAvailable(_crown,true)
++    return scrNTTEFullCrownContentAvailable(_crown)
++        && (scrCustomParam("unlock_crowns",false)
++            || (scr_race_is_unlocked(_race) && scrNTTEFullCrownLoadoutOwned(_crown)));
++}
++function scrNTTEFullCrownLoadoutOwned(_crown) {
++    var _key="loadout:crown:"+scrNTTEFullCrownKey(_crown);
++    // An older Custom slot may predate a crown earned in Normal.
++    return scrNTTEFullUnlockGet(_key) || (scrGameIsCustomMode()
++        && scrNTTEFullValue(global.ntte_full_progress.unlocks,_key,false));
+ }
+ function scrNTTEFullCrownLoadoutCount(_race) {
+     var _count=0
+-    if(!scr_race_is_unlocked(_race)) return 0
+-    // Native count historically includes native non-none crowns but excludes
+-    // random. Count actual ownership to avoid adding custom crowns twice to a
+-    // previously cached crownmax16 total.
+-    for(var _id=1;_id<=13;++_id) if(_id>crwn_none && UberCont.crowngot[_race,_id]) _count+=1
+-    for(var _id=14;_id<=16;++_id) if(scrNTTEFullCrownLoadoutAvailable(_race,_id)) _count+=1
+-    if(scrFRCrownLoadoutAvailable(_race)) _count+=1;
++    for(var _id=crwn_none+1;_id<=17;++_id) {
++        if(scr_loadout_race_is_crown_unlocked(_race,_id)) _count+=1;
++    }
+     return _count
+ }
+ function scrNTTEFullCrownLoadoutSprite(_crown,_unlocked=true) {
+@@ -30,8 +36,11 @@ function scrNTTEFullCrownLoadoutSprite(_crown,_unlocked=true) {
+     if(_crown>=14 && _crown<=16) return [scrNTTEFullCrownSprite(_crown,"Loadout"),_unlocked?0:1]
+     return [_unlocked?sprLoadoutCrown:sprLockedLoadoutCrown,_crown]
+ }
+-function scrNTTEFullCrownLoadoutUnlockCurrent() {
+-    var _key=scrNTTEFullCrownKey(GameCont.crown)
+-    if(_key=="") return false
++function scrNTTEFullCrownLoadoutUnlock(_crown) {
++    var _key=scrNTTEFullCrownKey(_crown);
++    if(_key=="" || !scrNTTEFullCrownContentAvailable(_crown) || scrNTTEFullCrownLoadoutOwned(_crown)) return false;
+     return scrNTTEFullUnlockSet("loadout:crown:"+_key,true)
+ }
++function scrNTTEFullCrownLoadoutUnlockCurrent() {
++    return scrNTTEFullCrownLoadoutUnlock(GameCont.crown);
++}
+--- a/project/scripts/scrNTTEFullCrownLoadoutNativeTests/scrNTTEFullCrownLoadoutNativeTests.gml
++++ b/project/scripts/scrNTTEFullCrownLoadoutNativeTests/scrNTTEFullCrownLoadoutNativeTests.gml
+@@ -1,9 +1,9 @@
+ // Real native entity events: custom source IDs must not look up nonexistent
+-// sprCrown14..16 atlases. Default rendering uses the sprite selected by Step.
++// sprCrown14..17 atlases. Default rendering uses the sprite selected by Step.
+ function scrNTTEFullCrownObjectNativeTests() {
+     var _oldCrown=GameCont.crown,_oldSeed=random_get_seed(),_created=[],_frames=[15,20,10]
+     try {
+-        for(var _c=1;_c<=16;++_c) {
++        for(var _c=1;_c<=17;++_c) {
+             GameCont.crown=_c
+             var _crown=instance_create(Player.x,Player.y,CrownObject)
+             array_push(_created,_crown)
+@@ -13,7 +13,7 @@ function scrNTTEFullCrownObjectNativeTests() {
+             assert(sprite_exists(_idle) && sprite_exists(_walk) && _crown.visible
+                 && _crown.crown==_c && _crown.spr_idle==_idle && _crown.spr_walk==_walk && _crown.sprite_index==_idle,
+                 "Actual CrownObject.Alarm2 omitted source idle/walk or changed native art: "+string(_c))
+-            if(_c>=14) assert(sprite_get_number(_idle)==_frames[_c-14] && sprite_get_number(_walk)==6
++            if(_c>=14 && _c<=16) assert(sprite_get_number(_idle)==_frames[_c-14] && sprite_get_number(_walk)==6
+                 && sprite_get_xoffset(_idle)==8 && sprite_get_yoffset(_idle)==8
+                 && sprite_get_xoffset(_walk)==8 && sprite_get_yoffset(_walk)==8,
+                 "Physical custom crown changed original authored frames/origin")
+@@ -31,6 +31,89 @@ function scrNTTEFullCrownObjectNativeTests() {
+     }
+     scrNTTESmokeLog("CROWN OBJECT: actual constructor/Alarm2/idle+moving native Step, source three custom frame counts+origins and all thirteen native crowns OK @"+string(30/timescale))
+ }
++function scrNTTEFullCrownCustomModeNativeTests() {
++    var _normal=save_get_value("ccrown",Race.Fish,crwn_none),_pick=global.crownpick,
++        _ntuf=global.fr_content210_ntuf,_custom=UberCont.custom,
++        _slot=UberCont.custom_mode_slot_index,_options=UberCont.custom_options,
++        _console=UberCont.opt_console,_practice=UberCont.opt_practice,_open=global.console_active;
++    try {
++        UberCont.opt_console=false;UberCont.opt_practice=false;global.console_active=false;
++        GameCont.fr_progress210_blocked=false;
++        UberCont.custom=true;UberCont.custom_mode_slot_index=0;
++        UberCont.custom_options=new CustomModeOptions("Crown A");
++        GameCont.fr_progress210_slot=0;
++        var _state=scrFRProgress210State();
++        for(var _c=14;_c<=17;++_c) {
++            var _key="loadout:crown:"+scrNTTEFullCrownKey(_c);
++            assert(!scr_loadout_race_is_crown_unlocked(Race.Fish,_c),"Fresh Custom slot inherited unearned "+_key);
++            UberCont.custom_options.unlock_crowns=true;
++            assert(scr_loadout_race_is_crown_unlocked(Race.Fish,_c)
++                && scr_loadout_race_set_start_crown(Race.Fish,_c)
++                && scr_loadout_race_get_start_crown(Race.Fish)==_c
++                && !scrNTTEFullUnlockGet(_key)
++                && save_get_value("ccrown",Race.Fish,crwn_none)==_normal,
++                "Custom all-crowns toggle failed to equip "+_key+" without a permanent/shared unlock");
++            scrCrownSetCurrent(scr_loadout_race_get_start_crown(Race.Fish),true);
++            assert(scrCrownGetCurrent()==_c && global.crownpick==_c,"Custom equip did not activate "+_key);
++            UberCont.custom_options.unlock_crowns=false;
++            assert(scr_loadout_race_get_start_crown(Race.Fish)==crwn_none,"Disabled Custom option retained unearned "+_key);
++        }
++        var _bonus="loadout:crown:bonus",_storms="loadout:crown:storms";
++        UberCont.custom_options.unlock_crowns=true;
++        assert(scrNTTEFullCrownLoadoutUnlock(NTTEFullCrown.Bonus) && scrNTTEFullUnlockGet(_bonus)
++            && !scrNTTEFullValue(global.ntte_full_progress.unlocks,_bonus,false),
++            "Custom play award was suppressed by temporary access or leaked to Normal");
++        assert(scr_loadout_race_set_start_crown(Race.Fish,NTTEFullCrown.Bonus),"Custom A crown selection did not save");
++        UberCont.custom_mode_slot_index=1;GameCont.fr_progress210_slot=1;
++        UberCont.custom_options=new CustomModeOptions("Crown B");
++        assert(!scr_loadout_race_is_crown_unlocked(Race.Fish,NTTEFullCrown.Bonus)
++            && scr_loadout_race_get_start_crown(Race.Fish)==crwn_none,
++            "Custom A crown award or selection leaked to Custom B");
++
++        UberCont.custom=false;
++        assert(scrNTTEFullCrownLoadoutUnlock(17) && scrNTTEFullValue(global.ntte_full_progress.unlocks,_storms,false)
++            && !scrNTTEFullValue(_state.unlocks,_storms,false),
++            "Normal award did not reach only Normal's save domain");
++        UberCont.custom=true;
++        assert(scr_loadout_race_is_crown_unlocked(Race.Fish,17)
++            && scr_loadout_race_set_start_crown(Race.Fish,17),
++            "An old Custom slot cannot use a crown later earned in Normal");
++        assert(scrNTTEFullProgressLoad() && scr_loadout_race_get_start_crown(Race.Fish)==17,
++            "Custom starting crown did not survive the on-disk progress reload");
++        UberCont.custom_options.unlock_crowns=true;
++        global.fr_content210_ntuf=false;
++        assert(!array_contains(scrNTTEFullCrownLoadoutSlots(),17)
++            && !scr_loadout_race_is_crown_unlocked(Race.Fish,17)
++            && scr_loadout_race_get_start_crown(Race.Fish)==crwn_none,
++            "Turned-off NTUF leaked through Custom all-crowns");
++        scrCrownSetCurrent(17,true);
++        assert(scrCrownGetCurrent()==crwn_none,"Disabled Storms reached actual crown equipment");
++        global.fr_content210_ntuf=_ntuf;
++        assert(scr_loadout_race_get_start_crown(Race.Fish)==17,"NTUF re-enable lost saved crown in Custom B");
++        UberCont.custom_mode_slot_index=0;GameCont.fr_progress210_slot=0;
++        assert(scr_loadout_race_get_start_crown(Race.Fish)==NTTEFullCrown.Bonus
++            && scr_loadout_race_is_crown_unlocked(Race.Fish,17),
++            "Custom A did not retain its own crown and current Normal ownership");
++
++        UberCont.custom=false;UberCont.opt_console=true;
++        assert(scrFRProgress210Cheated(),"Console opened inside a real run did not latch");
++        UberCont.opt_console=false;
++        assert(!scrNTTEFullCrownLoadoutUnlock(NTTEFullCrown.Red)
++            && !scrNTTEFullUnlockGet("loadout:crown:red"),"Console run permanently unlocked a crown");
++        GameCont.fr_progress210_blocked=false;UberCont.opt_practice=true;
++        assert(scrFRProgress210Cheated(),"Practice inside a real run did not latch");
++        UberCont.opt_practice=false;
++        assert(!scrNTTEFullCrownLoadoutUnlock(NTTEFullCrown.Red)
++            && scrNTTEFullSystemsExport().progress210.blocked,
++            "Practice run unlocked a crown or lost its ineligibility on export");
++    } finally {
++        UberCont.custom=_custom;UberCont.custom_mode_slot_index=_slot;UberCont.custom_options=_options;
++        UberCont.opt_console=_console;UberCont.opt_practice=_practice;global.console_active=_open;
++        GameCont.fr_progress210_blocked=false;GameCont.fr_progress210_slot=undefined;
++        global.fr_content210_ntuf=_ntuf;global.crownpick=_pick;
++    }
++    scrNTTESmokeLog("PASS CROWN CUSTOM 14–17: availability, equipped crown, saved slot isolation/reload, late Normal ownership, enabled content, console/practice export");
++}
+ function scrNTTEFullCrownLoadoutNativeTests() {
+     assert(scrNTTESmokeEnabled(),"Crown loadout persistence fixture requires explicit smoke harness")
+     var _progress=global.ntte_full_progress,_ready=variable_global_exists("ntte_full_feature_ready")?global.ntte_full_feature_ready:undefined,
+@@ -45,6 +128,10 @@ function scrNTTEFullCrownLoadoutNativeTests() {
+     global.ntte_full_feature_ready=is_struct(_ready)?json_parse(json_stringify(_ready)):{}
+     UberCont.cgot[Race.Fish]=true;UberCont.cgot[Race.Crystal]=true
+     try {
++        var _fixture=global.ntte_full_progress;
++        global.ntte_full_progress={schema:1,unlocks:{},loadouts:{},stats:{}};
++        scrNTTEFullCrownCustomModeNativeTests();
++        global.ntte_full_progress=_fixture;
+         scrNTTEFullCrownObjectNativeTests()
+         for(var _c=14;_c<=16;++_c) {
+             var _name=scrNTTEFullCrownKey(_c)
+--- a/project/scripts/scrNTTEFullCrownNaturalMenuTests/scrNTTEFullCrownNaturalMenuTests.gml
++++ b/project/scripts/scrNTTEFullCrownNaturalMenuTests/scrNTTEFullCrownNaturalMenuTests.gml
+@@ -5,7 +5,7 @@
+ // playing the entire intervening campaign. Production feature gates stay shut.
+ function scrNTTEFullCrownNaturalClear(_keep_run=false) {
+     var _keep=id,_run=_keep_run
+-    with(all) if(id!=_keep && object_index!=UberCont && object_index!=Console
++    with(all) if(id!=_keep && object_index!=UberCont && object_index!=Console && !scrFRSessionPreserve(id)
+         && !(_run && (object_index==GameCont || instance_is(id,Player) || object_index==CrownObject))) instance_destroy(id,false)
+ }
+ function scrNTTEFullCrownNaturalProgressDiagnostic(_where) {
+@@ -106,8 +106,9 @@ function scrNTTEFullCrownNaturalMenuTests() {
+             array_push(old_global_vars,[_name,_value]);scrNTTEFullAreaSnapshotContainer(_value,_graph)
+         }
+         old_global_graph={instances:[],containers:_graph.nodes}
+-        rates=[30,60];pass_index=0;crown_index=0;crowns=[14,15,16]
++        rates=[30,60];pass_index=0;crown_index=0;crowns=[14,15,16,17]
+         phase=0;elapsed=0;draw_frames=0;draw_start=0;anchor_x=10016;anchor_y=10016
++        custom_launch=false;
+         room_ends=0;room_starts=0;want_pointer=false;pointer_injections=0;injected_phase=-1;menu=noone
+         scratch_root=working_directory+"crown-natural-"+string(get_timer())+"/";directory_create(scratch_root)
+         global.ntte_smoke_active=false
+@@ -272,13 +273,18 @@ function scrNTTEFullCrownNaturalStepBody() {
+             scrNTTEFullCrownNaturalGeneration(scrNTTEFullAreaId("pizza"),1,0,5,6123)
+             scrNTTEFullCrownNaturalAwait(3);return;
+         }
++        if(current_crown==17) {
++            assert(scrFRCrownReady(),"Native Storms fixture did not retain the actual Frontier runtime");
++            scrNTTEFullCrownNaturalGeneration(area_vault,1,0,5,6124);
++            scrNTTEFullCrownNaturalAwait(6);return;
++        }
+         // Source Bonus has only loops>0 availability, no invented crown:bonus
+         // prerequisite. Controlled vault context exercises real pickup route.
+         assert(!scrNTTEFullUnlockGet("crown:bonus"),"Bonus fixture invented a source unlock")
+         scrNTTEFullCrownNaturalGeneration(area_vault,1,1,5,6124)
+         scrNTTEFullCrownNaturalAwait(6);return;
+     }
+-    if(phase==1 || phase==11) {
++    if(phase==1 || phase==11 || phase==30) {
+         if(instance_exists(Logo)) with(Logo) event_perform(ev_alarm,1)
+         var _button=noone
+         with(MainMenuButton) if(image_index==0) _button=id
+@@ -289,6 +295,22 @@ function scrNTTEFullCrownNaturalStepBody() {
+         if(instance_exists(_play)) with(_play) event_user(0)
+         assert(instance_exists(Menu) && instance_exists(MenuGen),"Real MainMenu/Play omitted native crown menu")
+         menu=instance_find(Menu,0)
++        if(phase==30) {
++            UberCont.custom=true;UberCont.custom_mode_slot_index=0;
++            UberCont.custom_options=new CustomModeOptions("Fresh crown test");
++            UberCont.custom_options.unlock_crowns=true;
++            // Older slots may contain explicit None after the NTUF-off migration.
++            UberCont.custom_options.crown=crwn_none;
++            pointer_injections=0;
++            assert(scr_loadout_race_set_start_crown(Race.Fish,NTTEFullCrown.Crime),
++                "Could not seed the older Custom slot's saved crown choice");
++            my_player.race=Race.Fish;
++            with(menu) scrMenuPrepareCustomLoadout();
++            assert(GameCont.crown==NTTEFullCrown.Crime,
++                "Older Custom None preset hid the saved crown at menu initialization");
++            my_player.race=Race.Random;
++            scrCrownSetCurrent(crwn_none,true);
++        }
+         selector=noone;with(CharSelect) if(race==Race.Fish) other.selector=id
+         assert(instance_exists(selector),"Fish missing from actual native menu")
+         scrNTTEFullCrownNaturalAwait(phase==1?2:12);return;
+@@ -305,10 +327,35 @@ function scrNTTEFullCrownNaturalStepBody() {
+                 && scr_loadout_race_is_crown_unlocked(Race.Fish,current_crown)
+                 && GameCont.crown!=current_crown && !menu.loadout_open && menu.loadout_frame==0,
+                 "Naturally earned crown missing or actual click prerequisite was bypassed")
++            if(custom_launch) assert(GameCont.crown==NTTEFullCrown.Crime
++                && !scrNTTEFullUnlockGet("loadout:crown:"+current_key),
++                "Actual Custom selection ignored its older slot's crown or active test crown was already unlocked");
+             scrNTTEFullCrownNaturalAwait(20);scrNTTEFullCrownNaturalPointer(false);return;
+         }
+         else assert(GameCont.crown==crwn_none && global.crownpick==crwn_none,
+             "Native Fish selection failed no-crown saved menu prerequisite for source heart run")
++        UberCont.opt_console=true;
++        assert(scrFRProgress210Cheated() && !scrFRAchievementsAllowed210(),
++            "Live Console setting was ignored in the real character menu");
++        var _console=instance_find(Console,0);
++        if(!instance_exists(_console)) _console=instance_create(0,0,Console);
++        assert(instance_exists(_console),"Real character menu command fixture needs the normal lazily created Console");
++        global.console_active=true;
++        with(_console) handle_console_command("hard");
++        UberCont.opt_console=false;global.console_active=false;
++        assert(!scrFRProgress210Cheated() && scrFRAchievementsAllowed210(),
++            "Console toggle and read-only query poisoned the upcoming normal run");
++
++        var _rad=GameCont.rad;
++        UberCont.opt_console=true;global.console_active=true;
++        with(_console) handle_console_command("rads 1");
++        UberCont.opt_console=false;global.console_active=false;
++        assert(GameCont.rad==_rad+1,"The fixture's console command did not modify the prepared GameCont");
++        assert(scrFRProgress210Cheated() && !scrFRAchievementsAllowed210(),
++            "A console command modified the prepared run without blocking its progression");
++        // Continue with the untouched normal run for the vault and award checks.
++        GameCont.rad=_rad;
++        GameCont.fr_progress210_blocked=false;GameCont.fr_achievements_blocked210=false;
+         with(GoButton) event_perform(ev_mouse,ev_left_press)
+         assert(instance_number(Player)==1 && Player.race==Race.Fish,"Actual native Go failed genuine Player constructor")
+         initial_player=Player.id
+@@ -337,8 +384,10 @@ function scrNTTEFullCrownNaturalStepBody() {
+             "Actual native earned-crown circle hitbox failed current/saved crown propagation")
+         scrNTTEFullCrownNaturalRate("actual arrow and earned-crown circle Draw clicks")
+         run_ends=room_ends;run_starts=room_starts
++        var _random_character=custom_launch && rates[pass_index]==60;
++        if(_random_character) my_player.race=Race.Random;
+         with(GoButton) event_perform(ev_mouse,ev_left_press)
+-        assert(instance_number(Player)==1 && Player.race==Race.Fish,
++        assert(instance_number(Player)==1 && (_random_character?Player.race!=Race.Random:Player.race==Race.Fish),
+             "Actual native Go after crown click failed genuine Player constructor")
+         initial_player=Player.id
+         scrNTTEFullCrownNaturalAwait(13);return;
+@@ -394,14 +443,16 @@ function scrNTTEFullCrownNaturalStepBody() {
+         assert(instance_exists(LevCont) && instance_number(CrownIcon)>0,"Actual Vlambeer crown point failed native LevCont branch")
+         chosen=noone;with(CrownIcon) if(crown==other.current_crown) other.chosen=id
+         assert(instance_exists(chosen),"Earned source crown unavailable in native LevCont choices")
+-        var _bonus=false,_crime=false,_red=false
++        var _bonus=false,_crime=false,_red=false,_storms=false
+         with(CrownIcon) {
+             if(crown==NTTEFullCrown.Bonus) _bonus=true
+             if(crown==NTTEFullCrown.Crime) _crime=true
+             if(crown==NTTEFullCrown.Red) _red=true
++            if(crown==17) _storms=true
+         }
+         assert(_bonus==(GameCont.loops>0) && _crime==(GameCont.loops<=0 && scrNTTEFullUnlockGet("crown:crime"))
+-            && _red==(GameCont.loops>0 && scrNTTEFullUnlockGet("crown:red")),"Real LevCont choices changed source loop/unlock crown availability")
++            && _red==(GameCont.loops>0 && scrNTTEFullUnlockGet("crown:red"))
++            && _storms==(GameCont.loops<=0 && scrFRCrownReady()),"Real LevCont choices changed source loop/unlock crown availability")
+         scrNTTEFullCrownNaturalAwait(8);return;
+     }
+     if(phase==8) {
+@@ -438,6 +489,16 @@ function scrNTTEFullCrownNaturalStepBody() {
+             && instance_exists(TopCont) && room_ends==run_ends+1 && room_starts==run_starts+1,
+             "Actual selected-crown Go/room_restart failed normal world or real engine events")
+         scrNTTEFullCrownNaturalPhysical("actual Go room_restart world 8Draw")
++        if(custom_launch) {
++            assert(scrGameIsCustomMode() && global.crownpick==current_crown
++                && !scrNTTEFullUnlockGet("loadout:crown:"+current_key),
++                "Custom Go disarmed the selected crown or mistakenly awarded permanent ownership");
++            scrNTTESmokeLog("PASS CROWN CUSTOM GO Storms: unowned crown selected by real Draw hitboxes, equipped through GO, active in generated room @"+string(rates[pass_index]));
++            global.ntte_full_progress=custom_saved_progress;
++            scrGameCustomModeReset();
++            custom_launch=false;
++            scrNTTEFullCrownNaturalNext();return;
++        }
+         saved_player=Player.id;scrSavegameSave()
+         assert(file_exists(savegame_file),"Actual selected-crown new-run omitted binary save")
+         scrNTTEFullCrownNaturalClear();UberCont.want_quit_to_menu=false
+@@ -466,6 +527,12 @@ function scrNTTEFullCrownNaturalStepBody() {
+             scrNTTEFullCrownNaturalGeneration(area_campfire,1,1,5,713253)
+             scrNTTEFullCrownNaturalAwait(18);return;
+         }
++        if(current_crown==17) {
++            custom_saved_progress=global.ntte_full_progress;
++            global.ntte_full_progress={schema:1,unlocks:{},loadouts:{},stats:{}};
++            custom_launch=true;
++            scrNTTEFullCrownNaturalMenu();scrNTTEFullCrownNaturalAwait(30);return;
++        }
+         scrNTTEFullCrownNaturalNext();return;
+     }
+     if(phase==16) {
+--- a/project/scripts/scrNTTEFullUnlockPresentation/scrNTTEFullUnlockPresentation.gml
++++ b/project/scripts/scrNTTEFullUnlockPresentation/scrNTTEFullUnlockPresentation.gml
+@@ -116,6 +116,9 @@ function scrNTTEFullUnlockMetadata(_key,_value) {
+                     case "crime":_name="CROWN OF CRIME@s";break;
+                     case "red":_name="RED CROWN@s";break;
+                     case "bonus":_name="CROWN OF BONUS@s";break;
++                    case "storms":
++                        _name=loc("Crowns",17,"Name",scr_crown_get_name(17))+"@s";
++                        break;
+                 }
+                 _text="FOR @w"+(_n>3 ? scrRaceGetName(scrRaceGetNumericID(_p[3])):"EVERYONE");
+             }
+--- a/project/scripts/scrRunStart/scrRunStart.gml
++++ b/project/scripts/scrRunStart/scrRunStart.gml
+@@ -1,6 +1,8 @@
+ function scrRunStart() {
+     scrFRContent210NewRun(); // FRONTIER210 RETRY AND NEW GAME
+ 	if (!instance_exists(GameCont)) instance_create(0, 0, GameCont)
++    GameCont.fr_progress210_blocked=scrFRProgress210Cheated();
++    GameCont.fr_achievements_blocked210=!scrFRAchievementsAllowed210();
+ 	
+     random_set_seed(global.seed)
+ 	
+@@ -8,7 +10,20 @@ function scrRunStart() {
+ 	
+ 	with (CoopController) global.index = index
+ 	
++    var _selected_crown=global.crownpick;
+     scrCreatePlayers(global.index)
++    if(scrGameIsCustomMode()) {
++        var _race=scr_playerinstance_find(global.index).get_race();
++        var _forced=scrCustomParam("crown",crwn_random)==_selected_crown
++            && scrNTTEFullCrownContentAvailable(_selected_crown);
++        // The preset initialized the menu already. Random Character may
++        // replace the selection during player creation, so recheck it
++        // against the actual character before keeping it.
++        if(_selected_crown<=crwn_none || _forced || scr_loadout_race_is_crown_unlocked(_race,_selected_crown))
++            global.crownpick=_selected_crown;
++        else
++            global.crownpick=scr_loadout_race_get_start_crown(_race);
++    }
+ 	
+ 	if (global.crownpick == crwn_random) {
+ 		var _crown, _iteration = 0;
+@@ -84,4 +99,4 @@ function scrRunStart() {
+ 	if (scrPlayerCountRace(Race.Venuz) && scrPlayerCountRace(Race.Cuz)) {
+ 		snd_play(choose(sndYVCuzCoop1, sndYVCuzCoop2, sndYVCuzCoop3))
+ 	}
+-}
+\ No newline at end of file
++}
+--- a/project/scripts/scrCampfireMenuCreate/scrCampfireMenuCreate.gml
++++ b/project/scripts/scrCampfireMenuCreate/scrCampfireMenuCreate.gml
+@@ -281,9 +281,10 @@ function scrMenuPrepareCustomLoadout() {
+ 		}
+ 	}
+ 	
+-	if (scr_crown_is_valid(_crown)) {
+-		scrCrownSetCurrent(_crown, true)
+-	}
++    if(_crown<=crwn_none) {
++        _crown=_pinst.race==Race.Random?crwn_none:scr_loadout_race_get_start_crown(_pinst.race);
++    }
++    scrCrownSetCurrent(scrNTTEFullCrownContentAvailable(_crown)?_crown:crwn_none,true);
+ 	
+ 	if (_wep >= 0) {
+ 		if (scrCustomParam("curse")) {
+@@ -558,7 +559,7 @@ function scrCampfireMenuSelectionChange(_player_index, _race) {
+ 				with (GoButton) alarm[0] = 30
+ 			}
+ 			
+-			if !scrGameIsEventRun() && scrCustomParam("crown", 0) <= 0 && global.is_server {
++			if !scrGameIsEventRun() && scrCustomParam("crown", 0) <= crwn_none && global.is_server {
+ 				var _start_crown = scr_loadout_race_get_start_crown(_race)
+ 				
+ 				if scr_loadout_race_is_crown_unlocked(_race, _start_crown) {
+--- a/project/scripts/handle_console_command/handle_console_command.gml
++++ b/project/scripts/handle_console_command/handle_console_command.gml
+@@ -27,6 +27,15 @@ function handle_console_command(str) {
+         return undefined
+     }
+ 
++    // Some commands modify GameCont before GO, while the ordinary menu
++    // console can also be used for help without modifying the upcoming run.
++    static _run_commands=["spawn","lvl","rad","rads","mut","skill","killall",
++        "wep","weapon","gun","nodeath","nd","goto","area","instgen","seed","debugclear","dear"];
++    if(instance_exists(GameCont) && array_contains(_run_commands,cmd[0])) {
++        GameCont.fr_progress210_blocked=true;
++        GameCont.fr_achievements_blocked210=true;
++    }
++
+     try {
+         switch cmd[0] {
+             case "help":
+@@ -606,4 +615,4 @@ function scr_console_completions(_input) {
+ 
+ 	array_sort(_out, true)
+ 	return _out
+-}
+\ No newline at end of file
++}

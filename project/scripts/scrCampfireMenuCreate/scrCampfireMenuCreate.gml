@@ -281,9 +281,10 @@ function scrMenuPrepareCustomLoadout() {
 		}
 	}
 	
-	if (scr_crown_is_valid(_crown)) {
-		scrCrownSetCurrent(_crown, true)
-	}
+    if(_crown<=crwn_none) {
+        _crown=_pinst.race==Race.Random?crwn_none:scr_loadout_race_get_start_crown(_pinst.race);
+    }
+    scrCrownSetCurrent(scrNTTEFullCrownContentAvailable(_crown)?_crown:crwn_none,true);
 	
 	if (_wep >= 0) {
 		if (scrCustomParam("curse")) {
@@ -558,7 +559,7 @@ function scrCampfireMenuSelectionChange(_player_index, _race) {
 				with (GoButton) alarm[0] = 30
 			}
 			
-			if !scrGameIsEventRun() && scrCustomParam("crown", 0) <= 0 && global.is_server {
+			if !scrGameIsEventRun() && scrCustomParam("crown", 0) <= crwn_none && global.is_server {
 				var _start_crown = scr_loadout_race_get_start_crown(_race)
 				
 				if scr_loadout_race_is_crown_unlocked(_race, _start_crown) {

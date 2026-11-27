@@ -1,5 +1,14 @@
 # Frontier source reproduction
 
+## Current 2.1.7 / build 112 source
+
+Use the accepted root `project/` and Android `platforms/android/` overlay for this version.
+The Android versionCode is 3000112, iOS build is 112, and the save protocol remains 3004.
+See [source baseline](../docs/SOURCE_BASELINE.json) and [validation](../docs/VALIDATION.en.md).
+On a verified 2.1.6 base, use `native/crown-access-20261127.patch` and
+`native/crystal-spider-descent-20261127.patch` from the staging root, then run
+`tools/version217.py` to update the platform metadata. The sections below document older releases.
+
 ## Current 2.1.6 / build 111 source
 
 Use the accepted root `project/` and Android `platforms/android/` overlay for this version.

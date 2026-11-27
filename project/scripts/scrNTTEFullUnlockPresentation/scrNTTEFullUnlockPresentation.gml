@@ -116,6 +116,9 @@ function scrNTTEFullUnlockMetadata(_key,_value) {
                     case "crime":_name="CROWN OF CRIME@s";break;
                     case "red":_name="RED CROWN@s";break;
                     case "bonus":_name="CROWN OF BONUS@s";break;
+                    case "storms":
+                        _name=loc("Crowns",17,"Name",scr_crown_get_name(17))+"@s";
+                        break;
                 }
                 _text="FOR @w"+(_n>3 ? scrRaceGetName(scrRaceGetNumericID(_p[3])):"EVERYONE");
             }

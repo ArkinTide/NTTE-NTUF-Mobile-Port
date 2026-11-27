@@ -1,0 +1,152 @@
+--- a/project/objects/Spider/Draw_0.gml
++++ b/project/objects/Spider/Draw_0.gml
+@@ -1,4 +1,14 @@
+ if lockstep_stop
+ 	exit
+ 
+-draw_sprite_ext(sprite_index, -1, x, y, right, 1, 0, c_white, 1)
+\ No newline at end of file
++// The ceiling trap advances at 30 Hz while native animation runs each frame.
++var _descent = self[$ "fr_cave_descent_owner"] ?? noone;
++var _body_sprite = sprite_index;
++var _body_frame = -1;
++if (instance_exists(_descent)) {
++	if (_descent.droppingSpider && real(_descent.mySpider) == real(id)) {
++		_body_sprite = _descent.spr_spider;
++		_body_frame = 0;
++	}
++}
++draw_sprite_ext(_body_sprite, _body_frame, x, y, right, 1, 0, c_white, 1)
+\ No newline at end of file
+--- a/project/objects/InvSpider/Draw_0.gml
++++ b/project/objects/InvSpider/Draw_0.gml
+@@ -1,4 +1,14 @@
+ if lockstep_stop
+ 	exit
+ 
+-draw_sprite_ext(sprite_index, -1, x, y, right, 1, 0, c_white, 1)
+\ No newline at end of file
++// The ceiling trap advances at 30 Hz while native animation runs each frame.
++var _descent = self[$ "fr_cave_descent_owner"] ?? noone;
++var _body_sprite = sprite_index;
++var _body_frame = -1;
++if (instance_exists(_descent)) {
++	if (_descent.droppingSpider && real(_descent.mySpider) == real(id)) {
++		_body_sprite = _descent.spr_spider;
++		_body_frame = 0;
++	}
++}
++draw_sprite_ext(_body_sprite, _body_frame, x, y, right, 1, 0, c_white, 1)
+\ No newline at end of file
+--- a/project/scripts/frCode_Frontier_Caves_mod_949ae98a92/frCode_Frontier_Caves_mod_949ae98a92.gml
++++ b/project/scripts/frCode_Frontier_Caves_mod_949ae98a92/frCode_Frontier_Caves_mod_949ae98a92.gml
+@@ -943,6 +943,7 @@
+ droppingSpider = true;
+ ;
+ mySpider = fr_Objects_Frontier_Caves_mod_gml_CoolSpider_create(x, (y - z_start), curse);
++if (instance_exists(mySpider)) mySpider.fr_cave_descent_owner = id;
+ ;
+ }
+ }
+@@ -968,9 +969,6 @@
+ var __fr_other5=scrFROther(other);
+ y = (__fr_other5.y - __fr_other5.z);
+ ;
+-var __fr_other6=scrFROther(other);
+-sprite_index = scrFRAreaSourceSprite(__fr_other6.spr_spider);
+-;
+ speed = (0) * timescale;
+ ;
+ right = 1;
+@@ -1001,6 +999,7 @@
+ for (var __fr_index11=0; __fr_index11<array_length(__fr_with10); ++__fr_index11) {
+ if(scrFRScopeExists(__fr_with10[__fr_index11])) with (__fr_with10[__fr_index11]) {
+ {
++fr_cave_descent_owner = noone;
+ spr_shadow = shd24;
+ ;
+ depth = (- 2);
+--- a/project/scripts/scrNTTEFullCavesLevelNativeTests/scrNTTEFullCavesLevelNativeTests.gml
++++ b/project/scripts/scrNTTEFullCavesLevelNativeTests/scrNTTEFullCavesLevelNativeTests.gml
+@@ -9,6 +9,67 @@
+     var _after=scrNTTEFullInstances(all)
+     for(var _i=0;_i<array_length(_after);++_i)
+         if(array_get_index(_before,_after[_i])<0 && instance_exists(_after[_i])) instance_destroy(_after[_i],false)
++}
++function scrNTTEFullCavesAssertSpiderDraw(_spider,_expected_sprite,_expected_frame) {
++    var _view_x=_spider.x-20,_view_y=_spider.y-20,_actual=undefined,_expected=undefined;
++    try {
++        _actual=scrFRVisualCapture("actor-event",40,40,_view_x,_view_y,[_spider]);
++        _expected=scrFRVisualCapture("native-actor",40,40,_view_x,_view_y,
++            [_expected_sprite,_expected_frame,_spider.x,_spider.y,_spider.right,1,0]);
++        assert(_expected.coverage>0 && scrFRVisualSamePixels(_actual,_expected),
++            "Crystal Spider Draw selected the wrong falling/grounded art @"+string(30/timescale));
++    } finally {
++        scrFRVisualFree(_actual);scrFRVisualFree(_expected);
++    }
++}
++function scrNTTEFullCavesSpiderDescentTests(_curse) {
++    assert(scrFREnabled(),"Crystal Spider fixture requires Frontier runtime");
++    var _logic_tick=FRWorld.logic_tick,_paused=UberCont.paused,_lock=lockstep_stop;
++    UberCont.paused=false;lockstep_stop=false;
++    try {
++        FRWorld.logic_tick=true;
++        var _trap=fr_Objects_Frontier_Caves_mod_gml_SpiderTrap_create(98000,98000,_curse);
++        _trap.manualActivate=true;
++        with(_trap) event_perform(ev_step,ev_step_normal);
++        var _spider=_trap.mySpider,
++            _descent=_curse?sprFR_sprInvSpiderDescend_31f56df33e0f:sprFR_sprSpiderDescend_9380c5ede60c;
++        assert(instance_exists(_spider) && _spider.object_index==(_curse?InvSpider:Spider)
++            && _trap.droppingSpider && _spider.mask_index==mskNone && _spider.canfly,
++            "Crystal Spider trap failed to create the expected airborne body");
++        with(_spider) event_perform(ev_step,ev_step_normal);
++        scrNTTEFullCavesAssertSpiderDraw(_spider,_descent,0);
++
++        var _high_rate=timescale<1;
++        for(var _frame=1;_frame<=160 && _trap.droppingSpider;++_frame) {
++            FRWorld.logic_tick=!_high_rate || (_frame mod 2==0);
++            var _height=_trap.z;
++            if(_frame mod 4<2) with(_spider) event_perform(ev_step,ev_step_normal);
++            with(_trap) event_perform(ev_step,ev_step_normal);
++            if(_frame mod 4>=2) with(_spider) event_perform(ev_step,ev_step_normal);
++            assert(FRWorld.logic_tick?_trap.z<_height:_trap.z==_height,
++                "Crystal Spider source descent advanced on the wrong host frame");
++            if(_frame<=4) {
++                assert(_spider.sprite_index==_spider.spr_idle,
++                    "Crystal Spider descent overwrote native animation state");
++                scrNTTEFullCavesAssertSpiderDraw(_spider,_descent,0);
++            }
++        }
++        assert(!_trap.droppingSpider && _trap.droppedSpider && _trap.mySpider==noone
++            && _spider.fr_cave_descent_owner==noone && !_spider.canfly && _spider.mask_index==mskSpider,
++            "Crystal Spider did not restore its native drawing and collision on landing");
++        scrNTTEFullCavesAssertSpiderDraw(_spider,_spider.sprite_index,_spider.image_index);
++
++        FRWorld.logic_tick=true;
++        var _interrupted=fr_Objects_Frontier_Caves_mod_gml_SpiderTrap_create(98064,98000,_curse);
++        _interrupted.manualActivate=true;
++        with(_interrupted) event_perform(ev_step,ev_step_normal);
++        var _stillAlive=_interrupted.mySpider;
++        instance_destroy(_interrupted,false);
++        with(_stillAlive) event_perform(ev_step,ev_step_normal);
++        scrNTTEFullCavesAssertSpiderDraw(_stillAlive,_stillAlive.sprite_index,_stillAlive.image_index);
++    } finally {
++        FRWorld.logic_tick=_logic_tick;UberCont.paused=_paused;lockstep_stop=_lock;
++    }
+ }
+ function scrNTTEFullCavesLevelNativeTests() {
+     scrNTTEFullFloorInit()
+@@ -51,6 +112,13 @@
+                 "Natural cave1/5 exact laser crystal replacement lost actual Mortar or cursed class")
+             scrNTTEFullCavesFixtureCleanup(_baseline)
+         }
++        for(var _curse=0;_curse<=1;++_curse) {
++            GameCont.area=_curse ? area_cursed_caves:area_caves
++            scrNTTEFullCavesSpiderDescentTests(_curse!=0)
++            scrNTTEFullCavesFixtureCleanup(_baseline)
++        }
++        scrNTTESmokeLog("PASS CRYSTAL SPIDER DESCENT normal/cursed native Draw, host/source frames, landing/removed owner @"+string(30/timescale))
++
+         GameCont.area=area_caves
+         var _styled=instance_create(98000,98000,Floor);_styled.styleb=true
+         var _crystal=instance_create(98016,98016,LaserCrystal),_choice=scrNTTEFullCavesFixtureSeed(5)

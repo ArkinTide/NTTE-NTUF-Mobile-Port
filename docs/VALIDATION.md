@@ -2,6 +2,10 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [返回首页](../README.md)
 
+## 2.1.7 / build 112
+
+本轮 7 项 Windows VM 专项通过。详见 [2.1.7 版本说明](RELEASE-2.1.7.md)。
+
 ## 2.1.6 / build 111
 
 本轮 7 项 Windows VM 专项通过。详见 [2.1.6 版本说明](RELEASE-2.1.6.md)。

@@ -1,6 +1,8 @@
 function scrRunStart() {
     scrFRContent210NewRun(); // FRONTIER210 RETRY AND NEW GAME
 	if (!instance_exists(GameCont)) instance_create(0, 0, GameCont)
+    GameCont.fr_progress210_blocked=scrFRProgress210Cheated();
+    GameCont.fr_achievements_blocked210=!scrFRAchievementsAllowed210();
 	
     random_set_seed(global.seed)
 	
@@ -8,7 +10,20 @@ function scrRunStart() {
 	
 	with (CoopController) global.index = index
 	
+    var _selected_crown=global.crownpick;
     scrCreatePlayers(global.index)
+    if(scrGameIsCustomMode()) {
+        var _race=scr_playerinstance_find(global.index).get_race();
+        var _forced=scrCustomParam("crown",crwn_random)==_selected_crown
+            && scrNTTEFullCrownContentAvailable(_selected_crown);
+        // The preset initialized the menu already. Random Character may
+        // replace the selection during player creation, so recheck it
+        // against the actual character before keeping it.
+        if(_selected_crown<=crwn_none || _forced || scr_loadout_race_is_crown_unlocked(_race,_selected_crown))
+            global.crownpick=_selected_crown;
+        else
+            global.crownpick=scr_loadout_race_get_start_crown(_race);
+    }
 	
 	if (global.crownpick == crwn_random) {
 		var _crown, _iteration = 0;

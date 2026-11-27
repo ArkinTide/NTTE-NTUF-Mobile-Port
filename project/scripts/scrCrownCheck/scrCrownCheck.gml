@@ -11,6 +11,8 @@ function scrCrownCheck(_crown) {
 /// @param is_start_crown=false
 function scrCrownSetCurrent(_crown, _is_start_crown = false) {
     _crown=scrFRCrownResolve(_crown);
+    if(is_real(_crown) && _crown>=14 && _crown<=17 && !scrNTTEFullCrownContentAvailable(_crown))
+        _crown=crwn_none;
 
 	with (GameCont) {
 		// unequip old crown

@@ -1,26 +1,26 @@
 {
-  "source_candidate": "2.1.6",
-  "version": "2.1.6",
-  "internal": 111,
-  "date": "2026-11-27",
-  "base_commit": "507a253d130ee667a860f7357b7b3c166cc33304",
-  "source_manifest_sha256": "42049c5b6f4d2d831eb0fd58c92dbbed3dea803b60e32a9f3055c36ce26dfb33",
-  "native_acceptance_sha256": "213ce5d561d8dfc0ec4b37820290d0fefbcf9470c990310f1505032b9e81504e",
-  "mobile_delivery_sha256": "db74c7b3dcb5471d18b8e033d18342b9e867ce46077671bd3fd98d7c1d8d1483",
+  "source_candidate": "2.1.7",
+  "version": "2.1.7",
+  "internal": 112,
+  "date": "2026-11-28",
+  "base_commit": "9fc4b20500dbf19e7cd6c42adec529ab1e96267d",
+  "source_manifest_sha256": "36b8f26eaa038bfcd95fafeb1f33c394677848f602f1846feaa6ba347e6a54a3",
+  "native_acceptance_sha256": "9199ce4beafe0e76de628090e1643bbc26b9c21df5b7f2cc2f3c1667d7183c1b",
+  "mobile_delivery_sha256": "721a723d6cfc347362ef1ab89995bef3f83d80cb0471fd026443e678805d699e",
   "development_regression": {
-    "path": "docs/validation/2.1.6-development-regression.json",
-    "sha256": "2d5978bb44b382deef3ea3bea079ef6cc4db10c58c78e73310d715603df69a6b"
+    "path": "docs/validation/2.1.7-development-regression.json",
+    "sha256": "5564f21db6fb9a94b384badaa71a134fa3eb73846ede7bf65c7e40e12165926a"
   },
-  "vm_sha256": "a2219b5a52761d5c0d570b90a1bff2de90ead7e0162caa485c77cb791d21f4d1",
-  "input_sha256": "033e86122fa403a10007b3d6a56b0fe58b7e2f4029820f85f0154ea684ba02c4",
+  "vm_sha256": "891b1f41656ed92ac6a36bfddd8ce8788820648639102b19fcaa4e75ba28947f",
+  "input_sha256": "a732411a4ea1e302d046d02c9cc07ee965f78a986972d5d42b691187802c5d32",
   "selected_windows_cases": [
-    "CustomCharacterTests",
-    "SkeletonRevivalTests",
-    "RaceNativeLifecycleTests",
-    "FrontierMovement214Tests",
-    "PlayerRateMotionTests",
-    "GamepadDeviceTests",
-    "FrontierBubbles213Tests"
+    "CrownNaturalMenuTests",
+    "CrownLoadoutNativeTests",
+    "CavesLevelNativeTests",
+    "FrontierFollowup210Tests",
+    "FrontierFeatures210Tests",
+    "NewCharacterUnlockTests",
+    "CrimeCrownTransitionTests"
   ],
   "windows_cases": 7,
   "rates": [
@@ -33,25 +33,25 @@
   ],
   "installers": {
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.6.apk",
-      "bytes": 305941977,
-      "sha256": "147d8761f90a8e5a81da84887db592ee9b64b94244a6573bf112d9b81d46846d"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.7.apk",
+      "bytes": 305957478,
+      "sha256": "6926539b1f168ed8a12500a345d1711417fb196c4699be0c9708259e7b5faae3"
     },
     "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.6.ipa",
-      "bytes": 213158710,
-      "sha256": "47972e64598d849429927b4870cf2a73058c01cb93de343a640cdc2d5e7a18e2"
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.7.ipa",
+      "bytes": 213168524,
+      "sha256": "e765f1c424af82700f86d993987c047a9cdf963c716f18ffd0563aa37d5469e5"
     }
   },
-  "android_version_code": 3000111,
-  "ios_bundle_version": "111",
+  "android_version_code": 3000112,
+  "ios_bundle_version": "112",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.1.6",
-    "NTTE_RELEASE_VERSION": "2.1.6",
-    "NTTE_RELEASE_TAG": "2.1.6",
-    "compiler_ios": "2.1.6",
-    "compiler_android": "2.1.6"
+    "GAME_VERSION": "2.1.7",
+    "NTTE_RELEASE_VERSION": "2.1.7",
+    "NTTE_RELEASE_TAG": "2.1.7",
+    "compiler_ios": "2.1.7",
+    "compiler_android": "2.1.7"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -64,9 +64,8 @@
   "download_page": "https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA",
   "repository": "ArkinTide/NTTE-NTUF-Mobile-Port",
   "requirement_status": {
-    "1": "VERIFIED_FIXED",
-    "2": "VERIFIED_FIXED",
-    "3": "VERIFIED_DESKTOP"
+    "1": "VERIFIED_DESKTOP",
+    "2": "VERIFIED_DESKTOP"
   },
   "known_issue": "Additional-character unlock report not reproduced; remains unresolved pending gameplay/save context.",
   "original_ntte_source": "https://github.com/Yokinman/NTTE",

@@ -1,0 +1,38 @@
+{
+  "version": "2.1.7",
+  "internal": 112,
+  "request_status": {
+    "1": "VERIFIED_DESKTOP",
+    "2": "VERIFIED_DESKTOP"
+  },
+  "native_cases": [
+    "CrownNaturalMenuTests",
+    "CrownLoadoutNativeTests",
+    "CavesLevelNativeTests",
+    "FrontierFollowup210Tests",
+    "FrontierFeatures210Tests",
+    "NewCharacterUnlockTests",
+    "CrimeCrownTransitionTests"
+  ],
+  "logical_rates": [
+    30,
+    60
+  ],
+  "windows_vm_sha256": "891b1f41656ed92ac6a36bfddd8ce8788820648639102b19fcaa4e75ba28947f",
+  "input_sha256": "a732411a4ea1e302d046d02c9cc07ee965f78a986972d5d42b691187802c5d32",
+  "physical_device_tested": false,
+  "game_build_save_protocol": 3004,
+  "ios_requires_resigning": true,
+  "packages": {
+    "android": {
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.7.apk",
+      "bytes": 305957478,
+      "sha256": "6926539b1f168ed8a12500a345d1711417fb196c4699be0c9708259e7b5faae3"
+    },
+    "ios": {
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.7.ipa",
+      "bytes": 213168524,
+      "sha256": "e765f1c424af82700f86d993987c047a9cdf963c716f18ffd0563aa37d5469e5"
+    }
+  }
+}

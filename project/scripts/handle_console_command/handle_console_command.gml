@@ -27,6 +27,15 @@ function handle_console_command(str) {
         return undefined
     }
 
+    // Some commands modify GameCont before GO, while the ordinary menu
+    // console can also be used for help without modifying the upcoming run.
+    static _run_commands=["spawn","lvl","rad","rads","mut","skill","killall",
+        "wep","weapon","gun","nodeath","nd","goto","area","instgen","seed","debugclear","dear"];
+    if(instance_exists(GameCont) && array_contains(_run_commands,cmd[0])) {
+        GameCont.fr_progress210_blocked=true;
+        GameCont.fr_achievements_blocked210=true;
+    }
+
     try {
         switch cmd[0] {
             case "help":

@@ -10,6 +10,67 @@ function scrNTTEFullCavesFixtureCleanup(_before) {
     for(var _i=0;_i<array_length(_after);++_i)
         if(array_get_index(_before,_after[_i])<0 && instance_exists(_after[_i])) instance_destroy(_after[_i],false)
 }
+function scrNTTEFullCavesAssertSpiderDraw(_spider,_expected_sprite,_expected_frame) {
+    var _view_x=_spider.x-20,_view_y=_spider.y-20,_actual=undefined,_expected=undefined;
+    try {
+        _actual=scrFRVisualCapture("actor-event",40,40,_view_x,_view_y,[_spider]);
+        _expected=scrFRVisualCapture("native-actor",40,40,_view_x,_view_y,
+            [_expected_sprite,_expected_frame,_spider.x,_spider.y,_spider.right,1,0]);
+        assert(_expected.coverage>0 && scrFRVisualSamePixels(_actual,_expected),
+            "Crystal Spider Draw selected the wrong falling/grounded art @"+string(30/timescale));
+    } finally {
+        scrFRVisualFree(_actual);scrFRVisualFree(_expected);
+    }
+}
+function scrNTTEFullCavesSpiderDescentTests(_curse) {
+    assert(scrFREnabled(),"Crystal Spider fixture requires Frontier runtime");
+    var _logic_tick=FRWorld.logic_tick,_paused=UberCont.paused,_lock=lockstep_stop;
+    UberCont.paused=false;lockstep_stop=false;
+    try {
+        FRWorld.logic_tick=true;
+        var _trap=fr_Objects_Frontier_Caves_mod_gml_SpiderTrap_create(98000,98000,_curse);
+        _trap.manualActivate=true;
+        with(_trap) event_perform(ev_step,ev_step_normal);
+        var _spider=_trap.mySpider,
+            _descent=_curse?sprFR_sprInvSpiderDescend_31f56df33e0f:sprFR_sprSpiderDescend_9380c5ede60c;
+        assert(instance_exists(_spider) && _spider.object_index==(_curse?InvSpider:Spider)
+            && _trap.droppingSpider && _spider.mask_index==mskNone && _spider.canfly,
+            "Crystal Spider trap failed to create the expected airborne body");
+        with(_spider) event_perform(ev_step,ev_step_normal);
+        scrNTTEFullCavesAssertSpiderDraw(_spider,_descent,0);
+
+        var _high_rate=timescale<1;
+        for(var _frame=1;_frame<=160 && _trap.droppingSpider;++_frame) {
+            FRWorld.logic_tick=!_high_rate || (_frame mod 2==0);
+            var _height=_trap.z;
+            if(_frame mod 4<2) with(_spider) event_perform(ev_step,ev_step_normal);
+            with(_trap) event_perform(ev_step,ev_step_normal);
+            if(_frame mod 4>=2) with(_spider) event_perform(ev_step,ev_step_normal);
+            assert(FRWorld.logic_tick?_trap.z<_height:_trap.z==_height,
+                "Crystal Spider source descent advanced on the wrong host frame");
+            if(_frame<=4) {
+                assert(_spider.sprite_index==_spider.spr_idle,
+                    "Crystal Spider descent overwrote native animation state");
+                scrNTTEFullCavesAssertSpiderDraw(_spider,_descent,0);
+            }
+        }
+        assert(!_trap.droppingSpider && _trap.droppedSpider && _trap.mySpider==noone
+            && _spider.fr_cave_descent_owner==noone && !_spider.canfly && _spider.mask_index==mskSpider,
+            "Crystal Spider did not restore its native drawing and collision on landing");
+        scrNTTEFullCavesAssertSpiderDraw(_spider,_spider.sprite_index,_spider.image_index);
+
+        FRWorld.logic_tick=true;
+        var _interrupted=fr_Objects_Frontier_Caves_mod_gml_SpiderTrap_create(98064,98000,_curse);
+        _interrupted.manualActivate=true;
+        with(_interrupted) event_perform(ev_step,ev_step_normal);
+        var _stillAlive=_interrupted.mySpider;
+        instance_destroy(_interrupted,false);
+        with(_stillAlive) event_perform(ev_step,ev_step_normal);
+        scrNTTEFullCavesAssertSpiderDraw(_stillAlive,_stillAlive.sprite_index,_stillAlive.image_index);
+    } finally {
+        FRWorld.logic_tick=_logic_tick;UberCont.paused=_paused;lockstep_stop=_lock;
+    }
+}
 function scrNTTEFullCavesLevelNativeTests() {
     scrNTTEFullFloorInit()
     var _before=scrNTTEFullInstances(all),_game=scrNTTEFullAreaGeneratorSnapshot(GameCont),
@@ -51,6 +112,13 @@ function scrNTTEFullCavesLevelNativeTests() {
                 "Natural cave1/5 exact laser crystal replacement lost actual Mortar or cursed class")
             scrNTTEFullCavesFixtureCleanup(_baseline)
         }
+        for(var _curse=0;_curse<=1;++_curse) {
+            GameCont.area=_curse ? area_cursed_caves:area_caves
+            scrNTTEFullCavesSpiderDescentTests(_curse!=0)
+            scrNTTEFullCavesFixtureCleanup(_baseline)
+        }
+        scrNTTESmokeLog("PASS CRYSTAL SPIDER DESCENT normal/cursed native Draw, host/source frames, landing/removed owner @"+string(30/timescale))
+
         GameCont.area=area_caves
         var _styled=instance_create(98000,98000,Floor);_styled.styleb=true
         var _crystal=instance_create(98016,98016,LaserCrystal),_choice=scrNTTEFullCavesFixtureSeed(5)

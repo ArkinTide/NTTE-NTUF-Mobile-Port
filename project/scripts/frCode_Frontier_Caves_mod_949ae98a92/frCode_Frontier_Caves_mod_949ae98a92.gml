@@ -943,6 +943,7 @@ spiderSpawned = true;
 droppingSpider = true;
 ;
 mySpider = fr_Objects_Frontier_Caves_mod_gml_CoolSpider_create(x, (y - z_start), curse);
+if (instance_exists(mySpider)) mySpider.fr_cave_descent_owner = id;
 ;
 }
 }
@@ -967,9 +968,6 @@ x = __fr_other4.x;
 ;
 var __fr_other5=scrFROther(other);
 y = (__fr_other5.y - __fr_other5.z);
-;
-var __fr_other6=scrFROther(other);
-sprite_index = scrFRAreaSourceSprite(__fr_other6.spr_spider);
 ;
 speed = (0) * timescale;
 ;
@@ -1001,6 +999,7 @@ if ((z <= 0)) {
 for (var __fr_index11=0; __fr_index11<array_length(__fr_with10); ++__fr_index11) {
 if(scrFRScopeExists(__fr_with10[__fr_index11])) with (__fr_with10[__fr_index11]) {
 {
+fr_cave_descent_owner = noone;
 spr_shadow = shd24;
 ;
 depth = (- 2);

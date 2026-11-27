@@ -2,13 +2,13 @@
 
 [Simplified Chinese](README.md) | [English](README.en.md)
 
-Android/iOS source for NTTE with **Uncharted Frontier (NTUF) 1.0.3.3**, Undergrowth, Details+ and Simplified Chinese support. Current version **2.1.6**, internal build **111**.
+Android/iOS source for NTTE with **Uncharted Frontier (NTUF) 1.0.3.3**, Undergrowth, Details+ and Simplified Chinese support. Current version **2.1.7**, internal build **112**.
 
-Get APK/IPA packages from the [existing MEGA folder](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) and verify `SHA256SUMS-NTTE-NTUF-2.1.6.txt`. GitHub distributes text source and notes; iOS requires re-signing. See the [2.1.6 notes](docs/RELEASE-2.1.6.md).
+Get APK/IPA packages from the [existing MEGA folder](https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA) and verify `SHA256SUMS-NTTE-NTUF-2.1.7.txt`. GitHub distributes text source and notes; iOS requires re-signing. See the [2.1.7 notes](docs/RELEASE-2.1.7.md).
 
 ## What changed
 
-Fixes Custom mode character starts and touch movement.
+Fixes added crown selection and unlocks, and Crystal Spider descent sprite flicker.
 
 ## Source and building
 

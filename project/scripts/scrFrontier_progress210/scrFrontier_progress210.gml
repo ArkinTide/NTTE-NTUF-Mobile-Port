@@ -4,9 +4,11 @@ function scrFRProgress210Cheated() {
     if(!instance_exists(UberCont)) return false;
     var _blocked=scrNTTEFullValue(UberCont,"opt_console",false) || scrNTTEFullValue(UberCont,"opt_practice",false)
         || (variable_global_exists("console_active") && global.console_active);
+    // Character select also owns GameCont. Its settings take effect at GO;
+    // a console command that modified this controller can already mark it.
     if(instance_exists(GameCont)) {
-        if(_blocked) GameCont.fr_progress210_blocked=true;
-        return scrNTTEFullValue(GameCont,"fr_progress210_blocked",false);
+        if(_blocked && scrFRContent210InRun()) GameCont.fr_progress210_blocked=true;
+        return _blocked || scrNTTEFullValue(GameCont,"fr_progress210_blocked",false);
     }
     return _blocked;
 }

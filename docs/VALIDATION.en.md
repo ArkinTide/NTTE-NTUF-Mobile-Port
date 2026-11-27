@@ -2,6 +2,10 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.1.7 / build 112
+
+Seven selected Windows VM cases passed. See the [2.1.7 release notes](RELEASE-2.1.7.md).
+
 ## 2.1.6 / build 111
 
 Seven selected Windows VM cases passed. See the [2.1.6 release notes](RELEASE-2.1.6.md).
