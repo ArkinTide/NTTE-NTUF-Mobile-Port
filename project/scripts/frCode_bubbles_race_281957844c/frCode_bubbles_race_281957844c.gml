@@ -633,7 +633,8 @@ return {"hand_color": make_color_rgb(201, 209, 222), "dual_fire": false};
 
 // Original Characters/bubbles.race.gml:286
 function fr_Characters_bubbles_race_gml_create() {
-if ((! fr_Characters_bubbles_race_gml_race_avail())) {
+// The native selector also allows temporary access in Custom mode.
+if (!scr_race_is_unlocked(19)) {
 {
 race = scrFRRaceResolve("fish");
 ;

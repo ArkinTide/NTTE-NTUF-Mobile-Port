@@ -152,7 +152,7 @@ function scrNTTEFullPlayerRateMotionRestore() {
     game_set_speed(old_rate,gamespeed_fps);global.time_scale=old_ts;
 }
 function scrNTTEFullPlayerRateMotionStartCase() {
-    var _fps=(case_index%2)==0?30:60,_floor=case_index div 2;
+    var _fps=(case_index%2)==0?30:60,_floor=case_index<6?case_index div 2:0;
     scrNTTESmokeLog("FULL INTERNAL BEGIN @"+string(_fps));
     save_set_value("options","framerate",_fps);scrOptionsUpdate();UberCont.opt_autopause=false;UberCont.block_input_frames=100000;
     with(Floor) instance_destroy(id,false);
@@ -163,13 +163,18 @@ function scrNTTEFullPlayerRateMotionStartCase() {
     target=scrPlayerCreate(0,Race.Fish,0);target.x=20016;target.y=20016;
     target.hp=10000;target.max_hp=10000;target.lsthealth=10000;target.nexthurt=current_frame+10000;
     target.can_walk=true;target.can_aim=false;target.can_spec=false;target.speed=0;
-    elapsed=0;visual_frames=0;sample_x=0;started=true;
+    elapsed=0;visual_frames=0;sample_x=0;turning=false;started=true;
 }
 function scrNTTEFullPlayerRateMotionBegin() {
     if(!started) scrNTTEFullPlayerRateMotionStartCase();
     var _i=target.index;
-    KeyCont.precisemovement[_i]=true;KeyCont.moving[_i]=1;KeyCont.dir_move[_i]=0;
-    KeyCont.hold_east[_i]=true;KeyCont.hold_west[_i]=false;KeyCont.hold_sout[_i]=false;KeyCont.hold_nort[_i]=false;
+    // First six runs preserve the controller-style consumer on each terrain.
+    // Four further runs supply touchscreen full and fine deflection values to
+    // the actual scheduled Player step, including a full-speed reversal.
+    KeyCont.touch[_i]=case_index>=6;
+    KeyCont.precisemovement[_i]=true;KeyCont.moving[_i]=case_index>=8?0.1:1;
+    KeyCont.dir_move[_i]=turning?180:0;
+    KeyCont.hold_east[_i]=!turning;KeyCont.hold_west[_i]=turning;KeyCont.hold_sout[_i]=false;KeyCont.hold_nort[_i]=false;
     KeyCont.hold_fire[_i]=false;KeyCont.press_fire[_i]=false;KeyCont.release_fire[_i]=false;
     KeyCont.hold_spec[_i]=false;KeyCont.press_spec[_i]=false;KeyCont.press_swap[_i]=false;KeyCont.press_pick[_i]=false;
 }
@@ -177,20 +182,42 @@ function scrNTTEFullPlayerRateMotionEndBody() {
     assert(get_timer()-wall_start<90000000,"Natural movement wall-clock timeout");if(!started) return;
     var _fps=(case_index%2)==0?30:60;
     assert(game_get_speed(gamespeed_fps)==_fps && timescale==30/_fps,"Natural movement rate drifted");
-    elapsed+=timescale;if(elapsed<30) return;
-    if(sample_x==0) {sample_x=target.x;sample_clock=current_frame;sample_us=get_timer();visual_frames=0;return;}
-    visual_frames++;if(elapsed<90) return;
-    var _row={floor:case_index div 2,actual_rate:_fps,logic_ticks:current_frame-sample_clock,distance:target.x-sample_x,
-        visual_frames:visual_frames,wall_us:get_timer()-sample_us,maxspeed:target.maxspeed,friction:target.friction,observed_fps:fps_real};
-    array_push(rows,_row);scrNTTESmokeLog("PLAYER NATURAL MOTION "+json_stringify(_row));
+    if(turning) {
+        turn_elapsed+=timescale;
+        if(turn_elapsed==timescale) assert(target.hspeed<turn_start_hspeed-timescale*0.2,
+            "Touch reversal failed to respond immediately at full walking speed");
+        if(turn_elapsed<3) return;
+        assert(target.hspeed<0,"Full-speed touchscreen reversal took more than three logical ticks");
+        scrNTTESmokeLog("TOUCH REVERSAL "+json_stringify({rate:_fps,start_hspeed:turn_start_hspeed,
+            final_hspeed:target.hspeed,logic_ticks:turn_elapsed}));
+    } else {
+        elapsed+=timescale;if(elapsed<30) return;
+        if(sample_x==0) {sample_x=target.x;sample_clock=current_frame;sample_us=get_timer();visual_frames=0;return;}
+        visual_frames++;if(elapsed<90) return;
+        var _row={floor:case_index<6?case_index div 2:0,touch:case_index>=6,strength:case_index>=8?0.1:1,
+            actual_rate:_fps,logic_ticks:current_frame-sample_clock,distance:target.x-sample_x,
+            visual_frames:visual_frames,wall_us:get_timer()-sample_us,maxspeed:target.maxspeed,friction:target.friction,observed_fps:fps_real};
+        array_push(rows,_row);scrNTTESmokeLog("PLAYER NATURAL MOTION "+json_stringify(_row));
+        if(case_index==6 || case_index==7) {
+            turning=true;turn_elapsed=0;turn_start_hspeed=target.hspeed;
+            return;
+        }
+    }
     scrNTTESmokeLog("FULL INTERNAL END @"+string(_fps)+" tests=1");
-    instance_destroy(target,false);target=noone;started=false;if(++case_index<6) return;
+    instance_destroy(target,false);target=noone;started=false;if(++case_index<10) return;
     for(var _i=0;_i<array_length(rows);_i+=2) {
         var _a=rows[_i],_b=rows[_i+1];
         assert(abs(_a.logic_ticks-60)<0.001 && abs(_b.logic_ticks-60)<0.001,"Natural motion covered unequal logical time");
         assert(abs(_a.distance-_b.distance)<=0.5,"Natural30/60 distance differs on floor "+string(_a.floor)+": "+string(_a.distance)+" vs "+string(_b.distance));
     }
-    scrNTTEFullPlayerRateMotionRestore();scrNTTESmokeLog("PASS PLAYER NATURAL MOTION actual30/60 dry/sticky/ice; mobile device not tested");
+    for(var _rate=0;_rate<2;++_rate) {
+        var _legacy=rows[_rate],_touch_full=rows[6+_rate],_touch_fine=rows[8+_rate];
+        assert(abs(_legacy.distance-_touch_full.distance)<=0.5,
+            "Touch full-speed walking unexpectedly changed the original top speed");
+        assert(_touch_fine.distance>0 && abs(_touch_fine.distance-_touch_full.distance*0.1)<=0.5,
+            "Live fine touchscreen movement stopped or accelerated into full speed");
+    }
+    scrNTTEFullPlayerRateMotionRestore();scrNTTESmokeLog("PASS PLAYER NATURAL MOTION actual30/60 dry/sticky/ice, touchscreen full and fine speed and responsive reversal; mobile device not tested");
     scrNTTESmokeLog("PASS full internal selected implemented branches x 30/60; not complete MOD coverage");game_end();
 }
 function scrNTTEFullPlayerRateMotionEnd() {

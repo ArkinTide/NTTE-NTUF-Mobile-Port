@@ -2,6 +2,10 @@
 
 [简体中文](UPDATING.md) | [English](UPDATING.en.md) | [首页](../README.md)
 
+## 2.1.6 / build 111
+
+本轮 7 项 Windows VM 专项通过。详见 [2.1.6 版本说明](RELEASE-2.1.6.md)。
+
 ## 2.1.5 build 110 版本
 
 游戏显示、更新器、平台版本和正式标签统一为 `2.1.5`，内部构建 110；

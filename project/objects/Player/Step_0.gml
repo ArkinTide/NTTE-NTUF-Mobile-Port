@@ -140,7 +140,7 @@ if (!roll) {
 		}
 		
 		_maxspeed=scrNTTEFullPlayerWalkCap(_maxspeed);
-		if (speed < _maxspeed) {
+		if (!scrFRMovementTouchWalk216(_maxspeed,_movspeed) && speed < _maxspeed) {
 			if (KeyCont.precisemovement[index]) {
 				var _m = _movspeed * KeyCont.moving[index]
 				hspeed += (ldrx(_m, KeyCont.dir_move[index])) * timescale

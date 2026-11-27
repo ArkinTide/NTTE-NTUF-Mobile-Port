@@ -2,6 +2,10 @@
 
 [简体中文](VALIDATION.md) | [English](VALIDATION.en.md) | [Home](../README.en.md)
 
+## 2.1.6 / build 111
+
+Seven selected Windows VM cases passed. See the [2.1.6 release notes](RELEASE-2.1.6.md).
+
 ## 2.1.5 build 110 — Custom characters and Skeleton revival
 
 The current freshly compiled Windows VM passed ten explicitly selected native

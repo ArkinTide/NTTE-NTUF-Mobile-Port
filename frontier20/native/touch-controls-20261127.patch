@@ -1,0 +1,388 @@
+--- a/objects/JoystickMove/Other_10.gml
++++ b/objects/JoystickMove/Other_10.gml
+@@ -3,5 +3,5 @@
+ if instance_exists(MenuOptions) or UberCont.opt_keyboard or UberCont.opt_gamepad
+ 	exit
+ 
+-// FRONTIER214 MOVE: validated capture, center deadzone and logical-time ramp.
++// Precise touch movement with captured ownership and stable analog speed.
+ scrFRMovementStick214();
+--- a/objects/Player/Step_0.gml
++++ b/objects/Player/Step_0.gml
+@@ -140,7 +140,7 @@
+ 		}
+ 		
+ 		_maxspeed=scrNTTEFullPlayerWalkCap(_maxspeed);
+-		if (speed < _maxspeed) {
++		if (!scrFRMovementTouchWalk216(_maxspeed,_movspeed) && speed < _maxspeed) {
+ 			if (KeyCont.precisemovement[index]) {
+ 				var _m = _movspeed * KeyCont.moving[index]
+ 				hspeed += (ldrx(_m, KeyCont.dir_move[index])) * timescale
+--- a/scripts/scrFrontier_movement214/scrFrontier_movement214.gml
++++ b/scripts/scrFrontier_movement214/scrFrontier_movement214.gml
+@@ -1,5 +1,5 @@
+-// The native move stick still supplies the host's original analog magnitude,
+-// acceleration boost and precise angle. Only its touch lifecycle/timing changes.
++// A captured move finger owns the stick until release. Displacement controls
++// walking speed continuously, without accumulating a time-based speed boost.
+ function scrFRMovementNearest214(_radius) {
+     if(is_undefined(scrFRTouchFixtureSample(0))) return scrFRTouchNearest(_radius);
+     // The explicit desktop raw-touch fixture follows the same MobileUI owner
+@@ -28,31 +28,55 @@
+     if(index<0 && !_lost && !global.console_active) index=scrFRMovementNearest214(rad);
+ 
+     KeyCont.moving[_slot]=0;
++    current_move_direction_time=0;
+     KeyCont.hold_east[_slot]=false;KeyCont.hold_west[_slot]=false;
+     KeyCont.hold_nort[_slot]=false;KeyCont.hold_sout[_slot]=false;
+     if(index>=0) {
+         var _dx=scrFRTouchX(index)-x,_dy=scrFRTouchY(index)-y;
+         dis=point_distance(0,0,_dx,_dy);
+-        // At the default32px radius this is exactly2 GUI pixels. Preserve the
+-        // original dis/rad response outside it, including very slow fine moves.
++        // At the default32px radius this is exactly 2 GUI pixels. Full speed
++        // needs only 7/8 of the radius, leaving room for the thumb at the edge.
+         var _dead=min(2,max(0,rad)*0.0625);
+         if(dis>_dead && rad>0) {
+             dir=point_direction(0,0,_dx,_dy);
+-            if(abs(angle_difference(dir,KeyCont.dir_move[_slot]))<10)
+-                current_move_direction_time=min(30,max(0,current_move_direction_time)+_dt);
+-            else current_move_direction_time=max(0,current_move_direction_time-3*_dt);
+-            var _same=max(0,current_move_direction_time-10)/20;
+             KeyCont.dir_move[_slot]=dir;
+-            KeyCont.moving[_slot]=min(1,_same+dis/rad);
+-            // Use raw deltas rather than sin/cos signs: cardinal directions
+-            // must not gain a perpendicular key from floating-point roundoff.
+-            KeyCont.hold_east[_slot]=_dx>0;KeyCont.hold_west[_slot]=_dx<0;
+-            KeyCont.hold_sout[_slot]=_dy>0;KeyCont.hold_nort[_slot]=_dy<0;
+-        } else current_move_direction_time=0;
+-    } else {
+-        dis=0;current_move_direction_time=0;
+-    }
++            KeyCont.moving[_slot]=clamp((dis-_dead)/max(1,rad*0.875-_dead),0,1);
++            // Continuous movement keeps its exact angle. Direction buttons
++            // ignore slight perpendicular thumb wobble near a cardinal axis.
++            var _axis_dead=dis*0.12;
++            KeyCont.hold_east[_slot]=_dx>_axis_dead;KeyCont.hold_west[_slot]=_dx<-_axis_dead;
++            KeyCont.hold_sout[_slot]=_dy>_axis_dead;KeyCont.hold_nort[_slot]=_dy<-_axis_dead;
++        }
++    } else dis=0;
+     scrFRTouchMovementSample(_slot,index);
+     if(UberCont.opt_hiddensticks)
+         image_alpha=lerp(image_alpha,(index>=0)*0.2,1-power(0.6,_dt));
+ }
++
++// The native Player step uses this only for precise touchscreen walking.
++// Aim toward a stable fraction of actual terrain-limited speed. Including
++// existing friction in the target lets small thumb movements remain usable.
++// Approach a velocity vector rather than adding thrust in the new direction
++// until the total speed happens to be below the cap.
++function scrFRMovementTouchWalk216(_walk_cap,_acceleration) {
++    if(!KeyCont.touch[index] || !KeyCont.precisemovement[index]) return false;
++    if(_walk_cap<=0 || _acceleration<=0 || speed>_walk_cap) return true;
++
++    var _strength=clamp(KeyCont.moving[index],0,1);
++    if(_strength<=0) return true;
++    var _target=lerp(min(friction,_walk_cap),_walk_cap,_strength);
++    var _vx=lengthdir_x(_target,KeyCont.dir_move[index]);
++    var _vy=lengthdir_y(_target,KeyCont.dir_move[index]);
++    var _dx=_vx-hspeed,_dy=_vy-vspeed;
++    var _distance=point_distance(0,0,_dx,_dy);
++    var _step=_acceleration*timescale;
++    if(_distance>_step) {
++        var _fraction=_step/_distance;
++        hspeed+=_dx*_fraction;
++        vspeed+=_dy*_fraction;
++    } else {
++        hspeed=_vx;
++        vspeed=_vy;
++    }
++    return true;
++}
+--- a/scripts/scrStickRegions/scrStickRegions.gml
++++ b/scripts/scrStickRegions/scrStickRegions.gml
+@@ -1,6 +1,10 @@
+ function scrStickRegions(touch) {
+-	var mx = device_mouse_x_to_gui(touch),
+-		my = device_mouse_y_to_gui(touch)
++	// A second finger must never recenter a stick during an active drag.
++	if index >= 0 or global.console_active or !scrFRTouchPressed(touch) or !scrFRTouchHeld(touch)
++		exit
++	
++	var mx = scrFRTouchX(touch),
++		my = scrFRTouchY(touch)
+ 	
+ 	if mx > gui_w / 2 {
+ 		if object_index == JoystickMove
+@@ -14,19 +18,31 @@
+ 	if mx < border or mx > gui_w - border
+ 		exit
+ 	
+-	if device_mouse_check_button_pressed(touch, mb_left) {
+-		with MobileUI {
+-			if get_nearest_touch(rad) == touch
+-				exit
+-		}
+-		
+-		if object_index == JoystickAttack {
+-			x = lerp(x, mx, 0.8)
+-			y = lerp(y, my, 0.8)
+-		}
+-		else {
+-			x = mx
+-			y = my
++	var _owned = false
++	with MobileUI {
++		if index == touch {
++			_owned = true
++			break
+ 		}
+ 	}
+-}
+\ No newline at end of file
++	if _owned exit
++	
++	var _nearest = instance_nearest(mx, my, MobileUI)
++	with (_nearest) {
++		if distance_to_point(mx, my) <= get_touch_radius(rad)
++			_owned = true
++	}
++	if _owned exit
++	
++	if object_index == JoystickAttack {
++		x = lerp(x, mx, 0.8)
++		y = lerp(y, my, 0.8)
++	}
++	else {
++		x = mx
++		y = my
++		// Claim the new floating move stick before another new finger can
++		// relocate it in this same hardware frame.
++		index = touch
++	}
++}
+--- a/scripts/scrFrontier_movement214_tests/scrFrontier_movement214_tests.gml
++++ b/scripts/scrFrontier_movement214_tests/scrFrontier_movement214_tests.gml
+@@ -1,5 +1,5 @@
+-// Hardware fixtures enter the shipping JoystickMove user event, not a stand-in
+-// movement function. The ordinary Player precise-movement consumer is unchanged.
++// Hardware fixtures enter the shipping JoystickMove user event. Separate
++// PlayerRateMotionTests exercise the same input's live movement consumer.
+ function scrFRMovement214Sample(_stick,_x,_y,_held,_pressed,_released,_ready,_delta,_touch=0) {
+     scrFRInputTestsRaw(_x,_y,_held,_pressed,_released,_ready,_delta,_touch);
+     with(_stick) event_user(0);
+@@ -14,7 +14,7 @@
+         _serial=FRWorld.logic_serial,_tick=FRWorld.logic_tick,
+         _saved_input=variable_global_exists("fr_touch_input")?global.fr_touch_input:undefined,
+         _saved_fixture=variable_global_exists("fr_touch_input_fixture")?global.fr_touch_input_fixture:undefined,
+-        _parked=scrNTTEFullInstances(MobileUI),_stick=noone,_attack=noone,_checks=0,_ramp=[];
++        _parked=scrNTTEFullInstances(MobileUI),_stick=noone,_attack=noone,_checks=0,_held_samples=[];
+     scrNTTEFullAreaSnapshotContainer(KeyCont,_keys);
+     for(var _i=0;_i<array_length(_parked);++_i) instance_deactivate_object(_parked[_i]);
+     try {
+@@ -26,6 +26,7 @@
+         _stick=instance_create(160,164,JoystickMove);_stick.x=160;_stick.y=164;_stick.rad=36;
+         _attack=instance_create(280,164,JoystickAttack);_attack.x=280;_attack.y=164;_attack.rad=36;
+         _attack.index=-1;
++        var _fine=(3-2)/(36*0.875-2);
+         for(var _hz=30;_hz<=60;_hz+=30) {
+             var _dt=30/_hz;
+             global.time_scale=_dt;global.fr_touch_input=undefined;current_frame=28000;
+@@ -37,12 +38,12 @@
+                 "Sub2px center input retained boost/movement at "+string(_hz)+"Hz");
+             scrFRMovement214Sample(_stick,163,164,true,false,false,true,_dt);
+             scrNTTESmokeLog("FRONTIER214 MOVE FINE DIAG "+json_stringify({rate:_hz,delta:timescale,
+-                expected:3/36,moving:KeyCont.moving[_slot],east:KeyCont.hold_east[_slot],
++                expected:_fine,moving:KeyCont.moving[_slot],east:KeyCont.hold_east[_slot],
+                 west:KeyCont.hold_west[_slot],north:KeyCont.hold_nort[_slot],south:KeyCont.hold_sout[_slot],
+                 slot:_slot,stick_index:_stick.index,x:_stick.x,y:_stick.y,rad:_stick.rad,dis:_stick.dis,
+                 ramp:_stick.current_move_direction_time,held:scrFRTouchHeld(0),
+                 touch_x:scrFRTouchX(0),touch_y:scrFRTouchY(0)}));
+-            assert(abs(KeyCont.moving[_slot]-3/36)<0.000001
++            assert(abs(KeyCont.moving[_slot]-_fine)<0.000001
+                 && KeyCont.hold_east[_slot] && !KeyCont.hold_nort[_slot] && !KeyCont.hold_sout[_slot],
+                 "Fine3px movement was lost or remapped outside the2px deadzone");
+             _checks+=2;
+@@ -52,7 +53,7 @@
+             var _angles=[0,90,180,270,45,135,225,315,23];
+             for(var _a=0;_a<array_length(_angles);++_a) {
+                 var _angle=_angles[_a];_stick.current_move_direction_time=0;
+-                scrFRMovement214Sample(_stick,160+lengthdir_x(36,_angle),164+lengthdir_y(36,_angle),
++                scrFRMovement214Sample(_stick,160+lengthdir_x(32,_angle),164+lengthdir_y(32,_angle),
+                     true,false,false,true,_dt);
+                 assert(abs(KeyCont.moving[_slot]-1)<0.000001
+                     && abs(angle_difference(KeyCont.dir_move[_slot],_angle))<0.0001,
+@@ -64,6 +65,11 @@
+                 }
+                 _checks++;
+             }
++            scrFRMovement214Sample(_stick,184,166,true,false,false,true,_dt);
++            assert(KeyCont.hold_east[_slot] && !KeyCont.hold_nort[_slot] && !KeyCont.hold_sout[_slot]
++                && abs(angle_difference(KeyCont.dir_move[_slot],point_direction(0,0,24,2)))<0.0001,
++                "Minor thumb wobble created a cross-axis button or quantized the actual direction");
++            _checks++;
+ 
+             // Both a normal release and a missing release edge (OS touch
+             // cancellation/app backgrounding) stop acceleration in this frame.
+@@ -113,25 +119,46 @@
+             assert(_stick.index==-1 && KeyCont.moving[_slot]==0,"Move selector ignored nearest-control ownership");
+             _checks++;
+ 
+-            // The authored acceleration ramp is still present, but advances in
+-            //30Hz logical units equally at30/60Hz and cannot become negative.
++            // A small stationary drag must stay slow for as long as it is held.
++            // The same hardware duration also preserves hidden-stick fading.
+             _stick.index=-1;_stick.current_move_direction_time=0;_stick.image_alpha=0;
+             KeyCont.dir_move[_slot]=0;
+-            for(var _f=0;_f<_hz/2;++_f)
++            for(var _f=0;_f<_hz*2;++_f)
+                 scrFRMovement214Sample(_stick,163,164,true,_f==0,false,
+                     _hz==30 || (_f mod 2)==1,_dt);
+-            array_push(_ramp,[_stick.current_move_direction_time,KeyCont.moving[_slot],_stick.image_alpha]);
+-            assert(abs(_stick.current_move_direction_time-15)<0.000001
+-                && abs(KeyCont.moving[_slot]-(0.25+3/36))<0.000001,
+-                "Move ramp depends on hardware frame rate");
+-            _stick.current_move_direction_time=0.5;
++            array_push(_held_samples,[KeyCont.moving[_slot],_stick.image_alpha]);
++            assert(_stick.current_move_direction_time==0 && abs(KeyCont.moving[_slot]-_fine)<0.000001,
++                "A stationary fine drag accelerated or depended on hardware rate");
+             scrFRMovement214Sample(_stick,157,164,true,false,false,true,_dt);
+-            assert(_stick.current_move_direction_time==0 && KeyCont.hold_west[_slot],
+-                "Turn decay made the move ramp negative or delayed the direction");
++            assert(abs(KeyCont.moving[_slot]-_fine)<0.000001 && KeyCont.hold_west[_slot],
++                "Reversing a fine drag changed its strength or delayed the direction");
+             scrFRMovement214Sample(_stick,160,164,true,false,false,true,_dt);
+             assert(KeyCont.moving[_slot]==0 && _stick.current_move_direction_time==0,
+                 "Centering a held stick retained time-based drift");
+             _checks+=3;
++
++            // Explicit dynamic stick region path. The active drag remains at
++            // its original center even when another unused finger taps outside.
++            _stick.index=0;_stick.x=gui_w*0.25;_stick.y=gui_h-64;
++            _attack.x=gui_w*0.75;_attack.y=gui_h-64;
++            var _oldx=_stick.x,_oldy=_stick.y,_newx=gui_w*0.25,_newy=24;
++            scrFRInputTestsRaw(_oldx+24,_oldy,true,false,false,true,_dt);
++            _samples=global.fr_touch_input_fixture.samples;
++            _samples[1]={x:_newx,y:_newy,held:true,pressed:true,released:false};
++            global.fr_touch_input_fixture.samples=_samples;
++            with(_stick) scrStickRegions(1);
++            assert(_stick.index==0 && _stick.x==_oldx && _stick.y==_oldy,
++                "A second finger recentered the active floating move stick");
++            _stick.index=-1;
++            scrFRInputTestsRaw(_newx,_newy,true,true,false,true,_dt,1);
++            // Isolate the free-floating acquisition circle from the old
++            // center, even on short or densely scaled desktop GUI fixtures.
++            _stick.y=_newy+500;_attack.y=_newy+500;
++            with(_stick) {scrStickRegions(1);event_user(0);}
++            assert(_stick.index==1 && _stick.x==_newx && _stick.y==_newy && KeyCont.moving[_slot]==0,
++                "A new floating move stick did not claim and center on its first finger");
++            _stick.index=-1;_stick.x=160;_stick.y=164;_attack.x=280;_attack.y=164;
++            _checks+=2;
+ 
+             scrFRMovement214Sample(_stick,184,164,true,false,false,true,_dt);
+             global.console_active=true;
+@@ -139,14 +166,13 @@
+             assert(_stick.index==-1 && KeyCont.moving[_slot]==0,"Console retained an active touch move pointer");
+             global.console_active=false;_checks++;
+         }
+-        assert(abs(_ramp[0][0]-_ramp[1][0])<0.000001
+-            && abs(_ramp[0][1]-_ramp[1][1])<0.000001
+-            && abs(_ramp[0][2]-_ramp[1][2])<0.000001,
+-            "Equal-time30/60Hz stick acceleration or visibility differs");
+-        scrNTTESmokeLog("FRONTIER214 MOVEMENT RESULTS "+json_stringify({rates:[30,60],
+-            ramp:_ramp,checks:_checks+1,deadzone_gui_px:2,fine_move_gui_px:3,
++        assert(abs(_held_samples[0][0]-_held_samples[1][0])<0.000001
++            && abs(_held_samples[0][1]-_held_samples[1][1])<0.000001,
++            "Equal-time30/60Hz stick strength or visibility differs");
++        scrNTTESmokeLog("FRONTIER216 MOVEMENT RESULTS "+json_stringify({rates:[30,60],
++            held_samples:_held_samples,checks:_checks+1,deadzone_gui_px:2,fine_move_gui_px:3,
+             fixture:"Windows raw touch through JoystickMove"}));
+-        scrNTTESmokeLog("PASS FRONTIER MOVEMENT214 actual JoystickMove30/60Hz raw pointer center/fine/cardinal/diagonal, release/lost-background touch, ownership/multitouch, range, console, equal-time ramp: "+string(_checks+1));
++        scrNTTESmokeLog("PASS FRONTIER MOVEMENT214/216 actual JoystickMove30/60Hz raw pointer center/fine/cardinal/diagonal, release/lost-background touch, ownership/floating/multitouch, range, console, steady long hold: "+string(_checks+1));
+     } finally {
+         scrNTTEFullMergedRuntimeTestCleanup(_before);
+         for(var _i=0;_i<array_length(_parked);++_i) instance_activate_object(_parked[_i]);
+--- a/scripts/scrNTTEFullBaseFrameNativeTests/scrNTTEFullBaseFrameNativeTests.gml
++++ b/scripts/scrNTTEFullBaseFrameNativeTests/scrNTTEFullBaseFrameNativeTests.gml
+@@ -152,7 +152,7 @@
+     game_set_speed(old_rate,gamespeed_fps);global.time_scale=old_ts;
+ }
+ function scrNTTEFullPlayerRateMotionStartCase() {
+-    var _fps=(case_index%2)==0?30:60,_floor=case_index div 2;
++    var _fps=(case_index%2)==0?30:60,_floor=case_index<6?case_index div 2:0;
+     scrNTTESmokeLog("FULL INTERNAL BEGIN @"+string(_fps));
+     save_set_value("options","framerate",_fps);scrOptionsUpdate();UberCont.opt_autopause=false;UberCont.block_input_frames=100000;
+     with(Floor) instance_destroy(id,false);
+@@ -163,13 +163,18 @@
+     target=scrPlayerCreate(0,Race.Fish,0);target.x=20016;target.y=20016;
+     target.hp=10000;target.max_hp=10000;target.lsthealth=10000;target.nexthurt=current_frame+10000;
+     target.can_walk=true;target.can_aim=false;target.can_spec=false;target.speed=0;
+-    elapsed=0;visual_frames=0;sample_x=0;started=true;
++    elapsed=0;visual_frames=0;sample_x=0;turning=false;started=true;
+ }
+ function scrNTTEFullPlayerRateMotionBegin() {
+     if(!started) scrNTTEFullPlayerRateMotionStartCase();
+     var _i=target.index;
+-    KeyCont.precisemovement[_i]=true;KeyCont.moving[_i]=1;KeyCont.dir_move[_i]=0;
+-    KeyCont.hold_east[_i]=true;KeyCont.hold_west[_i]=false;KeyCont.hold_sout[_i]=false;KeyCont.hold_nort[_i]=false;
++    // First six runs preserve the controller-style consumer on each terrain.
++    // Four further runs supply touchscreen full and fine deflection values to
++    // the actual scheduled Player step, including a full-speed reversal.
++    KeyCont.touch[_i]=case_index>=6;
++    KeyCont.precisemovement[_i]=true;KeyCont.moving[_i]=case_index>=8?0.1:1;
++    KeyCont.dir_move[_i]=turning?180:0;
++    KeyCont.hold_east[_i]=!turning;KeyCont.hold_west[_i]=turning;KeyCont.hold_sout[_i]=false;KeyCont.hold_nort[_i]=false;
+     KeyCont.hold_fire[_i]=false;KeyCont.press_fire[_i]=false;KeyCont.release_fire[_i]=false;
+     KeyCont.hold_spec[_i]=false;KeyCont.press_spec[_i]=false;KeyCont.press_swap[_i]=false;KeyCont.press_pick[_i]=false;
+ }
+@@ -177,20 +182,42 @@
+     assert(get_timer()-wall_start<90000000,"Natural movement wall-clock timeout");if(!started) return;
+     var _fps=(case_index%2)==0?30:60;
+     assert(game_get_speed(gamespeed_fps)==_fps && timescale==30/_fps,"Natural movement rate drifted");
+-    elapsed+=timescale;if(elapsed<30) return;
+-    if(sample_x==0) {sample_x=target.x;sample_clock=current_frame;sample_us=get_timer();visual_frames=0;return;}
+-    visual_frames++;if(elapsed<90) return;
+-    var _row={floor:case_index div 2,actual_rate:_fps,logic_ticks:current_frame-sample_clock,distance:target.x-sample_x,
+-        visual_frames:visual_frames,wall_us:get_timer()-sample_us,maxspeed:target.maxspeed,friction:target.friction,observed_fps:fps_real};
+-    array_push(rows,_row);scrNTTESmokeLog("PLAYER NATURAL MOTION "+json_stringify(_row));
++    if(turning) {
++        turn_elapsed+=timescale;
++        if(turn_elapsed==timescale) assert(target.hspeed<turn_start_hspeed-timescale*0.2,
++            "Touch reversal failed to respond immediately at full walking speed");
++        if(turn_elapsed<3) return;
++        assert(target.hspeed<0,"Full-speed touchscreen reversal took more than three logical ticks");
++        scrNTTESmokeLog("TOUCH REVERSAL "+json_stringify({rate:_fps,start_hspeed:turn_start_hspeed,
++            final_hspeed:target.hspeed,logic_ticks:turn_elapsed}));
++    } else {
++        elapsed+=timescale;if(elapsed<30) return;
++        if(sample_x==0) {sample_x=target.x;sample_clock=current_frame;sample_us=get_timer();visual_frames=0;return;}
++        visual_frames++;if(elapsed<90) return;
++        var _row={floor:case_index<6?case_index div 2:0,touch:case_index>=6,strength:case_index>=8?0.1:1,
++            actual_rate:_fps,logic_ticks:current_frame-sample_clock,distance:target.x-sample_x,
++            visual_frames:visual_frames,wall_us:get_timer()-sample_us,maxspeed:target.maxspeed,friction:target.friction,observed_fps:fps_real};
++        array_push(rows,_row);scrNTTESmokeLog("PLAYER NATURAL MOTION "+json_stringify(_row));
++        if(case_index==6 || case_index==7) {
++            turning=true;turn_elapsed=0;turn_start_hspeed=target.hspeed;
++            return;
++        }
++    }
+     scrNTTESmokeLog("FULL INTERNAL END @"+string(_fps)+" tests=1");
+-    instance_destroy(target,false);target=noone;started=false;if(++case_index<6) return;
++    instance_destroy(target,false);target=noone;started=false;if(++case_index<10) return;
+     for(var _i=0;_i<array_length(rows);_i+=2) {
+         var _a=rows[_i],_b=rows[_i+1];
+         assert(abs(_a.logic_ticks-60)<0.001 && abs(_b.logic_ticks-60)<0.001,"Natural motion covered unequal logical time");
+         assert(abs(_a.distance-_b.distance)<=0.5,"Natural30/60 distance differs on floor "+string(_a.floor)+": "+string(_a.distance)+" vs "+string(_b.distance));
+     }
+-    scrNTTEFullPlayerRateMotionRestore();scrNTTESmokeLog("PASS PLAYER NATURAL MOTION actual30/60 dry/sticky/ice; mobile device not tested");
++    for(var _rate=0;_rate<2;++_rate) {
++        var _legacy=rows[_rate],_touch_full=rows[6+_rate],_touch_fine=rows[8+_rate];
++        assert(abs(_legacy.distance-_touch_full.distance)<=0.5,
++            "Touch full-speed walking unexpectedly changed the original top speed");
++        assert(_touch_fine.distance>0 && abs(_touch_fine.distance-_touch_full.distance*0.1)<=0.5,
++            "Live fine touchscreen movement stopped or accelerated into full speed");
++    }
++    scrNTTEFullPlayerRateMotionRestore();scrNTTESmokeLog("PASS PLAYER NATURAL MOTION actual30/60 dry/sticky/ice, touchscreen full and fine speed and responsive reversal; mobile device not tested");
+     scrNTTESmokeLog("PASS full internal selected implemented branches x 30/60; not complete MOD coverage");game_end();
+ }
+ function scrNTTEFullPlayerRateMotionEnd() {

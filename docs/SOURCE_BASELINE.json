@@ -1,32 +1,28 @@
 {
-  "source_candidate": "2.1.5",
-  "version": "2.1.5",
-  "internal": 110,
-  "date": "2026-11-22",
-  "base_commit": "1beaf3c6ba4cfd5324ad12205b9b586add16c78a",
-  "source_manifest_sha256": "95a3b1a90d2814a69f6ce28c689abda361c9f4a884df0fb135cf256091e11f30",
-  "native_acceptance_sha256": "73e003f1a9ccf3fb61690ffde9b4f45b0da47d93538285f5239cdcfac3204435",
-  "mobile_delivery_sha256": "3c527f0c1689ce4bf4b595379ce50a28ad564a0e1f63d7feb9d42f1ffce3168d",
+  "source_candidate": "2.1.6",
+  "version": "2.1.6",
+  "internal": 111,
+  "date": "2026-11-27",
+  "base_commit": "507a253d130ee667a860f7357b7b3c166cc33304",
+  "source_manifest_sha256": "42049c5b6f4d2d831eb0fd58c92dbbed3dea803b60e32a9f3055c36ce26dfb33",
+  "native_acceptance_sha256": "213ce5d561d8dfc0ec4b37820290d0fefbcf9470c990310f1505032b9e81504e",
+  "mobile_delivery_sha256": "db74c7b3dcb5471d18b8e033d18342b9e867ce46077671bd3fd98d7c1d8d1483",
   "development_regression": {
-    "path": "docs/validation/2.1.5-development-regression.json",
-    "sha256": "29baba756b3bc4a8ba34327d1e0350e874149d047b674ace3a73fc9d77e0fed3"
+    "path": "docs/validation/2.1.6-development-regression.json",
+    "sha256": "2d5978bb44b382deef3ea3bea079ef6cc4db10c58c78e73310d715603df69a6b"
   },
-  "vm_sha256": "c159dd89921c60bcfdb0476b6b8d33fe897630784e3f86dd4c565548aa1ded20",
-  "input_sha256": "dc8031263c405ff92d736905fc11f2bbec6735902936801dddca4d01facc3334",
+  "vm_sha256": "a2219b5a52761d5c0d570b90a1bff2de90ead7e0162caa485c77cb791d21f4d1",
+  "input_sha256": "033e86122fa403a10007b3d6a56b0fe58b7e2f4029820f85f0154ea684ba02c4",
   "selected_windows_cases": [
-    "NewCharacterUnlockTests",
     "CustomCharacterTests",
     "SkeletonRevivalTests",
     "RaceNativeLifecycleTests",
-    "RaceProgressionNativeTests",
-    "WeaponLoadoutNativeTests",
-    "CrownLoadoutNativeTests",
-    "PetSalamanderTests",
-    "FrontierFollowup210Tests",
-    "FrontierUnlockTests"
+    "FrontierMovement214Tests",
+    "PlayerRateMotionTests",
+    "GamepadDeviceTests",
+    "FrontierBubbles213Tests"
   ],
-  "windows_cases": 10,
-  "python_packaging_boundary_tests": 5,
+  "windows_cases": 7,
   "rates": [
     30,
     60
@@ -36,26 +32,26 @@
     "options/android/options_android.yy"
   ],
   "installers": {
-    "ios": {
-      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.5.ipa",
-      "bytes": 213156123,
-      "sha256": "2af31e93cbea5949d8b0494868dbcb691f6ca047aa9e44f3321a360b83c97e0e"
-    },
     "android": {
-      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.5.apk",
-      "bytes": 305933539,
-      "sha256": "ef22290b70a8f6b7f07ee16d430373629fb618e51f550e14e7bda16b93c87a1e"
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.6.apk",
+      "bytes": 305941977,
+      "sha256": "147d8761f90a8e5a81da84887db592ee9b64b94244a6573bf112d9b81d46846d"
+    },
+    "ios": {
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.6.ipa",
+      "bytes": 213158710,
+      "sha256": "47972e64598d849429927b4870cf2a73058c01cb93de343a640cdc2d5e7a18e2"
     }
   },
-  "android_version_code": 3000110,
-  "ios_bundle_version": "110",
+  "android_version_code": 3000111,
+  "ios_bundle_version": "111",
   "game_build_save_protocol": 3004,
   "runtime_versions": {
-    "GAME_VERSION": "2.1.5",
-    "NTTE_RELEASE_VERSION": "2.1.5",
-    "NTTE_RELEASE_TAG": "2.1.5",
-    "compiler_ios": "2.1.5",
-    "compiler_android": "2.1.5"
+    "GAME_VERSION": "2.1.6",
+    "NTTE_RELEASE_VERSION": "2.1.6",
+    "NTTE_RELEASE_TAG": "2.1.6",
+    "compiler_ios": "2.1.6",
+    "compiler_android": "2.1.6"
   },
   "mobile_device_tested_this_round": false,
   "native_xcode_compilation_performed": false,
@@ -68,9 +64,9 @@
   "download_page": "https://mega.nz/folder/PfIDSaSZ#ZcRokP34or9J0JofsIgrEA",
   "repository": "ArkinTide/NTTE-NTUF-Mobile-Port",
   "requirement_status": {
-    "1": "NOT_REPRODUCED",
+    "1": "VERIFIED_FIXED",
     "2": "VERIFIED_FIXED",
-    "3": "VERIFIED_FIXED"
+    "3": "VERIFIED_DESKTOP"
   },
   "known_issue": "Additional-character unlock report not reproduced; remains unresolved pending gameplay/save context.",
   "original_ntte_source": "https://github.com/Yokinman/NTTE",

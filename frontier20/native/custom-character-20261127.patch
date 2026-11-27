@@ -1,0 +1,135 @@
+--- a/project/scripts/scrRaces/scrRaces.gml
++++ b/project/scripts/scrRaces/scrRaces.gml
+@@ -49,7 +49,8 @@
+ 
+     if(scrNTTEFullRaceNumeric(_race)>=0) return scrNTTEFullRaceAvailable(_race)
+ 	with (UberCont) {
+-		if (scrGameIsCustomMode() && scrCustomParam("unlock_chars") && !scrRaceIsHidden(_race)) {
++		// Expose the two secret characters when explicitly requested by a Custom preset.
++		if (scrGameIsCustomMode() && scrCustomParam("unlock_chars") && !scrRaceIsHidden(_race, false)) {
+ 			return true
+ 		}
+ 		
+--- a/project/scripts/frCode_bubbles_race_281957844c/frCode_bubbles_race_281957844c.gml
++++ b/project/scripts/frCode_bubbles_race_281957844c/frCode_bubbles_race_281957844c.gml
+@@ -633,7 +633,8 @@
+ 
+ // Original Characters/bubbles.race.gml:286
+ function fr_Characters_bubbles_race_gml_create() {
+-if ((! fr_Characters_bubbles_race_gml_race_avail())) {
++// The native selector also allows temporary access in Custom mode.
++if (!scr_race_is_unlocked(19)) {
+ {
+ race = scrFRRaceResolve("fish");
+ ;
+--- a/project/scripts/scrNTTEFullRaceProgressionNativeTests/scrNTTEFullRaceProgressionNativeTests.gml
++++ b/project/scripts/scrNTTEFullRaceProgressionNativeTests/scrNTTEFullRaceProgressionNativeTests.gml
+@@ -269,41 +269,92 @@
+ }
+ 
+ function scrNTTEFullCustomCharacterTests() {
+-    var _scope=scrNTTEFullSkinUnlockNaturalBegin("custom-character215");
++    var _scope=scrNTTEFullSkinUnlockNaturalBegin("custom-character216");
+     try {
+         UberCont.opt_console=false;UberCont.opt_practice=false;global.console_active=false;
+         GameCont.fr_progress210_blocked=false;GameCont.fr_achievements_blocked210=false;
+         GameCont.fr_progress210_slot=undefined;UberCont.custom=true;
+-        UberCont.custom_mode_slot_index=0;UberCont.custom_options=new CustomModeOptions("CHARACTER215");
++        UberCont.custom_mode_slot_index=0;UberCont.custom_options=new CustomModeOptions("CHARACTER216");
+         UberCont.custom_options.unlock_chars=true;
++        UberCont.cgot[Race.BigDog]=false;
++        UberCont.cgot[Race.Skeleton]=false;
++        UberCont.cgot[Race.Frog]=false;
++        global.index=0;global.is_server=true;
++        scr_playerinstances_reset_all();
++        var _old_bodies=scrNTTEFullInstances(Player);
++        for(var _i=0;_i<array_length(_old_bodies);++_i) {
++            array_push(_scope.hidden,_old_bodies[_i]);
++            instance_deactivate_object(_old_bodies[_i]);
++        }
+         global.ntte_full_feature_ready[$ "race:beetle"]=true;
+         global.ntte_full_feature_ready[$ "race:parrot"]=true;
+         global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"].unlock_bubbles=0;
+-        var _before=json_stringify(global.ntte_full_progress),_saved=scrFRProgress210State();
++        var _saved=scrFRProgress210State();
+         var _menu=instance_create(0,0,Menu);
+-        for(var _race=17;_race<=19;++_race) {
+-            assert(scr_race_is_unlocked(_race),"Custom Unlock Characters excludes an enabled additional role: "+string(_race));
+-            var _icon=noone;
+-            with(CharSelect) if(race==_race) _icon=id;
+-            assert(instance_exists(_icon),"Real custom menu omitted enabled additional role: "+string(_race));
+-            with(_icon) event_perform(ev_draw,0);
+-            assert(_icon.can,"Real custom CharSelect Draw rejected an additional role: "+string(_race));
+-            my_player.race=Race.Fish;
+-            with(_icon) event_perform(ev_mouse,ev_left_press);
+-            assert(my_player.race==_race,"Custom CharSelect click failed to select additional role: "+string(_race));
+-        }
++        assert(!scr_race_is_unlocked(Race.BigDog),"Custom override changed the Big Dog gate");
++        scrNTTEFullCustomCharacterStart(19);
++        scrNTTEFullCustomCharacterStart(Race.Skeleton);
++        scrNTTEFullCustomCharacterStart(Race.Frog);
++        scrNTTEFullCustomCharacterStart(NTTEFullRace.Beetle);
++        scrNTTEFullCustomCharacterStart(NTTEFullRace.Parrot);
+         assert(scrFRProgress210State()==_saved,"Custom character selection replaced its isolated progress domain");
+         assert(!scrFRProgress210CanStoreGold() && !scrFRAchievementsAllowed210(),
+             "Temporary custom character access enabled permanent gold/achievements");
+         assert(!scrNTTEFullUnlockGet("race:beetle") && !scrNTTEFullUnlockGet("race:parrot")
+-            && !scrFRProgress210SourceGet("unlock_bubbles",0),
++            && !scrFRProgress210SourceGet("unlock_bubbles",0)
++            && !UberCont.cgot[Race.Skeleton] && !UberCont.cgot[Race.Frog],
+             "Custom Unlock Characters awarded permanent role ownership");
+         global.fr_content210_ntuf=false;
+         assert(!scr_race_is_unlocked(19),"Custom Unlock Characters bypassed disabled NTUF content");
+         global.fr_content210_ntuf=true;
+         global.ntte_full_feature_ready[$ "race:beetle"]=false;
+         assert(!scr_race_is_unlocked(17),"Custom Unlock Characters bypassed missing NTTE runtime readiness");
+-        scrNTTESmokeLog("PASS CUSTOM NEW ROLES: enabled roles in real CharSelect Draw/click; no permanent unlock/gold/achievement; disabled NTUF/readiness gates retained @"+string(30/timescale));
++        UberCont.custom_options.unlock_chars=false;
++        assert(!scr_race_is_unlocked(19) && !scr_race_is_unlocked(Race.Skeleton)
++            && !scr_race_is_unlocked(Race.Frog),"Disabled Custom override granted unearned characters");
++        var _frontier=scrFRProgress210Frontier();
++        _frontier.unlock_bubbles=1;
++        UberCont.cgot[Race.Skeleton]=true;
++        UberCont.cgot[Race.Frog]=true;
++        scrNTTEFullCustomCharacterStart(19);
++        scrNTTEFullCustomCharacterStart(Race.Skeleton);
++        scrNTTEFullCustomCharacterStart(Race.Frog);
++        UberCont.cgot[Race.Skeleton]=false;
++        UberCont.cgot[Race.Frog]=false;
++        scrGameCustomModeReset();
++        assert(!scr_race_is_unlocked(19) && !scr_race_is_unlocked(Race.Skeleton)
++            && !scr_race_is_unlocked(Race.Frog),"Custom selection changed the normal unlock gates");
++        global.fr_module_vars[$ "mod:libSaves"].saves[$ "Frontier"].unlock_bubbles=1;
++        scrNTTEFullCustomCharacterStart(19);
++        scrNTTESmokeLog("PASS CUSTOM NEW ROLES: real CharSelect Draw/click and new-run Player creation; Bubbles starter and ability, Skeleton health, Frog immunity; owned and temporary access; no unlock/gold/achievement leakage @"+string(30/timescale));
+     } finally {scrNTTEFullSkinUnlockNaturalEnd(_scope);}
+ }
++
++function scrNTTEFullCustomCharacterStart(_race) {
++    assert(scr_race_is_unlocked(_race),"Expected character access: "+string(_race));
++    var _icon=noone;
++    with(CharSelect) if(race==_race) _icon=id;
++    assert(instance_exists(_icon),"Real character menu omitted an available character: "+string(_race));
++    my_player.race=Race.Fish;
++    with(_icon) event_perform(ev_draw,0);
++    assert(_icon.can,"Real CharSelect Draw rejected an available character: "+string(_race));
++    with(_icon) event_perform(ev_mouse,ev_left_press);
++    assert(my_player.race==_race,"Real CharSelect click failed to select character: "+string(_race));
++
++    // This is the Player creation stage used by scrRunStart, before the first room restart.
++    scrCreatePlayers();
++    var _body=instance_find(Player,0);
++    assert(instance_number(Player)==1 && _body.race==_race && my_player.race==_race,
++        "New-run character did not survive Player creation: "+string(_race));
++    assert(_body.wep==scrRaceGetStarterWeapon(_race),"Character lost its default weapon: "+string(_race));
++    if(_race==19) {
++        assert(_body.fr_native_race==19 && _body.bubbles_bubbleCharge==_body.bubbles_maxBubbleCharge,
++            "Bubbles did not initialize its source race ability");
++    } else if(_race==Race.Skeleton) {
++        assert(_body.hp==4 && _body.max_hp==4,"Skeleton did not initialize its native health");
++    } else if(_race==Race.Frog) {
++        assert(!_body.cantoxic,"Frog did not initialize its native poison immunity");
++    }
++    instance_destroy(_body,false);
++}
+ // END NEW CHARACTER215 REGRESSIONS

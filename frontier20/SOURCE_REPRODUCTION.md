@@ -1,5 +1,13 @@
 # Frontier source reproduction
 
+## Current 2.1.6 / build 111 source
+
+Use the accepted root `project/` and Android `platforms/android/` overlay for this version.
+Apply the 2026-11-27 native patches after the 2.1.5 hooks when rebuilding from the previous source.
+The Android versionCode is 3000111, iOS build is 111, and the save protocol remains 3004.
+See [source baseline](../docs/SOURCE_BASELINE.json) and [validation](../docs/VALIDATION.en.md).
+The 2.1.5 sections below document the prior release.
+
 ## Current 2.1.5 / build 110 source
 
 The accepted root `project/` now represents 2.1.5. Its display/updater/platform

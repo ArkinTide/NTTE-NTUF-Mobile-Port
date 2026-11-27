@@ -2,6 +2,10 @@
 
 [简体中文](UPDATING.md) | [English](UPDATING.en.md) | [Home](../README.en.md)
 
+## 2.1.6 / build 111
+
+Seven selected Windows VM cases passed. See the [2.1.6 release notes](RELEASE-2.1.6.md).
+
 ## 2.1.5 build 110 version
 
 Display, updater, platform versions and the official tag use `2.1.5`, internal

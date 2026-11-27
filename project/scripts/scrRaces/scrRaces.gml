@@ -49,7 +49,8 @@ function scr_race_is_unlocked(_race) {
 
     if(scrNTTEFullRaceNumeric(_race)>=0) return scrNTTEFullRaceAvailable(_race)
 	with (UberCont) {
-		if (scrGameIsCustomMode() && scrCustomParam("unlock_chars") && !scrRaceIsHidden(_race)) {
+		// Expose the two secret characters when explicitly requested by a Custom preset.
+		if (scrGameIsCustomMode() && scrCustomParam("unlock_chars") && !scrRaceIsHidden(_race, false)) {
 			return true
 		}
 		

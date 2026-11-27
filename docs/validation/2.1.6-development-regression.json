@@ -1,0 +1,39 @@
+{
+  "version": "2.1.6",
+  "internal": 111,
+  "request_status": {
+    "1": "VERIFIED_FIXED",
+    "2": "VERIFIED_FIXED",
+    "3": "VERIFIED_DESKTOP"
+  },
+  "native_cases": [
+    "CustomCharacterTests",
+    "SkeletonRevivalTests",
+    "RaceNativeLifecycleTests",
+    "FrontierMovement214Tests",
+    "PlayerRateMotionTests",
+    "GamepadDeviceTests",
+    "FrontierBubbles213Tests"
+  ],
+  "logical_rates": [
+    30,
+    60
+  ],
+  "windows_vm_sha256": "a2219b5a52761d5c0d570b90a1bff2de90ead7e0162caa485c77cb791d21f4d1",
+  "input_sha256": "033e86122fa403a10007b3d6a56b0fe58b7e2f4029820f85f0154ea684ba02c4",
+  "physical_device_tested": false,
+  "game_build_save_protocol": 3004,
+  "ios_requires_resigning": true,
+  "packages": {
+    "android": {
+      "name": "NuclearThrone.NTTE-NTUF-Android-2.1.6.apk",
+      "bytes": 305941977,
+      "sha256": "147d8761f90a8e5a81da84887db592ee9b64b94244a6573bf112d9b81d46846d"
+    },
+    "ios": {
+      "name": "NuclearThrone.NTTE-NTUF-iOS-2.1.6.ipa",
+      "bytes": 213158710,
+      "sha256": "47972e64598d849429927b4870cf2a73058c01cb93de343a640cdc2d5e7a18e2"
+    }
+  }
+}
